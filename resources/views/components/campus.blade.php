@@ -193,7 +193,7 @@
                     <!-- Carte Google Maps -->
                     <div class="h-[450px] relative">
                         <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3972.4379457261586!2d-4.0163395!3d5.3488999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfc1eb8dd53eb3c5%3A0x6de981a6de0d3ca8!2sImmeuble%20Postel%202001!5e0!3m2!1sfr!2sci!4v1699982449099!5m2!1sfr!2sci"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3972.596586554539!2d-4.019864524664149!3d5.325444294653074!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfc1ebe68aa6e9b7%3A0x674e8bdd65ee891b!2sImmeuble%20Postel%202001!5e0!3m2!1sen!2sci!4v1737931023375!5m2!1sen!2sci"
                             class="w-full h-full border-0"
                             allowfullscreen=""
                             loading="lazy"

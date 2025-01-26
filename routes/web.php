@@ -19,14 +19,13 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\AudienceController;
 use App\Http\Controllers\ConfigController;
 
-// Language Switcher
-Route::post('/language', [LanguageController::class, 'switchLang'])->name('language.switch');
-
 // Pages principales
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/formations', [FormationsController::class, 'index'])->name('formations');
-Route::get('/actualites', [NewsController::class, 'index'])->name('actualites');
 Route::get('/visitez-le-campus', [CampusController::class, 'index'])->name('visitez-le-campus');
+Route::get('/evenements', [EventController::class, 'index'])->name('evenements');
+Route::get('/actualites', [NewsController::class, 'index'])->name('actualites');
+Route::post('/language', [LanguageController::class, 'switchLang'])->name('language.switch');
+
 
 // Footer Routes
 Route::get('/mentions-legales', function () {

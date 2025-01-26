@@ -14,10 +14,10 @@
 
             <!-- Menu de navigation (centre) -->
             <div class="hidden md:flex items-center justify-center space-x-6 lg:space-x-8">
-                <a href="{{ route('home') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __('Home') }}</a>
-                <a href="{{ route('formations') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __('Courses') }}</a>
-                <a href="{{ route('actualites') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __('News') }}</a>
+                <a href="#why-hit" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __('Home') }}</a>
                 <a href="{{ route('visitez-le-campus') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __('Visit Campus') }}</a>
+                <a href="{{ route('evenements') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __('Events') }}</a>
+                <a href="{{ route('actualites') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __('News') }}</a>
             </div>
 
             <!-- Sélecteur de langue et Logo à droite -->
@@ -41,10 +41,11 @@
                         </button>
                     </form>
                 </div>
-
                 <!-- Logo CIV -->
                 <div class="flex-shrink-0">
-                    <img src="{{ asset('logo_civ.jpg') }}" alt="{{ __('messages.nav.logo_alt.civ') }}" class="h-8 sm:h-10 w-auto">
+                    <a href="{{ route('home') }}">
+                        <img src="{{ asset('logo_civ.jpg') }}" alt="{{ __('messages.nav.logo_alt.civ') }}" class="h-8 sm:h-10 w-auto">
+                    </a>
                 </div>
             </div>
 
@@ -78,9 +79,9 @@
         x-transition:leave-end="opacity-0 transform -translate-y-2">
         <div class="bg-white shadow-lg rounded-lg mt-2 px-4 py-3 space-y-3">
             <a href="{{ route('home') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __('Home') }}</a>
-            <a href="{{ route('formations') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __('Courses') }}</a>
-            <a href="{{ route('actualites') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __('News') }}</a>
             <a href="{{ route('visitez-le-campus') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __('Visit Campus') }}</a>
+            <a href="{{ route('evenements') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __('Events') }}</a>
+            <a href="{{ route('actualites') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __('News') }}</a>
             
             <!-- Language Toggle Mobile -->
             <div class="flex items-center justify-center border-t border-gray-100 pt-3 mt-3">

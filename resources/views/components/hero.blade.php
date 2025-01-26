@@ -41,17 +41,11 @@
                 </p>
                 <!-- Boutons CTA -->
                 <div class="mt-8 flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-                    <a href="#why-hit" class="btn-primary w-full sm:w-auto text-base sm:text-lg py-3 px-6 sm:px-8 smooth-scroll hover:scale-105 transition-transform duration-300 group">
+                    <a href="#why-hit" class="btn-primary w-full sm:w-auto text-base sm:text-lg py-3 px-6 sm:px-8 smooth-scroll hover:scale-105 transition-transform duration-300">
                         {{ __('Learn more') }}
-                        <svg class="w-5 h-5 ml-2 inline-block transform group-hover:translate-y-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                        </svg>
                     </a>
-                    <a href="{{ route('visitez-le-campus') }}" class="btn-secondary w-full sm:w-auto text-base sm:text-lg py-3 px-6 sm:px-8 hover:scale-105 transition-transform duration-300 group">
+                    <a href="{{ route('visitez-le-campus') }}" class="btn-secondary w-full sm:w-auto text-base sm:text-lg py-3 px-6 sm:px-8 hover:scale-105 transition-transform duration-300">
                         {{ __('Visit the campus') }}
-                        <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
                     </a>
                 </div>
             </div>
