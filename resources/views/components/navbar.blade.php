@@ -1,25 +1,51 @@
 <!-- Navbar Container -->
-<div class="fixed top-0 left-0 right-0 z-50 px-2 sm:px-4 py-2 sm:py-4" x-data="{ open: false }">
+<div class="fixed top-0 left-0 right-0 z-50 px-2 sm:px-4 py-2 sm:py-4" 
+    x-data="{ 
+        open: false
+    }">
     <nav class="max-w-7xl mx-auto bg-white shadow-lg rounded-lg px-3 sm:px-6 py-2 sm:py-4">
         <div class="flex items-center justify-between">
             <!-- Logo à gauche -->
             <div class="flex-shrink-0">
-                <a href="#hero" class="flex items-center space-x-2 scroll-smooth p-1">
-                    <img src="{{ asset('logo_hit.png') }}" alt="Logo HIT" class="h-8 sm:h-10 w-auto">
+                <a href="{{ route('home') }}" class="flex items-center space-x-2 p-1">
+                    <img src="{{ asset('logo_hit.png') }}" alt="{{ __('messages.nav.logo_alt.hit') }}" class="h-8 sm:h-10 w-auto">
                 </a>
             </div>
 
             <!-- Menu de navigation (centre) -->
             <div class="hidden md:flex items-center justify-center space-x-6 lg:space-x-8">
-                <a href="#why-hit" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition scroll-smooth px-2 py-1">Présentation</a>
-                <a href="#news" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition scroll-smooth px-2 py-1">Actualités</a>
-                <a href="#services" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition scroll-smooth px-2 py-1">Services</a>
-                <a href="#campus" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition scroll-smooth px-2 py-1">Visitez le Campus</a>
+                <a href="{{ route('home') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __('Home') }}</a>
+                <a href="{{ route('formations') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __('Courses') }}</a>
+                <a href="{{ route('actualites') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __('News') }}</a>
+                <a href="{{ route('visitez-le-campus') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __('Visit Campus') }}</a>
             </div>
 
-            <!-- Logo à droite -->
-            <div class="flex-shrink-0">
-                <img src="{{ asset('logo_civ.jpg') }}" alt="Logo Côte d'Ivoire" class="h-8 sm:h-10 w-auto">
+            <!-- Sélecteur de langue et Logo à droite -->
+            <div class="flex items-center space-x-4">
+                <!-- Language Toggle Desktop -->
+                <div class="hidden md:flex items-center space-x-1 border border-gray-200 rounded-lg p-1">
+                    <form action="{{ route('language.switch') }}" method="POST" class="inline">
+                        @csrf
+                        <input type="hidden" name="lang" value="fr">
+                        <button type="submit" 
+                            class="px-2 py-1 text-sm font-medium rounded-md transition-colors duration-200 {{ app()->getLocale() === 'fr' ? 'bg-primary-50 text-primary-600' : 'text-gray-500 hover:text-gray-700' }}">
+                            FR
+                        </button>
+                    </form>
+                    <form action="{{ route('language.switch') }}" method="POST" class="inline">
+                        @csrf
+                        <input type="hidden" name="lang" value="en">
+                        <button type="submit" 
+                            class="px-2 py-1 text-sm font-medium rounded-md transition-colors duration-200 {{ app()->getLocale() === 'en' ? 'bg-primary-50 text-primary-600' : 'text-gray-500 hover:text-gray-700' }}">
+                            EN
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Logo CIV -->
+                <div class="flex-shrink-0">
+                    <img src="{{ asset('logo_civ.jpg') }}" alt="{{ __('messages.nav.logo_alt.civ') }}" class="h-8 sm:h-10 w-auto">
+                </div>
             </div>
 
             <!-- Menu mobile (hamburger) -->
@@ -29,7 +55,7 @@
                     class="text-gray-700 hover:text-primary-600 p-2 -mr-2 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded-lg"
                     aria-expanded="false"
                     :aria-expanded="open.toString()">
-                    <span class="sr-only">Ouvrir le menu</span>
+                    <span class="sr-only">{{ __('messages.nav.toggle_menu') }}</span>
                     <svg class="h-6 w-6" :class="{'hidden': open, 'block': !open }" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                     </svg>
@@ -49,30 +75,34 @@
         x-transition:enter-end="opacity-100 transform translate-y-0" 
         x-transition:leave="transition ease-in duration-150" 
         x-transition:leave-start="opacity-100 transform translate-y-0" 
-        x-transition:leave-end="opacity-0 transform -translate-y-2"
-        @click.away="open = false"
-        @keydown.escape.window="open = false">
-        <div class="bg-white shadow-lg rounded-lg mt-2 py-2 border border-gray-100">
-            <a href="#hero" 
-                @click="open = false" 
-                class="block px-4 py-3 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition scroll-smooth active:bg-gray-100">
-                Présentation
-            </a>
-            <a href="#news" 
-                @click="open = false" 
-                class="block px-4 py-3 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition scroll-smooth active:bg-gray-100">
-                Actualités
-            </a>
-            <a href="#services" 
-                @click="open = false" 
-                class="block px-4 py-3 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition scroll-smooth active:bg-gray-100">
-                Services
-            </a>
-            <a href="#campus" 
-                @click="open = false" 
-                class="block px-4 py-3 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition scroll-smooth active:bg-gray-100">
-                Visitez le Campus
-            </a>
+        x-transition:leave-end="opacity-0 transform -translate-y-2">
+        <div class="bg-white shadow-lg rounded-lg mt-2 px-4 py-3 space-y-3">
+            <a href="{{ route('home') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __('Home') }}</a>
+            <a href="{{ route('formations') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __('Courses') }}</a>
+            <a href="{{ route('actualites') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __('News') }}</a>
+            <a href="{{ route('visitez-le-campus') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __('Visit Campus') }}</a>
+            
+            <!-- Language Toggle Mobile -->
+            <div class="flex items-center justify-center border-t border-gray-100 pt-3 mt-3">
+                <div class="flex items-center space-x-1 border border-gray-200 rounded-lg p-1">
+                    <form action="{{ route('language.switch') }}" method="POST" class="inline">
+                        @csrf
+                        <input type="hidden" name="lang" value="fr">
+                        <button type="submit" 
+                            class="px-3 py-1 text-sm font-medium rounded-md transition-colors duration-200 {{ app()->getLocale() === 'fr' ? 'bg-primary-50 text-primary-600' : 'text-gray-500 hover:text-gray-700' }}">
+                            FR
+                        </button>
+                    </form>
+                    <form action="{{ route('language.switch') }}" method="POST" class="inline">
+                        @csrf
+                        <input type="hidden" name="lang" value="en">
+                        <button type="submit" 
+                            class="px-3 py-1 text-sm font-medium rounded-md transition-colors duration-200 {{ app()->getLocale() === 'en' ? 'bg-primary-50 text-primary-600' : 'text-gray-500 hover:text-gray-700' }}">
+                            EN
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>

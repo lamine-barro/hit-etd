@@ -18,11 +18,9 @@
     <!-- Services -->
     @include('components.services')
 
-    <!-- Campus -->
-    @include('components.campus')
-
     <!-- Actualités -->
-    {{-- @include('components.news') --}}
+    @include('components.news')
+
     <!-- Newsletter -->
     @include('components.newsletter')
 @endsection 

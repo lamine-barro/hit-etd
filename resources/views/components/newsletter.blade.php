@@ -22,6 +22,26 @@
 
         <!-- Formulaire d'inscription -->
         <div class="max-w-2xl mx-auto">
+            @if(session('notification'))
+                <div class="mb-6 p-4 rounded-xl {{ session('notification')['type'] === 'success' ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800' }}">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            @if(session('notification')['type'] === 'success')
+                                <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                </svg>
+                            @else
+                                <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                                </svg>
+                            @endif
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm font-medium">{{ session('notification')['message'] }}</p>
+                        </div>
+                    </div>
+                </div>
+            @endif
             <form action="{{ route('newsletter.subscribe') }}" method="POST" class="space-y-8 bg-white rounded-2xl shadow-xl p-8" id="newsletter-form">
                 @csrf
                 
@@ -153,16 +173,16 @@
 @push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('newsletter-form');
         const whatsappCheckbox = document.getElementById('newsletter_whatsapp');
         const whatsappField = document.querySelector('.newsletter-whatsapp-field');
 
+        // Gestion de l'affichage du champ WhatsApp
         whatsappCheckbox.addEventListener('change', function() {
             whatsappField.classList.toggle('hidden', !this.checked);
         });
-    });
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const form = document.getElementById('newsletter-form');
+        // Gestion de la soumission du formulaire
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -184,55 +204,35 @@
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
-                    const successDiv = document.createElement('div');
-                    successDiv.className = 'fixed top-4 right-4 bg-green-50 text-green-800 p-4 rounded-lg shadow-lg z-50';
-                    successDiv.innerHTML = `
-                        <div class="flex">
-                            <div class="flex-shrink-0">
-                                <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                                </svg>
-                            </div>
-                            <div class="ml-3">
-                                <p class="text-sm font-medium">${data.message}</p>
-                            </div>
-                        </div>
-                    `;
-                    document.body.appendChild(successDiv);
-                    
-                    setTimeout(() => {
-                        successDiv.remove();
-                        if (data.redirect) {
-                            window.location.href = data.redirect;
-                        }
-                    }, 3000);
+                    Toastify({
+                        text: data.message,
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        style: {
+                            background: "#059669",
+                        },
+                        close: true
+                    }).showToast();
                     
                     // Reset form
                     form.reset();
+                    whatsappField.classList.add('hidden');
                 } else {
                     throw new Error(data.message || 'Une erreur est survenue');
                 }
             })
             .catch(error => {
-                const errorDiv = document.createElement('div');
-                errorDiv.className = 'fixed top-4 right-4 bg-red-50 text-red-800 p-4 rounded-lg shadow-lg z-50';
-                errorDiv.innerHTML = `
-                    <div class="flex">
-                        <div class="flex-shrink-0">
-                            <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
-                            </svg>
-                        </div>
-                        <div class="ml-3">
-                            <p class="text-sm font-medium">${error.message}</p>
-                        </div>
-                    </div>
-                `;
-                document.body.appendChild(errorDiv);
-                
-                setTimeout(() => {
-                    errorDiv.remove();
-                }, 5000);
+                Toastify({
+                    text: error.message,
+                    duration: 5000,
+                    gravity: "top",
+                    position: "right",
+                    style: {
+                        background: "#DC2626",
+                    },
+                    close: true
+                }).showToast();
             })
             .finally(() => {
                 // Reset button state

@@ -2,199 +2,199 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- En-tête -->
         <div class="section-title text-center">
-            <span class="section-subtitle text-sm sm:text-base">Nos Services</span>
-            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mt-2">Des services complets pour réussir</h2>
+            <span class="section-subtitle text-sm sm:text-base">{{ __('Our Services') }}</span>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mt-2">{{ __('Complete services for success') }}</h2>
             <p class="mt-4 text-base sm:text-xl max-w-2xl mx-auto text-gray-600">
-                Quel que soit votre stade de développement, nous avons la solution adaptée à vos besoins.
+                {{ __('Whatever your stage of development, we have the solution adapted to your needs.') }}
             </p>
         </div>
 
-        <!-- Grille des services -->
-        <div class="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3 mt-8 sm:mt-12">
+        <!-- Grille des services principaux -->
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 mt-12">
             <!-- Incubation & Accélération -->
-            <div class="card group">
-                <div class="card-image h-48 sm:h-56">
-                    <div class="absolute inset-0">
-                        <img src="{{ asset('images/incubation.jpg') }}" alt="Incubation & Accélération" class="w-full h-full object-cover transform transition-transform duration-700 ease-out group-hover:scale-110">
-                    </div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <h3 class="absolute bottom-4 left-4 text-lg sm:text-xl font-semibold text-white transform transition duration-300 group-hover:translate-x-2">Incubation & Accélération</h3>
+            <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden group">
+                <div class="relative h-48 sm:h-56 overflow-hidden">
+                    <img src="{{ asset('images/incubation.jpg') }}" alt="{{ __('Incubation & Acceleration') }}" 
+                         class="w-full h-full object-cover transform transition duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
+                    <h3 class="absolute bottom-4 left-4 right-4 text-lg sm:text-xl font-semibold text-white transform transition duration-300 group-hover:translate-x-2">
+                        {{ __('Incubation & Acceleration') }}
+                    </h3>
                 </div>
-                <div class="card-content p-4 sm:p-6">
-                    <p class="mb-6 text-sm sm:text-base">
-                        Programmes de formation, coaching, mentoring, espace de coworking, accès à des experts et à notre réseau de partenaires.
+                <div class="p-6">
+                    <p class="text-gray-600 mb-6">
+                        {{ __('Training programs, coaching, mentoring, coworking space, access to experts and our partner network.') }}
                     </p>
-                    <ul class="space-y-3 text-xs sm:text-sm text-gray-600">
-                        <li class="flex items-center">
-                            <svg class="w-4 h-4 sm:w-5 sm:h-5 text-primary-500 mr-2 sm:mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span>Programme sur 6 à 12 mois</span>
+                            <span class="text-gray-600">{{ __('6 to 12 months program') }}</span>
                         </li>
-                        <li class="flex items-center">
-                            <svg class="w-4 h-4 sm:w-5 sm:h-5 text-primary-500 mr-2 sm:mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span>Suivi personnalisé hebdomadaire</span>
+                            <span class="text-gray-600">{{ __('Weekly personalized follow-up') }}</span>
                         </li>
-                        <li class="flex items-center">
-                            <svg class="w-4 h-4 sm:w-5 sm:h-5 text-primary-500 mr-2 sm:mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span>Réseau d'experts & mentors</span>
+                            <span class="text-gray-600">{{ __('Expert & mentor network') }}</span>
                         </li>
                     </ul>
-                    <div class="mt-6 sm:mt-8">
-                        <a href="#campus" class="btn-secondary w-full sm:w-auto text-center">
-                            En savoir plus
-                            <svg class="w-4 h-4 ml-2 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                            </svg>
-                        </a>
-                    </div>
+                    <a href="{{ route('visitez-le-campus') }}" class="inline-flex items-center justify-center w-full px-6 py-3 text-base font-medium text-primary-600 bg-transparent border-2 border-primary-500 rounded-xl hover:bg-primary-50 transition-colors duration-300">
+                        {{ __('Learn more') }}
+                        <svg class="w-5 h-5 ml-2 -mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                        </svg>
+                    </a>
                 </div>
             </div>
 
             <!-- Hébergement & Espaces -->
-            <div class="card group">
-                <div class="card-image h-48 sm:h-56">
-                    <div class="absolute inset-0">
-                        <img src="{{ asset('images/coworking.jpg') }}" alt="Hébergement & Espaces" class="w-full h-full object-cover transform transition-transform duration-700 ease-out group-hover:scale-110">
-                    </div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <h3 class="absolute bottom-4 left-4 text-lg sm:text-xl font-semibold text-white transform transition duration-300 group-hover:translate-x-2">Hébergement & Espaces</h3>
+            <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden group">
+                <div class="relative h-48 sm:h-56 overflow-hidden">
+                    <img src="{{ asset('images/coworking.jpg') }}" alt="{{ __('Hosting & Spaces') }}" 
+                         class="w-full h-full object-cover transform transition duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
+                    <h3 class="absolute bottom-4 left-4 right-4 text-lg sm:text-xl font-semibold text-white transform transition duration-300 group-hover:translate-x-2">
+                        {{ __('Hosting & Spaces') }}
+                    </h3>
                 </div>
-                <div class="card-content p-4 sm:p-6">
-                    <p class="mb-6 text-sm sm:text-base">
-                        Bureaux privatifs, espaces de coworking, café, salles de réunion équipées, zones de détente et de networking.
+                <div class="p-6">
+                    <p class="text-gray-600 mb-6">
+                        {{ __('Private offices, coworking spaces, café, equipped meeting rooms, relaxation and networking areas.') }}
                     </p>
-                    <ul class="space-y-3 text-xs sm:text-sm text-gray-600">
-                        <li class="flex items-center">
-                            <svg class="w-4 h-4 sm:w-5 sm:h-5 text-primary-500 mr-2 sm:mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span>Accès 24/7 sécurisé</span>
+                            <span class="text-gray-600">{{ __('24/7 secure access') }}</span>
                         </li>
-                        <li class="flex items-center">
-                            <svg class="w-4 h-4 sm:w-5 sm:h-5 text-primary-500 mr-2 sm:mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span>Internet fibre haut débit</span>
+                            <span class="text-gray-600">{{ __('High-speed fiber internet') }}</span>
                         </li>
-                        <li class="flex items-center">
-                            <svg class="w-4 h-4 sm:w-5 sm:h-5 text-primary-500 mr-2 sm:mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span>Services & café inclus</span>
+                            <span class="text-gray-600">{{ __('Services & coffee included') }}</span>
                         </li>
                     </ul>
-                    <div class="mt-6 sm:mt-8">
-                        <a href="#campus" class="btn-secondary w-full sm:w-auto text-center">
-                            En savoir plus
-                            <svg class="w-4 h-4 ml-2 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                            </svg>
-                        </a>
-                    </div>
+                    <a href="{{ route('visitez-le-campus') }}" class="inline-flex items-center justify-center w-full px-6 py-3 text-base font-medium text-primary-600 bg-transparent border-2 border-primary-500 rounded-xl hover:bg-primary-50 transition-colors duration-300">
+                        {{ __('Learn more') }}
+                        <svg class="w-5 h-5 ml-2 -mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                        </svg>
+                    </a>
                 </div>
             </div>
 
             <!-- Fablab & Innovation -->
-            <div class="card group">
-                <div class="card-image h-48 sm:h-56">
-                    <div class="absolute inset-0">
-                        <img src="{{ asset('images/fablab.jpg') }}" alt="Fablab & Innovation" class="w-full h-full object-cover transform transition-transform duration-700 ease-out group-hover:scale-110">
-                    </div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <h3 class="absolute bottom-4 left-4 text-lg sm:text-xl font-semibold text-white transform transition duration-300 group-hover:translate-x-2">Fablab & Innovation</h3>
+            <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden group">
+                <div class="relative h-48 sm:h-56 overflow-hidden">
+                    <img src="{{ asset('images/fablab.jpg') }}" alt="{{ __('Fablab & Innovation') }}" 
+                         class="w-full h-full object-cover transform transition duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
+                    <h3 class="absolute bottom-4 left-4 right-4 text-lg sm:text-xl font-semibold text-white transform transition duration-300 group-hover:translate-x-2">
+                        {{ __('Fablab & Innovation') }}
+                    </h3>
                 </div>
-                <div class="card-content p-4 sm:p-6">
-                    <p class="mb-6 text-sm sm:text-base">
-                        Prototypage rapide, impression 3D, découpe laser, électronique et accompagnement technique personnalisé.
+                <div class="p-6">
+                    <p class="text-gray-600 mb-6">
+                        {{ __('Rapid prototyping, 3D printing, laser cutting, electronics and personalized technical support.') }}
                     </p>
-                    <ul class="space-y-3 text-xs sm:text-sm text-gray-600">
-                        <li class="flex items-center">
-                            <svg class="w-4 h-4 sm:w-5 sm:h-5 text-primary-500 mr-2 sm:mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span>Équipements de pointe</span>
+                            <span class="text-gray-600">{{ __('Cutting-edge equipment') }}</span>
                         </li>
-                        <li class="flex items-center">
-                            <svg class="w-4 h-4 sm:w-5 sm:h-5 text-primary-500 mr-2 sm:mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span>Formation technique avancée</span>
+                            <span class="text-gray-600">{{ __('Advanced technical training') }}</span>
                         </li>
-                        <li class="flex items-center">
-                            <svg class="w-4 h-4 sm:w-5 sm:h-5 text-primary-500 mr-2 sm:mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span>Support technique dédié</span>
+                            <span class="text-gray-600">{{ __('Dedicated technical support') }}</span>
                         </li>
                     </ul>
-                    <div class="mt-6 sm:mt-8">
-                        <a href="#campus" class="btn-secondary w-full sm:w-auto text-center">
-                            En savoir plus
-                            <svg class="w-4 h-4 ml-2 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                            </svg>
-                        </a>
-                    </div>
+                    <a href="{{ route('visitez-le-campus') }}" class="inline-flex items-center justify-center w-full px-6 py-3 text-base font-medium text-primary-600 bg-transparent border-2 border-primary-500 rounded-xl hover:bg-primary-50 transition-colors duration-300">
+                        {{ __('Learn more') }}
+                        <svg class="w-5 h-5 ml-2 -mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                        </svg>
+                    </a>
                 </div>
             </div>
         </div>
 
         <!-- Services additionnels -->
-        <div class="mt-12 sm:mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
+        <div class="mt-12 sm:mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             <!-- Formations -->
-            <div class="card group">
-                <div class="relative h-32 sm:h-40 overflow-hidden">
-                    <div class="absolute inset-0">
-                        <img src="{{ asset('images/formation.jpg') }}" alt="Formations & Ateliers" class="w-full h-full object-cover transform transition-transform duration-700 ease-out group-hover:scale-110">
-                    </div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <h4 class="absolute bottom-4 left-4 text-base sm:text-lg font-semibold text-white transform transition duration-300 group-hover:translate-x-2">Formations & Ateliers</h4>
+            <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden group">
+                <div class="relative h-40 overflow-hidden">
+                    <img src="{{ asset('images/formation.jpg') }}" alt="{{ __('Training & Workshops') }}" 
+                         class="w-full h-full object-cover transform transition duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
+                    <h4 class="absolute bottom-4 left-4 right-4 text-lg font-semibold text-white transform transition duration-300 group-hover:translate-x-2">
+                        {{ __('Training & Workshops') }}
+                    </h4>
                 </div>
-                <div class="card-content p-4 sm:p-6">
-                    <p class="text-xs sm:text-sm">Masterclasses, hackathons, conférences, workshops et rencontres thématiques pour développer vos compétences.</p>
+                <div class="p-6">
+                    <p class="text-gray-600">{{ __('Masterclasses, hackathons, conferences, workshops and thematic meetings to develop your skills.') }}</p>
                 </div>
             </div>
 
             <!-- Accès Investisseurs -->
-            <div class="card group">
-                <div class="relative h-32 sm:h-40 overflow-hidden">
-                    <div class="absolute inset-0">
-                        <img src="{{ asset('images/investisseurs.jpg') }}" alt="Accès aux Investisseurs" class="w-full h-full object-cover transform transition-transform duration-700 ease-out group-hover:scale-110">
-                    </div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <h4 class="absolute bottom-4 left-4 text-base sm:text-lg font-semibold text-white transform transition duration-300 group-hover:translate-x-2">Accès aux Investisseurs</h4>
+            <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden group">
+                <div class="relative h-40 overflow-hidden">
+                    <img src="{{ asset('images/investisseurs.jpg') }}" alt="{{ __('Investor Access') }}" 
+                         class="w-full h-full object-cover transform transition duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
+                    <h4 class="absolute bottom-4 left-4 right-4 text-lg font-semibold text-white transform transition duration-300 group-hover:translate-x-2">
+                        {{ __('Investor Access') }}
+                    </h4>
                 </div>
-                <div class="card-content p-4 sm:p-6">
-                    <p class="text-xs sm:text-sm">Mise en relation avec notre réseau de business angels, fonds d'investissement et partenaires financiers.</p>
+                <div class="p-6">
+                    <p class="text-gray-600">{{ __('Connection with our network of business angels, investment funds and financial partners.') }}</p>
                 </div>
             </div>
 
             <!-- Support Admin -->
-            <div class="card group">
-                <div class="relative h-32 sm:h-40 overflow-hidden">
-                    <div class="absolute inset-0">
-                        <img src="{{ asset('images/admin.jpg') }}" alt="Support Administratif" class="w-full h-full object-cover transform transition-transform duration-700 ease-out group-hover:scale-110">
-                    </div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <h4 class="absolute bottom-4 left-4 text-base sm:text-lg font-semibold text-white transform transition duration-300 group-hover:translate-x-2">Support Administratif</h4>
+            <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden group">
+                <div class="relative h-40 overflow-hidden">
+                    <img src="{{ asset('images/admin.jpg') }}" alt="{{ __('Administrative Support') }}" 
+                         class="w-full h-full object-cover transform transition duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
+                    <h4 class="absolute bottom-4 left-4 right-4 text-lg font-semibold text-white transform transition duration-300 group-hover:translate-x-2">
+                        {{ __('Administrative Support') }}
+                    </h4>
                 </div>
-                <div class="card-content p-4 sm:p-6">
-                    <p class="text-xs sm:text-sm">Accompagnement dans vos formalités de création, conseils juridiques et support comptable personnalisé.</p>
+                <div class="p-6">
+                    <p class="text-gray-600">{{ __('Support in your creation formalities, legal advice and personalized accounting support.') }}</p>
                 </div>
             </div>
         </div>
 
         <!-- CTA -->
         <div class="mt-12 sm:mt-16 text-center">
-            <a href="#" class="btn-primary w-full sm:w-auto text-base sm:text-lg py-3 px-6 sm:px-8">
-                Réserver une visite
-                <svg class="w-5 h-5 ml-2 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            <a href="{{ route('visitez-le-campus') }}" class="inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-primary-600 rounded-xl hover:bg-primary-700 transition-colors duration-300 transform hover:scale-105">
+                {{ __('Book a visit') }}
+                <svg class="w-5 h-5 ml-2 -mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                 </svg>
             </a>
         </div>

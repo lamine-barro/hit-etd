@@ -201,7 +201,7 @@
                         </iframe>
                     </div>
                     <!-- Informations de contact -->
-                    <div class="p-8 bg-gray-50/80 backdrop-blur-sm border-t border-gray-100">
+                    <div class="p-8 backdrop-blur-sm border-t border-gray-100">
                         <h4 class="text-lg font-semibold text-gray-900 mb-6 flex items-center">
                             <span class="w-8 h-8 rounded-full bg-primary-100 text-primary-600 inline-flex items-center justify-center mr-3">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -329,12 +329,12 @@
                     document.body.appendChild(successDiv);
                     console.log('📢 Message de succès affiché');
                     
-                    // Remove success message after 2 seconds and redirect
+                    // Remove success message after 5 seconds and redirect
                     setTimeout(() => {
-                        console.log('🔄 Redirection vers:', data.redirect);
                         successDiv.remove();
-                        window.location.href = data.redirect;
-                    }, 2000);
+                        form.reset();
+                        window.location.href = '/'; // Redirection vers la page d'accueil
+                    }, 5000);
                 } else {
                     console.warn('⚠️ Statut non-succès reçu:', data);
                     throw new Error(data.message);

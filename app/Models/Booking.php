@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Booking extends Model
 {
+    use HasFactory, SoftDeletes;
+
     protected $fillable = [
         'firstname',
         'lastname',
@@ -20,13 +24,8 @@ class Booking extends Model
     ];
 
     protected $casts = [
-        'spaces' => 'array',
         'date' => 'date',
-        'time' => 'datetime:H:i',
+        'spaces' => 'array',
+        'status' => 'string'
     ];
-
-    public function getFullNameAttribute()
-    {
-        return "{$this->firstname} {$this->lastname}";
-    }
-} 
+}

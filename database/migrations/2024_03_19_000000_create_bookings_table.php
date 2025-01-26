@@ -6,7 +6,10 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up()
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
@@ -15,17 +18,21 @@ return new class extends Migration
             $table->string('email');
             $table->string('phone');
             $table->date('date');
-            $table->time('time');
+            $table->string('time');
             $table->string('purpose');
             $table->json('spaces');
-            $table->text('message')->nullable();
-            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->text('message');
+            $table->string('status')->default('pending');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
-    public function down()
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
     {
         Schema::dropIfExists('bookings');
     }
-}; 
+};
