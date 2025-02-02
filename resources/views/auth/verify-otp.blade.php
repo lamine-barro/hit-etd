@@ -114,7 +114,9 @@
             <div class="col-md-6 col-lg-5">
                 <div class="otp-card">
                     <div class="logo-container">
-                        <img src="{{ asset('logo_hit.png') }}" alt="HIT Logo">
+                        <a href="{{ route('home') }}">
+                            <img src="{{ asset('logo_hit.png') }}" alt="HIT Logo">
+                        </a>
                     </div>
                     <div class="otp-header">
                         <h4>{{ __('Vérification OTP') }}</h4>

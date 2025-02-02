@@ -6,13 +6,7 @@
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- En-tête -->
         <div class="text-center max-w-3xl mx-auto mb-16">
-            <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-primary-600 text-white shadow-lg transform transition hover:scale-105">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                </svg>
-                Newsletter
-            </span>
-            <h2 class="mt-8 text-4xl font-bold text-gray-900 sm:text-5xl lg:text-6xl tracking-tight">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                 Restez Connectés !
             </h2>
             <p class="mt-6 text-xl text-gray-600 leading-relaxed">

@@ -2,10 +2,10 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- En-tête -->
         <div class="section-title text-center">
-            <span class="section-subtitle text-sm sm:text-base">{{ __('Our Services') }}</span>
-            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mt-2">{{ __('Complete services for success') }}</h2>
+            <span class="section-subtitle text-sm sm:text-base">Nos Services</span>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mt-2">Des services complets pour réussir</h2>
             <p class="mt-4 text-base sm:text-xl max-w-2xl mx-auto text-gray-600">
-                {{ __('Whatever your stage of development, we have the solution adapted to your needs.') }}
+                Quel que soit votre stade de développement, nous avons la solution adaptée à vos besoins.
             </p>
         </div>
 
@@ -14,39 +14,39 @@
             <!-- Incubation & Accélération -->
             <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden group">
                 <div class="relative h-48 sm:h-56 overflow-hidden">
-                    <img src="{{ asset('images/incubation.jpg') }}" alt="{{ __('Incubation & Acceleration') }}" 
+                    <img src="{{ asset('images/incubation.jpg') }}" alt="Incubation & Accélération" 
                          class="w-full h-full object-cover transform transition duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
                     <h3 class="absolute bottom-4 left-4 right-4 text-lg sm:text-xl font-semibold text-white transform transition duration-300 group-hover:translate-x-2">
-                        {{ __('Incubation & Acceleration') }}
+                        Incubation & Accélération
                     </h3>
                 </div>
                 <div class="p-6">
                     <p class="text-gray-600 mb-6">
-                        {{ __('Training programs, coaching, mentoring, coworking space, access to experts and our partner network.') }}
+                        Programmes de formation, coaching, mentorat, accès aux experts et à notre réseau de partenaires.
                     </p>
                     <ul class="space-y-3 mb-8">
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span class="text-gray-600">{{ __('6 to 12 months program') }}</span>
+                            <span class="text-gray-600">Programme de 6 à 12 mois</span>
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span class="text-gray-600">{{ __('Weekly personalized follow-up') }}</span>
+                            <span class="text-gray-600">Suivi personnalisé hebdomadaire</span>
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span class="text-gray-600">{{ __('Expert & mentor network') }}</span>
+                            <span class="text-gray-600">Réseau d'experts & mentors</span>
                         </li>
                     </ul>
                     <a href="{{ route('visitez-le-campus') }}" class="inline-flex items-center justify-center w-full px-6 py-3 text-base font-medium text-primary-600 bg-transparent border-2 border-primary-500 rounded-xl hover:bg-primary-50 transition-colors duration-300">
-                        {{ __('Learn more') }}
+                        En savoir plus
                         <svg class="w-5 h-5 ml-2 -mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                         </svg>
@@ -54,42 +54,42 @@
                 </div>
             </div>
 
-            <!-- Hébergement & Espaces -->
+            <!-- Espaces de travail -->
             <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden group">
                 <div class="relative h-48 sm:h-56 overflow-hidden">
-                    <img src="{{ asset('images/coworking.jpg') }}" alt="{{ __('Hosting & Spaces') }}" 
+                    <img src="{{ asset('images/coworking.jpg') }}" alt="Espaces de travail" 
                          class="w-full h-full object-cover transform transition duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
                     <h3 class="absolute bottom-4 left-4 right-4 text-lg sm:text-xl font-semibold text-white transform transition duration-300 group-hover:translate-x-2">
-                        {{ __('Hosting & Spaces') }}
+                        Espaces de travail
                     </h3>
                 </div>
                 <div class="p-6">
                     <p class="text-gray-600 mb-6">
-                        {{ __('Private offices, coworking spaces, café, equipped meeting rooms, relaxation and networking areas.') }}
+                        Bureaux privés, espaces de coworking équipés, salles de réunion équipées.
                     </p>
                     <ul class="space-y-3 mb-8">
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span class="text-gray-600">{{ __('24/7 secure access') }}</span>
+                            <span class="text-gray-600">Accès sécurisé 24/7</span>
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span class="text-gray-600">{{ __('High-speed fiber internet') }}</span>
+                            <span class="text-gray-600">Internet fibre haut débit</span>
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span class="text-gray-600">{{ __('Services & coffee included') }}</span>
+                            <span class="text-gray-600">Salles de réunion équipées</span>
                         </li>
                     </ul>
                     <a href="{{ route('visitez-le-campus') }}" class="inline-flex items-center justify-center w-full px-6 py-3 text-base font-medium text-primary-600 bg-transparent border-2 border-primary-500 rounded-xl hover:bg-primary-50 transition-colors duration-300">
-                        {{ __('Learn more') }}
+                        En savoir plus
                         <svg class="w-5 h-5 ml-2 -mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                         </svg>
@@ -97,42 +97,42 @@
                 </div>
             </div>
 
-            <!-- Fablab & Innovation -->
+            <!-- Espaces de détente -->
             <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden group">
                 <div class="relative h-48 sm:h-56 overflow-hidden">
-                    <img src="{{ asset('images/fablab.jpg') }}" alt="{{ __('Fablab & Innovation') }}" 
+                    <img src="{{ asset('images/detente.jpg') }}" alt="Espaces de détente" 
                          class="w-full h-full object-cover transform transition duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
                     <h3 class="absolute bottom-4 left-4 right-4 text-lg sm:text-xl font-semibold text-white transform transition duration-300 group-hover:translate-x-2">
-                        {{ __('Fablab & Innovation') }}
+                        Espaces de détente
                     </h3>
                 </div>
                 <div class="p-6">
                     <p class="text-gray-600 mb-6">
-                        {{ __('Rapid prototyping, 3D printing, laser cutting, electronics and personalized technical support.') }}
+                        Des espaces conviviaux pour vous détendre et favoriser les échanges informels entre entrepreneurs.
                     </p>
                     <ul class="space-y-3 mb-8">
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span class="text-gray-600">{{ __('Cutting-edge equipment') }}</span>
+                            <span class="text-gray-600">Salle de jeux</span>
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span class="text-gray-600">{{ __('Advanced technical training') }}</span>
+                            <span class="text-gray-600">Kitchenette équipée</span>
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span class="text-gray-600">{{ __('Dedicated technical support') }}</span>
+                            <span class="text-gray-600">Cafétéria moderne</span>
                         </li>
                     </ul>
                     <a href="{{ route('visitez-le-campus') }}" class="inline-flex items-center justify-center w-full px-6 py-3 text-base font-medium text-primary-600 bg-transparent border-2 border-primary-500 rounded-xl hover:bg-primary-50 transition-colors duration-300">
-                        {{ __('Learn more') }}
+                        En savoir plus
                         <svg class="w-5 h-5 ml-2 -mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                         </svg>
@@ -143,48 +143,108 @@
 
         <!-- Services additionnels -->
         <div class="mt-12 sm:mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Formations -->
+            <!-- Fablab & Innovation -->
             <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden group">
                 <div class="relative h-40 overflow-hidden">
-                    <img src="{{ asset('images/formation.jpg') }}" alt="{{ __('Training & Workshops') }}" 
+                    <img src="{{ asset('images/fablab.jpg') }}" alt="Fablab & Innovation" 
                          class="w-full h-full object-cover transform transition duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
                     <h4 class="absolute bottom-4 left-4 right-4 text-lg font-semibold text-white transform transition duration-300 group-hover:translate-x-2">
-                        {{ __('Training & Workshops') }}
+                        Fablab & Innovation
                     </h4>
                 </div>
                 <div class="p-6">
-                    <p class="text-gray-600">{{ __('Masterclasses, hackathons, conferences, workshops and thematic meetings to develop your skills.') }}</p>
+                    <p class="text-gray-600 mb-6">Prototypage rapide, impression 3D, découpe laser, électronique et support technique personnalisé.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-gray-600">Équipements de pointe</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-gray-600">Formation technique avancée</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-gray-600">Support technique dédié</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
 
-            <!-- Accès Investisseurs -->
+            <!-- Formation & Ateliers -->
             <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden group">
                 <div class="relative h-40 overflow-hidden">
-                    <img src="{{ asset('images/investisseurs.jpg') }}" alt="{{ __('Investor Access') }}" 
+                    <img src="{{ asset('images/formation.jpg') }}" alt="Formation & Ateliers" 
                          class="w-full h-full object-cover transform transition duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
                     <h4 class="absolute bottom-4 left-4 right-4 text-lg font-semibold text-white transform transition duration-300 group-hover:translate-x-2">
-                        {{ __('Investor Access') }}
+                        Formation & Ateliers
                     </h4>
                 </div>
                 <div class="p-6">
-                    <p class="text-gray-600">{{ __('Connection with our network of business angels, investment funds and financial partners.') }}</p>
+                    <p class="text-gray-600 mb-6">Programme complet de formations et d'événements pour développer vos compétences et votre réseau.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-gray-600">Masterclasses régulières</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-gray-600">Hackathons & challenges</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-gray-600">Conférences thématiques</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
 
-            <!-- Support Admin -->
+            <!-- Support Administratif -->
             <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden group">
                 <div class="relative h-40 overflow-hidden">
-                    <img src="{{ asset('images/admin.jpg') }}" alt="{{ __('Administrative Support') }}" 
+                    <img src="{{ asset('images/admin.jpg') }}" alt="Support Administratif" 
                          class="w-full h-full object-cover transform transition duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
                     <h4 class="absolute bottom-4 left-4 right-4 text-lg font-semibold text-white transform transition duration-300 group-hover:translate-x-2">
-                        {{ __('Administrative Support') }}
+                        Support Administratif
                     </h4>
                 </div>
                 <div class="p-6">
-                    <p class="text-gray-600">{{ __('Support in your creation formalities, legal advice and personalized accounting support.') }}</p>
+                    <p class="text-gray-600 mb-6">Accompagnement complet dans vos démarches administratives avec le Guichet Unique de l'Administration.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-gray-600">Création d'entreprise</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-gray-600">Conseils juridiques</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-gray-600">Support fiscal</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -192,11 +252,11 @@
         <!-- CTA -->
         <div class="mt-12 sm:mt-16 text-center">
             <a href="{{ route('visitez-le-campus') }}" class="inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-primary-600 rounded-xl hover:bg-primary-700 transition-colors duration-300 transform hover:scale-105">
-                {{ __('Book a visit') }}
+                Réserver une visite
                 <svg class="w-5 h-5 ml-2 -mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                 </svg>
             </a>
         </div>
     </div>
-</section> 
+</section>

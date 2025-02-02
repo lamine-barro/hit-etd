@@ -9,17 +9,23 @@
     <!-- Pourquoi H.I.T Section -->
     @include('components.why-hit')
 
+    <!-- Services -->
+    @include('components.services')
+
     <!-- Initiative Gouvernementale -->
     @include('components.initiative')
+
+    <!-- Campus -->
+    @include('components.campus')
+
+    <!-- Actualités -->
+    @include('components.news')
 
     <!-- Partenaires -->
     @include('components.partners')
 
-    <!-- Services -->
-    @include('components.services')
-
-    <!-- Actualités -->
-    @include('components.news')
+    <!-- FAQ -->
+    @include('components.faq')
 
     <!-- Newsletter -->
     @include('components.newsletter')

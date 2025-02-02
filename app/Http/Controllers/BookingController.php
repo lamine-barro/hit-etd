@@ -4,60 +4,69 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        $bookings = Booking::orderBy('created_at', 'desc')
-            ->paginate(10);
-        
-        return view('dashboard.bookings.index', compact('bookings'));
+        $bookings = Auth::user()->bookings()->latest()->get();
+        return view('pages.resident-booking', compact('bookings'));
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'firstname' => 'required|string|max:255',
-            'lastname' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'phone' => 'required|string|max:255',
-            'date' => 'required|date',
-            'time' => 'required|date_format:H:i',
-            'purpose' => 'required|string|max:255',
-            'spaces' => 'required|array',
-            'message' => 'nullable|string'
+            'facility' => 'required|string|in:salle_reunion,salle_conference,espace_coworking',
+            'date' => 'required|date|after_or_equal:today',
+            'start_time' => 'required|date_format:H:i',
+            'end_time' => 'required|date_format:H:i|after:start_time',
+            'purpose' => 'required|string|max:500',
         ]);
 
-        $booking = Booking::create($validated);
+        // Vérifier si l'installation est disponible
+        $conflictingBooking = Booking::where('facility', $validated['facility'])
+            ->where('date', $validated['date'])
+            ->where(function ($query) use ($validated) {
+                $query->whereBetween('start_time', [$validated['start_time'], $validated['end_time']])
+                    ->orWhereBetween('end_time', [$validated['start_time'], $validated['end_time']]);
+            })
+            ->exists();
 
-        return back()->with('notification', [
-            'type' => 'success',
-            'message' => 'Votre demande de réservation a été enregistrée.'
+        if ($conflictingBooking) {
+            return back()
+                ->withInput()
+                ->withErrors(['conflict' => __('Cette installation est déjà réservée pour ce créneau horaire.')]);
+        }
+
+        $booking = Auth::user()->bookings()->create([
+            'facility' => $validated['facility'],
+            'date' => $validated['date'],
+            'start_time' => $validated['start_time'],
+            'end_time' => $validated['end_time'],
+            'purpose' => $validated['purpose'],
+            'status' => 'confirmed',
         ]);
-    }
 
-    public function update(Request $request, Booking $booking)
-    {
-        $validated = $request->validate([
-            'status' => 'required|in:pending,approved,rejected'
-        ]);
-
-        $booking->update($validated);
-
-        return back()->with('notification', [
-            'type' => 'success',
-            'message' => 'Statut de la réservation mis à jour.'
-        ]);
+        return redirect()->route('resident.bookings.index')
+            ->with('success', __('Votre réservation a été confirmée.'));
     }
 
     public function destroy(Booking $booking)
     {
+        // Vérifier si l'utilisateur est autorisé à annuler cette réservation
+        if ($booking->user_id !== Auth::id()) {
+            abort(403);
+        }
+
         $booking->delete();
 
-        return back()->with('notification', [
-            'type' => 'success',
-            'message' => 'Réservation supprimée avec succès.'
-        ]);
+        return redirect()->route('resident.bookings.index')
+            ->with('success', __('La réservation a été annulée.'));
     }
 }

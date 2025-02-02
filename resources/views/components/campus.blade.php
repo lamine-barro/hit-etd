@@ -6,35 +6,20 @@
 
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- En-tête -->
-        <div class="text-center max-w-3xl mx-auto mb-16">
-            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary-50 text-primary-600">
-                <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                </svg>
-                Campus
-            </span>
-            <h2 class="mt-6 text-4xl font-bold text-gray-900 sm:text-5xl lg:text-6xl">
-                Visitez notre campus !
-            </h2>
-            <p class="mt-6 text-xl text-gray-600">
-                Réservez dès maintenant votre visite guidée et plongez dans l'univers stimulant du {{ config('hit.name') }}.
-            </p>
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">Visitez notre campus !</h1>
+            <p class="text-lg text-gray-600">Réservez dès maintenant votre visite guidée et plongez dans l'univers stimulant du {{ config('hit.name') }}</p>
         </div>
 
         <div class="lg:grid lg:grid-cols-2 lg:gap-12">
             <!-- Formulaire de réservation -->
             <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 h-[850px]">
-                <div class="p-8 md:p-10 h-full overflow-y-auto">
-                    <div class="text-center mb-10">
-                        <h3 class="text-2xl font-bold text-gray-900">Réserver votre visite</h3>
-                        <p class="mt-2 text-gray-600">Remplissez le formulaire ci-dessous pour planifier votre visite</p>
-                    </div>
-                    
+                <div class="px-8 py-2 h-full overflow-y-auto">
                     <form action="{{ route('campus.book-visit') }}" method="POST" class="space-y-8" id="booking-form">
                         @csrf
 
                         <!-- Nom et Prénom -->
-                        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                             <div class="relative">
                                 <label for="firstname" class="block text-sm font-medium text-gray-700 mb-2">Prénom</label>
                                 <input type="text" name="firstname" id="firstname" class="block w-full px-4 py-3.5 rounded-xl border-gray-300 bg-gray-50 focus:bg-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none transition duration-200 placeholder-gray-400" placeholder="Votre prénom">
@@ -56,7 +41,7 @@
                         </div>
 
                         <!-- Email et Téléphone -->
-                        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                             <div class="relative">
                                 <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
                                 <input type="email" name="email" id="email" class="block w-full px-4 py-3.5 rounded-xl border-gray-300 bg-gray-50 focus:bg-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none transition duration-200 placeholder-gray-400" placeholder="vous@exemple.com">
@@ -78,7 +63,7 @@
                         </div>
 
                         <!-- Date et Heure -->
-                        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                             <div class="relative">
                                 <label for="date" class="block text-sm font-medium text-gray-700 mb-2">Date souhaitée</label>
                                 <input type="date" name="date" id="date" class="block w-full px-4 py-3.5 rounded-xl border-gray-300 bg-gray-50 focus:bg-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none transition duration-200">
@@ -127,7 +112,7 @@
                                 <!-- Espace de Coworking -->
                                 <div class="relative">
                                     <input type="checkbox" name="spaces[]" value="coworking" id="space-coworking" class="absolute opacity-0 w-0 h-0 peer">
-                                    <label for="space-coworking" class="block h-[140px] p-4 bg-gray-50 border-2 rounded-xl cursor-pointer transition-all duration-200 peer-checked:border-primary-500 peer-checked:bg-primary-50 hover:bg-gray-100">
+                                    <label for="space-coworking" class="block h-[160px] p-4 bg-gray-50 border-2 rounded-xl cursor-pointer transition-all duration-200 peer-checked:border-primary-500 peer-checked:bg-primary-50 hover:bg-gray-100">
                                         <div class="font-medium text-gray-900">Espace de Coworking</div>
                                         <div class="mt-1 text-sm text-gray-500">Espace moderne et collaboratif de 500m²</div>
                                         <div class="absolute top-4 right-4 w-5 h-5 rounded-full border-2 peer-checked:border-primary-500 peer-checked:bg-primary-500 transition-all duration-200">
@@ -141,7 +126,7 @@
                                 <!-- Salles de Réunion -->
                                 <div class="relative">
                                     <input type="checkbox" name="spaces[]" value="meeting" id="space-meeting" class="absolute opacity-0 w-0 h-0 peer">
-                                    <label for="space-meeting" class="block h-[140px] p-4 bg-gray-50 border-2 rounded-xl cursor-pointer transition-all duration-200 peer-checked:border-primary-500 peer-checked:bg-primary-50 hover:bg-gray-100">
+                                    <label for="space-meeting" class="block h-[160px] p-4 bg-gray-50 border-2 rounded-xl cursor-pointer transition-all duration-200 peer-checked:border-primary-500 peer-checked:bg-primary-50 hover:bg-gray-100">
                                         <div class="font-medium text-gray-900">Salles de Réunion</div>
                                         <div class="mt-1 text-sm text-gray-500">6 salles équipées de 4 à 20 personnes</div>
                                         <div class="absolute top-4 right-4 w-5 h-5 rounded-full border-2 peer-checked:border-primary-500 peer-checked:bg-primary-500 transition-all duration-200">
@@ -155,7 +140,7 @@
                                 <!-- Auditorium -->
                                 <div class="relative">
                                     <input type="checkbox" name="spaces[]" value="auditorium" id="space-auditorium" class="absolute opacity-0 w-0 h-0 peer">
-                                    <label for="space-auditorium" class="block h-[140px] p-4 bg-gray-50 border-2 rounded-xl cursor-pointer transition-all duration-200 peer-checked:border-primary-500 peer-checked:bg-primary-50 hover:bg-gray-100">
+                                    <label for="space-auditorium" class="block h-[160px] p-4 bg-gray-50 border-2 rounded-xl cursor-pointer transition-all duration-200 peer-checked:border-primary-500 peer-checked:bg-primary-50 hover:bg-gray-100">
                                         <div class="font-medium text-gray-900">Auditorium</div>
                                         <div class="mt-1 text-sm text-gray-500">Une salle de conférence de 138 places</div>
                                         <div class="absolute top-4 right-4 w-5 h-5 rounded-full border-2 peer-checked:border-primary-500 peer-checked:bg-primary-500 transition-all duration-200">
@@ -171,11 +156,11 @@
                         <!-- Message -->
                         <div class="relative">
                             <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Message (optionnel)</label>
-                            <textarea name="message" id="message" rows="4" class="block w-full px-4 py-3.5 rounded-xl border-gray-300 bg-gray-50 focus:bg-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none transition duration-200 placeholder-gray-400" placeholder="Informations complémentaires..."></textarea>
+                            <textarea name="message" id="message" rows="3" class="block w-full px-4 py-3.5 rounded-xl border-gray-300 bg-gray-50 focus:bg-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none transition duration-200 placeholder-gray-400" placeholder="Informations complémentaires..."></textarea>
                         </div>
 
                         <!-- Bouton de soumission -->
-                        <div class="pt-6">
+                        <div class="pt-4">
                             <button type="submit" class="w-full inline-flex items-center justify-center px-8 py-4 text-base font-medium rounded-xl text-white bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5">
                                 <span>Réserver ma visite</span>
                                 <svg class="ml-3 w-5 h-5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -230,8 +215,7 @@
                                 </div>
                                 <div class="ml-4 flex-1">
                                     <p class="text-gray-900 font-medium">Horaires d'ouverture</p>
-                                    <p class="mt-1 text-gray-600">Lun - Ven : 08h00 - 18h00</p>
-                                    <p class="text-gray-600">Sam : 09h00 - 13h00</p>
+                                    <p class="mt-1 text-gray-600">Lun - Sam : 08h00 - 20h00</p>
                                 </div>
                             </div>
                             <div class="flex items-start">
@@ -251,12 +235,11 @@
                 </div>
             </div>
         </div>
-
         <!-- Note supplémentaire -->
         <div class="mt-12 text-center">
             <p class="text-sm text-gray-500">
                 Pour d'autres formulaires (organisation, startups, animation, prêt d'équipement…), 
-                <a href="#" class="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium">
+                <a href="https://hubivoiretech-my.sharepoint.com/:f:/g/personal/hello_hubivoiretech_ci/ElILl7V6nltDiBhSkno7f-4BslHxVjH0bMZA742TBFxCVw?e=tvMLAv" target="_blank" class="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium">
                     cliquez ici
                     <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />

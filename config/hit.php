@@ -11,7 +11,7 @@ return [
     'description' => 'Le plus grand Campus de Startups en Afrique',
     
     // Contact Information
-    'address' => 'Abidjan, Côte d\'Ivoire',
+    'address' => 'Tour POSTEL 2001, Mezzanine et 13e étage, Plateau - Abidjan, Côte d\'Ivoire',
     'phone' => '+225 0704853848',
     'email' => 'hello@hubivoiretech.ci',
     

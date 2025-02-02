@@ -6,7 +6,7 @@
                 Pourquoi le Hub Ivoire Tech ?
             </h2>
             <p class="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4">
-                Des ressources et un accompagnement complet pour chaque étape de votre parcours entrepreneurial
+                Des ressources et une localisation idéale pour faciliter votre parcours entrepreneurial
             </p>
         </div>
 
@@ -21,7 +21,7 @@
                     </div>
                     <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-3">Un écosystème dynamique</h3>
                     <p class="text-gray-600 text-sm flex-grow">
-                        Rejoignez une communauté d'incubateurs, d'investisseurs, d'experts, de mentors et de startups ambitieuses prêtes à changer le monde.
+                        Rejoignez une communauté d'incubateurs, d'accélérateurs, d'investisseurs, d'experts, de mentors, de startups ambitieuses, et de porteurs d'idées prêts à changer le monde.
                     </p>
                 </div>
 
@@ -32,7 +32,7 @@
                     </div>
                     <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-3">Des infrastructures modernes</h3>
                     <p class="text-gray-600 text-sm flex-grow">
-                        Accès à un espace de coworking, salles de réunion, fablab, auditorium, outils numériques et équipements de pointe.
+                        Accès à des espaces de coworking équipés, salles de réunion, fablab, auditorium, outils numériques et équipements de pointe.
                     </p>
                 </div>
 
@@ -43,7 +43,7 @@
                     </div>
                     <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-3">Un accompagnement sur-mesure</h3>
                     <p class="text-gray-600 text-sm flex-grow">
-                        Bénéficiez de programmes de coaching, de mentoring, de masterclasses et d'événements réguliers pour booster votre croissance.
+                        Bénéficiez de programmes de coaching, de mentoring, de masterclasses et d'événements réguliers pour booster votre croissance. Mais également de l'assistance des services publics pour faciliter vos interactions avec l'administration.
                     </p>
                 </div>
 
@@ -54,7 +54,7 @@
                     </div>
                     <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-3">Un soutien institutionnel fort</h3>
                     <p class="text-gray-600 text-sm flex-grow">
-                        Profitez de la proximité avec les services gouvernementaux et les grands partenaires qui facilitent vos démarches administratives et votre levée de fonds.
+                        Profitez de la proximité avec les services gouvernementaux et les partenaires qui facilitent l'accès au financement et votre levée de fonds.
                     </p>
                 </div>
             </div>

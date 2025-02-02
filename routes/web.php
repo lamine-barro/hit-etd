@@ -14,18 +14,26 @@ use App\Http\Controllers\Auth\OtpAuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventPaymentController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\EventListController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\AudienceController;
 use App\Http\Controllers\ConfigController;
+use App\Http\Controllers\ArticleListController;
 
 // Pages principales
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/visitez-le-campus', [CampusController::class, 'index'])->name('visitez-le-campus');
-Route::get('/evenements', [EventController::class, 'index'])->name('evenements');
-Route::get('/actualites', [NewsController::class, 'index'])->name('actualites');
+Route::get('/evenements', [EventListController::class, 'index'])->name('evenements');
+Route::get('/evenements/{event}', [EventListController::class, 'show'])->name('evenements.show');
+Route::get('/actualites', [ArticleListController::class, 'index'])->name('actualites');
+Route::get('/actualites/{article:slug}', [ArticleListController::class, 'show'])->name('actualites.show');
 Route::post('/language', [LanguageController::class, 'switchLang'])->name('language.switch');
 
+// Devenir donateur
+Route::get('/devenir-donateur', function () {
+    return view('pages.become-donor');
+})->name('devenir-donateur');
 
 // Footer Routes
 Route::get('/mentions-legales', function () {
@@ -97,3 +105,16 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
 // Event Payment Routes
 Route::get('/events/payment/callback', [EventPaymentController::class, 'callback'])->name('events.payment.callback');
 Route::post('/events/payment/webhook', [EventPaymentController::class, 'webhook'])->name('events.payment.webhook');
+
+// Espace membre
+Route::get('/espace-membre', function () {
+    return view('pages.member-space');
+})->name('member-space');
+
+// Routes pour les résidents (protégées par authentification)
+Route::middleware('auth')->prefix('resident')->name('resident.')->group(function () {
+    // Système de réservation
+    Route::get('/reservations', [BookingController::class, 'index'])->name('bookings.index');
+    Route::post('/reservations', [BookingController::class, 'store'])->name('bookings.store');
+    Route::delete('/reservations/{booking}', [BookingController::class, 'destroy'])->name('bookings.destroy');
+});

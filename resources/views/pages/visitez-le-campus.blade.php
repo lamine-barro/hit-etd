@@ -4,6 +4,6 @@
 @section('meta_description', $metaDescription)
 
 @section('content')
-    <br><br><br>
+    <br><br>
     @include('components.campus')
 @endsection 

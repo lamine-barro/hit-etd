@@ -1,11 +1,9 @@
 <section class="py-20 bg-gray-50 relative overflow-hidden" x-data="{ 
     showContent: false,
-    showStats: false,
     showPoints: false
 }" x-init="() => {
     setTimeout(() => showContent = true, 500);
     setTimeout(() => showPoints = true, 1000);
-    setTimeout(() => showStats = true, 1500);
 }">
     <!-- Motif en cube (selon la charte) -->
     <div class="absolute inset-0 bg-cube-pattern opacity-5"></div>
@@ -19,18 +17,18 @@
                 x-transition:enter-start="opacity-0 transform translate-y-8"
                 x-transition:enter-end="opacity-100 transform translate-y-0">
                 <h2 class="text-3xl font-bold text-gray-900 sm:text-4xl mb-6">
-                    Une vision portée par le Gouvernement
+                    Une vision portée par la Présidence de la République
                 </h2>
                 
                 <div class="prose prose-lg text-gray-600 max-w-none">
                     <p class="mb-6">
-                        Le Hub Ivoire Tech est le fruit d'une collaboration entre le secteur public et privé, visant à stimuler l'innovation en Côte d'Ivoire. Soutenu par le Ministère de l'Économie Numérique, il favorise la création de solutions technologiques et renforce la compétitivité du pays sur la scène internationale.
+                        Hub Ivoire Tech est une initiative du secteur public qui vise à stimuler l'innovation en Côte d'Ivoire, favoriser la création de solutions technologiques et renforcer la compétitivité du pays sur la scène internationale.
                     </p>
 
                     <!-- Points clés -->
                     <div class="space-y-4 mt-8">
                         <template x-for="(point, index) in [
-                            { title: 'Programmes Spéciaux', content: 'Dispositifs incitatifs et subventions pour les entrepreneurs innovants.' },
+                            { title: 'Programmes pour la Diaspora', content: 'Dispositifs incitatifs et subventions pour les entrepreneurs innovants.' },
                             { title: 'Partenariats Internationaux', content: 'Collaborations avec des hubs technologiques mondiaux.' },
                             { title: 'Facilités Administratives', content: 'Accompagnement dans les démarches réglementaires.' }
                         ]" :key="index">
@@ -71,28 +69,10 @@
                 x-transition:enter-start="opacity-0 transform translate-x-8"
                 x-transition:enter-end="opacity-100 transform translate-x-0">
                 <div class="aspect-w-16 aspect-h-9 lg:aspect-none rounded-xl overflow-hidden group">
-                    <img class="shadow-2xl object-cover object-center w-full h-full" src="{{ asset('images/collaboration.jpg') }}" alt="Collaboration gouvernementale">
+                    <img class="shadow-2xl object-cover object-center w-full h-full" src="{{ asset('images/initiative.jpg') }}" alt="Collaboration gouvernementale">
                     <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-
-                <!-- Statistiques superposées -->
-                <div class="absolute bottom-0 right-0 transform translate-y-1/4 bg-white rounded-lg shadow-xl p-6 max-w-sm"
-                    x-show="showStats"
-                    x-transition:enter="transition ease-out duration-500"
-                    x-transition:enter-start="opacity-0 transform translate-y-4"
-                    x-transition:enter-end="opacity-100 transform translate-y-1/4">
-                    <div class="grid grid-cols-2 gap-8">
-                        <div>
-                            <p class="text-4xl font-bold text-primary">20+</p>
-                            <p class="mt-1 text-sm text-gray-500">Partenaires Privés et Public</p>
-                        </div>
-                        <div>
-                            <p class="text-4xl font-bold text-primary">1M€</p>
-                            <p class="mt-1 text-sm text-gray-500">Budget Annuel</p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
-</section> 
+</section>

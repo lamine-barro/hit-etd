@@ -1,12 +1,4 @@
-<section class="relative min-h-screen bg-black overflow-hidden" id="hero" x-data="{ 
-    stats: [
-        { value: '100+', label: '{{ __("Supported Startups") }}' },
-        { value: '50M€', label: '{{ __("Raised by our startups") }}' },
-        { value: '1000+', label: '{{ __("Trained Entrepreneurs") }}' },
-        { value: '30+', label: '{{ __("Partners") }}' }
-    ],
-    show: false
-}" x-init="setTimeout(() => show = true, 500)">
+<section class="relative min-h-screen bg-black overflow-hidden" id="hero" x-data="{ show: false }" x-init="setTimeout(() => show = true, 500)">
     <!-- Image de fond avec overlay -->
     <div class="absolute inset-0">
         <img src="{{ asset('images/hero_bg.jpg') }}" alt="Innovation Hub" class="w-full h-full object-cover scale-105 transition-transform duration-[2s] hover:scale-100">
@@ -17,15 +9,15 @@
     <div class="absolute inset-0 bg-cube-pattern opacity-5 sm:opacity-10 animate-pulse"></div>
 
     <!-- Contenu -->
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-screen py-20 sm:py-0">
-        <div class="flex flex-col justify-center items-center min-h-screen space-y-8 sm:space-y-16">
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-screen flex items-center">
+        <div class="flex flex-col justify-center items-center w-full space-y-8 sm:space-y-16">
             <!-- Texte principal avec animations -->
-            <div class="text-center max-w-3xl mt-16 sm:mt-0" 
+            <div class="text-center max-w-3xl" 
                 x-show="show" 
                 x-transition:enter="transition ease-out duration-1000"
                 x-transition:enter-start="opacity-0 transform translate-y-12"
                 x-transition:enter-end="opacity-100 transform translate-y-0">
-                <h1 class="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight sm:leading-tight pt-28">
+                <h1 class="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight sm:leading-tight">
                     <span class="block mb-2 hover:text-primary-500 transition-colors duration-300 transform hover:scale-105">
                         {{ __('Join the largest') }}
                     </span>
@@ -48,20 +40,6 @@
                         {{ __('Visit the campus') }}
                     </a>
                 </div>
-            </div>
-
-            <!-- Statistiques avec animations -->
-            <div class="grid grid-cols-2 gap-6 sm:gap-8 md:grid-cols-4 w-full max-w-4xl px-4 sm:px-0"
-                x-show="show"
-                x-transition:enter="transition ease-out duration-1000 delay-500"
-                x-transition:enter-start="opacity-0 transform translate-y-12"
-                x-transition:enter-end="opacity-100 transform translate-y-0">
-                <template x-for="(stat, index) in stats" :key="index">
-                    <div class="flex flex-col items-center bg-black/20 backdrop-blur-sm rounded-lg p-4 sm:p-6 hover:bg-black/30 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-lg hover:shadow-primary-500/20 group">
-                        <span class="text-2xl sm:text-3xl md:text-4xl font-bold text-primary-500 group-hover:scale-110 transition-transform duration-300" x-text="stat.value"></span>
-                        <span class="mt-2 text-xs sm:text-sm text-center text-gray-100 group-hover:text-primary-500 transition-colors duration-300" x-text="stat.label"></span>
-                    </div>
-                </template>
             </div>
         </div>
     </div>

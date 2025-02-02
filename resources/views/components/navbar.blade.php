@@ -14,7 +14,7 @@
 
             <!-- Menu de navigation (centre) -->
             <div class="hidden md:flex items-center justify-center space-x-6 lg:space-x-8">
-                <a href="#why-hit" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __('Home') }}</a>
+                <a href="{{ route('home') }}#why-hit" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __('Home') }}</a>
                 <a href="{{ route('visitez-le-campus') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __('Visit Campus') }}</a>
                 <a href="{{ route('evenements') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __('Events') }}</a>
                 <a href="{{ route('actualites') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __('News') }}</a>
@@ -22,6 +22,14 @@
 
             <!-- Sélecteur de langue et Logo à droite -->
             <div class="flex items-center space-x-4">
+                <!-- Espace membre -->
+                <a href="{{ route('member-space') }}" class="hidden md:flex items-center space-x-1 text-sm lg:text-base text-primary-600 hover:text-primary-700 font-medium transition px-3 py-1.5 border border-primary-600 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                    <span>{{ __('Espace Résident') }}</span>
+                </a>
+
                 <!-- Language Toggle Desktop -->
                 <div class="hidden md:flex items-center space-x-1 border border-gray-200 rounded-lg p-1">
                     <form action="{{ route('language.switch') }}" method="POST" class="inline">
@@ -83,6 +91,14 @@
             <a href="{{ route('evenements') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __('Events') }}</a>
             <a href="{{ route('actualites') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __('News') }}</a>
             
+            <!-- Espace membre (Mobile) -->
+            <a href="{{ route('member-space') }}" class="flex items-center space-x-2 text-primary-600 hover:text-primary-700 font-medium transition px-2 py-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                <span>{{ __('Espace Résident') }}</span>
+            </a>
+
             <!-- Language Toggle Mobile -->
             <div class="flex items-center justify-center border-t border-gray-100 pt-3 mt-3">
                 <div class="flex items-center space-x-1 border border-gray-200 rounded-lg p-1">

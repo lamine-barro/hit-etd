@@ -3,6 +3,7 @@
 @section('title', 'Événements')
 
 @section('content')
+    <br><br><br>
     <div class="container mx-auto px-4 py-12">
         <h1 class="text-4xl font-bold text-gray-900 mb-8">Nos Événements</h1>
         
