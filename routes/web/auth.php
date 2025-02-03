@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\OtpAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -10,11 +10,10 @@ use App\Http\Controllers\Auth\OtpAuthController;
 */
 
 Route::middleware('guest')->group(function () {
-    Route::get('/login', [OtpAuthController::class, 'showLoginForm'])->name('login');
-    Route::post('/login/send-otp', [OtpAuthController::class, 'sendOtp'])->name('login.send-otp');
-    Route::post('/login/verify-otp', [OtpAuthController::class, 'verifyOtp'])->name('login.verify-otp');
+    Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('login', [LoginController::class, 'login']);
 });
 
 Route::middleware('auth')->group(function () {
-    Route::post('/logout', [OtpAuthController::class, 'logout'])->name('logout');
+    Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 }); 

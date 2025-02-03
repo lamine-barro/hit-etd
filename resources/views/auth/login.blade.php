@@ -116,7 +116,7 @@
                             </div>
                         @endif
 
-                        <form method="POST" action="{{ route('login.send-otp') }}">
+                        <form method="POST" action="{{ route('login') }}">
                             @csrf
 
                             <div class="mb-4">
@@ -139,10 +139,28 @@
                                 @enderror
                             </div>
 
+                            <div class="mb-4">
+                                <label for="password" class="form-label">{{ __('Mot de passe') }}</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-key"></i></span>
+                                    <input id="password" type="password" 
+                                        class="form-control @error('password') is-invalid @enderror" 
+                                        name="password" 
+                                        required 
+                                        autocomplete="current-password"
+                                        placeholder="Entrez votre mot de passe">
+                                </div>
+                                @error('password')
+                                    <div class="invalid-feedback d-block">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
                             <div class="d-grid gap-2">
                                 <button type="submit" class="btn btn-primary">
                                     <i class="bi bi-shield-lock me-2"></i>
-                                    {{ __('Recevoir le code OTP') }}
+                                    {{ __('Se connecter') }}
                                 </button>
                             </div>
                         </form>
