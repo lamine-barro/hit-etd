@@ -56,18 +56,17 @@
                 </div>
             </div>
         @endif
-
         <!-- Filtres -->
         <div class="mb-8">
             <form action="{{ route('actualites') }}" method="GET" class="flex flex-wrap gap-4 justify-center">
-                <select name="category" class="rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500">
+                <select name="category" class="px-4 py-2.5 rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500">
                     <option value="">{{ __('Toutes les catégories') }}</option>
                     <option value="actualite" {{ request('category') === 'actualite' ? 'selected' : '' }}>{{ __('Actualités') }}</option>
                     <option value="technologie" {{ request('category') === 'technologie' ? 'selected' : '' }}>{{ __('Technologie') }}</option>
                     <option value="evenement" {{ request('category') === 'evenement' ? 'selected' : '' }}>{{ __('Événements') }}</option>
                 </select>
 
-                <button type="submit" class="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700">
+                <button type="submit" class="px-6 py-2.5 bg-primary-600 text-white rounded-md hover:bg-primary-700">
                     {{ __('Filtrer') }}
                 </button>
             </form>

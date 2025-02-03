@@ -47,7 +47,7 @@
                     @endif
 
                     <div class="article-content">
-                        {{ $article->content }}
+                        {!! $article->content !!}
                     </div>
 
                     @if($article->tags)
@@ -95,6 +95,14 @@
                             </span>
                         </dd>
                         @endif
+
+                        <dt class="mt-3">Nombre de vues</dt>
+                        <dd>
+                            <span class="d-flex align-items-center">
+                                <i class="bi bi-eye me-2"></i>
+                                {{ number_format($article->views, 0, ',', ' ') }}
+                            </span>
+                        </dd>
 
                         <dt class="mt-3">Temps de lecture</dt>
                         <dd>{{ $article->reading_time }} min</dd>
@@ -150,6 +158,13 @@
 .article-content {
     line-height: 1.8;
     font-size: 1.1rem;
+}
+
+.article-content img {
+    width: 100%;
+    height: auto;
+    margin: 1.5rem 0;
+    border-radius: 0.5rem;
 }
 
 .modal.show {

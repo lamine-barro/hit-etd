@@ -9,11 +9,10 @@
             <h1 class="text-4xl font-bold text-gray-900 mb-4">{{ __('Nos événements') }}</h1>
             <p class="text-lg text-gray-600">{{ __('Découvrez nos prochains événements et inscrivez-vous') }}</p>
         </div>
-
         <!-- Filtres -->
         <div class="mb-8">
             <form action="{{ route('evenements') }}" method="GET" class="flex flex-wrap gap-4 justify-center">
-                <select name="type" class="rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500">
+                <select name="type" class="px-4 py-2.5 rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500">
                     <option value="">{{ __('Tous les types') }}</option>
                     <option value="conference" {{ request('type') === 'conference' ? 'selected' : '' }}>{{ __('Conférence') }}</option>
                     <option value="workshop" {{ request('type') === 'workshop' ? 'selected' : '' }}>{{ __('Atelier') }}</option>
@@ -21,13 +20,13 @@
                     <option value="training" {{ request('type') === 'training' ? 'selected' : '' }}>{{ __('Formation') }}</option>
                 </select>
 
-                <select name="format" class="rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500">
+                <select name="format" class="px-4 py-2.5 rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500">
                     <option value="">{{ __('Tous les formats') }}</option>
                     <option value="physical" {{ request('format') === 'physical' ? 'selected' : '' }}>{{ __('Présentiel') }}</option>
                     <option value="remote" {{ request('format') === 'remote' ? 'selected' : '' }}>{{ __('En ligne') }}</option>
                 </select>
 
-                <button type="submit" class="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700">
+                <button type="submit" class="px-6 py-2.5 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition duration-200">
                     {{ __('Filtrer') }}
                 </button>
             </form>

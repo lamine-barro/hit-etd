@@ -46,6 +46,9 @@ class ArticleListController extends Controller
             abort(404);
         }
 
+        // Incrémenter le compteur de vues
+        $article->incrementViews();
+
         // Récupérer les articles similaires
         $relatedArticles = Article::where('id', '!=', $article->id)
             ->where('status', 'published')

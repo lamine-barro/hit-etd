@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 class Event extends Model
 {
@@ -18,6 +19,7 @@ class Event extends Model
     protected $fillable = [
         'type',
         'title',
+        'slug',
         'description',
         'start_date',
         'end_date',
@@ -51,6 +53,29 @@ class Event extends Model
         'early_bird_price' => 'decimal:2',
         'max_participants' => 'integer'
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($event) {
+            $event->slug = $event->generateUniqueSlug($event->title);
+        });
+
+        static::updating(function ($event) {
+            if ($event->isDirty('title')) {
+                $event->slug = $event->generateUniqueSlug($event->title);
+            }
+        });
+    }
+
+    protected function generateUniqueSlug($title)
+    {
+        $slug = Str::slug($title);
+        $count = static::whereRaw("slug REGEXP '^{$slug}(-[0-9]+)?$'")->count();
+
+        return $count ? "{$slug}-{$count}" : $slug;
+    }
 
     /**
      * Get the registrations for the event.
@@ -104,27 +129,25 @@ class Event extends Model
     }
 
     /**
-     * Check if registration is still open.
+     * Check if the event has reached its maximum capacity
+     *
+     * @return bool
+     */
+    public function hasReachedCapacity(): bool
+    {
+        return $this->registrations()
+            ->whereNotIn('status', ['cancelled'])
+            ->count() >= $this->max_participants;
+    }
+
+    /**
+     * Check if registration is open for the event
+     *
+     * @return bool
      */
     public function isRegistrationOpen(): bool
     {
-        if ($this->status !== 'published') {
-            return false;
-        }
-
-        if ($this->isFull()) {
-            return false;
-        }
-
-        if ($this->registration_end_date && now()->gt($this->registration_end_date)) {
-            return false;
-        }
-
-        if (now()->gt($this->start_date)) {
-            return false;
-        }
-
-        return true;
+        return now()->lt($this->registration_end_date) && !$this->hasReachedCapacity();
     }
 
     /**

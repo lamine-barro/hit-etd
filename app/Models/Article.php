@@ -20,6 +20,7 @@ class Article extends Model
         'tags',
         'featured',
         'reading_time',
+        'views',
         'status',
         'published_at'
     ];
@@ -28,6 +29,7 @@ class Article extends Model
         'tags' => 'array',
         'featured' => 'boolean',
         'reading_time' => 'integer',
+        'views' => 'integer',
         'published_at' => 'datetime'
     ];
 
@@ -97,5 +99,26 @@ class Article extends Model
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    public function getTagsAttribute($value)
+    {
+        if (is_string($value)) {
+            return json_decode($value, true) ?? [];
+        }
+        return $value ?? [];
+    }
+
+    public function setTagsAttribute($value)
+    {
+        $this->attributes['tags'] = is_array($value) ? json_encode($value) : $value;
+    }
+
+    /**
+     * Increment the view count for this article.
+     */
+    public function incrementViews()
+    {
+        $this->increment('views');
     }
 }

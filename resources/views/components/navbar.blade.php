@@ -23,7 +23,7 @@
             <!-- Sélecteur de langue et Logo à droite -->
             <div class="flex items-center space-x-4">
                 <!-- Espace membre -->
-                <a href="{{ route('member-space') }}" class="hidden md:flex items-center space-x-1 text-sm lg:text-base text-primary-600 hover:text-primary-700 font-medium transition px-3 py-1.5 border border-primary-600 rounded-lg">
+                <a href="#" class="hidden md:flex items-center space-x-1 text-sm lg:text-base text-primary-600 hover:text-primary-700 font-medium transition px-3 py-1.5 border border-primary-600 rounded-lg">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
@@ -32,22 +32,14 @@
 
                 <!-- Language Toggle Desktop -->
                 <div class="hidden md:flex items-center space-x-1 border border-gray-200 rounded-lg p-1">
-                    <form action="{{ route('language.switch') }}" method="POST" class="inline">
-                        @csrf
-                        <input type="hidden" name="lang" value="fr">
-                        <button type="submit" 
-                            class="px-2 py-1 text-sm font-medium rounded-md transition-colors duration-200 {{ app()->getLocale() === 'fr' ? 'bg-primary-50 text-primary-600' : 'text-gray-500 hover:text-gray-700' }}">
-                            FR
-                        </button>
-                    </form>
-                    <form action="{{ route('language.switch') }}" method="POST" class="inline">
-                        @csrf
-                        <input type="hidden" name="lang" value="en">
-                        <button type="submit" 
-                            class="px-2 py-1 text-sm font-medium rounded-md transition-colors duration-200 {{ app()->getLocale() === 'en' ? 'bg-primary-50 text-primary-600' : 'text-gray-500 hover:text-gray-700' }}">
-                            EN
-                        </button>
-                    </form>
+                    <a href="{{ route('language.switch', 'fr') }}" 
+                        class="px-2 py-1 text-sm font-medium rounded-md {{ app()->getLocale() === 'fr' ? 'bg-primary-100 text-primary-700' : 'text-gray-500 hover:text-gray-700' }}">
+                        FR
+                    </a>
+                    <a href="{{ route('language.switch', 'en') }}" 
+                        class="px-2 py-1 text-sm font-medium rounded-md {{ app()->getLocale() === 'en' ? 'bg-primary-100 text-primary-700' : 'text-gray-500 hover:text-gray-700' }}">
+                        EN
+                    </a>
                 </div>
                 <!-- Logo CIV -->
                 <div class="flex-shrink-0">
@@ -92,7 +84,7 @@
             <a href="{{ route('actualites') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __('News') }}</a>
             
             <!-- Espace membre (Mobile) -->
-            <a href="{{ route('member-space') }}" class="flex items-center space-x-2 text-primary-600 hover:text-primary-700 font-medium transition px-2 py-2">
+            <a href="#" class="flex items-center space-x-2 text-primary-600 hover:text-primary-700 font-medium transition px-2 py-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
@@ -100,24 +92,16 @@
             </a>
 
             <!-- Language Toggle Mobile -->
-            <div class="flex items-center justify-center border-t border-gray-100 pt-3 mt-3">
-                <div class="flex items-center space-x-1 border border-gray-200 rounded-lg p-1">
-                    <form action="{{ route('language.switch') }}" method="POST" class="inline">
-                        @csrf
-                        <input type="hidden" name="lang" value="fr">
-                        <button type="submit" 
-                            class="px-3 py-1 text-sm font-medium rounded-md transition-colors duration-200 {{ app()->getLocale() === 'fr' ? 'bg-primary-50 text-primary-600' : 'text-gray-500 hover:text-gray-700' }}">
-                            FR
-                        </button>
-                    </form>
-                    <form action="{{ route('language.switch') }}" method="POST" class="inline">
-                        @csrf
-                        <input type="hidden" name="lang" value="en">
-                        <button type="submit" 
-                            class="px-3 py-1 text-sm font-medium rounded-md transition-colors duration-200 {{ app()->getLocale() === 'en' ? 'bg-primary-50 text-primary-600' : 'text-gray-500 hover:text-gray-700' }}">
-                            EN
-                        </button>
-                    </form>
+            <div class="md:hidden mt-4 border-t pt-4">
+                <div class="flex justify-center space-x-2">
+                    <a href="{{ route('language.switch', 'fr') }}" 
+                        class="px-3 py-2 text-sm font-medium rounded-md {{ app()->getLocale() === 'fr' ? 'bg-primary-100 text-primary-700' : 'text-gray-500 hover:text-gray-700' }}">
+                        Français
+                    </a>
+                    <a href="{{ route('language.switch', 'en') }}" 
+                        class="px-3 py-2 text-sm font-medium rounded-md {{ app()->getLocale() === 'en' ? 'bg-primary-100 text-primary-700' : 'text-gray-500 hover:text-gray-700' }}">
+                        English
+                    </a>
                 </div>
             </div>
         </div>

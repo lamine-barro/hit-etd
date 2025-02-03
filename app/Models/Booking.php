@@ -18,14 +18,22 @@ class Booking extends Model
         'start_time',
         'end_time',
         'purpose',
-        'status'
+        'status',
+        'firstname',
+        'lastname',
+        'email',
+        'phone',
+        'time',
+        'spaces',
+        'message'
     ];
 
     protected $casts = [
         'date' => 'date',
         'start_time' => 'datetime:H:i',
         'end_time' => 'datetime:H:i',
-        'status' => 'string'
+        'status' => 'string',
+        'spaces' => 'array'
     ];
 
     /**

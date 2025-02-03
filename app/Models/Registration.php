@@ -16,14 +16,13 @@ class Registration extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'event_id',
-        'user_id',
+        'name',
+        'email',
+        'whatsapp',
         'status',
         'payment_status',
-        'payment_reference',
         'amount_paid',
-        'payment_date',
-        'notes'
+        'payment_reference'
     ];
 
     /**
@@ -32,8 +31,7 @@ class Registration extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'payment_date' => 'datetime',
-        'amount_paid' => 'float',
+        'amount_paid' => 'decimal:2',
     ];
 
     /**

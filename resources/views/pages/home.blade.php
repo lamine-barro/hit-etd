@@ -15,12 +15,6 @@
     <!-- Initiative Gouvernementale -->
     @include('components.initiative')
 
-    <!-- Campus -->
-    @include('components.campus')
-
-    <!-- Actualités -->
-    @include('components.news')
-
     <!-- Partenaires -->
     @include('components.partners')
 
