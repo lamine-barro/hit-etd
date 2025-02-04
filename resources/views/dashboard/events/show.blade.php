@@ -44,12 +44,11 @@
             <div class="card mb-4">
                 <div class="card-body">
                     @if($event->illustration)
-                        <img src="{{ asset('storage/' . $event->illustration) }}" 
-                             alt="{{ $event->title }}" 
-                             class="img-fluid rounded mb-4" 
+                        <img src="{{ asset('storage/' . $event->illustration) }}"
+                             alt="{{ $event->title }}"
+                             class="img-fluid rounded mb-4"
                              style="width: 100%; height: 300px; object-fit: cover;">
                     @endif
-
                     <div class="mb-4">
                         <h5 class="card-title border-bottom pb-2">Description</h5>
                         <div class="text-muted">
@@ -179,7 +178,7 @@
                             </div>
                             <div class="d-flex align-items-center">
                                 <span class="text-muted me-3">
-                                    {{ $event->registrations_count }} 
+                                    {{ $event->registrations_count }}
                                     @if($event->max_participants > 0)
                                         / {{ $event->max_participants }}
                                     @endif
@@ -191,8 +190,8 @@
                                     @endphp
                                     <div class="flex-grow-1">
                                         <div class="progress" style="height: 6px;">
-                                            <div class="progress-bar bg-{{ $progressClass }}" 
-                                                 role="progressbar" 
+                                            <div class="progress-bar bg-{{ $progressClass }}"
+                                                 role="progressbar"
                                                  style="width: {{ $percentage }}%">
                                             </div>
                                         </div>
@@ -352,4 +351,4 @@ document.addEventListener('alpine:init', () => {
     border: none;
 }
 </style>
-@endsection 
+@endsection
