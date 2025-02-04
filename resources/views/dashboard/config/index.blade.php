@@ -12,7 +12,7 @@
                 <small class="text-muted">Paramètres principaux du site</small>
             </div>
             <div class="card-body">
-                <form action="{{ route('dashboard.config.update') }}" method="POST">
+                <form action="{{ route('config.update') }}" method="POST">
                     @csrf
                     <div class="mb-3">
                         <label class="form-label">Nom du site</label>
@@ -46,7 +46,7 @@
                 <small class="text-muted">Liens vers vos réseaux sociaux</small>
             </div>
             <div class="card-body">
-                <form action="{{ route('dashboard.config.update') }}" method="POST">
+                <form action="{{ route('config.update') }}" method="POST">
                     @csrf
                     <div class="mb-3">
                         <label class="form-label">
@@ -88,7 +88,7 @@
                 <small class="text-muted">Optimisation pour les moteurs de recherche</small>
             </div>
             <div class="card-body">
-                <form action="{{ route('dashboard.config.update') }}" method="POST">
+                <form action="{{ route('config.update') }}" method="POST">
                     @csrf
                     <div class="mb-3">
                         <label class="form-label">Titre par défaut</label>
@@ -119,7 +119,7 @@
                 <small class="text-muted">Mode maintenance du site</small>
             </div>
             <div class="card-body">
-                <form action="{{ route('dashboard.config.update') }}" method="POST">
+                <form action="{{ route('config.update') }}" method="POST">
                     @csrf
                     <div class="form-check form-switch mb-3">
                         <input class="form-check-input" type="checkbox" name="maintenance_mode" id="maintenanceMode" {{ config('site.maintenance_mode') ? 'checked' : '' }}>
@@ -137,4 +137,4 @@
         </div>
     </div>
 </div>
-@endsection 
+@endsection
