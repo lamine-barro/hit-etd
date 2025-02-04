@@ -5,11 +5,11 @@
     <div class="row">
         <div class="col-12">
             <h1 class="mb-4">{{ __('Système de réservation') }}</h1>
-            
+
             <div class="card shadow-sm mb-4">
                 <div class="card-body">
                     <h5 class="card-title">{{ __('Faire une nouvelle réservation') }}</h5>
-                    
+
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul class="mb-0">
@@ -32,7 +32,7 @@
                                     <option value="espace_coworking">{{ __('Espace de coworking') }}</option>
                                 </select>
                             </div>
-                            
+
                             <div class="col-md-6 mb-3">
                                 <label for="date" class="form-label">{{ __('Date') }}</label>
                                 <input type="date" class="form-control" id="date" name="date" required min="{{ date('Y-m-d') }}">
@@ -107,4 +107,4 @@
         </div>
     </div>
 </div>
-@endsection 
+@endsection

@@ -104,7 +104,6 @@ class PaystackService
             }
 
             return $response->json();
-
         } catch (\Exception $e) {
             Log::error('Erreur lors de la vérification du paiement Paystack', [
                 'error' => $e->getMessage(),

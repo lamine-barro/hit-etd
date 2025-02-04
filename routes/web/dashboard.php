@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AudienceController;
-use App\Http\Controllers\BookingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\EventPaymentController;
@@ -28,8 +27,8 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::resource('articles', ArticleController::class);
 
     // Réservations
-    Route::get('bookings', [BookingController::class, 'index'])->name('bookings.index');
-    Route::delete('bookings/{booking}', [BookingController::class, 'destroy'])->name('bookings.destroy');
+    Route::get('bookings', [DashboardController::class, 'bookings'])->name('bookings.index');
+    Route::delete('bookings/{booking}', [DashboardController::class, 'destroyBooking'])->name('bookings.destroy');
 
     // Audiences et Newsletter
     Route::prefix('audiences')->name('audiences.')->group(function () {
