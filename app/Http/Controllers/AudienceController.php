@@ -11,7 +11,7 @@ class AudienceController extends Controller
     {
         $audiences = Audience::orderBy('created_at', 'desc')
             ->paginate(10);
-        
+
         return view('dashboard.audiences.index', compact('audiences'));
     }
 
@@ -19,14 +19,14 @@ class AudienceController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'required|string'
+            'description' => 'required|string',
         ]);
 
         Audience::create($validated);
 
         return back()->with('toast', [
             'type' => 'success',
-            'message' => 'Audience créée avec succès.'
+            'message' => 'Audience créée avec succès.',
         ]);
     }
 
@@ -34,14 +34,14 @@ class AudienceController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'required|string'
+            'description' => 'required|string',
         ]);
 
         $audience->update($validated);
 
         return back()->with('toast', [
             'type' => 'success',
-            'message' => 'Audience mise à jour avec succès.'
+            'message' => 'Audience mise à jour avec succès.',
         ]);
     }
 
@@ -51,7 +51,7 @@ class AudienceController extends Controller
 
         return back()->with('toast', [
             'type' => 'success',
-            'message' => 'Audience supprimée avec succès.'
+            'message' => 'Audience supprimée avec succès.',
         ]);
     }
-} 
+}

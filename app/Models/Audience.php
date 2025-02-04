@@ -12,16 +12,16 @@ class Audience extends Model
 
     protected $fillable = [
         'name',
-        'email', 
+        'email',
         'whatsapp',
         'newsletter_email',
         'newsletter_whatsapp',
-        'interests'
+        'interests',
     ];
 
     protected $casts = [
         'newsletter_email' => 'boolean',
         'newsletter_whatsapp' => 'boolean',
-        'interests' => 'array'
+        'interests' => 'array',
     ];
 }

@@ -20,14 +20,14 @@ class NewsletterSubscriptionAdmin extends Mailable
     public function build()
     {
         return $this->subject('Nouvel abonné à la newsletter - Hub Ivoire Tech')
-                    ->markdown('emails.newsletter-subscription-admin')
-                    ->with([
-                        'name' => $this->subscriber['name'],
-                        'email' => $this->subscriber['email'],
-                        'whatsapp' => $this->subscriber['whatsapp'] ?? null,
-                        'newsletter_email' => $this->subscriber['newsletter_email'],
-                        'newsletter_whatsapp' => $this->subscriber['newsletter_whatsapp'],
-                        'interests' => $this->subscriber['interests'] ?? [],
-                    ]);
+            ->markdown('emails.newsletter-subscription-admin')
+            ->with([
+                'name' => $this->subscriber['name'],
+                'email' => $this->subscriber['email'],
+                'whatsapp' => $this->subscriber['whatsapp'] ?? null,
+                'newsletter_email' => $this->subscriber['newsletter_email'],
+                'newsletter_whatsapp' => $this->subscriber['newsletter_whatsapp'],
+                'interests' => $this->subscriber['interests'] ?? [],
+            ]);
     }
-} 
+}

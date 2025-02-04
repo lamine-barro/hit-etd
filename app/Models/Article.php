@@ -22,7 +22,7 @@ class Article extends Model
         'reading_time',
         'views',
         'status',
-        'published_at'
+        'published_at',
     ];
 
     protected $casts = [
@@ -30,7 +30,7 @@ class Article extends Model
         'featured' => 'boolean',
         'reading_time' => 'integer',
         'views' => 'integer',
-        'published_at' => 'datetime'
+        'published_at' => 'datetime',
     ];
 
     /**
@@ -72,6 +72,7 @@ class Article extends Model
     {
         $wordsPerMinute = 200;
         $numberOfWords = str_word_count(strip_tags($content));
+
         return max(1, ceil($numberOfWords / $wordsPerMinute));
     }
 
@@ -81,8 +82,8 @@ class Article extends Model
     public function scopePublished($query)
     {
         return $query->where('status', 'published')
-                    ->where('published_at', '<=', now())
-                    ->latest('published_at');
+            ->where('published_at', '<=', now())
+            ->latest('published_at');
     }
 
     /**
@@ -106,6 +107,7 @@ class Article extends Model
         if (is_string($value)) {
             return json_decode($value, true) ?? [];
         }
+
         return $value ?? [];
     }
 

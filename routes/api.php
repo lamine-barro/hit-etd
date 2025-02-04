@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\EventPaymentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EventPaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,4 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Paystack Webhook
 Route::post('/webhooks/paystack', [EventPaymentController::class, 'webhook'])
     ->name('paystack.webhook')
-    ->middleware('paystack.webhook'); 
+    ->middleware('paystack.webhook');

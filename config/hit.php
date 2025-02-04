@@ -9,12 +9,12 @@ return [
 
     'name' => 'Hub Ivoire Tech',
     'description' => 'Le plus grand Campus de Startups en Afrique',
-    
+
     // Contact Information
     'address' => 'Tour POSTEL 2001, Mezzanine et 13e étage, Plateau - Abidjan, Côte d\'Ivoire',
     'phone' => '+225 0704853848',
     'email' => 'hello@hubivoiretech.ci',
-    
+
     // Social Media Links
     'social' => [
         'facebook' => 'https://facebook.com/hubivoiretech',
@@ -26,7 +26,7 @@ return [
     // Partners
     'partners' => [
         'premium' => ['ANSUT'],
-        'platinum' => ['ARTCI', 'PETROCI','CI-ENERGIES'],
+        'platinum' => ['ARTCI', 'PETROCI', 'CI-ENERGIES'],
         'gold' => ['VITIB', 'CCC'],
         'silver' => ['LONACI', 'PAA'],
     ],

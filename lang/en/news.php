@@ -9,4 +9,4 @@ return [
     'register' => 'Register',
     'read_more' => 'Read more',
     'view_all_news' => 'View all news',
-]; 
+];

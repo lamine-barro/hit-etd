@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class CampusController extends Controller
@@ -33,7 +32,7 @@ class CampusController extends Controller
                 'purpose' => 'required|string|in:coworking,incubation,formation,evenement',
                 'spaces' => 'required|array',
                 'spaces.*' => 'string|in:coworking,meeting,event,studio,auditorium',
-                'message' => 'required|string|max:1000'
+                'message' => 'required|string|max:1000',
             ]);
 
             $booking = Booking::create([
@@ -45,27 +44,27 @@ class CampusController extends Controller
                 'time' => $validated['time'],
                 'purpose' => $validated['purpose'],
                 'spaces' => $validated['spaces'],
-                'message' => $validated['message']
+                'message' => $validated['message'],
             ]);
 
             Log::info('Nouvelle réservation de visite créée', [
                 'booking_id' => $booking->id,
-                'data' => $validated
+                'data' => $validated,
             ]);
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Votre demande de visite a été enregistrée avec succès. Nous vous contacterons bientôt pour confirmer le rendez-vous.'
+                'message' => 'Votre demande de visite a été enregistrée avec succès. Nous vous contacterons bientôt pour confirmer le rendez-vous.',
             ]);
 
         } catch (\Exception $e) {
-            Log::error('Erreur lors de la réservation de visite: ' . $e->getMessage(), [
-                'data' => $request->all()
+            Log::error('Erreur lors de la réservation de visite: '.$e->getMessage(), [
+                'data' => $request->all(),
             ]);
 
             return response()->json([
                 'status' => 'error',
-                'message' => 'Une erreur est survenue lors de votre demande. Veuillez réessayer plus tard.'
+                'message' => 'Une erreur est survenue lors de votre demande. Veuillez réessayer plus tard.',
             ], 422);
         }
     }

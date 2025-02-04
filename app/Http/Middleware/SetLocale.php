@@ -12,8 +12,6 @@ class SetLocale
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
@@ -23,7 +21,7 @@ class SetLocale
         } else {
             // Détecte la langue du navigateur
             $locale = substr($request->server('HTTP_ACCEPT_LANGUAGE'), 0, 2);
-            
+
             // Vérifie si la langue est supportée
             if (in_array($locale, ['fr', 'en'])) {
                 App::setLocale($locale);
@@ -36,4 +34,4 @@ class SetLocale
 
         return $next($request);
     }
-} 
+}

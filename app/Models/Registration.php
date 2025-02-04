@@ -22,7 +22,7 @@ class Registration extends Model
         'status',
         'payment_status',
         'amount_paid',
-        'payment_reference'
+        'payment_reference',
     ];
 
     /**
@@ -49,4 +49,4 @@ class Registration extends Model
     {
         return $this->belongsTo(User::class);
     }
-} 
+}

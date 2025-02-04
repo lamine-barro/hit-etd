@@ -20,12 +20,12 @@ class NewsletterSubscriptionConfirmation extends Mailable
     public function build()
     {
         return $this->subject('Confirmation d\'inscription à la newsletter - Hub Ivoire Tech')
-                    ->markdown('emails.newsletter-subscription-confirmation')
-                    ->with([
-                        'name' => $this->subscriber['name'],
-                        'newsletter_email' => $this->subscriber['newsletter_email'],
-                        'newsletter_whatsapp' => $this->subscriber['newsletter_whatsapp'],
-                        'interests' => $this->subscriber['interests'] ?? [],
-                    ]);
+            ->markdown('emails.newsletter-subscription-confirmation')
+            ->with([
+                'name' => $this->subscriber['name'],
+                'newsletter_email' => $this->subscriber['newsletter_email'],
+                'newsletter_whatsapp' => $this->subscriber['newsletter_whatsapp'],
+                'interests' => $this->subscriber['interests'] ?? [],
+            ]);
     }
-} 
+}

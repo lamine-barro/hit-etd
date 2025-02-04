@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\Registration;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class EventRegistrationController extends Controller
@@ -21,7 +20,7 @@ class EventRegistrationController extends Controller
             ]);
 
             // Check if registration is open
-            if (!$event->isRegistrationOpen()) {
+            if (! $event->isRegistrationOpen()) {
                 return back()->with('error', __('Les inscriptions sont fermées pour cet événement.'));
             }
 
@@ -55,7 +54,8 @@ class EventRegistrationController extends Controller
             return back()->with('success', __('Votre inscription a été confirmée avec succès.'));
 
         } catch (\Exception $e) {
-            Log::error('Registration error: ' . $e->getMessage());
+            Log::error('Registration error: '.$e->getMessage());
+
             return back()->with('error', __('Une erreur est survenue lors de l\'inscription. Veuillez réessayer.'));
         }
     }
@@ -64,7 +64,7 @@ class EventRegistrationController extends Controller
     {
         try {
             // Check if user is authorized to cancel
-            if (!auth()->check() || (auth()->user()->cannot('cancel', $registration))) {
+            if (! auth()->check() || (auth()->user()->cannot('cancel', $registration))) {
                 return back()->with('error', __('Vous n\'êtes pas autorisé à annuler cette inscription.'));
             }
 
@@ -80,8 +80,9 @@ class EventRegistrationController extends Controller
             return back()->with('success', __('Votre inscription a été annulée avec succès.'));
 
         } catch (\Exception $e) {
-            Log::error('Registration cancellation error: ' . $e->getMessage());
+            Log::error('Registration cancellation error: '.$e->getMessage());
+
             return back()->with('error', __('Une erreur est survenue lors de l\'annulation de l\'inscription.'));
         }
     }
-} 
+}

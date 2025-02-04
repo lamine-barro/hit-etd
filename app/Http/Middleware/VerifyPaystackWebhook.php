@@ -16,7 +16,7 @@ class VerifyPaystackWebhook
         }
 
         // Vérifier la signature Paystack
-        if (!$request->hasHeader('x-paystack-signature')) {
+        if (! $request->hasHeader('x-paystack-signature')) {
             return response()->json(['message' => 'No Paystack signature'], 400);
         }
 
@@ -27,11 +27,12 @@ class VerifyPaystackWebhook
         if ($signature !== $computedSignature) {
             Log::warning('Invalid Paystack webhook signature', [
                 'received' => $signature,
-                'computed' => $computedSignature
+                'computed' => $computedSignature,
             ]);
+
             return response()->json(['message' => 'Invalid signature'], 400);
         }
 
         return $next($request);
     }
-} 
+}

@@ -21,7 +21,7 @@ class EventPaymentController extends Controller
     {
         try {
             $payment = $this->paystackService->initiatePayment($registration);
-            
+
             return response()->json([
                 'status' => 'success',
                 'message' => 'Payment initiated successfully',
@@ -31,8 +31,8 @@ class EventPaymentController extends Controller
                 ],
             ]);
         } catch (\Exception $e) {
-            Log::error('Payment initiation failed: ' . $e->getMessage());
-            
+            Log::error('Payment initiation failed: '.$e->getMessage());
+
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to initiate payment',
@@ -46,34 +46,34 @@ class EventPaymentController extends Controller
         try {
             $reference = $request->query('reference');
             $paymentData = $this->paystackService->verifyPayment($reference);
-            
+
             $payment = EventPayment::where('paystack_reference', $reference)->firstOrFail();
-            
+
             if ($paymentData['data']['status'] === 'success') {
                 $payment->markAsSuccessful(
                     $paymentData['data']['id'],
                     $paymentData['data']
                 );
-                
+
                 // Update registration status
                 $payment->registration->update(['status' => 'confirmed']);
-                
+
                 return redirect()->route('events.registration.success', [
                     'event' => $payment->event_id,
                     'registration' => $payment->event_registration_id,
                 ])->with('success', 'Payment successful! Your registration is confirmed.');
             }
-            
+
             $payment->markAsFailed($paymentData);
-            
+
             return redirect()->route('events.registration.failed', [
                 'event' => $payment->event_id,
                 'registration' => $payment->event_registration_id,
             ])->with('error', 'Payment failed. Please try again.');
-            
+
         } catch (\Exception $e) {
-            Log::error('Payment callback failed: ' . $e->getMessage());
-            
+            Log::error('Payment callback failed: '.$e->getMessage());
+
             return redirect()->route('events.index')
                 ->with('error', 'We could not verify your payment. Please contact support.');
         }
@@ -83,10 +83,12 @@ class EventPaymentController extends Controller
     {
         try {
             $this->paystackService->handleWebhook($request->all());
+
             return response()->json(['status' => 'success']);
         } catch (\Exception $e) {
-            Log::error('Webhook processing failed: ' . $e->getMessage());
+            Log::error('Webhook processing failed: '.$e->getMessage());
+
             return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
         }
     }
-} 
+}

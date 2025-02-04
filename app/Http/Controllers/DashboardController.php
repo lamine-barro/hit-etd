@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Audience;
+use App\Models\Booking;
 use App\Models\Event;
 use App\Models\EventRegistration;
-use App\Models\Booking;
-use App\Models\Audience;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -34,7 +34,7 @@ class DashboardController extends Controller
         $events = Event::with('registrations')
             ->orderBy('start_date', 'desc')
             ->paginate(10);
-        
+
         return view('dashboard.events.index', compact('events'));
     }
 
@@ -42,7 +42,7 @@ class DashboardController extends Controller
     {
         $articles = Article::orderBy('created_at', 'desc')
             ->paginate(10);
-        
+
         return view('dashboard.articles.index', compact('articles'));
     }
 
@@ -50,7 +50,7 @@ class DashboardController extends Controller
     {
         $bookings = Booking::orderBy('created_at', 'desc')
             ->paginate(10);
-        
+
         return view('dashboard.bookings.index', compact('bookings'));
     }
 
@@ -58,7 +58,7 @@ class DashboardController extends Controller
     {
         $audiences = Audience::orderBy('created_at', 'desc')
             ->paginate(10);
-        
+
         return view('dashboard.audiences.index', compact('audiences'));
     }
 
@@ -78,7 +78,7 @@ class DashboardController extends Controller
 
         // Mise à jour des configurations
         foreach ($validated as $key => $value) {
-            config(['site.' . $key => $value]);
+            config(['site.'.$key => $value]);
         }
 
         return back()->with('success', 'Configuration mise à jour avec succès.');
@@ -139,6 +139,7 @@ class DashboardController extends Controller
     public function destroyEvent(Event $event)
     {
         $event->delete();
+
         return back()->with('success', 'Événement supprimé avec succès.');
     }
 
@@ -166,6 +167,7 @@ class DashboardController extends Controller
     public function destroyArticle(Article $article)
     {
         $article->delete();
+
         return back()->with('success', 'Article supprimé avec succès.');
     }
 
@@ -173,12 +175,14 @@ class DashboardController extends Controller
     public function destroyBooking(Booking $booking)
     {
         $booking->delete();
+
         return back()->with('success', 'Réservation supprimée avec succès.');
     }
 
     public function destroyAudience(Audience $audience)
     {
         $audience->delete();
+
         return back()->with('success', 'Audience supprimée avec succès.');
     }
 }

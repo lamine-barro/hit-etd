@@ -34,7 +34,7 @@ class Event extends Model
         'early_bird_price',
         'early_bird_end_date',
         'status',
-        'illustration'
+        'illustration',
     ];
 
     /**
@@ -51,7 +51,7 @@ class Event extends Model
         'is_paid' => 'boolean',
         'price' => 'decimal:2',
         'early_bird_price' => 'decimal:2',
-        'max_participants' => 'integer'
+        'max_participants' => 'integer',
     ];
 
     protected static function boot()
@@ -90,12 +90,12 @@ class Event extends Model
      */
     public function getCurrentPrice(): float
     {
-        if (!$this->is_paid) {
+        if (! $this->is_paid) {
             return 0;
         }
 
-        if ($this->early_bird_price && 
-            $this->early_bird_end_date && 
+        if ($this->early_bird_price &&
+            $this->early_bird_end_date &&
             now()->lt($this->early_bird_end_date)) {
             return $this->early_bird_price;
         }
@@ -108,7 +108,7 @@ class Event extends Model
      */
     public function isFull(): bool
     {
-        if (!$this->max_participants) {
+        if (! $this->max_participants) {
             return false;
         }
 
@@ -120,18 +120,17 @@ class Event extends Model
      */
     public function getAvailableSpots(): int
     {
-        if (!$this->max_participants) {
+        if (! $this->max_participants) {
             return PHP_INT_MAX;
         }
 
         $taken = $this->registrations()->count();
+
         return max(0, $this->max_participants - $taken);
     }
 
     /**
      * Check if the event has reached its maximum capacity
-     *
-     * @return bool
      */
     public function hasReachedCapacity(): bool
     {
@@ -142,12 +141,10 @@ class Event extends Model
 
     /**
      * Check if registration is open for the event
-     *
-     * @return bool
      */
     public function isRegistrationOpen(): bool
     {
-        return now()->lt($this->registration_end_date) && !$this->hasReachedCapacity();
+        return now()->lt($this->registration_end_date) && ! $this->hasReachedCapacity();
     }
 
     /**
@@ -156,8 +153,8 @@ class Event extends Model
     public function scopeUpcoming($query)
     {
         return $query->where('start_date', '>', now())
-                    ->where('status', 'published')
-                    ->orderBy('start_date');
+            ->where('status', 'published')
+            ->orderBy('start_date');
     }
 
     /**
@@ -166,6 +163,6 @@ class Event extends Model
     public function scopePast($query)
     {
         return $query->where('start_date', '<', now())
-                    ->orderByDesc('start_date');
+            ->orderByDesc('start_date');
     }
 }

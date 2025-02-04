@@ -16,6 +16,7 @@ class BookingController extends Controller
     public function index()
     {
         $bookings = Auth::user()->bookings()->latest()->get();
+
         return view('pages.resident-booking', compact('bookings'));
     }
 

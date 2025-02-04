@@ -33,7 +33,7 @@ class ArticleListController extends Controller
 
         return view('pages.articles-list', [
             'articles' => $articles,
-            'featuredArticles' => $featuredArticles->get()
+            'featuredArticles' => $featuredArticles->get(),
         ]);
     }
 
@@ -60,7 +60,7 @@ class ArticleListController extends Controller
 
         return view('pages.article-detail', [
             'article' => $article,
-            'relatedArticles' => $relatedArticles
+            'relatedArticles' => $relatedArticles,
         ]);
     }
-} 
+}

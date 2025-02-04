@@ -2,16 +2,18 @@
 
 namespace App\Services;
 
-use App\Models\Registration;
 use App\Models\EventPayment;
-use Illuminate\Support\Str;
+use App\Models\Registration;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class PaystackService
 {
     protected $secretKey;
+
     protected $publicKey;
+
     protected $baseUrl = 'https://api.paystack.co';
 
     public function __construct()
@@ -24,7 +26,7 @@ class PaystackService
     {
         try {
             // Créer une référence unique pour le paiement
-            $reference = 'HIT_' . Str::random(16);
+            $reference = 'HIT_'.Str::random(16);
 
             // Créer l'enregistrement du paiement
             $payment = EventPayment::create([
@@ -34,14 +36,14 @@ class PaystackService
                 'amount' => $registration->event->getCurrentPrice() * 100, // Paystack utilise les plus petites unités monétaires
                 'currency' => $registration->event->currency,
                 'paystack_reference' => $reference,
-                'status' => 'pending'
+                'status' => 'pending',
             ]);
 
             // Initialiser la transaction avec Paystack
             $response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . $this->secretKey,
+                'Authorization' => 'Bearer '.$this->secretKey,
                 'Content-Type' => 'application/json',
-            ])->post($this->baseUrl . '/transaction/initialize', [
+            ])->post($this->baseUrl.'/transaction/initialize', [
                 'email' => $registration->email,
                 'amount' => $payment->amount,
                 'currency' => $payment->currency,
@@ -54,27 +56,27 @@ class PaystackService
                     'custom_fields' => [
                         [
                             'display_name' => "Nom de l'événement",
-                            'variable_name' => "event_name",
-                            'value' => $registration->event->title
+                            'variable_name' => 'event_name',
+                            'value' => $registration->event->title,
                         ],
                         [
                             'display_name' => "Date de l'événement",
-                            'variable_name' => "event_date",
-                            'value' => $registration->event->start_date->format('d/m/Y')
-                        ]
-                    ]
-                ]
+                            'variable_name' => 'event_date',
+                            'value' => $registration->event->start_date->format('d/m/Y'),
+                        ],
+                    ],
+                ],
             ]);
 
-            if (!$response->successful()) {
-                throw new \Exception('Échec de l\'initialisation du paiement: ' . $response->body());
+            if (! $response->successful()) {
+                throw new \Exception('Échec de l\'initialisation du paiement: '.$response->body());
             }
 
             $data = $response->json();
 
             // Mettre à jour le paiement avec la réponse de Paystack
             $payment->update([
-                'paystack_response' => $data
+                'paystack_response' => $data,
             ]);
 
             return $payment;
@@ -82,7 +84,7 @@ class PaystackService
         } catch (\Exception $e) {
             Log::error('Erreur lors de l\'initialisation du paiement Paystack', [
                 'error' => $e->getMessage(),
-                'registration_id' => $registration->id
+                'registration_id' => $registration->id,
             ]);
 
             throw $e;
@@ -93,12 +95,12 @@ class PaystackService
     {
         try {
             $response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . $this->secretKey,
+                'Authorization' => 'Bearer '.$this->secretKey,
                 'Content-Type' => 'application/json',
-            ])->get($this->baseUrl . '/transaction/verify/' . $reference);
+            ])->get($this->baseUrl.'/transaction/verify/'.$reference);
 
-            if (!$response->successful()) {
-                throw new \Exception('Échec de la vérification du paiement: ' . $response->body());
+            if (! $response->successful()) {
+                throw new \Exception('Échec de la vérification du paiement: '.$response->body());
             }
 
             return $response->json();
@@ -106,7 +108,7 @@ class PaystackService
         } catch (\Exception $e) {
             Log::error('Erreur lors de la vérification du paiement Paystack', [
                 'error' => $e->getMessage(),
-                'reference' => $reference
+                'reference' => $reference,
             ]);
 
             throw $e;
@@ -122,8 +124,8 @@ class PaystackService
             // Trouver le paiement correspondant
             $payment = EventPayment::where('reference', $data['reference'])->first();
 
-            if (!$payment) {
-                throw new \Exception('Paiement non trouvé: ' . $data['reference']);
+            if (! $payment) {
+                throw new \Exception('Paiement non trouvé: '.$data['reference']);
             }
 
             switch ($event) {
@@ -138,7 +140,7 @@ class PaystackService
                         'status' => 'confirmed',
                         'payment_status' => 'completed',
                         'payment_date' => now(),
-                        'amount_paid' => $data['amount'] / 100
+                        'amount_paid' => $data['amount'] / 100,
                     ]);
                     break;
 
@@ -152,10 +154,10 @@ class PaystackService
         } catch (\Exception $e) {
             Log::error('Erreur lors du traitement du webhook Paystack', [
                 'error' => $e->getMessage(),
-                'payload' => $payload
+                'payload' => $payload,
             ]);
 
             throw $e;
         }
     }
-} 
+}

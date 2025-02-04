@@ -37,7 +37,7 @@ return new class extends Migration
                 'phone',
                 'time',
                 'spaces',
-                'message'
+                'message',
             ]);
         });
     }

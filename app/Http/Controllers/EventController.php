@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
 class EventController extends Controller
@@ -20,10 +20,10 @@ class EventController extends Controller
         // Appliquer les filtres
         if ($request->filled('search')) {
             $search = $request->input('search');
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%{$search}%")
-                  ->orWhere('description', 'like', "%{$search}%")
-                  ->orWhere('location', 'like', "%{$search}%");
+                    ->orWhere('description', 'like', "%{$search}%")
+                    ->orWhere('location', 'like', "%{$search}%");
             });
         }
 
@@ -76,11 +76,11 @@ class EventController extends Controller
                 'price' => 'required_if:is_paid,1|nullable|numeric|min:0',
                 'currency' => 'required_if:is_paid,1|nullable|string|in:XOF,EUR,USD',
                 'status' => 'required|string|in:draft,published',
-                'illustration' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+                'illustration' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
 
             // Si l'événement est gratuit, on force price et currency à null
-            if (!$validatedData['is_paid']) {
+            if (! $validatedData['is_paid']) {
                 $validatedData['price'] = null;
                 $validatedData['currency'] = null;
             }
@@ -88,17 +88,17 @@ class EventController extends Controller
             // Vérification supplémentaire des dates
             $start_date = \Carbon\Carbon::parse($request->start_date);
             $registration_end_date = \Carbon\Carbon::parse($request->registration_end_date);
-            
+
             if ($registration_end_date->isAfter($start_date)) {
                 throw ValidationException::withMessages([
-                    'registration_end_date' => ['La date limite d\'inscription doit être antérieure ou égale à la date de début de l\'événement.']
+                    'registration_end_date' => ['La date limite d\'inscription doit être antérieure ou égale à la date de début de l\'événement.'],
                 ]);
             }
 
             // Gérer l'upload de l'image
             if ($request->hasFile('illustration')) {
                 $file = $request->file('illustration');
-                $filename = time() . '_' . $file->getClientOriginalName();
+                $filename = time().'_'.$file->getClientOriginalName();
                 $path = $file->storeAs('events', $filename, 'public');
                 $validatedData['illustration'] = $path;
             }
@@ -110,21 +110,21 @@ class EventController extends Controller
         } catch (ValidationException $e) {
             Log::error('Erreur de validation lors de la création de l\'événement', [
                 'errors' => $e->errors(),
-                'request_data' => $request->all()
+                'request_data' => $request->all(),
             ]);
             throw $e;
         } catch (\Exception $e) {
             Log::error('Erreur lors de la création de l\'événement', [
                 'error' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),
-                'request_data' => $request->all()
+                'request_data' => $request->all(),
             ]);
-            
+
             // Si une image a été uploadée, la supprimer
             if (isset($path)) {
                 Storage::disk('public')->delete($path);
             }
-            
+
             throw $e;
         }
     }
@@ -135,6 +135,7 @@ class EventController extends Controller
     public function show(Event $event)
     {
         $event->loadCount('registrations');
+
         return view('dashboard.events.show', compact('event'));
     }
 
@@ -167,7 +168,7 @@ class EventController extends Controller
                 'price' => 'required_if:is_paid,1|nullable|numeric|min:0',
                 'currency' => 'required_if:is_paid,1|nullable|string|in:XOF,EUR,USD',
                 'status' => 'required|string|in:draft,published',
-                'illustration' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+                'illustration' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
 
             // Gérer l'upload de l'image
@@ -176,9 +177,9 @@ class EventController extends Controller
                 if ($event->illustration) {
                     Storage::disk('public')->delete($event->illustration);
                 }
-                
+
                 $file = $request->file('illustration');
-                $filename = time() . '_' . $file->getClientOriginalName();
+                $filename = time().'_'.$file->getClientOriginalName();
                 $path = $file->storeAs('events', $filename, 'public');
                 $validatedData['illustration'] = $path;
             }
@@ -190,21 +191,21 @@ class EventController extends Controller
         } catch (ValidationException $e) {
             Log::error('Erreur de validation lors de la mise à jour de l\'événement', [
                 'errors' => $e->errors(),
-                'request_data' => $request->all()
+                'request_data' => $request->all(),
             ]);
             throw $e;
         } catch (\Exception $e) {
             Log::error('Erreur lors de la mise à jour de l\'événement', [
                 'error' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),
-                'request_data' => $request->all()
+                'request_data' => $request->all(),
             ]);
-            
+
             // Si une nouvelle image a été uploadée, la supprimer
             if (isset($path)) {
                 Storage::disk('public')->delete($path);
             }
-            
+
             throw $e;
         }
     }
@@ -222,7 +223,7 @@ class EventController extends Controller
                     ->with('toast', [
                         'type' => 'error',
                         'message' => 'Impossible de supprimer un événement qui a des inscriptions.',
-                        'title' => 'Erreur!'
+                        'title' => 'Erreur!',
                     ]);
             }
 
@@ -239,7 +240,7 @@ class EventController extends Controller
                 ->with('toast', [
                     'type' => 'success',
                     'message' => 'L\'événement a été supprimé avec succès.',
-                    'title' => 'Succès!'
+                    'title' => 'Succès!',
                 ]);
         } catch (\Exception $e) {
             return redirect()
@@ -247,8 +248,8 @@ class EventController extends Controller
                 ->with('toast', [
                     'type' => 'error',
                     'message' => 'Une erreur est survenue lors de la suppression de l\'événement.',
-                    'title' => 'Erreur!'
+                    'title' => 'Erreur!',
                 ]);
         }
     }
-} 
+}

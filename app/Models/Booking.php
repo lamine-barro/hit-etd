@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Booking extends Model
 {
@@ -25,7 +25,7 @@ class Booking extends Model
         'phone',
         'time',
         'spaces',
-        'message'
+        'message',
     ];
 
     protected $casts = [
@@ -33,7 +33,7 @@ class Booking extends Model
         'start_time' => 'datetime:H:i',
         'end_time' => 'datetime:H:i',
         'status' => 'string',
-        'spaces' => 'array'
+        'spaces' => 'array',
     ];
 
     /**

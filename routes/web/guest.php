@@ -1,14 +1,14 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ArticleListController;
 use App\Http\Controllers\CampusController;
 use App\Http\Controllers\EventListController;
-use App\Http\Controllers\ArticleListController;
+use App\Http\Controllers\EventPaymentController;
+use App\Http\Controllers\EventRegistrationController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\NewsletterController;
-use App\Http\Controllers\EventRegistrationController;
-use App\Http\Controllers\EventPaymentController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,4 +54,4 @@ Route::view('/mentions-legales', 'pages.legal')->name('mentions-legales');
 Route::view('/politique-de-confidentialite', 'pages.privacy')->name('privacy');
 Route::view('/faq', 'pages.faq')->name('faq');
 Route::view('/conditions-utilisation', 'pages.terms')->name('terms');
-Route::view('/espace-membre', 'pages.member-space')->name('member-space'); 
+Route::view('/espace-membre', 'pages.member-space')->name('member-space');

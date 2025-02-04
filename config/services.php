@@ -38,7 +38,7 @@ return [
     'paystack' => [
         'secret_key' => env('PAYSTACK_SECRET_KEY', 'sk_live_19d5590d30467f6d003cc8c90d4b351387fff0d7'),
         'public_key' => env('PAYSTACK_PUBLIC_KEY', 'pk_live_f92ada4670564266e6c8ce058ae25b177f2f62eb'),
-        'webhook_url' => env('PAYSTACK_WEBHOOK_URL', config('app.url') . '/api/webhooks/paystack'),
+        'webhook_url' => env('PAYSTACK_WEBHOOK_URL', config('app.url').'/api/webhooks/paystack'),
     ],
 
 ];

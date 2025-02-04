@@ -8,7 +8,6 @@ use App\Notifications\OtpNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 
 class OtpAuthController extends Controller
 {
@@ -24,10 +23,10 @@ class OtpAuthController extends Controller
         ]);
 
         $user = User::where('email', $request->email)->first();
-        
+
         // Generate OTP
         $otp = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
-        
+
         // Save OTP to user
         $user->update([
             'otp' => $otp,
@@ -49,7 +48,7 @@ class OtpAuthController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        if (!$user || $user->otp !== $request->otp || Carbon::now()->isAfter($user->otp_expires_at)) {
+        if (! $user || $user->otp !== $request->otp || Carbon::now()->isAfter($user->otp_expires_at)) {
             return back()->with('error', 'Code OTP invalide ou expiré.');
         }
 
@@ -70,6 +69,7 @@ class OtpAuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
         return redirect()->route('login');
     }
 }

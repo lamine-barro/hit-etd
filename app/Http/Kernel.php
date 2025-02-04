@@ -74,4 +74,4 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'paystack.webhook' => \App\Http\Middleware\VerifyPaystackWebhook::class,
     ];
-} 
+}

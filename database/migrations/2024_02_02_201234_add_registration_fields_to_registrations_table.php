@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('registrations', function (Blueprint $table) {
-            if (!Schema::hasColumn('registrations', 'name')) {
+            if (! Schema::hasColumn('registrations', 'name')) {
                 $table->string('name')->after('id');
             }
-            if (!Schema::hasColumn('registrations', 'email')) {
+            if (! Schema::hasColumn('registrations', 'email')) {
                 $table->string('email')->after('name');
             }
-            if (!Schema::hasColumn('registrations', 'whatsapp')) {
+            if (! Schema::hasColumn('registrations', 'whatsapp')) {
                 $table->string('whatsapp')->nullable()->after('email');
             }
         });
@@ -33,8 +33,8 @@ return new class extends Migration
             $table->dropColumn([
                 'name',
                 'email',
-                'whatsapp'
+                'whatsapp',
             ]);
         });
     }
-}; 
+};

@@ -21,16 +21,16 @@ class VisitBookingAdmin extends Mailable
     public function build()
     {
         return $this->subject('Nouvelle demande de visite - Hub Ivoire Tech')
-                    ->markdown('emails.visit-booking-admin')
-                    ->with([
-                        'name' => $this->booking->full_name,
-                        'email' => $this->booking->email,
-                        'phone' => $this->booking->phone,
-                        'date' => $this->booking->date->format('d/m/Y'),
-                        'time' => $this->booking->time->format('H:i'),
-                        'spaces' => $this->booking->spaces,
-                        'purpose' => $this->booking->purpose,
-                        'message' => $this->booking->message,
-                    ]);
+            ->markdown('emails.visit-booking-admin')
+            ->with([
+                'name' => $this->booking->full_name,
+                'email' => $this->booking->email,
+                'phone' => $this->booking->phone,
+                'date' => $this->booking->date->format('d/m/Y'),
+                'time' => $this->booking->time->format('H:i'),
+                'spaces' => $this->booking->spaces,
+                'purpose' => $this->booking->purpose,
+                'message' => $this->booking->message,
+            ]);
     }
-} 
+}

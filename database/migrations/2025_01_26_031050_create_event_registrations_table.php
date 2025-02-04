@@ -29,7 +29,7 @@ return new class extends Migration
                 'corporate',
                 'service_public',
                 'structure_accompagnement',
-                'autre'
+                'autre',
             ]);
             $table->timestamps();
         });

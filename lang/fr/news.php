@@ -9,4 +9,4 @@ return [
     'register' => 'S\'inscrire',
     'read_more' => 'Lire la suite',
     'view_all_news' => 'Voir toutes les actualités',
-]; 
+];

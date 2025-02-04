@@ -13,7 +13,7 @@ class NewsletterController extends Controller
     {
         try {
             Log::info('Newsletter subscription attempt', [
-                'data' => $request->all()
+                'data' => $request->all(),
             ]);
 
             // Convertir les valeurs "on" en true avant la validation
@@ -28,52 +28,52 @@ class NewsletterController extends Controller
                 'newsletter_email' => 'required|boolean',
                 'newsletter_whatsapp' => 'required|boolean',
                 'interests' => 'nullable|array',
-                'interests.*' => 'string|in:startups,tech,events,formation'
+                'interests.*' => 'string|in:startups,tech,events,formation',
             ])->validate();
 
             Log::info('Newsletter validation passed', [
-                'validated_data' => $validated
+                'validated_data' => $validated,
             ]);
 
             DB::transaction(function () use ($validated) {
                 $audience = Audience::create([
-                'name' => $validated['newsletter_name'],
-                'email' => $validated['newsletter_email_input'],
-                'whatsapp' => $validated['newsletter_whatsapp_input'] ?? null,
+                    'name' => $validated['newsletter_name'],
+                    'email' => $validated['newsletter_email_input'],
+                    'whatsapp' => $validated['newsletter_whatsapp_input'] ?? null,
                     'newsletter_email' => $validated['newsletter_email'],
                     'newsletter_whatsapp' => $validated['newsletter_whatsapp'],
-                'interests' => $validated['interests'] ?? [],
-            ]);
+                    'interests' => $validated['interests'] ?? [],
+                ]);
 
                 Log::info('Newsletter subscriber created', [
                     'subscriber_id' => $audience->id,
-                    'subscriber_data' => $audience->toArray()
+                    'subscriber_data' => $audience->toArray(),
                 ]);
             });
 
             if ($request->ajax()) {
                 return response()->json([
                     'status' => 'success',
-                    'message' => 'Merci pour votre inscription ! Vous recevrez bientôt nos actualités.'
+                    'message' => 'Merci pour votre inscription ! Vous recevrez bientôt nos actualités.',
                 ]);
             }
 
             return back()->with('notification', [
                 'type' => 'success',
-                'message' => 'Merci pour votre inscription ! Vous recevrez bientôt nos actualités.'
+                'message' => 'Merci pour votre inscription ! Vous recevrez bientôt nos actualités.',
             ]);
 
         } catch (\Illuminate\Validation\ValidationException $e) {
             Log::error('Newsletter validation error', [
                 'errors' => $e->errors(),
-                'data' => $request->all()
+                'data' => $request->all(),
             ]);
-            
+
             if ($request->ajax()) {
                 return response()->json([
                     'status' => 'error',
                     'message' => 'Veuillez vérifier les informations saisies.',
-                    'errors' => $e->errors()
+                    'errors' => $e->errors(),
                 ], 422);
             }
 
@@ -82,26 +82,26 @@ class NewsletterController extends Controller
                 ->withInput()
                 ->with('notification', [
                     'type' => 'error',
-                    'message' => 'Veuillez vérifier les informations saisies.'
+                    'message' => 'Veuillez vérifier les informations saisies.',
                 ]);
 
         } catch (\Exception $e) {
             Log::error('Newsletter subscription error', [
                 'message' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),
-                'data' => $request->all()
+                'data' => $request->all(),
             ]);
-            
+
             if ($request->ajax()) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Une erreur est survenue lors de votre inscription. Veuillez réessayer plus tard.'
+                    'message' => 'Une erreur est survenue lors de votre inscription. Veuillez réessayer plus tard.',
                 ], 500);
             }
 
             return back()->with('notification', [
                 'type' => 'error',
-                'message' => 'Une erreur est survenue lors de votre inscription. Veuillez réessayer plus tard.'
+                'message' => 'Une erreur est survenue lors de votre inscription. Veuillez réessayer plus tard.',
             ]);
         }
     }
@@ -110,7 +110,7 @@ class NewsletterController extends Controller
     {
         $subscribers = Audience::orderBy('created_at', 'desc')
             ->paginate(10);
-        
+
         return view('dashboard.audiences.subscribers', compact('subscribers'));
     }
 
@@ -118,7 +118,7 @@ class NewsletterController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:audiences,email,' . $subscriber->id,
+            'email' => 'required|email|unique:audiences,email,'.$subscriber->id,
             'whatsapp' => 'nullable|string|max:255',
             'interests' => 'nullable|array',
             'interests.*' => 'string|in:startups,tech,events,formation',
@@ -137,7 +137,7 @@ class NewsletterController extends Controller
 
         return back()->with('notification', [
             'type' => 'success',
-            'message' => 'Abonné mis à jour avec succès.'
+            'message' => 'Abonné mis à jour avec succès.',
         ]);
     }
 
@@ -147,7 +147,7 @@ class NewsletterController extends Controller
 
         return back()->with('notification', [
             'type' => 'success',
-            'message' => 'Abonné supprimé avec succès.'
+            'message' => 'Abonné supprimé avec succès.',
         ]);
     }
 
@@ -156,7 +156,7 @@ class NewsletterController extends Controller
         $validated = $request->validate([
             'format' => 'required|in:csv,xlsx',
             'columns' => 'required|array',
-            'columns.*' => 'string|in:name,email,whatsapp,interests,created_at'
+            'columns.*' => 'string|in:name,email,whatsapp,interests,created_at',
         ]);
 
         $subscribers = Audience::all();
@@ -186,15 +186,15 @@ class NewsletterController extends Controller
             $data[] = $row;
         }
 
-        $filename = 'abonnes-newsletter-' . now()->format('Y-m-d-His');
+        $filename = 'abonnes-newsletter-'.now()->format('Y-m-d-His');
 
         if ($validated['format'] === 'csv') {
             $headers = [
                 'Content-Type' => 'text/csv',
-                'Content-Disposition' => 'attachment; filename="' . $filename . '.csv"',
+                'Content-Disposition' => 'attachment; filename="'.$filename.'.csv"',
             ];
 
-            $callback = function() use ($data) {
+            $callback = function () use ($data) {
                 $file = fopen('php://output', 'w');
                 fputcsv($file, array_keys(reset($data)));
                 foreach ($data as $row) {
@@ -208,7 +208,7 @@ class NewsletterController extends Controller
 
         return \Maatwebsite\Excel\Facades\Excel::download(
             new \App\Exports\SubscribersExport($data),
-            $filename . '.xlsx'
+            $filename.'.xlsx'
         );
     }
-} 
+}

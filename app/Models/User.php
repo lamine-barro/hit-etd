@@ -20,7 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'email',
         'otp',
-        'otp_expires_at'
+        'otp_expires_at',
     ];
 
     /**
@@ -30,7 +30,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'remember_token',
-        'otp'
+        'otp',
     ];
 
     /**
@@ -42,7 +42,7 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'otp_expires_at' => 'datetime'
+            'otp_expires_at' => 'datetime',
         ];
     }
 }
