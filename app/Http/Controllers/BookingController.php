@@ -8,14 +8,9 @@ use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
-        $bookings = Auth::user()->bookings()->latest()->get();
+        $bookings = Booking::query()->latest()->get();
 
         return view('pages.resident-booking', compact('bookings'));
     }
@@ -45,7 +40,7 @@ class BookingController extends Controller
                 ->withErrors(['conflict' => __('Cette installation est déjà réservée pour ce créneau horaire.')]);
         }
 
-        $booking = Auth::user()->bookings()->create([
+        $booking = Booking::create([
             'facility' => $validated['facility'],
             'date' => $validated['date'],
             'start_time' => $validated['start_time'],

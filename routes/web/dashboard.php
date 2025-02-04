@@ -47,4 +47,5 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
 
     // Configuration
     Route::get('config', [DashboardController::class, 'config'])->name('config.index');
+    Route::post('config', [DashboardController::class, 'updateConfig'])->name('config.update');
 });
