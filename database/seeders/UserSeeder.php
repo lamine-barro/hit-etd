@@ -13,12 +13,14 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
-            'name' => 'Hub Ivoire Tech',
-            'email' => 'hello@hubivoiretech.ci',
-            'password' => Hash::make('HIT_#secret@2025'),
-            'role' => 'admin',
-            'email_verified_at' => now(),
-        ]);
+        if (!User::query()->where('email', 'hello@hubivoiretech.ci')->exists()) {
+            User::create([
+                'name' => 'Hub Ivoire Tech',
+                'email' => 'hello@hubivoiretech.ci',
+                'password' => Hash::make('HIT_#secret@2025'),
+                'role' => 'admin',
+                'email_verified_at' => now(),
+            ]);
+        }
     }
 }
