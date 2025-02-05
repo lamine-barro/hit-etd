@@ -257,11 +257,11 @@
                             <label class="form-label">Date limite d'inscription</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-calendar"></i></span>
-                                <input type="datetime-local" name="EventRegistration_end_date"
-                                       class="form-control @error('EventRegistration_end_date') is-invalid @enderror"
-                                       value="{{ old('EventRegistration_end_date', $event?->EventRegistration_end_date?->format('Y-m-d\TH:i')) }}" required>
+                                <input type="datetime-local" name="registration_end_date"
+                                       class="form-control @error('registration_end_date') is-invalid @enderror"
+                                       value="{{ old('registration_end_date', $event?->registration_end_date?->format('Y-m-d\TH:i')) }}" required>
                             </div>
-                            @error('EventRegistration_end_date')
+                            @error('registration_end_date')
                                 <div class="invalid-feedback d-block">{{ $message }}</div>
                             @enderror
                         </div>

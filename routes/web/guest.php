@@ -57,5 +57,5 @@ Route::view('/faq', 'pages.faq')->name('faq');
 Route::view('/conditions-utilisation', 'pages.terms')->name('terms');
 Route::view('/espace-membre', 'pages.member-space')->name('member-space');
 
-Route::get('/payment/{EventRegistration}', [EventPaymentController::class, 'show'])->name('payment.show');
-Route::post('/payment/{EventRegistration}/initiate', [EventPaymentController::class, 'initiate'])->name('payment.initiate');
+Route::get('/payment/{registration}', [EventPaymentController::class, 'show'])->name('payment.show');
+Route::post('/payment/{registration}/initiate', [EventPaymentController::class, 'initiate'])->name('payment.initiate');

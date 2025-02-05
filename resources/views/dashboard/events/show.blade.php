@@ -75,7 +75,7 @@
                         <button type="button" class="btn btn-sm btn-outline-secondary">
                             <i class="bi bi-download me-2"></i>Exporter
                         </button>
-                        @if($event->status === 'published' && (!$event->EventRegistration_end_date || now() <= $event->EventRegistration_end_date))
+                        @if($event->status === 'published' && (!$event->registration_end_date || now() <= $event->registration_end_date))
                             <button type="button" class="btn btn-sm btn-success">
                                 <i class="bi bi-plus-circle me-2"></i>Nouvelle inscription
                             </button>
@@ -199,13 +199,13 @@
                                 @endif
                             </div>
                         </li>
-                        @if($event->EventRegistration_end_date)
+                        @if($event->registration_end_date)
                             <li class="mb-3">
                                 <div class="d-flex align-items-center text-secondary mb-1">
                                     <i class="bi bi-clock me-2"></i>
                                     <strong>Date limite d'inscription</strong>
                                 </div>
-                                <span class="text-muted">{{ \Carbon\Carbon::parse($event->EventRegistration_end_date)->format('d/m/Y H:i') }}</span>
+                                <span class="text-muted">{{ \Carbon\Carbon::parse($event->registration_end_date)->format('d/m/Y H:i') }}</span>
                             </li>
                         @endif
                     </ul>

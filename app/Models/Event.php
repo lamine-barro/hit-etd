@@ -26,7 +26,7 @@ class Event extends Model
         'location',
         'is_remote',
         'max_participants',
-        'EventRegistration_end_date',
+        'registration_end_date',
         'external_link',
         'is_paid',
         'price',
@@ -45,7 +45,7 @@ class Event extends Model
     protected $casts = [
         'start_date' => 'datetime',
         'end_date' => 'datetime',
-        'EventRegistration_end_date' => 'datetime',
+        'registration_end_date' => 'datetime',
         'early_bird_end_date' => 'datetime',
         'is_remote' => 'boolean',
         'is_paid' => 'boolean',
@@ -104,6 +104,11 @@ class Event extends Model
         return $this->price;
     }
 
+    public function getFee()
+    {
+        return 200;
+    }
+
     /**
      * Check if the event is full.
      */
@@ -143,9 +148,9 @@ class Event extends Model
     /**
      * Check if EventRegistration is open for the event
      */
-    public function isEventRegistrationOpen(): bool
+    public function isRegistrationOpen(): bool
     {
-        return now()->lt($this->EventRegistration_end_date) && ! $this->hasReachedCapacity();
+        return now()->lt($this->registration_end_date) && ! $this->hasReachedCapacity();
     }
 
     /**

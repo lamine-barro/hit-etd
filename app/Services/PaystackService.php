@@ -33,7 +33,7 @@ class PaystackService
                 'event_id' => $eventRegistration->event_id,
                 'event_registration_id' => $eventRegistration->id,
                 'reference' => $reference,
-                'amount' => $eventRegistration->event->getCurrentPrice() + 200, // Paystack utilise les plus petites unités monétaires
+                'amount' => $eventRegistration->event->getCurrentPrice(), // Paystack utilise les plus petites unités monétaires
                 'currency' => $eventRegistration->event->currency,
                 'paystack_reference' => $reference,
                 'status' => 'pending',

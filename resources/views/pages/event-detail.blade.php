@@ -210,7 +210,7 @@
 
                 <!-- Boutons d'action -->
                 <div class="flex flex-col sm:flex-row gap-4">
-                    @if ($event->registrations_count < $event->max_participants && now()->lt($event->EventRegistration_end_date))
+                    @if ($event->registrations_count < $event->max_participants && now()->lt($event->registration_end_date))
                         <button
                             onclick="openEventRegistrationModal()"
                             class="flex-1 inline-flex justify-center items-center px-6 py-3 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 transform transition hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"

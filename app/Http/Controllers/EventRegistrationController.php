@@ -20,7 +20,7 @@ class EventRegistrationController extends Controller
             ]);
 
             // Check if EventRegistration is open
-            if (! $event->isEventRegistrationOpen()) {
+            if (! $event->isRegistrationOpen()) {
                 return back()->with('error', __('Les inscriptions sont fermées pour cet événement.'));
             }
 
@@ -55,6 +55,9 @@ class EventRegistrationController extends Controller
 
         } catch (\Exception $e) {
             Log::error('EventRegistration error: '.$e->getMessage());
+            if (isset($eventRegistration)) {
+                $eventRegistration->delete();
+            }
 
             return back()->with('error', __('Une erreur est survenue lors de l\'inscription. Veuillez réessayer.'));
         }
