@@ -25,7 +25,7 @@ class EventRegistrationController extends Controller
             }
 
             // Check if user is already registered
-            if ($event->EventRegistrations()->where('email', $validatedData['email'])->exists()) {
+            if ($event->registrations()->where('email', $validatedData['email'])->exists()) {
                 return back()->with('error', __('Vous êtes déjà inscrit à cet événement.'));
             }
 

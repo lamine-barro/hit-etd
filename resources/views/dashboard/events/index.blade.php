@@ -125,14 +125,14 @@
                             <td class="px-4 py-3">
                                 <div class="d-flex align-items-center">
                                     <div class="me-3">
-                                        <strong>{{ $event->EventRegistrations_count }}</strong>
+                                        <strong>{{ $event->registrations_count }}</strong>
                                         @if($event->max_participants > 0)
                                             <span class="text-muted">/{{ $event->max_participants }}</span>
                                         @endif
                                     </div>
                                     @if($event->max_participants > 0)
                                         @php
-                                            $percentage = ($event->EventRegistrations_count / $event->max_participants) * 100;
+                                            $percentage = ($event->registrations_count / $event->max_participants) * 100;
                                             $progressClass = $percentage >= 90 ? 'danger' : ($percentage >= 70 ? 'warning' : 'success');
                                         @endphp
                                         <div class="progress" style="width: 100px; height: 6px;">

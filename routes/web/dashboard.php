@@ -17,7 +17,7 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     // Événements
-    Route::resource('evenements', EventController::class);
+    Route::resource('events', EventController::class);
 
     // Articles
     Route::resource('articles', ArticleController::class);

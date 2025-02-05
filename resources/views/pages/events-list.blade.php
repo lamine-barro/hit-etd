@@ -76,7 +76,7 @@
 
                         <div class="flex items-center justify-between">
                             <span class="text-sm text-gray-500">
-                                {{ $event->EventRegistrations_count }} / {{ $event->max_participants }} {{ __('inscrits') }}
+                                {{ $event->registrations_count }} / {{ $event->max_participants }} {{ __('inscrits') }}
                             </span>
                             <a href="{{ route('events.show', $event) }}" class="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700">
                                 {{ __('En savoir plus') }}

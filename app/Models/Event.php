@@ -79,9 +79,9 @@ class Event extends Model
     }
 
     /**
-     * Get the EventRegistrations for the event.
+     * Get the registrations for the event.
      */
-    public function EventRegistrations(): HasMany
+    public function registrations(): HasMany
     {
         return $this->hasMany(EventRegistration::class);
     }
@@ -113,7 +113,7 @@ class Event extends Model
             return false;
         }
 
-        return $this->EventRegistrations()->count() >= $this->max_participants;
+        return $this->registrations()->count() >= $this->max_participants;
     }
 
     /**
@@ -125,7 +125,7 @@ class Event extends Model
             return PHP_INT_MAX;
         }
 
-        $taken = $this->EventRegistrations()->count();
+        $taken = $this->registrations()->count();
 
         return max(0, $this->max_participants - $taken);
     }
@@ -135,7 +135,7 @@ class Event extends Model
      */
     public function hasReachedCapacity(): bool
     {
-        return $this->EventRegistrations()
+        return $this->registrations()
             ->whereNotIn('status', ['cancelled'])
             ->count() >= $this->max_participants;
     }

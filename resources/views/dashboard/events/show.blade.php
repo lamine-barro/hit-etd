@@ -83,7 +83,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    @if($event->EventRegistrations->count() > 0)
+                    @if($event->registrations->count() > 0)
                         <div class="table-responsive">
                             <table class="table table-hover align-middle mb-0">
                                 <thead class="bg-light">
@@ -96,7 +96,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($event->EventRegistrations as $eventRegistration)
+                                    @foreach($event->registrations as $eventRegistration)
                                         <tr>
                                             <td>{{ $eventRegistration->user->name }}</td>
                                             <td>{{ $eventRegistration->created_at->format('d/m/Y H:i') }}</td>
@@ -178,14 +178,14 @@
                             </div>
                             <div class="d-flex align-items-center">
                                 <span class="text-muted me-3">
-                                    {{ $event->EventRegistrations_count }}
+                                    {{ $event->registrations_count }}
                                     @if($event->max_participants > 0)
                                         / {{ $event->max_participants }}
                                     @endif
                                 </span>
                                 @if($event->max_participants > 0)
                                     @php
-                                        $percentage = ($event->EventRegistrations_count / $event->max_participants) * 100;
+                                        $percentage = ($event->registrations_count / $event->max_participants) * 100;
                                         $progressClass = $percentage >= 90 ? 'danger' : ($percentage >= 70 ? 'secondary' : 'success');
                                     @endphp
                                     <div class="flex-grow-1">
@@ -259,10 +259,10 @@
                 </div>
                 <div class="modal-body">
                     <p class="mb-0">Êtes-vous sûr de vouloir supprimer cet événement ? Cette action est irréversible.</p>
-                    @if($event->EventRegistrations_count > 0)
+                    @if($event->registrations_count > 0)
                         <div class="alert alert-warning mt-3 mb-0">
                             <i class="bi bi-exclamation-triangle me-2"></i>
-                            Attention : Cet événement contient {{ $event->EventRegistrations_count }} inscription(s).
+                            Attention : Cet événement contient {{ $event->registrations_count }} inscription(s).
                         </div>
                     @endif
                 </div>

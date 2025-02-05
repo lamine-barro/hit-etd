@@ -217,7 +217,7 @@ class EventController extends Controller
     {
         try {
             // Vérifier si l'événement a des inscriptions
-            if ($event->EventRegistrations()->count() > 0) {
+            if ($event->registrations()->count() > 0) {
                 return redirect()
                     ->route('events.show', $event)
                     ->with('toast', [

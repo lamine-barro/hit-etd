@@ -196,11 +196,11 @@
                                 <div class="flex items-center justify-between gap-4">
                                     <div class="w-full bg-gray-200 rounded-full h-2">
                                         <div class="bg-primary-600 h-2 rounded-full transition-all duration-300"
-                                            style="width: {{ ($event->EventRegistrations_count / $event->max_participants) * 100 }}%">
+                                            style="width: {{ ($event->registrations_count / $event->max_participants) * 100 }}%">
                                         </div>
                                     </div>
                                     <span class="text-sm whitespace-nowrap">
-                                        {{ $event->EventRegistrations_count }}/{{ $event->max_participants }}
+                                        {{ $event->registrations_count }}/{{ $event->max_participants }}
                                     </span>
                                 </div>
                             </div>
@@ -210,7 +210,7 @@
 
                 <!-- Boutons d'action -->
                 <div class="flex flex-col sm:flex-row gap-4">
-                    @if ($event->EventRegistrations_count < $event->max_participants && now()->lt($event->EventRegistration_end_date))
+                    @if ($event->registrations_count < $event->max_participants && now()->lt($event->EventRegistration_end_date))
                         <button
                             onclick="openEventRegistrationModal()"
                             class="flex-1 inline-flex justify-center items-center px-6 py-3 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 transform transition hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
