@@ -40,5 +40,4 @@ return [
         'public_key' => env('PAYSTACK_PUBLIC_KEY', 'pk_live_f92ada4670564266e6c8ce058ae25b177f2f62eb'),
         'webhook_url' => env('PAYSTACK_WEBHOOK_URL', config('app.url').'/api/webhooks/paystack'),
     ],
-
 ];

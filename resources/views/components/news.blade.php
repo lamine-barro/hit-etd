@@ -17,8 +17,8 @@
             <div class="relative group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition duration-300">
                 <div class="aspect-w-16 aspect-h-9">
                     @if($featuredArticle->illustration)
-                        <img src="{{ Storage::url($featuredArticle->illustration) }}" 
-                             alt="{{ $featuredArticle->title }}" 
+                        <img src="{{ Storage::url($featuredArticle->illustration) }}"
+                             alt="{{ $featuredArticle->title }}"
                              class="object-cover w-full h-full transform group-hover:scale-105 transition duration-500">
                     @else
                         <div class="w-full h-full bg-gray-200 flex items-center justify-center">
@@ -56,7 +56,7 @@
             <!-- Événements à venir -->
             <div class="space-y-6">
                 <h3 class="text-lg font-semibold text-gray-900 mb-4">{{ __('news.upcoming_events') }}</h3>
-                
+
                 @forelse(\App\Models\Event::whereNotNull('start_date')
                     ->whereNotNull('end_date')
                     ->where('start_date', '>', now())
@@ -103,8 +103,8 @@
             <article class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition duration-300">
                 <div class="aspect-w-16 aspect-h-9">
                     @if($article->illustration)
-                        <img src="{{ Storage::url($article->illustration) }}" 
-                             alt="{{ $article->title }}" 
+                        <img src="{{ Storage::url($article->illustration) }}"
+                             alt="{{ $article->title }}"
                              class="object-cover w-full h-full">
                     @else
                         <div class="w-full h-full bg-gray-200 flex items-center justify-center">
@@ -139,4 +139,4 @@
             </a>
         </div>
     </div>
-</section> 
+</section>

@@ -1,6 +1,9 @@
 <!-- Navbar Container -->
-<div class="fixed top-0 left-0 right-0 z-50 px-2 sm:px-4 py-2 sm:py-4" 
-    x-data="{ 
+@php
+    $locale = request()->session()->get('locale', 'fr');
+@endphp
+<div class="fixed top-0 left-0 right-0 z-50 px-2 sm:px-4 py-2 sm:py-4"
+    x-data="{
         open: false
     }">
     <nav class="max-w-7xl mx-auto bg-white shadow-lg rounded-lg px-3 sm:px-6 py-2 sm:py-4">
@@ -32,12 +35,12 @@
 
                 <!-- Language Toggle Desktop -->
                 <div class="hidden md:flex items-center space-x-1 border border-gray-200 rounded-lg p-1">
-                    <a href="{{ route('language.switch', 'fr') }}" 
-                        class="px-2 py-1 text-sm font-medium rounded-md {{ app()->getLocale() === 'fr' ? 'bg-primary-100 text-primary-700' : 'text-gray-500 hover:text-gray-700' }}">
+                    <a href="{{ route('language.switch', 'fr') }}"
+                        class="px-2 py-1 text-sm font-medium rounded-md {{ $locale === 'fr' ? 'bg-primary-100 text-primary-700' : 'text-gray-500 hover:text-gray-700' }}">
                         FR
                     </a>
-                    <a href="{{ route('language.switch', 'en') }}" 
-                        class="px-2 py-1 text-sm font-medium rounded-md {{ app()->getLocale() === 'en' ? 'bg-primary-100 text-primary-700' : 'text-gray-500 hover:text-gray-700' }}">
+                    <a href="{{ route('language.switch', 'en') }}"
+                        class="px-2 py-1 text-sm font-medium rounded-md {{ $locale === 'en' ? 'bg-primary-100 text-primary-700' : 'text-gray-500 hover:text-gray-700' }}">
                         EN
                     </a>
                 </div>
@@ -51,8 +54,8 @@
 
             <!-- Menu mobile (hamburger) -->
             <div class="md:hidden">
-                <button type="button" 
-                    @click="open = !open" 
+                <button type="button"
+                    @click="open = !open"
                     class="text-gray-700 hover:text-primary-600 p-2 -mr-2 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded-lg"
                     aria-expanded="false"
                     :aria-expanded="open.toString()">
@@ -69,20 +72,20 @@
     </nav>
 
     <!-- Menu mobile (panel) -->
-    <div class="md:hidden" 
-        x-show="open" 
-        x-transition:enter="transition ease-out duration-200" 
-        x-transition:enter-start="opacity-0 transform -translate-y-2" 
-        x-transition:enter-end="opacity-100 transform translate-y-0" 
-        x-transition:leave="transition ease-in duration-150" 
-        x-transition:leave-start="opacity-100 transform translate-y-0" 
+    <div class="md:hidden"
+        x-show="open"
+        x-transition:enter="transition ease-out duration-200"
+        x-transition:enter-start="opacity-0 transform -translate-y-2"
+        x-transition:enter-end="opacity-100 transform translate-y-0"
+        x-transition:leave="transition ease-in duration-150"
+        x-transition:leave-start="opacity-100 transform translate-y-0"
         x-transition:leave-end="opacity-0 transform -translate-y-2">
         <div class="bg-white shadow-lg rounded-lg mt-2 px-4 py-3 space-y-3">
             <a href="{{ route('home') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __('Home') }}</a>
             <a href="{{ route('visitez-le-campus') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __('Visit Campus') }}</a>
             <a href="{{ route('evenements') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __('Events') }}</a>
             <a href="{{ route('actualites') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __('News') }}</a>
-            
+
             <!-- Espace membre (Mobile) -->
             <a href="#" class="flex items-center space-x-2 text-primary-600 hover:text-primary-700 font-medium transition px-2 py-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -94,11 +97,11 @@
             <!-- Language Toggle Mobile -->
             <div class="md:hidden mt-4 border-t pt-4">
                 <div class="flex justify-center space-x-2">
-                    <a href="{{ route('language.switch', 'fr') }}" 
+                    <a href="{{ route('language.switch', 'fr') }}"
                         class="px-3 py-2 text-sm font-medium rounded-md {{ app()->getLocale() === 'fr' ? 'bg-primary-100 text-primary-700' : 'text-gray-500 hover:text-gray-700' }}">
                         Français
                     </a>
-                    <a href="{{ route('language.switch', 'en') }}" 
+                    <a href="{{ route('language.switch', 'en') }}"
                         class="px-3 py-2 text-sm font-medium rounded-md {{ app()->getLocale() === 'en' ? 'bg-primary-100 text-primary-700' : 'text-gray-500 hover:text-gray-700' }}">
                         English
                     </a>
@@ -117,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             const targetId = this.getAttribute('href');
             const targetElement = document.querySelector(targetId);
-            
+
             if (targetElement) {
                 // Ajout d'un offset pour tenir compte de la hauteur du navbar fixe
                 const offset = 80; // Ajustez selon la hauteur de votre navbar
@@ -143,4 +146,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-@endpush 
+@endpush

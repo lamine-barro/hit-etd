@@ -72,7 +72,8 @@ class Event extends Model
     protected function generateUniqueSlug($title)
     {
         $slug = Str::slug($title);
-        $count = static::whereRaw("slug REGEXP '^{$slug}(-[0-9]+)?$'")->count();
+
+        $count = static::where("slug", $slug)->count();
 
         return $count ? "{$slug}-{$count}" : $slug;
     }

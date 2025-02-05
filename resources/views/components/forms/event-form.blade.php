@@ -27,7 +27,7 @@
         if (isPaidInput) {
             this.isPaid = isPaidInput.value === '1';
         }
-        
+
         // Soumettre le formulaire
         this.$el.submit();
     },
@@ -102,7 +102,7 @@
                 <!-- Titre -->
                 <div class="col-md-6">
                     <label class="form-label fw-bold">Titre</label>
-                    <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" 
+                    <input type="text" name="title" class="form-control @error('title') is-invalid @enderror"
                            value="{{ old('title', $event?->title) }}" required>
                     @error('title')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -114,7 +114,7 @@
                     <label class="form-label fw-bold">Date de début</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="bi bi-calendar"></i></span>
-                        <input type="datetime-local" name="start_date" 
+                        <input type="datetime-local" name="start_date"
                                class="form-control @error('start_date') is-invalid @enderror"
                                value="{{ old('start_date', $event?->start_date?->format('Y-m-d\TH:i')) }}" required>
                     </div>
@@ -128,9 +128,9 @@
                     <label class="form-label fw-bold">Date de fin</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="bi bi-calendar"></i></span>
-                        <input type="datetime-local" name="end_date" 
+                        <input type="datetime-local" name="end_date"
                                class="form-control @error('end_date') is-invalid @enderror"
-                               value="{{ old('end_date', $event?->end_date?->format('Y-m-d\TH:i')) }}">
+                               value="{{ old('end_date', $event?->end_date?->format('Y-m-d\TH:i')) }}" required>
                     </div>
                     @error('end_date')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -143,7 +143,7 @@
                     <div class="input-group">
                         <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
                         <input type="text" name="location" class="form-control @error('location') is-invalid @enderror"
-                               value="{{ old('location', $event?->location) }}" required>
+                               value="{{ old('location', $event?->location) }}">
                     </div>
                     @error('location')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -186,8 +186,8 @@
             <!-- Description -->
             <div class="mb-4">
                 <label class="form-label fw-bold">Description</label>
-                <textarea name="description" rows="4" 
-                          class="form-control @error('description') is-invalid @enderror" 
+                <textarea name="description" rows="4"
+                          class="form-control @error('description') is-invalid @enderror"
                           required>{{ old('description', $event?->description) }}</textarea>
                 @error('description')
                     <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -198,21 +198,21 @@
             <div class="mb-4">
                 <label class="form-label fw-bold">Image de l'événement</label>
                 <div class="upload-btn-wrapper">
-                    <div class="image-preview mb-3" 
-                         x-show="imagePreview || '{{ $event?->illustration }}'" 
+                    <div class="image-preview mb-3"
+                         x-show="imagePreview || '{{ $event?->illustration }}'"
                          style="background-color: #f8f9fa;">
                         <template x-if="imagePreview">
                             <img :src="imagePreview" alt="Aperçu" style="width: 100%; height: 100%; object-fit: contain;">
                         </template>
                         @if($event && $event->illustration)
                             <template x-if="!imagePreview">
-                                <img src="{{ asset('storage/' . $event->illustration) }}" 
-                                     alt="Image actuelle" 
+                                <img src="{{ asset('storage/' . $event->illustration) }}"
+                                     alt="Image actuelle"
                                      style="width: 100%; height: 100%; object-fit: contain;">
                             </template>
                         @endif
                     </div>
-                    <div class="image-preview mb-3" 
+                    <div class="image-preview mb-3"
                          x-show="!imagePreview && !('{{ $event?->illustration }}')"
                          style="background-color: #f8f9fa;">
                         <div class="placeholder">
@@ -221,8 +221,8 @@
                             <small class="text-muted">Format: JPG, PNG, GIF (max 2MB)</small>
                         </div>
                     </div>
-                    <input type="file" 
-                           name="illustration" 
+                    <input type="file"
+                           name="illustration"
                            accept="image/*"
                            class="form-control @error('illustration') is-invalid @enderror"
                            @change="previewImage($event)">
@@ -242,9 +242,9 @@
                             <label class="form-label">Nombre maximum de participants</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-people"></i></span>
-                                <input type="number" name="max_participants" min="0" 
+                                <input type="number" name="max_participants" min="0"
                                        class="form-control @error('max_participants') is-invalid @enderror"
-                                       value="{{ old('max_participants', $event?->max_participants) }}" 
+                                       value="{{ old('max_participants', $event?->max_participants) }}"
                                        required>
                             </div>
                             @error('max_participants')
@@ -257,10 +257,9 @@
                             <label class="form-label">Date limite d'inscription</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-calendar"></i></span>
-                                <input type="datetime-local" name="registration_end_date" 
+                                <input type="datetime-local" name="registration_end_date"
                                        class="form-control @error('registration_end_date') is-invalid @enderror"
-                                       value="{{ old('registration_end_date', $event?->registration_end_date?->format('Y-m-d\TH:i')) }}" 
-                                       required>
+                                       value="{{ old('registration_end_date', $event?->registration_end_date?->format('Y-m-d\TH:i')) }}" required>
                             </div>
                             @error('registration_end_date')
                                 <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -275,9 +274,9 @@
                 <label class="form-label">Lien externe</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-link-45deg"></i></span>
-                    <input type="url" name="external_link" 
+                    <input type="url" name="external_link"
                            class="form-control @error('external_link') is-invalid @enderror"
-                           value="{{ old('external_link', $event?->external_link) }}" 
+                           value="{{ old('external_link', $event?->external_link) }}"
                            placeholder="https://">
                 </div>
                 @error('external_link')
@@ -326,12 +325,12 @@
                             <div class="card-body">
                                 <h6 class="card-title mb-3">Prix standard</h6>
                                 <div class="input-group">
-                                    <input type="number" name="price" min="0" step="0.01" 
+                                    <input type="number" name="price" min="0" step="0.01"
                                            class="form-control @error('price') is-invalid @enderror"
-                                           value="{{ old('price', $event?->price) }}" 
+                                           value="{{ old('price', $event?->price) }}"
                                            :required="isPaid === '1'"
                                            placeholder="0.00">
-                                    <select name="currency" class="form-select @error('currency') is-invalid @enderror" 
+                                    <select name="currency" class="form-select @error('currency') is-invalid @enderror"
                                             :required="isPaid === '1'"
                                             style="max-width: 100px;">
                                         <option value="">Devise</option>
@@ -421,7 +420,6 @@ document.addEventListener('alpine:init', () => {
             if (isPaidInput) {
                 this.isPaid = isPaidInput.value === '1';
             }
-            
             // Soumettre le formulaire
             this.$el.submit();
         },
@@ -545,4 +543,4 @@ document.addEventListener('alpine:init', () => {
 .step-content {
     transition: all 0.3s ease;
 }
-</style> 
+</style>

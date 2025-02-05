@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Route;
 | Resident Routes
 |--------------------------------------------------------------------------
 */
-
 Route::middleware('auth')->prefix('resident')->name('resident.')->group(function () {
     // Système de réservation
     Route::get('/reservations', [BookingController::class, 'index'])->name('bookings.index');
