@@ -9,7 +9,7 @@ class EventPayment extends Model
 {
     protected $fillable = [
         'event_id',
-        'event_EventRegistration_id',
+        'event_registration_id',
         'reference',
         'amount',
         'currency',

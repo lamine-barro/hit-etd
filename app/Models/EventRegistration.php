@@ -10,6 +10,8 @@ class EventRegistration extends Model
 {
     use HasFactory;
 
+    protected $table = 'registrations';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -23,6 +25,7 @@ class EventRegistration extends Model
         'payment_status',
         'amount_paid',
         'payment_reference',
+        'event_id',
     ];
 
     /**

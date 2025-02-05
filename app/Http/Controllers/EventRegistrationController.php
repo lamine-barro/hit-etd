@@ -43,11 +43,11 @@ class EventRegistrationController extends Controller
 
             // Handle payment if required
             if ($event->getCurrentPrice() > 0) {
-                return redirect()->route('payment.show', ['EventRegistration' => $eventRegistration->id])
+                return redirect()->route('payment.show', ['registration' => $eventRegistration->id])
                     ->with('success', __('Votre inscription a été prise en compte. Veuillez procéder au paiement.'));
             }
 
-            // For free events, confirm EventRegistration immediately
+            // For free events, confirm registration immediately
             $eventRegistration->status = 'confirmed';
             $eventRegistration->save();
 

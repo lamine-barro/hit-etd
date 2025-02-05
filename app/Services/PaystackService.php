@@ -31,9 +31,9 @@ class PaystackService
             // Créer l'enregistrement du paiement
             $payment = EventPayment::create([
                 'event_id' => $eventRegistration->event_id,
-                'event_EventRegistration_id' => $eventRegistration->id,
+                'event_registration_id' => $eventRegistration->id,
                 'reference' => $reference,
-                'amount' => $eventRegistration->event->getCurrentPrice() * 100, // Paystack utilise les plus petites unités monétaires
+                'amount' => $eventRegistration->event->getCurrentPrice() + 200, // Paystack utilise les plus petites unités monétaires
                 'currency' => $eventRegistration->event->currency,
                 'paystack_reference' => $reference,
                 'status' => 'pending',
@@ -50,7 +50,7 @@ class PaystackService
                 'reference' => $payment->reference,
                 'callback_url' => route('events.payment.callback'),
                 'metadata' => [
-                    'EventRegistration_id' => $eventRegistration->id,
+                    'registration_id' => $eventRegistration->id,
                     'event_id' => $eventRegistration->event_id,
                     'payment_id' => $payment->id,
                     'custom_fields' => [

@@ -15,10 +15,11 @@
     <!-- Toastify -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <!-- Styles -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    
+
     <!-- Meta Tags -->
     @include('partials.meta')
 
@@ -35,10 +36,10 @@
     <main>
         @yield('content')
     </main>
-    
+
     <!-- Footer -->
     @include('components.footer')
-    
+
     @include('partials.scripts')
 
     <!-- Alpine.js -->
@@ -62,4 +63,4 @@
         });
     </script>
 </body>
-</html> 
+</html>

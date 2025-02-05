@@ -17,9 +17,11 @@ class EventPaymentController extends Controller
         $this->paystackService = $paystackService;
     }
 
-    public function initiate(EventRegistration $eventRegistration)
+    public function initiate(int $registrationId)
     {
         try {
+            $eventRegistration = EventRegistration::findOrFail($registrationId);
+
             $payment = $this->paystackService->initiatePayment($eventRegistration);
 
             return response()->json([
@@ -56,19 +58,19 @@ class EventPaymentController extends Controller
                 );
 
                 // Update EventRegistration status
-                $payment->EventRegistration->update(['status' => 'confirmed']);
+                $payment->registration->update(['status' => 'confirmed']);
 
-                return redirect()->route('events.EventRegistration.success', [
+                return redirect()->route('events.registration.success', [
                     'event' => $payment->event_id,
-                    'EventRegistration' => $payment->event_EventRegistration_id,
-                ])->with('success', 'Payment successful! Your EventRegistration is confirmed.');
+                    'registration' => $payment->event_registration_id,
+                ])->with('success', 'Payment successful! Your registration is confirmed.');
             }
 
             $payment->markAsFailed($paymentData);
 
-            return redirect()->route('events.EventRegistration.failed', [
+            return redirect()->route('events.registration.failed', [
                 'event' => $payment->event_id,
-                'EventRegistration' => $payment->event_EventRegistration_id,
+                'registration' => $payment->event_registration_id,
             ])->with('error', 'Payment failed. Please try again.');
 
         } catch (\Exception $e) {
@@ -92,14 +94,16 @@ class EventPaymentController extends Controller
         }
     }
 
-    public function show(Request $request, EventRegistration $eventRegistration)
+    public function show(Request $request, int $registrationId)
     {
+        $eventRegistration = EventRegistration::findOrFail($registrationId);
+
         // Vérifier si le paiement est toujours en attente
         if ($eventRegistration->status !== 'pending') {
-            return redirect()->route('events.show', $eventRegistration->event)
+            return redirect()->route('events.show', ['event' => $eventRegistration->event_id])
                 ->with('error', __('Cette inscription a déjà été traitée.'));
         }
 
-        return view('pages.event-payment', compact('EventRegistration'));
+        return view('pages.event-payment', compact('eventRegistration'));
     }
 }
