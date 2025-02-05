@@ -21,11 +21,12 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/visitez-le-campus', [CampusController::class, 'index'])->name('visitez-le-campus');
 
 // Événements
-Route::prefix('evenements')->group(function () {
-    Route::get('/', [EventListController::class, 'index'])->name('evenements');
-    Route::get('/{event:slug}', [EventListController::class, 'show'])->name('evenements.show');
-    Route::post('/{event}/register', [EventRegistrationController::class, 'store'])->name('event.register');
-    Route::post('/registrations/{registration}/cancel', [EventRegistrationController::class, 'cancel'])->name('event.registration.cancel');
+Route::prefix('events')->group(function () {
+    Route::get('/', [EventListController::class, 'index'])->name('events');
+    Route::get('/{event:slug}', [EventListController::class, 'show'])->name('events.show');
+    Route::post('/{event}/register', [EventRegistrationController::class, 'store'])->name('events.register');
+    Route::post('{event}/payment', [EventPaymentController::class, 'initiate'])->name('events.payment.initiate');
+    Route::post('/EventRegistrations/{EventRegistration}/cancel', [EventRegistrationController::class, 'cancel'])->name('event.EventRegistration.cancel');
 });
 
 // Actualités
@@ -55,3 +56,6 @@ Route::view('/politique-de-confidentialite', 'pages.privacy')->name('privacy');
 Route::view('/faq', 'pages.faq')->name('faq');
 Route::view('/conditions-utilisation', 'pages.terms')->name('terms');
 Route::view('/espace-membre', 'pages.member-space')->name('member-space');
+
+Route::get('/payment/{EventRegistration}', [EventPaymentController::class, 'show'])->name('payment.show');
+Route::post('/payment/{EventRegistration}/initiate', [EventPaymentController::class, 'initiate'])->name('payment.initiate');

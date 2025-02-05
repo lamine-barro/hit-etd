@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Models\EventPayment;
-use App\Models\Registration;
+use App\Models\EventRegistration;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -22,7 +22,7 @@ class PaystackService
         $this->publicKey = config('services.paystack.public_key');
     }
 
-    public function initiatePayment(Registration $registration)
+    public function initiatePayment(EventRegistration $eventRegistration)
     {
         try {
             // Créer une référence unique pour le paiement
@@ -30,11 +30,11 @@ class PaystackService
 
             // Créer l'enregistrement du paiement
             $payment = EventPayment::create([
-                'event_id' => $registration->event_id,
-                'event_registration_id' => $registration->id,
+                'event_id' => $eventRegistration->event_id,
+                'event_EventRegistration_id' => $eventRegistration->id,
                 'reference' => $reference,
-                'amount' => $registration->event->getCurrentPrice() * 100, // Paystack utilise les plus petites unités monétaires
-                'currency' => $registration->event->currency,
+                'amount' => $eventRegistration->event->getCurrentPrice() * 100, // Paystack utilise les plus petites unités monétaires
+                'currency' => $eventRegistration->event->currency,
                 'paystack_reference' => $reference,
                 'status' => 'pending',
             ]);
@@ -44,25 +44,25 @@ class PaystackService
                 'Authorization' => 'Bearer '.$this->secretKey,
                 'Content-Type' => 'application/json',
             ])->post($this->baseUrl.'/transaction/initialize', [
-                'email' => $registration->email,
+                'email' => $eventRegistration->email,
                 'amount' => $payment->amount,
                 'currency' => $payment->currency,
                 'reference' => $payment->reference,
                 'callback_url' => route('events.payment.callback'),
                 'metadata' => [
-                    'registration_id' => $registration->id,
-                    'event_id' => $registration->event_id,
+                    'EventRegistration_id' => $eventRegistration->id,
+                    'event_id' => $eventRegistration->event_id,
                     'payment_id' => $payment->id,
                     'custom_fields' => [
                         [
                             'display_name' => "Nom de l'événement",
                             'variable_name' => 'event_name',
-                            'value' => $registration->event->title,
+                            'value' => $eventRegistration->event->title,
                         ],
                         [
                             'display_name' => "Date de l'événement",
                             'variable_name' => 'event_date',
-                            'value' => $registration->event->start_date->format('d/m/Y'),
+                            'value' => $eventRegistration->event->start_date->format('d/m/Y'),
                         ],
                     ],
                 ],
@@ -84,7 +84,7 @@ class PaystackService
         } catch (\Exception $e) {
             Log::error('Erreur lors de l\'initialisation du paiement Paystack', [
                 'error' => $e->getMessage(),
-                'registration_id' => $registration->id,
+                'EventRegistration_id' => $eventRegistration->id,
             ]);
 
             throw $e;

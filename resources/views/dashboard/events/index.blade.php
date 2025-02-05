@@ -25,7 +25,7 @@
                         <span class="input-group-text bg-white">
                             <i class="bi bi-search"></i>
                         </span>
-                        <input type="text" class="form-control border-start-0" placeholder="Rechercher un événement..." 
+                        <input type="text" class="form-control border-start-0" placeholder="Rechercher un événement..."
                                x-model="filters.search" @input.debounce.300ms="applyFilters()">
                     </div>
                 </div>
@@ -83,10 +83,10 @@
                             <td class="px-4 py-3">
                                 <div class="d-flex align-items-center">
                                     @if($event->illustration)
-                                        <img src="{{ asset('storage/' . $event->illustration) }}" 
+                                        <img src="{{ asset('storage/' . $event->illustration) }}"
                                              class="rounded" style="width: 40px; height: 40px; object-fit: cover;">
                                     @else
-                                        <div class="rounded bg-light d-flex align-items-center justify-content-center" 
+                                        <div class="rounded bg-light d-flex align-items-center justify-content-center"
                                              style="width: 40px; height: 40px;">
                                             <i class="bi bi-calendar-event text-muted"></i>
                                         </div>
@@ -125,19 +125,19 @@
                             <td class="px-4 py-3">
                                 <div class="d-flex align-items-center">
                                     <div class="me-3">
-                                        <strong>{{ $event->registrations_count }}</strong>
+                                        <strong>{{ $event->EventRegistrations_count }}</strong>
                                         @if($event->max_participants > 0)
                                             <span class="text-muted">/{{ $event->max_participants }}</span>
                                         @endif
                                     </div>
                                     @if($event->max_participants > 0)
                                         @php
-                                            $percentage = ($event->registrations_count / $event->max_participants) * 100;
+                                            $percentage = ($event->EventRegistrations_count / $event->max_participants) * 100;
                                             $progressClass = $percentage >= 90 ? 'danger' : ($percentage >= 70 ? 'warning' : 'success');
                                         @endphp
                                         <div class="progress" style="width: 100px; height: 6px;">
-                                            <div class="progress-bar bg-{{ $progressClass }}" 
-                                                 role="progressbar" 
+                                            <div class="progress-bar bg-{{ $progressClass }}"
+                                                 role="progressbar"
                                                  style="width: {{ $percentage }}%">
                                             </div>
                                         </div>
@@ -151,7 +151,7 @@
                                         'published' => 'bg-success',
                                         'cancelled' => 'bg-danger'
                                     ][$event->status];
-                                    
+
                                     $statusLabel = [
                                         'draft' => 'Brouillon',
                                         'published' => 'Publié',
@@ -162,16 +162,16 @@
                             </td>
                             <td class="px-4 py-3 text-end">
                                 <div class="btn-group">
-                                    <a href="{{ route('events.show', $event) }}" 
+                                    <a href="{{ route('events.show', $event) }}"
                                        class="btn btn-sm btn-outline-primary">
                                         <i class="bi bi-eye"></i>
                                     </a>
-                                    <a href="{{ route('events.edit', $event) }}" 
+                                    <a href="{{ route('events.edit', $event) }}"
                                        class="btn btn-sm btn-outline-primary">
                                         <i class="bi bi-pencil"></i>
                                     </a>
-                                    <button type="button" 
-                                            class="btn btn-sm btn-outline-danger" 
+                                    <button type="button"
+                                            class="btn btn-sm btn-outline-danger"
                                             @click="confirmDelete({{ $event->id }})">
                                         <i class="bi bi-trash"></i>
                                     </button>
@@ -265,12 +265,12 @@ document.addEventListener('alpine:init', () => {
         applyFilters() {
             // Construire l'URL avec les filtres
             const params = new URLSearchParams();
-            
+
             if (this.filters.search) params.append('search', this.filters.search);
             if (this.filters.type) params.append('type', this.filters.type);
             if (this.filters.status) params.append('status', this.filters.status);
             if (this.filters.format) params.append('format', this.filters.format);
-            
+
             // Rediriger avec les filtres
             window.location.href = `${window.location.pathname}?${params.toString()}`;
         }
@@ -317,4 +317,4 @@ document.addEventListener('alpine:init', () => {
 }
 </style>
 @endpush
-@endsection 
+@endsection

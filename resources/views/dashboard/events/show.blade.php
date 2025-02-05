@@ -75,7 +75,7 @@
                         <button type="button" class="btn btn-sm btn-outline-secondary">
                             <i class="bi bi-download me-2"></i>Exporter
                         </button>
-                        @if($event->status === 'published' && (!$event->registration_end_date || now() <= $event->registration_end_date))
+                        @if($event->status === 'published' && (!$event->EventRegistration_end_date || now() <= $event->EventRegistration_end_date))
                             <button type="button" class="btn btn-sm btn-success">
                                 <i class="bi bi-plus-circle me-2"></i>Nouvelle inscription
                             </button>
@@ -83,7 +83,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    @if($event->registrations->count() > 0)
+                    @if($event->EventRegistrations->count() > 0)
                         <div class="table-responsive">
                             <table class="table table-hover align-middle mb-0">
                                 <thead class="bg-light">
@@ -96,19 +96,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($event->registrations as $registration)
+                                    @foreach($event->EventRegistrations as $eventRegistration)
                                         <tr>
-                                            <td>{{ $registration->user->name }}</td>
-                                            <td>{{ $registration->created_at->format('d/m/Y H:i') }}</td>
+                                            <td>{{ $eventRegistration->user->name }}</td>
+                                            <td>{{ $eventRegistration->created_at->format('d/m/Y H:i') }}</td>
                                             <td>
-                                                <span class="badge bg-{{ $registration->status === 'confirmed' ? 'success' : ($registration->status === 'cancelled' ? 'danger' : 'secondary') }}">
-                                                    {{ $registration->status }}
+                                                <span class="badge bg-{{ $eventRegistration->status === 'confirmed' ? 'success' : ($eventRegistration->status === 'cancelled' ? 'danger' : 'secondary') }}">
+                                                    {{ $eventRegistration->status }}
                                                 </span>
                                             </td>
                                             <td>
                                                 @if($event->is_paid)
-                                                    <span class="badge bg-{{ $registration->payment_status === 'completed' ? 'success' : 'secondary' }}">
-                                                        {{ $registration->payment_status }}
+                                                    <span class="badge bg-{{ $eventRegistration->payment_status === 'completed' ? 'success' : 'secondary' }}">
+                                                        {{ $eventRegistration->payment_status }}
                                                     </span>
                                                 @else
                                                     <span class="badge bg-secondary">N/A</span>
@@ -178,14 +178,14 @@
                             </div>
                             <div class="d-flex align-items-center">
                                 <span class="text-muted me-3">
-                                    {{ $event->registrations_count }}
+                                    {{ $event->EventRegistrations_count }}
                                     @if($event->max_participants > 0)
                                         / {{ $event->max_participants }}
                                     @endif
                                 </span>
                                 @if($event->max_participants > 0)
                                     @php
-                                        $percentage = ($event->registrations_count / $event->max_participants) * 100;
+                                        $percentage = ($event->EventRegistrations_count / $event->max_participants) * 100;
                                         $progressClass = $percentage >= 90 ? 'danger' : ($percentage >= 70 ? 'secondary' : 'success');
                                     @endphp
                                     <div class="flex-grow-1">
@@ -199,13 +199,13 @@
                                 @endif
                             </div>
                         </li>
-                        @if($event->registration_end_date)
+                        @if($event->EventRegistration_end_date)
                             <li class="mb-3">
                                 <div class="d-flex align-items-center text-secondary mb-1">
                                     <i class="bi bi-clock me-2"></i>
                                     <strong>Date limite d'inscription</strong>
                                 </div>
-                                <span class="text-muted">{{ \Carbon\Carbon::parse($event->registration_end_date)->format('d/m/Y H:i') }}</span>
+                                <span class="text-muted">{{ \Carbon\Carbon::parse($event->EventRegistration_end_date)->format('d/m/Y H:i') }}</span>
                             </li>
                         @endif
                     </ul>
@@ -259,10 +259,10 @@
                 </div>
                 <div class="modal-body">
                     <p class="mb-0">Êtes-vous sûr de vouloir supprimer cet événement ? Cette action est irréversible.</p>
-                    @if($event->registrations_count > 0)
+                    @if($event->EventRegistrations_count > 0)
                         <div class="alert alert-warning mt-3 mb-0">
                             <i class="bi bi-exclamation-triangle me-2"></i>
-                            Attention : Cet événement contient {{ $event->registrations_count }} inscription(s).
+                            Attention : Cet événement contient {{ $event->EventRegistrations_count }} inscription(s).
                         </div>
                     @endif
                 </div>

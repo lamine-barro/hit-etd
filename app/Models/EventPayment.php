@@ -9,15 +9,15 @@ class EventPayment extends Model
 {
     protected $fillable = [
         'event_id',
-        'event_registration_id',
+        'event_EventRegistration_id',
         'reference',
         'amount',
         'currency',
+        'status',
+        'paid_at',
         'paystack_reference',
         'paystack_transaction_id',
-        'status',
         'paystack_response',
-        'paid_at',
     ];
 
     protected $casts = [
@@ -31,9 +31,9 @@ class EventPayment extends Model
         return $this->belongsTo(Event::class);
     }
 
-    public function registration(): BelongsTo
+    public function EventRegistration(): BelongsTo
     {
-        return $this->belongsTo(EventRegistration::class, 'event_registration_id');
+        return $this->belongsTo(EventRegistration::class, 'event_EventRegistration_id');
     }
 
     public function isPending(): bool

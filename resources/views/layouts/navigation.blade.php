@@ -3,15 +3,15 @@
     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
         {{ __('Home') }}
     </x-nav-link>
-    
-    <x-nav-link :href="route('evenements')" :active="request()->routeIs('evenements*')">
+
+    <x-nav-link :href="route('events')" :active="request()->routeIs('events*')">
         {{ __('Events') }}
     </x-nav-link>
-    
+
     <x-nav-link :href="route('actualites')" :active="request()->routeIs('actualites*')">
         {{ __('News') }}
     </x-nav-link>
-    
+
     <x-nav-link :href="route('visitez-le-campus')" :active="request()->routeIs('visitez-le-campus')">
         {{ __('Visit Campus') }}
     </x-nav-link>
@@ -33,17 +33,17 @@
         <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
             {{ __('Home') }}
         </x-responsive-nav-link>
-        
-        <x-responsive-nav-link :href="route('evenements')" :active="request()->routeIs('evenements*')">
+
+        <x-responsive-nav-link :href="route('events')" :active="request()->routeIs('events*')">
             {{ __('Events') }}
         </x-responsive-nav-link>
-        
+
         <x-responsive-nav-link :href="route('actualites')" :active="request()->routeIs('actualites*')">
             {{ __('News') }}
         </x-responsive-nav-link>
-        
+
         <x-responsive-nav-link :href="route('visitez-le-campus')" :active="request()->routeIs('visitez-le-campus')">
             {{ __('Visit Campus') }}
         </x-responsive-nav-link>
     </div>
-</div> 
+</div>

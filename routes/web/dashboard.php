@@ -4,7 +4,6 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AudienceController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
-use App\Http\Controllers\EventPaymentController;
 use App\Http\Controllers\NewsletterController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,15 +12,12 @@ use Illuminate\Support\Facades\Route;
 | Dashboard Routes
 |--------------------------------------------------------------------------
 */
-
 Route::middleware('auth')->prefix('dashboard')->group(function () {
     // Dashboard Home
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     // Événements
     Route::resource('events', EventController::class);
-    Route::post('events/{registration}/payment', [EventPaymentController::class, 'initiate'])
-        ->name('events.payment.initiate');
 
     // Articles
     Route::resource('articles', ArticleController::class);

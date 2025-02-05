@@ -31,7 +31,7 @@ class DashboardController extends Controller
 
     public function events()
     {
-        $events = Event::with('registrations')
+        $events = Event::with('EventRegistrations')
             ->orderBy('start_date', 'desc')
             ->paginate(10);
 

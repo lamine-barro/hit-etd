@@ -83,7 +83,7 @@
                                     {{ $event->location ?? __('news.location_tbd') }}
                                 @endif
                             </p>
-                            <a href="{{ route('evenements.show', $event) }}" class="text-primary-600 hover:text-primary-700 text-sm font-medium">
+                            <a href="{{ route('events.show', $event) }}" class="text-primary-600 hover:text-primary-700 text-sm font-medium">
                                 {{ __('news.register') }} →
                             </a>
                         </div>

@@ -70,7 +70,7 @@ class EventController extends Controller
                 'is_remote' => 'required|boolean',
                 'description' => 'required|string',
                 'max_participants' => 'required|integer|min:0',
-                'registration_end_date' => 'required|date|before_or_equal:start_date',
+                'EventRegistration_end_date' => 'required|date|before_or_equal:start_date',
                 'external_link' => 'nullable|url|max:255',
                 'is_paid' => 'required|boolean',
                 'price' => 'required_if:is_paid,1|nullable|numeric|min:0',
@@ -87,11 +87,11 @@ class EventController extends Controller
 
             // Vérification supplémentaire des dates
             $start_date = \Carbon\Carbon::parse($request->start_date);
-            $registration_end_date = \Carbon\Carbon::parse($request->registration_end_date);
+            $eventRegistration_end_date = \Carbon\Carbon::parse($request->EventRegistration_end_date);
 
-            if ($registration_end_date->isAfter($start_date)) {
+            if ($eventRegistration_end_date->isAfter($start_date)) {
                 throw ValidationException::withMessages([
-                    'registration_end_date' => ['La date limite d\'inscription doit être antérieure ou égale à la date de début de l\'événement.'],
+                    'EventRegistration_end_date' => ['La date limite d\'inscription doit être antérieure ou égale à la date de début de l\'événement.'],
                 ]);
             }
 

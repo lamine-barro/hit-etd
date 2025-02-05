@@ -26,7 +26,7 @@ class Event extends Model
         'location',
         'is_remote',
         'max_participants',
-        'registration_end_date',
+        'EventRegistration_end_date',
         'external_link',
         'is_paid',
         'price',
@@ -45,7 +45,7 @@ class Event extends Model
     protected $casts = [
         'start_date' => 'datetime',
         'end_date' => 'datetime',
-        'registration_end_date' => 'datetime',
+        'EventRegistration_end_date' => 'datetime',
         'early_bird_end_date' => 'datetime',
         'is_remote' => 'boolean',
         'is_paid' => 'boolean',
@@ -73,17 +73,17 @@ class Event extends Model
     {
         $slug = Str::slug($title);
 
-        $count = static::where("slug", $slug)->count();
+        $count = static::where('slug', $slug)->count();
 
         return $count ? "{$slug}-{$count}" : $slug;
     }
 
     /**
-     * Get the registrations for the event.
+     * Get the EventRegistrations for the event.
      */
-    public function registrations(): HasMany
+    public function EventRegistrations(): HasMany
     {
-        return $this->hasMany(Registration::class);
+        return $this->hasMany(EventRegistration::class);
     }
 
     /**
@@ -113,7 +113,7 @@ class Event extends Model
             return false;
         }
 
-        return $this->registrations()->count() >= $this->max_participants;
+        return $this->EventRegistrations()->count() >= $this->max_participants;
     }
 
     /**
@@ -125,7 +125,7 @@ class Event extends Model
             return PHP_INT_MAX;
         }
 
-        $taken = $this->registrations()->count();
+        $taken = $this->EventRegistrations()->count();
 
         return max(0, $this->max_participants - $taken);
     }
@@ -135,17 +135,17 @@ class Event extends Model
      */
     public function hasReachedCapacity(): bool
     {
-        return $this->registrations()
+        return $this->EventRegistrations()
             ->whereNotIn('status', ['cancelled'])
             ->count() >= $this->max_participants;
     }
 
     /**
-     * Check if registration is open for the event
+     * Check if EventRegistration is open for the event
      */
-    public function isRegistrationOpen(): bool
+    public function isEventRegistrationOpen(): bool
     {
-        return now()->lt($this->registration_end_date) && ! $this->hasReachedCapacity();
+        return now()->lt($this->EventRegistration_end_date) && ! $this->hasReachedCapacity();
     }
 
     /**

@@ -8,7 +8,7 @@
             <nav class="flex text-sm">
                 <a href="{{ route('home') }}" class="text-gray-500 hover:text-gray-700">{{ __('Accueil') }}</a>
                 <span class="mx-2 text-gray-400">/</span>
-                <a href="{{ route('evenements') }}" class="text-gray-500 hover:text-gray-700">{{ __('Événements') }}</a>
+                <a href="{{ route('events') }}" class="text-gray-500 hover:text-gray-700">{{ __('Événements') }}</a>
                 <span class="mx-2 text-gray-400">/</span>
                 <span class="text-gray-900">{{ $event->title }}</span>
             </nav>
@@ -35,9 +35,9 @@
             <div class="mb-8 lg:mb-0">
                 @if ($event->illustration)
                     <div class="relative rounded-2xl overflow-hidden shadow-lg">
-                        <img 
-                            src="{{ Storage::url($event->illustration) }}" 
-                            alt="{{ $event->title }}" 
+                        <img
+                            src="{{ Storage::url($event->illustration) }}"
+                            alt="{{ $event->title }}"
                             class="w-full aspect-[4/3] object-cover"
                         >
                     </div>
@@ -59,19 +59,19 @@
                             </span>
                         </div>
                         <div class="relative" x-data="{ open: false }">
-                            <button 
+                            <button
                                 @click="open = !open"
                                 @click.away="open = false"
-                                class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors" 
+                                class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
                                 title="{{ __('Partager l\'événement') }}"
                             >
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
                             </svg>
                         </button>
-                            
+
                             <!-- Menu de partage -->
-                            <div 
+                            <div
                                 x-show="open"
                                 x-transition:enter="transition ease-out duration-200"
                                 x-transition:enter-start="transform opacity-0 scale-95"
@@ -83,7 +83,7 @@
                             >
                                 <div class="py-1">
                                     <!-- WhatsApp -->
-                                    <a href="https://wa.me/?text={{ urlencode($event->title . ' - ' . route('evenements.show', $event)) }}" 
+                                    <a href="https://wa.me/?text={{ urlencode($event->title . ' - ' . route('events.show', $event)) }}"
                                        target="_blank"
                                        class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                         <svg class="w-5 h-5 mr-3 text-green-600" fill="currentColor" viewBox="0 0 24 24">
@@ -91,9 +91,9 @@
                                         </svg>
                                         WhatsApp
                                     </a>
-                                    
+
                                     <!-- Facebook -->
-                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('evenements.show', $event)) }}" 
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('events.show', $event)) }}"
                                        target="_blank"
                                        class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                         <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
@@ -101,9 +101,9 @@
                                         </svg>
                                         Facebook
                                     </a>
-                                    
+
                                     <!-- Twitter/X -->
-                                    <a href="https://twitter.com/intent/tweet?text={{ urlencode($event->title) }}&url={{ urlencode(route('evenements.show', $event)) }}" 
+                                    <a href="https://twitter.com/intent/tweet?text={{ urlencode($event->title) }}&url={{ urlencode(route('events.show', $event)) }}"
                                        target="_blank"
                                        class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                         <svg class="w-5 h-5 mr-3 text-gray-900" fill="currentColor" viewBox="0 0 24 24">
@@ -111,19 +111,19 @@
                                         </svg>
                                         Twitter/X
                                     </a>
-                                    
+
                                     <!-- Email -->
-                                    <a href="mailto:?subject={{ urlencode($event->title) }}&body={{ urlencode($event->description . '\n\nPlus de détails : ' . route('evenements.show', $event)) }}" 
+                                    <a href="mailto:?subject={{ urlencode($event->title) }}&body={{ urlencode($event->description . '\n\nPlus de détails : ' . route('events.show', $event)) }}"
                                        class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                         <svg class="w-5 h-5 mr-3 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                                         </svg>
                                         Email
                                     </a>
-                                    
+
                                     <!-- Copier le lien -->
-                                    <button 
-                                        onclick="copyEventLink('{{ route('evenements.show', $event) }}')"
+                                    <button
+                                        onclick="copyEventLink('{{ route('events.show', $event) }}')"
                                         class="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                         <svg class="w-5 h-5 mr-3 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/>
@@ -195,12 +195,12 @@
                             <div class="flex-1">
                                 <div class="flex items-center justify-between gap-4">
                                     <div class="w-full bg-gray-200 rounded-full h-2">
-                                        <div class="bg-primary-600 h-2 rounded-full transition-all duration-300" 
-                                            style="width: {{ ($event->registrations_count / $event->max_participants) * 100 }}%">
+                                        <div class="bg-primary-600 h-2 rounded-full transition-all duration-300"
+                                            style="width: {{ ($event->EventRegistrations_count / $event->max_participants) * 100 }}%">
                                         </div>
                                     </div>
                                     <span class="text-sm whitespace-nowrap">
-                                        {{ $event->registrations_count }}/{{ $event->max_participants }}
+                                        {{ $event->EventRegistrations_count }}/{{ $event->max_participants }}
                                     </span>
                                 </div>
                             </div>
@@ -210,9 +210,9 @@
 
                 <!-- Boutons d'action -->
                 <div class="flex flex-col sm:flex-row gap-4">
-                    @if ($event->registrations_count < $event->max_participants && now()->lt($event->registration_end_date))
-                        <button 
-                            onclick="openRegistrationModal()"
+                    @if ($event->EventRegistrations_count < $event->max_participants && now()->lt($event->EventRegistration_end_date))
+                        <button
+                            onclick="openEventRegistrationModal()"
                             class="flex-1 inline-flex justify-center items-center px-6 py-3 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 transform transition hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                         >
                             {{ __('INSCRIPTION') }}
@@ -234,7 +234,7 @@
 </div>
 
 <!-- Modal d'inscription -->
-<div id="registrationModal" class="fixed inset-0 z-[100] hidden overflow-y-auto">
+<div id="EventRegistrationModal" class="fixed inset-0 z-[100] hidden overflow-y-auto">
     <div class="min-h-screen px-4 text-center">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
         <span class="inline-block h-screen align-middle">&#8203;</span>
@@ -244,7 +244,7 @@
                 <h3 class="text-xl font-semibold leading-6 text-gray-900">
                     {{ __('Inscription à l\'événement') }}
                 </h3>
-                <button onclick="closeRegistrationModal()" class="text-gray-400 hover:text-gray-500 transition-colors">
+                <button onclick="closeEventRegistrationModal()" class="text-gray-400 hover:text-gray-500 transition-colors">
                     <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
@@ -252,7 +252,7 @@
             </div>
 
             <!-- Formulaire -->
-            <form action="{{ route('event.register', $event) }}" method="POST" class="space-y-6">
+            <form action="{{ route('events.register', $event) }}" method="POST" class="space-y-6">
                 @csrf
                 <!-- Nom -->
                 <div class="relative">
@@ -372,12 +372,12 @@
 
 @push('scripts')
 <script>
-    function openRegistrationModal() {
-        document.getElementById('registrationModal').classList.remove('hidden');
+    function openEventRegistrationModal() {
+        document.getElementById('EventRegistrationModal').classList.remove('hidden');
     }
 
-    function closeRegistrationModal() {
-        document.getElementById('registrationModal').classList.add('hidden');
+    function closeEventRegistrationModal() {
+        document.getElementById('EventRegistrationModal').classList.add('hidden');
     }
 
     // Auto-hide flash messages after 3 seconds

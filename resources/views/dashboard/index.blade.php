@@ -18,7 +18,7 @@
         <div class="card bg-success text-white">
             <div class="card-body">
                 <h5 class="card-title">Inscriptions</h5>
-                <p class="card-text display-6">{{ $stats['total_registrations'] }}</p>
+                <p class="card-text display-6">{{ $stats['total_EventRegistrations'] }}</p>
                 <small>Total des inscriptions aux événements</small>
             </div>
         </div>
@@ -64,4 +64,4 @@
         </div>
     </div>
 </div>
-@endsection 
+@endsection

@@ -17,10 +17,10 @@ class EventPaymentController extends Controller
         $this->paystackService = $paystackService;
     }
 
-    public function initiate(EventRegistration $registration)
+    public function initiate(EventRegistration $eventRegistration)
     {
         try {
-            $payment = $this->paystackService->initiatePayment($registration);
+            $payment = $this->paystackService->initiatePayment($eventRegistration);
 
             return response()->json([
                 'status' => 'success',
@@ -55,20 +55,20 @@ class EventPaymentController extends Controller
                     $paymentData['data']
                 );
 
-                // Update registration status
-                $payment->registration->update(['status' => 'confirmed']);
+                // Update EventRegistration status
+                $payment->EventRegistration->update(['status' => 'confirmed']);
 
-                return redirect()->route('events.registration.success', [
+                return redirect()->route('events.EventRegistration.success', [
                     'event' => $payment->event_id,
-                    'registration' => $payment->event_registration_id,
-                ])->with('success', 'Payment successful! Your registration is confirmed.');
+                    'EventRegistration' => $payment->event_EventRegistration_id,
+                ])->with('success', 'Payment successful! Your EventRegistration is confirmed.');
             }
 
             $payment->markAsFailed($paymentData);
 
-            return redirect()->route('events.registration.failed', [
+            return redirect()->route('events.EventRegistration.failed', [
                 'event' => $payment->event_id,
-                'registration' => $payment->event_registration_id,
+                'EventRegistration' => $payment->event_EventRegistration_id,
             ])->with('error', 'Payment failed. Please try again.');
 
         } catch (\Exception $e) {
@@ -90,5 +90,16 @@ class EventPaymentController extends Controller
 
             return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
         }
+    }
+
+    public function show(Request $request, EventRegistration $eventRegistration)
+    {
+        // Vérifier si le paiement est toujours en attente
+        if ($eventRegistration->status !== 'pending') {
+            return redirect()->route('events.show', $eventRegistration->event)
+                ->with('error', __('Cette inscription a déjà été traitée.'));
+        }
+
+        return view('pages.event-payment', compact('EventRegistration'));
     }
 }
