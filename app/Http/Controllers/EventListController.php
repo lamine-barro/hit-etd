@@ -15,7 +15,7 @@ class EventController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Event::query()->withCount('EventRegistrations');
+        $query = Event::query()->withCount('registrations');
 
         // Appliquer les filtres
         if ($request->filled('search')) {
@@ -263,7 +263,7 @@ class EventListController extends Controller
     {
         $query = Event::query()
             ->where('status', 'published')
-            ->withCount('EventRegistrations');
+            ->withCount('registrations');
 
         // Appliquer les filtres
         if ($request->filled('type')) {
