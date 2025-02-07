@@ -32,7 +32,6 @@ class CampusController extends Controller
                 'purpose' => 'required|string|in:coworking,incubation,formation,evenement',
                 'spaces' => 'required|array',
                 'spaces.*' => 'string|in:coworking,meeting,event,studio,auditorium',
-                'message' => 'required|string|max:1000',
             ]);
 
             $booking = Booking::create([
@@ -44,7 +43,7 @@ class CampusController extends Controller
                 'time' => $validated['time'],
                 'purpose' => $validated['purpose'],
                 'spaces' => $validated['spaces'],
-                'message' => $validated['message'],
+                'message' => $validated['message'] ?? '',
             ]);
 
             Log::info('Nouvelle réservation de visite créée', [
