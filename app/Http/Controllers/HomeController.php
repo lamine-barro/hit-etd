@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+
 class HomeController extends Controller
 {
     /**
@@ -13,9 +15,10 @@ class HomeController extends Controller
     {
         // Vous pourrez ajouter ici la logique pour récupérer les données nécessaires
         // comme les actualités récentes, les partenaires, etc.
+        
         return view('pages.home', [
             'pageTitle' => 'Accueil - Hub Ivoire Tech',
-            'metaDescription' => 'Le Hub Ivoire Tech est le plus grand Campus de Startups en Afrique. Découvrez nos services d\'accompagnement pour les entrepreneurs et innovateurs.',
+            'metaDescription' => 'Le Hub Ivoire Tech a pour vocation d\'être le plus grand Campus de Startups en Afrique. Découvrez nos services d\'accompagnement pour les entrepreneurs et innovateurs.',
         ]);
     }
 }

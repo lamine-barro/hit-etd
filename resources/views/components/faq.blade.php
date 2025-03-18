@@ -30,7 +30,7 @@
                         x-cloak
                         class="px-6 py-4 bg-white border-t border-gray-200"
                     >
-                        <p class="text-gray-600">{{ __('Hub Ivoire Tech est le plus grand Campus de Startups en Afrique. Il réunit un écosystème d\'incubateurs, d\'accélérateurs, d\'investisseurs, d\'experts et d\'entrepreneurs afin de stimuler l\'innovation et de transformer les idées en succès concrets sur le territoire ivoirien et au-delà.') }}</p>
+                        <p class="text-gray-600">{{ __('Hub Ivoire Tech a pour vocation d\'être le plus grand Campus de Startups en Afrique. Il réunit un écosystème d\'incubateurs, d\'accélérateurs, d\'investisseurs, d\'experts et d\'entrepreneurs afin de stimuler l\'innovation et de transformer les idées en succès concrets sur le territoire ivoirien et au-delà.') }}</p>
                     </div>
                 </div>
 
@@ -65,7 +65,7 @@
                         @click="active = active === 3 ? null : 3"
                         :class="{ 'bg-gray-50': active === 3 }"
                     >
-                        <span class="text-base font-semibold text-gray-900">{{ __('Comment puis-je réserver une visite du campus ?') }}</span>
+                        <span class="text-base font-semibold text-gray-900">{{ __('Qui peut bénéficier de vos programmes d\'accompagnement ?') }}</span>
                         <svg class="w-5 h-5 text-gray-500 transform transition-transform duration-200" 
                             :class="{ 'rotate-180': active === 3 }"
                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -78,7 +78,7 @@
                         x-cloak
                         class="px-6 py-4 bg-white border-t border-gray-200"
                     >
-                        <p class="text-gray-600">{{ __('Il vous suffit de remplir le formulaire de réservation de visite sur notre site en indiquant vos coordonnées, la date et l\'heure souhaitées, ainsi que l\'objet de votre visite. Une fois votre demande soumise, notre équipe vous contactera pour confirmer et finaliser votre rendez-vous.') }}</p>
+                        <p class="text-gray-600">{{ __('Nos programmes s\'adressent aux startups, porteurs de projets et entrepreneurs désireux de concrétiser leurs idées. Que vous soyez en phase de création ou en pleine croissance, Hub Ivoire Tech propose un accompagnement sur-mesure pour booster votre développement grâce à un réseau d\'experts et de partenaires stratégiques.') }}</p>
                     </div>
                 </div>
 
@@ -89,7 +89,7 @@
                         @click="active = active === 4 ? null : 4"
                         :class="{ 'bg-gray-50': active === 4 }"
                     >
-                        <span class="text-base font-semibold text-gray-900">{{ __('Qui peut bénéficier de vos programmes d\'accompagnement ?') }}</span>
+                        <span class="text-base font-semibold text-gray-900">{{ __('Comment rester informé(e) des actualités et événements ?') }}</span>
                         <svg class="w-5 h-5 text-gray-500 transform transition-transform duration-200" 
                             :class="{ 'rotate-180': active === 4 }"
                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -98,30 +98,6 @@
                     </button>
                     <div 
                         x-show="active === 4" 
-                        x-collapse
-                        x-cloak
-                        class="px-6 py-4 bg-white border-t border-gray-200"
-                    >
-                        <p class="text-gray-600">{{ __('Nos programmes s\'adressent aux startups, porteurs de projets et entrepreneurs désireux de concrétiser leurs idées. Que vous soyez en phase de création ou en pleine croissance, Hub Ivoire Tech propose un accompagnement sur-mesure pour booster votre développement grâce à un réseau d\'experts et de partenaires stratégiques.') }}</p>
-                    </div>
-                </div>
-
-                <!-- Question 5 -->
-                <div class="border border-gray-200 rounded-lg overflow-hidden">
-                    <button 
-                        class="w-full px-6 py-4 text-left bg-white hover:bg-gray-50 flex justify-between items-center"
-                        @click="active = active === 5 ? null : 5"
-                        :class="{ 'bg-gray-50': active === 5 }"
-                    >
-                        <span class="text-base font-semibold text-gray-900">{{ __('Comment rester informé(e) des actualités et événements ?') }}</span>
-                        <svg class="w-5 h-5 text-gray-500 transform transition-transform duration-200" 
-                            :class="{ 'rotate-180': active === 5 }"
-                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                        </svg>
-                    </button>
-                    <div 
-                        x-show="active === 5" 
                         x-collapse
                         x-cloak
                         class="px-6 py-4 bg-white border-t border-gray-200"

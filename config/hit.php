@@ -8,7 +8,7 @@ return [
     */
 
     'name' => 'Hub Ivoire Tech',
-    'description' => 'Le plus grand Campus de Startups en Afrique',
+    'description' => 'A pour vocation d\'être le plus grand Campus de Startups en Afrique',
 
     // Contact Information
     'address' => 'Tour POSTEL 2001, Mezzanine et 13e étage, Plateau - Abidjan, Côte d\'Ivoire',
