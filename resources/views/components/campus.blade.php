@@ -235,18 +235,6 @@
                 </div>
             </div>
         </div>
-        <!-- Note supplémentaire -->
-        <div class="mt-12 text-center">
-            <p class="text-sm text-gray-500">
-                Pour d'autres formulaires (organisation, startups, animation, prêt d'équipement…), 
-                <a href="https://hubivoiretech-my.sharepoint.com/:f:/g/personal/hello_hubivoiretech_ci/ElILl7V6nltDiBhSkno7f-4BslHxVjH0bMZA742TBFxCVw?e=tvMLAv" target="_blank" class="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium">
-                    cliquez ici
-                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                </a>
-            </p>
-        </div>
     </div>
 
     <!-- Suppression des scripts et styles OpenStreetMap -->

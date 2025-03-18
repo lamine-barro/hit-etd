@@ -162,11 +162,11 @@
                             </td>
                             <td class="px-4 py-3 text-end">
                                 <div class="btn-group">
-                                    <a href="{{ route('events.show', $event) }}"
+                                    <a href="{{ route('dashboard.events.show', $event) }}"
                                        class="btn btn-sm btn-outline-primary">
                                         <i class="bi bi-eye"></i>
                                     </a>
-                                    <a href="{{ route('events.edit', $event) }}"
+                                    <a href="{{ route('dashboard.events.edit', $event) }}"
                                        class="btn btn-sm btn-outline-primary">
                                         <i class="bi bi-pencil"></i>
                                     </a>
@@ -217,12 +217,12 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Annuler</button>
-                    <form :action="deleteUrl" method="POST" style="display: inline;">
+                    <form id="delete-form-{{ $event->id }}" 
+                          action="{{ route('dashboard.events.destroy', $event) }}" 
+                          method="POST" 
+                          style="display: none;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger">
-                            <i class="bi bi-trash me-2"></i>Supprimer
-                        </button>
                     </form>
                 </div>
             </div>
@@ -258,7 +258,7 @@ document.addEventListener('alpine:init', () => {
         },
 
         confirmDelete(eventId) {
-            this.deleteUrl = `{{ route('events.destroy', '') }}/${eventId}`;
+            this.deleteUrl = `{{ route('dashboard.events.destroy', '') }}/${eventId}`;
             this.deleteModal.show();
         },
 

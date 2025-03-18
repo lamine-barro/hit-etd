@@ -105,7 +105,7 @@ class EventController extends Controller
 
             $event = Event::create($validatedData);
 
-            return redirect()->route('events.show', $event)
+            return redirect()->route('dashboard.events.show', $event)
                 ->with('success', 'Événement créé avec succès.');
         } catch (ValidationException $e) {
             Log::error('Erreur de validation lors de la création de l\'événement', [
@@ -186,7 +186,7 @@ class EventController extends Controller
 
             $event->update($validatedData);
 
-            return redirect()->route('events.show', $event)
+            return redirect()->route('dashboard.events.show', $event)
                 ->with('success', 'Événement mis à jour avec succès.');
         } catch (ValidationException $e) {
             Log::error('Erreur de validation lors de la mise à jour de l\'événement', [
@@ -219,7 +219,7 @@ class EventController extends Controller
             // Vérifier si l'événement a des inscriptions
             if ($event->registrations()->count() > 0) {
                 return redirect()
-                    ->route('events.show', $event)
+                    ->route('dashboard.events.show', $event)
                     ->with('toast', [
                         'type' => 'error',
                         'message' => 'Impossible de supprimer un événement qui a des inscriptions.',
@@ -235,8 +235,7 @@ class EventController extends Controller
             // Supprimer l'événement
             $event->delete();
 
-            return redirect()
-                ->route('events.index')
+            return redirect()->route('dashboard.events.index')
                 ->with('toast', [
                     'type' => 'success',
                     'message' => 'L\'événement a été supprimé avec succès.',

@@ -6,7 +6,7 @@
 <div class="container px-6 mx-auto">
     <!-- En-tête -->
     <div class="mb-4">
-        <a href="{{ route('events.show', $event) }}" class="btn btn-light">
+        <a href="{{ route('dashboard.events.show', $event) }}" class="btn btn-light">
             <i class="bi bi-arrow-left me-2"></i>Retour
         </a>
     </div>
