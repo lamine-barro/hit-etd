@@ -7,6 +7,21 @@
 
     <title>{{ config('app.name', 'Hub Ivoire Tech') }}</title>
 
+    <!-- Favicon -->
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+    
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" href="{{ asset('favicon.ico') }}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="{{ config('app.name', 'Hub Ivoire Tech') }}">
+    
+    <!-- MS Tile Icon -->
+    <meta name="msapplication-TileImage" content="{{ asset('favicon.ico') }}">
+    <meta name="msapplication-TileColor" content="#FF6B00">
+    <meta name="theme-color" content="#FF6B00">
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
