@@ -32,7 +32,7 @@
             <ul class="nav flex-column mt-2">
                 <li class="nav-item">
                     <a class="nav-link d-flex align-items-center {{ request()->routeIs('events.*') ? 'active text-primary fw-medium' : 'text-dark' }}" 
-                       href="{{ route('events.index') }}">
+                       href="#">
                         <i class="bi bi-calendar-event me-2"></i>
                         Événements
                     </a>

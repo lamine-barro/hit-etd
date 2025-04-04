@@ -1,0 +1,28 @@
+.fi-sidebar-item span {
+    font-size: .85rem !important;
+    font-weight: 500 !important;
+}
+
+.fi-sidebar-nav {
+    background-color: #fafafa !important;
+    border-right: 2px solid #e9e9e9 !important;
+}
+
+body {
+    background-color: white !important;
+}
+
+.fi-sidebar-header, .fi-topbar > .flex {
+    border-bottom: 2px solid #e9e9e9 !important;
+    box-shadow: none;
+}
+
+.fi-main {
+    border-top: none;
+}
+
+
+.w-\[--sidebar-width\] {
+    --sidebar-width: 16rem;
+    width: var(--sidebar-width) !important;
+}
