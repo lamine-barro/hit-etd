@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Filament\Support\Assets\Css;
+use Filament\Support\Facades\FilamentAsset;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
 
@@ -21,6 +23,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $lang = Session::get('locale');
-        // dd($lang);
+        FilamentAsset::register([
+            Css::make('example-local-stylesheet', asset('css/styles.css')),
+        ]);
     }
 }

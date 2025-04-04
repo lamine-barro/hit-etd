@@ -53,10 +53,10 @@
             </div>
             <div class="card-body">
                 <div class="d-flex gap-2">
-                    <a href="{{ route('events.create') }}" class="btn btn-primary">
+                    <a href="#" class="btn btn-primary">
                         <i class="bi bi-plus-circle"></i> Nouvel événement
                     </a>
-                    <a href="{{ route('articles.create') }}" class="btn btn-success">
+                    <a href="#" class="btn btn-success">
                         <i class="bi bi-plus-circle"></i> Nouvel article
                     </a>
                 </div>

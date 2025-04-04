@@ -4,12 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
+use Spatie\Sluggable\SlugOptions;
 
 class Event extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -17,6 +20,7 @@ class Event extends Model
      * @var array<string>
      */
     protected $fillable = [
+        'slug',
         'type',
         'title',
         'slug',
@@ -35,6 +39,7 @@ class Event extends Model
         'early_bird_end_date',
         'status',
         'illustration',
+        'created_by'
     ];
 
     /**
@@ -170,5 +175,20 @@ class Event extends Model
     {
         return $query->where('start_date', '<', now())
             ->orderByDesc('start_date');
+    }
+
+    /**
+     * Get the options for generating the slug.
+     */
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('title')
+            ->saveSlugsTo('slug');
+    }
+
+    public function createdBy(): BelongsTo
+    {
+        return $this->belongsTo(Administrator::class);
     }
 }

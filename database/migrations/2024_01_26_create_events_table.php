@@ -1,5 +1,8 @@
 <?php
 
+use App\Enums\EventType;
+use App\Enums\EventStatus;
+use App\Enums\Currency;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,6 +16,7 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
+            $table->string('slug')->unique();
             $table->string('type');
             $table->string('title');
             $table->text('description');
@@ -25,11 +29,13 @@ return new class extends Migration
             $table->string('external_link')->nullable();
             $table->boolean('is_paid')->default(false);
             $table->decimal('price', 10, 2)->nullable();
-            $table->string('currency', 3)->nullable();
+            $table->string('currency')->default(Currency::XOF->value);
             $table->decimal('early_bird_price', 10, 2)->nullable();
             $table->dateTime('early_bird_end_date')->nullable();
             $table->string('illustration')->nullable();
-            $table->enum('status', ['draft', 'published', 'cancelled'])->default('draft');
+            $table->string('status')->default(EventStatus::DRAFT->value);
+            $table->uuid('created_by');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
