@@ -31,9 +31,9 @@ class EventPayment extends Model
         return $this->belongsTo(Event::class);
     }
 
-    public function EventRegistration(): BelongsTo
+    public function registration(): BelongsTo
     {
-        return $this->belongsTo(EventRegistration::class, 'event_EventRegistration_id');
+        return $this->belongsTo(EventRegistration::class, 'event_registration_id');
     }
 
     public function isPending(): bool

@@ -17,6 +17,10 @@ class EventRegistrationController extends Controller
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|max:255',
                 'whatsapp' => 'nullable|string|max:255',
+                'position' => 'required|string|max:255',
+                'organization' => 'required|string|max:255',
+                'country' => 'required|string|max:255',
+                'actor_type' => 'required|string|in:startup,etudiant,chercheur,investisseur,media,corporate,service_public,structure_accompagnement,autre',
             ]);
 
             // Check if EventRegistration is open

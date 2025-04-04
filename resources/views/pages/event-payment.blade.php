@@ -116,7 +116,7 @@
 @push('scripts')
 <script>
     function initiatePayment() {
-        fetch("{{ route('events.payment.initiate', ['registration' => $eventRegistration->id]) }}", {
+        fetch("{{ route('payment.initiate', ['registration' => $eventRegistration->id]) }}", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
