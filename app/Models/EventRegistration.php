@@ -10,7 +10,7 @@ class EventRegistration extends Model
 {
     use HasFactory;
 
-    protected $table = 'registrations';
+    protected $table = 'event_registrations';
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +21,10 @@ class EventRegistration extends Model
         'name',
         'email',
         'whatsapp',
+        'position',
+        'organization',
+        'country',
+        'actor_type',
         'status',
         'payment_status',
         'amount_paid',
