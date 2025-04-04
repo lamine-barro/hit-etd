@@ -6,6 +6,7 @@ use App\Models\Event;
 use App\Models\EventRegistration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class EventRegistrationController extends Controller
 {
@@ -15,7 +16,7 @@ class EventRegistrationController extends Controller
             // Validate request
             $validatedData = $request->validate([
                 'name' => 'required|string|max:255',
-                'email' => 'required|email|max:255',
+                'email' => 'required|email:rfc,dns|max:255',
                 'whatsapp' => 'nullable|string|max:255',
                 'position' => 'required|string|max:255',
                 'organization' => 'required|string|max:255',
@@ -43,11 +44,12 @@ class EventRegistrationController extends Controller
             $eventRegistration->event()->associate($event);
             $eventRegistration->user_id = auth()->id(); // This will be null for non-authenticated users
             $eventRegistration->status = 'pending';
+            $eventRegistration->uuid = Str::uuid()->toString();
             $eventRegistration->save();
 
             // Handle payment if required
             if ($event->getCurrentPrice() > 0) {
-                return redirect()->route('payment.show', ['registration' => $eventRegistration->id])
+                return redirect()->route('payment.show', ['registration' => $eventRegistration->uuid])
                     ->with('success', __('Votre inscription a été prise en compte. Veuillez procéder au paiement.'));
             }
 

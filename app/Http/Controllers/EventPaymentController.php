@@ -17,11 +17,18 @@ class EventPaymentController extends Controller
         $this->paystackService = $paystackService;
     }
 
-    public function initiate(int $registrationId)
+    public function initiate(string $registrationId)
     {
         try {
-            $eventRegistration = EventRegistration::findOrFail($registrationId);
-
+            $eventRegistration = EventRegistration::where('uuid', $registrationId)->first();
+            
+            if (!$eventRegistration) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Inscription non trouvée',
+                ], 404);
+            }
+            
             $payment = $this->paystackService->initiatePayment($eventRegistration);
 
             return response()->json([
@@ -94,9 +101,14 @@ class EventPaymentController extends Controller
         }
     }
 
-    public function show(Request $request, int $registrationId)
+    public function show(Request $request, string $registrationId)
     {
-        $eventRegistration = EventRegistration::findOrFail($registrationId);
+        $eventRegistration = EventRegistration::where('uuid', $registrationId)->first();
+        
+        if (!$eventRegistration) {
+            return redirect()->route('events.index')
+                ->with('error', __('Inscription non trouvée.'));
+        }
 
         // Vérifier si le paiement est toujours en attente
         if ($eventRegistration->status !== 'pending') {
