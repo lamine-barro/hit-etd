@@ -1,0 +1,35 @@
+@import '../../vendor/filament/filament/resources/css/theme.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
+
+:root {
+    --primary: 0 0 0 !important;
+    --primary-500: 0 0 0 !important;
+    --primary-600: 0 0 0 !important;
+    --primary-700: 0 0 0 !important;
+}
+
+.fi-sidebar {
+    background-color: black !important;
+}
+
+.fi-btn-primary {
+    background-color: black !important;
+}
+
+.fi-btn-primary:hover {
+    background-color: #333 !important;
+}
+
+.fi-badge-primary {
+    background-color: black !important;
+}
+
+.fi-tabs-item[aria-selected=true] {
+    color: black !important;
+    border-color: black !important;
+}
+

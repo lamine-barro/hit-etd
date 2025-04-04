@@ -1,0 +1,124 @@
+/* Styles personnalisés pour forcer la couleur noire dans l'interface Filament */
+
+:root {
+    --primary: 0, 0, 0 !important;
+    --primary-50: 246, 246, 246 !important;
+    --primary-100: 231, 231, 231 !important;
+    --primary-200: 209, 209, 209 !important;
+    --primary-300: 176, 176, 176 !important;
+    --primary-400: 136, 136, 136 !important;
+    --primary-500: 0, 0, 0 !important;
+    --primary-600: 0, 0, 0 !important;
+    --primary-700: 0, 0, 0 !important;
+    --primary-800: 0, 0, 0 !important;
+    --primary-900: 0, 0, 0 !important;
+    --primary-950: 0, 0, 0 !important;
+}
+
+/* Barre latérale */
+.fi-sidebar {
+    background-color: black !important;
+}
+
+.fi-sidebar-header {
+    background-color: black !important;
+}
+
+.fi-sidebar-item-active {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Boutons */
+.fi-btn.fi-btn-primary, 
+button[type="submit"], 
+.fi-btn-primary {
+    background-color: black !important;
+    border-color: black !important;
+}
+
+.fi-btn.fi-btn-primary:hover, 
+button[type="submit"]:hover, 
+.fi-btn-primary:hover {
+    background-color: #333 !important;
+}
+
+/* Badges */
+.fi-badge.fi-badge-primary, 
+.fi-badge-primary {
+    background-color: black !important;
+    color: white !important;
+}
+
+/* Formulaires */
+.fi-input:focus, 
+.fi-input-wrp:focus-within {
+    border-color: black !important;
+    box-shadow: 0 0 0 1px black !important;
+}
+
+.fi-checkbox:checked, 
+.fi-radio:checked {
+    background-color: black !important;
+    border-color: black !important;
+}
+
+/* Onglets */
+.fi-tabs-item[aria-selected=true],
+.fi-tabs-item-active {
+    color: black !important;
+    border-color: black !important;
+}
+
+/* Liens */
+.fi-link.fi-link-primary,
+.fi-link-primary {
+    color: black !important;
+}
+
+/* Titres */
+.fi-modal-heading {
+    color: black !important;
+}
+
+/* Listes déroulantes */
+.fi-dropdown-list-item-active {
+    background-color: black !important;
+}
+
+/* Boutons d'action */
+.fi-icon-btn.fi-icon-btn-primary,
+.fi-icon-btn-primary {
+    color: black !important;
+}
+
+/* Surcharge spécifique pour les éléments avec couleur orange */
+[style*="--c-400:237,137,54"], 
+[style*="--c-500:249,115,22"], 
+[style*="--c-600:234,88,12"] {
+    --c-400: 0, 0, 0 !important;
+    --c-500: 0, 0, 0 !important;
+    --c-600: 0, 0, 0 !important;
+}
+
+/* Surcharge pour les éléments avec couleur primaire */
+[style*="rgb(var(--primary-500))"] {
+    background-color: black !important;
+    border-color: black !important;
+    color: white !important;
+}
+
+/* Surcharge pour les boutons et éléments interactifs */
+button, 
+.button, 
+[role="button"] {
+    background-color: black !important;
+    border-color: black !important;
+}
+
+/* Surcharge pour les éléments avec la classe primary */
+.primary, 
+[class*="primary"] {
+    background-color: black !important;
+    border-color: black !important;
+    color: white !important;
+}
