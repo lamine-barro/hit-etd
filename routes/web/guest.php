@@ -24,8 +24,8 @@ Route::get('/visitez-le-campus', [CampusController::class, 'index'])->name('visi
 // Événements
 Route::prefix('evenements')->group(function () {
     Route::get('/', [EventListController::class, 'index'])->name('events');
-    Route::get('{event:slug}', [EventListController::class, 'show'])->name('events.show');
-    Route::post('{event}/register', [EventRegistrationController::class, 'store'])->name('events.register');
+    Route::get('{slug}', [EventListController::class, 'show'])->name('events.show')->where('slug', '[a-z0-9\-]+');
+    Route::post('{slug}/register', [EventRegistrationController::class, 'store'])->name('events.register')->where('slug', '[a-z0-9\-]+');
     Route::post('{registration}/payment', [EventPaymentController::class, 'initiate'])->name('events.payment.initiate');
     Route::post('registration/{registration}/cancel', [EventRegistrationController::class, 'cancel'])->name('events.registration.cancel');
 });

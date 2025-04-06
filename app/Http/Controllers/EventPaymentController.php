@@ -65,20 +65,49 @@ class EventPaymentController extends Controller
                 );
 
                 // Update EventRegistration status
-                $payment->registration->update(['status' => 'confirmed']);
+                $payment->registration->update(['status' => \App\Enums\RegistrationStatus::CONFIRMED]);
+                
+                // Récupérer l'événement pour son slug
+                $event = $payment->registration->event;
+                
+                // Envoyer une notification par email après paiement réussi
+                try {
+                    $supportEmail = env('HIT_SUPPORT_EMAIL');
+                    
+                    Log::info('Tentative d\'envoi d\'email après paiement réussi', ['email' => $supportEmail]);
+                    
+                    Notification::route('mail', $supportEmail)
+                        ->notify(new \App\Notifications\NewEventRegistration($payment->registration));
+                    
+                    Log::info('Notification d\'inscription envoyée avec succès après paiement', [
+                        'event_id' => $event->id,
+                        'event_title' => $event->title,
+                        'registration_id' => $payment->registration->id,
+                        'support_email' => $supportEmail
+                    ]);
+                } catch (\Exception $e) {
+                    Log::error('Erreur lors de l\'envoi de la notification d\'inscription après paiement', [
+                        'error' => $e->getMessage(),
+                        'event_id' => $event->id,
+                        'registration_id' => $payment->registration->id,
+                    ]);
+                }
 
                 return redirect()->route('events.registration.success', [
-                    'event' => $payment->event_id,
-                    'registration' => $payment->event_registration_id,
-                ])->with('success', 'Payment successful! Your registration is confirmed.');
+                    'event' => $event->slug,
+                    'registration' => $payment->registration->uuid,
+                ])->with('success', __('Paiement réussi ! Votre inscription est confirmée.'));
             }
 
             $payment->markAsFailed($paymentData);
+            
+            // Récupérer l'événement pour son slug
+            $event = $payment->registration->event;
 
             return redirect()->route('events.registration.failed', [
-                'event' => $payment->event_id,
-                'registration' => $payment->event_registration_id,
-            ])->with('error', 'Payment failed. Please try again.');
+                'event' => $event->slug,
+                'registration' => $payment->registration->uuid,
+            ])->with('error', __('Le paiement a échoué. Veuillez réessayer.'));
 
         } catch (\Exception $e) {
             Log::error('Payment callback failed: '.$e->getMessage());
@@ -111,8 +140,10 @@ class EventPaymentController extends Controller
         }
 
         // Vérifier si le paiement est toujours en attente
-        if ($eventRegistration->status !== 'pending') {
-            return redirect()->route('events.show', ['event' => $eventRegistration->event_id])
+        if ($eventRegistration->status !== \App\Enums\RegistrationStatus::PENDING) {
+            // Récupérer l'événement et utiliser son slug pour la redirection
+            $event = $eventRegistration->event;
+            return redirect()->route('events.show', $event->slug)
                 ->with('error', __('Cette inscription a déjà été traitée.'));
         }
 

@@ -4,19 +4,31 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\EventRegistration;
+use App\Notifications\NewEventRegistration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 
 class EventRegistrationController extends Controller
 {
-    public function store(Request $request, Event $event)
+    /**
+     * Enregistrer une nouvelle inscription à un événement.
+     * 
+     * @param Request $request
+     * @param string $eventSlug Le slug de l'événement
+     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     */
+    public function store(Request $request, $eventSlug)
     {
+        // Récupérer l'événement par son slug
+        $event = Event::where('slug', $eventSlug)->firstOrFail();
         try {
             // Validate request
             $validatedData = $request->validate([
                 'name' => 'required|string|max:255',
-                'email' => 'required|email:rfc,dns|max:255',
+                'email' => 'required|email|max:255', // Suppression de la validation DNS qui peut échouer
                 'whatsapp' => 'nullable|string|max:255',
                 'position' => 'required|string|max:255',
                 'organization' => 'required|string|max:255',
@@ -43,10 +55,10 @@ class EventRegistrationController extends Controller
             $eventRegistration = new EventRegistration($validatedData);
             $eventRegistration->event()->associate($event);
             $eventRegistration->user_id = auth()->id(); // This will be null for non-authenticated users
-            $eventRegistration->status = 'pending';
+            $eventRegistration->status = \App\Enums\RegistrationStatus::PENDING;
             $eventRegistration->uuid = Str::uuid()->toString();
             $eventRegistration->save();
-
+            
             // Handle payment if required
             if ($event->getCurrentPrice() > 0) {
                 return redirect()->route('payment.show', ['registration' => $eventRegistration->uuid])
@@ -54,12 +66,40 @@ class EventRegistrationController extends Controller
             }
 
             // For free events, confirm registration immediately
-            $eventRegistration->status = 'confirmed';
+            $eventRegistration->status = \App\Enums\RegistrationStatus::CONFIRMED;
             $eventRegistration->save();
+            
+            // Envoyer une notification par email pour les événements gratuits
+            try {
+                $supportEmail = env('HIT_SUPPORT_EMAIL');
+                
+                Log::info('Tentative d\'envoi d\'email pour événement gratuit', ['email' => $supportEmail]);
+                
+                Notification::route('mail', $supportEmail)
+                    ->notify(new NewEventRegistration($eventRegistration));
+                
+                Log::info('Notification d\'inscription envoyée avec succès', [
+                    'event_id' => $event->id,
+                    'event_title' => $event->title,
+                    'registration_id' => $eventRegistration->id,
+                    'support_email' => $supportEmail
+                ]);
+            } catch (\Exception $e) {
+                Log::error('Erreur lors de l\'envoi de la notification d\'inscription', [
+                    'error' => $e->getMessage(),
+                    'event_id' => $event->id,
+                    'registration_id' => $eventRegistration->id,
+                ]);
+            }
 
             return back()->with('success', __('Votre inscription a été confirmée avec succès.'));
 
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Gestion spécifique des erreurs de validation
+            Log::error('EventRegistration error: validation.'.$e->validator->errors()->keys()[0]);
+            return back()->withErrors($e->validator)->withInput();
         } catch (\Exception $e) {
+            // Autres erreurs
             Log::error('EventRegistration error: '.$e->getMessage());
             if (isset($eventRegistration)) {
                 $eventRegistration->delete();

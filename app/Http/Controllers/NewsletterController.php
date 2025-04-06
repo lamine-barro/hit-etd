@@ -21,9 +21,41 @@ class NewsletterController extends Controller
             $data['newsletter_email'] = $request->has('newsletter_email');
             $data['newsletter_whatsapp'] = $request->has('newsletter_whatsapp');
 
+            // Vérifier si l'email existe déjà
+            $existingSubscriber = Audience::where('email', $data['newsletter_email_input'])->first();
+            
+            if ($existingSubscriber) {
+                // Mise à jour des intérêts et préférences si l'abonné existe déjà
+                $existingSubscriber->update([
+                    'name' => $data['newsletter_name'],
+                    'whatsapp' => $data['newsletter_whatsapp_input'] ?? $existingSubscriber->whatsapp,
+                    'newsletter_email' => $data['newsletter_email'],
+                    'newsletter_whatsapp' => $data['newsletter_whatsapp'] ?? false,
+                    'interests' => array_unique(array_merge($existingSubscriber->interests ?? [], $data['interests'] ?? [])),
+                ]);
+                
+                Log::info('Newsletter subscriber updated', [
+                    'subscriber_id' => $existingSubscriber->id,
+                    'subscriber_data' => $existingSubscriber->toArray(),
+                ]);
+                
+                if ($request->ajax()) {
+                    return response()->json([
+                        'status' => 'success',
+                        'message' => 'Vos préférences ont été mises à jour. Merci de votre fidélité !',
+                    ]);
+                }
+                
+                return back()->with('notification', [
+                    'type' => 'success',
+                    'message' => 'Vos préférences ont été mises à jour. Merci de votre fidélité !',
+                ]);
+            }
+            
+            // Validation pour un nouvel abonné
             $validated = validator($data, [
                 'newsletter_name' => 'required|string|max:255',
-                'newsletter_email_input' => 'required|email|max:255|unique:audiences,email',
+                'newsletter_email_input' => 'required|email|max:255',
                 'newsletter_whatsapp_input' => 'nullable|string|max:255',
                 'newsletter_email' => 'required|boolean',
                 'newsletter_whatsapp' => 'required|boolean',
@@ -68,11 +100,29 @@ class NewsletterController extends Controller
                 'errors' => $e->errors(),
                 'data' => $request->all(),
             ]);
+            
+            // Messages d'erreur personnalisés
+            $errorMessage = 'Veuillez vérifier les informations saisies.';
+            
+            // Messages spécifiques pour certaines erreurs
+            if (isset($e->errors()['newsletter_email_input'])) {
+                foreach ($e->errors()['newsletter_email_input'] as $error) {
+                    if (strpos($error, 'unique') !== false) {
+                        $errorMessage = 'Cet email est déjà inscrit. Vous pouvez mettre à jour vos préférences.';
+                        break;
+                    } elseif (strpos($error, 'email') !== false) {
+                        $errorMessage = 'Veuillez saisir une adresse email valide.';
+                        break;
+                    }
+                }
+            } elseif (isset($e->errors()['newsletter_name'])) {
+                $errorMessage = 'Veuillez saisir votre nom.';
+            }
 
             if ($request->ajax()) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Veuillez vérifier les informations saisies.',
+                    'message' => $errorMessage,
                     'errors' => $e->errors(),
                 ], 422);
             }
@@ -82,7 +132,7 @@ class NewsletterController extends Controller
                 ->withInput()
                 ->with('notification', [
                     'type' => 'error',
-                    'message' => 'Veuillez vérifier les informations saisies.',
+                    'message' => $errorMessage,
                 ]);
 
         } catch (\Exception $e) {
@@ -104,111 +154,5 @@ class NewsletterController extends Controller
                 'message' => 'Une erreur est survenue lors de votre inscription. Veuillez réessayer plus tard.',
             ]);
         }
-    }
-
-    public function index()
-    {
-        $subscribers = Audience::orderBy('created_at', 'desc')
-            ->paginate(10);
-
-        return view('dashboard.audiences.subscribers', compact('subscribers'));
-    }
-
-    public function update(Request $request, Audience $subscriber)
-    {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:audiences,email,'.$subscriber->id,
-            'whatsapp' => 'nullable|string|max:255',
-            'interests' => 'nullable|array',
-            'interests.*' => 'string|in:startups,tech,events,formation',
-            'newsletter_email' => 'boolean',
-            'newsletter_whatsapp' => 'boolean',
-        ]);
-
-        $subscriber->update([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'whatsapp' => $validated['whatsapp'],
-            'interests' => $validated['interests'] ?? [],
-            'newsletter_email' => $request->has('newsletter_email'),
-            'newsletter_whatsapp' => $request->has('newsletter_whatsapp'),
-        ]);
-
-        return back()->with('notification', [
-            'type' => 'success',
-            'message' => 'Abonné mis à jour avec succès.',
-        ]);
-    }
-
-    public function destroy(Audience $subscriber)
-    {
-        $subscriber->delete();
-
-        return back()->with('notification', [
-            'type' => 'success',
-            'message' => 'Abonné supprimé avec succès.',
-        ]);
-    }
-
-    public function export(Request $request)
-    {
-        $validated = $request->validate([
-            'format' => 'required|in:csv,xlsx',
-            'columns' => 'required|array',
-            'columns.*' => 'string|in:name,email,whatsapp,interests,created_at',
-        ]);
-
-        $subscribers = Audience::all();
-        $data = [];
-
-        foreach ($subscribers as $subscriber) {
-            $row = [];
-            foreach ($validated['columns'] as $column) {
-                switch ($column) {
-                    case 'name':
-                        $row['Nom'] = $subscriber->name;
-                        break;
-                    case 'email':
-                        $row['Email'] = $subscriber->email;
-                        break;
-                    case 'whatsapp':
-                        $row['WhatsApp'] = $subscriber->whatsapp;
-                        break;
-                    case 'interests':
-                        $row['Centres d\'intérêt'] = implode(', ', $subscriber->interests);
-                        break;
-                    case 'created_at':
-                        $row['Date d\'inscription'] = $subscriber->created_at->format('d/m/Y H:i');
-                        break;
-                }
-            }
-            $data[] = $row;
-        }
-
-        $filename = 'abonnes-newsletter-'.now()->format('Y-m-d-His');
-
-        if ($validated['format'] === 'csv') {
-            $headers = [
-                'Content-Type' => 'text/csv',
-                'Content-Disposition' => 'attachment; filename="'.$filename.'.csv"',
-            ];
-
-            $callback = function () use ($data) {
-                $file = fopen('php://output', 'w');
-                fputcsv($file, array_keys(reset($data)));
-                foreach ($data as $row) {
-                    fputcsv($file, $row);
-                }
-                fclose($file);
-            };
-
-            return response()->stream($callback, 200, $headers);
-        }
-
-        return \Maatwebsite\Excel\Facades\Excel::download(
-            new \App\Exports\SubscribersExport($data),
-            $filename.'.xlsx'
-        );
     }
 }

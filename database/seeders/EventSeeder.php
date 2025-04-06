@@ -379,6 +379,7 @@ class EventSeeder extends Seeder
         }
         
         foreach ($events as $eventData) {
+            $eventData['illustration'] = null;
             Event::create($eventData);
         }
     }
