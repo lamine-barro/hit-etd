@@ -17,8 +17,5 @@ require __DIR__.'/web/guest.php';
 // Routes d'authentification
 require __DIR__.'/web/auth.php';
 
-// Routes du dashboard
-require __DIR__.'/web/dashboard.php';
-
 // Routes des résidents
 require __DIR__.'/web/resident.php';
