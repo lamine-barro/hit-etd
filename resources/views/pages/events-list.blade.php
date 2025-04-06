@@ -1,14 +1,61 @@
 @extends('layouts.app')
 
 @section('content')
-    <br><br><br>
+   <!-- Hero Section -->
+   <div class="relative bg-gradient-to-br from-green-900 via-green-800 to-orange-900 text-white overflow-hidden">
+    <!-- Motif de fond moderne -->
+    <div class="absolute inset-0">
+        <div class="absolute inset-0 bg-black opacity-30"></div>
+        <div class="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-blue-500/20 to-transparent"></div>
+        <div
+            class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yLjIgMS44LTQgNC00czQgMS44IDQgNC0xLjggNC00IDQtNC0xLjgtNC00eiIvPjxwYXRoIGQ9Ik0xNiAxNmMyLjIgMCA0IDEuOCA0IDRzLTEuOCA0LTQgNC00LTEuOC00LTQgMS44LTQgNC00em0xNiAwYzIuMiAwIDQgMS44IDQgNHMtMS44IDQtNCA0LTQtMS44LTQtNCAxLjgtNCA0LTR6TTM2IDM0YzAtMi4yIDEuOC00IDQtNHM0IDEuOCA0IDQtMS44IDQtNCA0LTQtMS44LTQtNHoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-40">
+        </div>
+    </div>
+
+    <!-- Éléments décoratifs -->
+    <div class="absolute top-0 right-0 -mt-20 -mr-20 w-80 h-80 rounded-full bg-blue-600/20 blur-3xl" aria-hidden="true">
+    </div>
+    <div class="absolute bottom-0 left-0 -mb-20 -ml-20 w-80 h-80 rounded-full bg-purple-600/20 blur-3xl"
+        aria-hidden="true"></div>
+
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 relative z-10">
+        <div class="text-center mt-5">
+            <div class="text-center">
+                <div
+                    class="inline-flex items-center px-3 py-1 mb-6 text-xs font-medium tracking-wide text-green-100 uppercase bg-green-800/40 rounded-full backdrop-blur-sm border border-green-700/50">
+                    <svg class="w-4 h-4 mr-1.5" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+                    </svg>
+                    {{ __('Nos événements') }}
+                </div>
+
+                <h1 class="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
+                    <span class="block mt-1 text-transparent bg-clip-text bg-gradient-to-r from-orange-300 via-green-300 to-green-200">{{ __('Nos événements') }}</span>
+                </h1>
+
+                <p class="text-xl text-center font-light mb-8 text-green-100 leading-relaxed">
+                    Découvrez nos prochains événements et inscrivez-vous
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Indicateur de défilement -->
+    <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2">
+        <a href="#articles-filter-form"
+            class="flex flex-col items-center text-white/80 hover:text-white transition-colors duration-300"
+            aria-label="Découvrir les filtres d'articles">
+            <span class="text-xs font-medium mb-1">Explorer</span>
+            <div class="w-8 h-12 border-2 border-white/40 rounded-full flex justify-center pt-1" aria-hidden="true">
+                <div class="w-1.5 h-3 bg-white/80 rounded-full animate-bounce"></div>
+            </div>
+        </a>
+    </div>
+</div>
     <div class="bg-gray-50 py-12">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- En-tête -->
-        <div class="text-center mb-12">
-            <h1 class="text-4xl font-bold text-gray-900 mb-4">{{ __('Nos événements') }}</h1>
-            <p class="text-lg text-gray-600">{{ __('Découvrez nos prochains événements et inscrivez-vous') }}</p>
-        </div>
+  
         <!-- Filtres -->
         <div class="mb-8">
             <form action="{{ route('events') }}" method="GET" class="flex flex-wrap gap-4 justify-center">
