@@ -2,13 +2,18 @@
 
 namespace App\Models;
 
+use App\Enums\ArticleCategory;
+use App\Enums\ArticleStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
+use Spatie\Sluggable\SlugOptions;
 
 class Article extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes, SoftDeletes;
 
     protected $fillable = [
         'title',
@@ -23,6 +28,7 @@ class Article extends Model
         'views',
         'status',
         'published_at',
+        'author_id',
     ];
 
     protected $casts = [
@@ -31,6 +37,8 @@ class Article extends Model
         'reading_time' => 'integer',
         'views' => 'integer',
         'published_at' => 'datetime',
+        'status' => ArticleStatus::class,
+        'category' => ArticleCategory::class,
     ];
 
     /**
@@ -44,7 +52,7 @@ class Article extends Model
             if (empty($article->slug)) {
                 $article->slug = Str::slug($article->title);
             }
-            if ($article->status === 'published' && empty($article->published_at)) {
+            if ($article->status === ArticleStatus::PUBLISHED && empty($article->published_at)) {
                 $article->published_at = now();
             }
             if (empty($article->reading_time)) {
@@ -56,7 +64,7 @@ class Article extends Model
             if ($article->isDirty('title') && empty($article->slug)) {
                 $article->slug = Str::slug($article->title);
             }
-            if ($article->isDirty('status') && $article->status === 'published' && empty($article->published_at)) {
+            if ($article->isDirty('status') && $article->status === ArticleStatus::PUBLISHED && empty($article->published_at)) {
                 $article->published_at = now();
             }
             if ($article->isDirty('content') && empty($article->reading_time)) {
@@ -81,7 +89,7 @@ class Article extends Model
      */
     public function scopePublished($query)
     {
-        return $query->where('status', 'published')
+        return $query->where('status', ArticleStatus::PUBLISHED->value)
             ->where('published_at', '<=', now())
             ->latest('published_at');
     }
@@ -122,5 +130,23 @@ class Article extends Model
     public function incrementViews()
     {
         $this->increment('views');
+    }
+
+    /**
+     * Get the administrator that authored the article.
+     */
+    public function author(): BelongsTo
+    {
+        return $this->belongsTo(Administrator::class, 'author_id');
+    }
+
+    /**
+     * Get the options for generating the slug.
+     */
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('title')
+            ->saveSlugsTo('slug');
     }
 }
