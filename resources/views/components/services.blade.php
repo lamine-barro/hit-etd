@@ -45,12 +45,13 @@
                             <span class="text-gray-600">Réseau d'experts & mentors</span>
                         </li>
                     </ul>
+                    {{-- 
                     <a href="{{ route('visitez-le-campus') }}" class="inline-flex items-center justify-center w-full px-6 py-3 text-base font-medium text-primary-600 bg-transparent border-2 border-primary-500 rounded-xl hover:bg-primary-50 transition-colors duration-300">
                         En savoir plus
                         <svg class="w-5 h-5 ml-2 -mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                         </svg>
-                    </a>
+                    </a> --}}
                 </div>
             </div>
 
@@ -88,12 +89,13 @@
                             <span class="text-gray-600">Salles de réunion équipées</span>
                         </li>
                     </ul>
+                    {{-- 
                     <a href="{{ route('visitez-le-campus') }}" class="inline-flex items-center justify-center w-full px-6 py-3 text-base font-medium text-primary-600 bg-transparent border-2 border-primary-500 rounded-xl hover:bg-primary-50 transition-colors duration-300">
                         En savoir plus
                         <svg class="w-5 h-5 ml-2 -mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                         </svg>
-                    </a>
+                    </a> --}}
                 </div>
             </div>
 
@@ -131,12 +133,13 @@
                             <span class="text-gray-600">Cafétéria moderne</span>
                         </li>
                     </ul>
+                    {{-- 
                     <a href="{{ route('visitez-le-campus') }}" class="inline-flex items-center justify-center w-full px-6 py-3 text-base font-medium text-primary-600 bg-transparent border-2 border-primary-500 rounded-xl hover:bg-primary-50 transition-colors duration-300">
                         En savoir plus
                         <svg class="w-5 h-5 ml-2 -mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                         </svg>
-                    </a>
+                    </a> --}}
                 </div>
             </div>
         </div>
@@ -251,12 +254,12 @@
 
         <!-- CTA -->
         <div class="mt-12 sm:mt-16 text-center">
-            <a href="{{ route('visitez-le-campus') }}" class="inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-primary-600 rounded-xl hover:bg-primary-700 transition-colors duration-300 transform hover:scale-105">
+            {{-- <a href="{{ route('visitez-le-campus') }}" class="inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-primary-600 rounded-xl hover:bg-primary-700 transition-colors duration-300 transform hover:scale-105">
                 Réserver une visite
                 <svg class="w-5 h-5 ml-2 -mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                 </svg>
-            </a>
+            </a> --}}
         </div>
     </div>
 </section>

@@ -18,7 +18,7 @@
             <!-- Menu de navigation (centre) -->
             <div class="hidden md:flex items-center justify-center space-x-6 lg:space-x-8">
                 <a href="{{ route('home') }}#why-hit" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __('Home') }}</a>
-                <a href="{{ route('visitez-le-campus') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __('Visit Campus') }}</a>
+                {{-- <a href="{{ route('visitez-le-campus') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __('Visit Campus') }}</a> --}}
                 <a href="{{ route('events') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __('Events') }}</a>
                 <a href="{{ route('actualites') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __('News') }}</a>
                 <a href="{{ route('partnership') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __('Devenir Partenaire') }}</a>
