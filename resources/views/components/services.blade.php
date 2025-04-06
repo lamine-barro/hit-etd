@@ -12,7 +12,7 @@
         <!-- Grille des services principaux -->
         <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 mt-12">
             <!-- Incubation & Accélération -->
-            <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden group">
+            <div class="bg-white rounded-2xl shadow-sm border transition-shadow duration-300 overflow-hidden group">
                 <div class="relative h-48 sm:h-56 overflow-hidden">
                     <img src="{{ asset('images/incubation.jpg') }}" alt="Incubation & Accélération" 
                          class="w-full h-full object-cover transform transition duration-700 group-hover:scale-110">
@@ -55,7 +55,7 @@
             </div>
 
             <!-- Espaces de travail -->
-            <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden group">
+            <div class="bg-white rounded-2xl shadow-sm border transition-shadow duration-300 overflow-hidden group">
                 <div class="relative h-48 sm:h-56 overflow-hidden">
                     <img src="{{ asset('images/coworking.jpg') }}" alt="Espaces de travail" 
                          class="w-full h-full object-cover transform transition duration-700 group-hover:scale-110">
@@ -66,7 +66,7 @@
                 </div>
                 <div class="p-6">
                     <p class="text-gray-600 mb-6">
-                        Bureaux privés, espaces de coworking équipés, salles de réunion équipées.
+                        Bureaux privés, espaces de coworking équipés, internet haut débit, salles de réunion équipées.
                     </p>
                     <ul class="space-y-3 mb-8">
                         <li class="flex items-start">
@@ -98,7 +98,7 @@
             </div>
 
             <!-- Espaces de détente -->
-            <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden group">
+            <div class="bg-white rounded-2xl shadow-sm border transition-shadow duration-300 overflow-hidden group">
                 <div class="relative h-48 sm:h-56 overflow-hidden">
                     <img src="{{ asset('images/detente.jpg') }}" alt="Espaces de détente" 
                          class="w-full h-full object-cover transform transition duration-700 group-hover:scale-110">
@@ -144,7 +144,7 @@
         <!-- Services additionnels -->
         <div class="mt-12 sm:mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             <!-- Fablab & Innovation -->
-            <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden group">
+            <div class="bg-white rounded-xl shadow-sm border transition-shadow duration-300 overflow-hidden group">
                 <div class="relative h-40 overflow-hidden">
                     <img src="{{ asset('images/fablab.jpg') }}" alt="Fablab & Innovation" 
                          class="w-full h-full object-cover transform transition duration-700 group-hover:scale-110">
@@ -179,7 +179,7 @@
             </div>
 
             <!-- Formation & Ateliers -->
-            <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden group">
+            <div class="bg-white rounded-xl shadow-sm border transition-shadow duration-300 overflow-hidden group">
                 <div class="relative h-40 overflow-hidden">
                     <img src="{{ asset('images/formation.jpg') }}" alt="Formation & Ateliers" 
                          class="w-full h-full object-cover transform transition duration-700 group-hover:scale-110">
@@ -214,7 +214,7 @@
             </div>
 
             <!-- Support Administratif -->
-            <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden group">
+            <div class="bg-white rounded-xl shadow-sm border transition-shadow duration-300 overflow-hidden group">
                 <div class="relative h-40 overflow-hidden">
                     <img src="{{ asset('images/admin.jpg') }}" alt="Support Administratif" 
                          class="w-full h-full object-cover transform transition duration-700 group-hover:scale-110">

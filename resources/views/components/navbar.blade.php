@@ -21,6 +21,7 @@
                 <a href="{{ route('visitez-le-campus') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __('Visit Campus') }}</a>
                 <a href="{{ route('events') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __('Events') }}</a>
                 <a href="{{ route('actualites') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __('News') }}</a>
+                <a href="{{ route('partnership') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __('Devenir Partenaire') }}</a>
             </div>
 
             <!-- Sélecteur de langue et Logo à droite -->
@@ -85,6 +86,7 @@
             <a href="{{ route('visitez-le-campus') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __('Visit Campus') }}</a>
             <a href="{{ route('events') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __('Events') }}</a>
             <a href="{{ route('actualites') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __('News') }}</a>
+            <a href="{{ route('partnership') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __('Devenir Partenaire') }}</a>
 
             <!-- Espace membre (Mobile) -->
             <a href="#" class="flex items-center space-x-2 text-primary-600 hover:text-primary-700 font-medium transition px-2 py-2">
