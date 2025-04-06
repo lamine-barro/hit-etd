@@ -26,10 +26,11 @@ class EventResource extends Resource
     protected static ?string $model = Event::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar';    
-    protected static ?string $navigationGroup = 'Événements';
     protected static ?string $navigationLabel = 'Événements';
     protected static ?string $modelLabel = 'Événement';
     protected static ?string $pluralModelLabel = 'Événements';
+
+    protected static ?string $navigationGroup = 'Événements';
     protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
@@ -282,7 +283,7 @@ class EventResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()
+        return parent::getEloquentQuery()->orderBy('created_at', 'desc')
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);

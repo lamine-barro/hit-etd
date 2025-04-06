@@ -33,15 +33,22 @@
         <div class="lg:grid lg:grid-cols-2 lg:gap-12">
             <!-- Colonne de gauche (Image) -->
             <div class="mb-8 lg:mb-0">
-                @if ($event->illustration)
-                    <div class="relative rounded-2xl overflow-hidden shadow-lg">
+                <div class="relative rounded-2xl overflow-hidden shadow-lg">
+                    @if ($event->illustration)
                         <img
                             src="{{ Storage::url($event->illustration) }}"
                             alt="{{ $event->title }}"
                             class="w-full aspect-[4/3] object-cover"
                         >
-                    </div>
-                @endif
+                    @else
+                        <img
+                            src="{{ asset('images/default-event.jpg') }}"
+                            alt="{{ $event->title }}"
+                            class="w-full aspect-[4/3] object-cover"
+                            onerror="this.onerror=null; this.src='https://placehold.co/800x600/f3f4f6/64748b?text=HIT+%7C+{{ urlencode($event->type) }}'"
+                        >
+                    @endif
+                </div>
             </div>
 
             <!-- Colonne de droite (Informations) -->
@@ -144,7 +151,7 @@
                     <div class="space-y-4">
                         <!-- Description -->
                         <div class="prose prose-sm max-w-none mb-6">
-                            {!! nl2br(e($event->description)) !!}
+                            {!! $event->description !!}
                         </div>
 
                         <!-- Date et heure -->
@@ -215,11 +222,11 @@
                             onclick="openEventRegistrationModal()"
                             class="flex-1 inline-flex justify-center items-center px-6 py-3 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 transform transition hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                         >
-                            {{ __('INSCRIPTION') }}
+                            {{ __('S\'inscrire maintenant') }}
                         </button>
                         @if($event->phone || $event->external_link)
                             <a href="{{ $event->phone ? 'https://wa.me/'.$event->phone : $event->external_link }}" target="_blank" class="flex-1 inline-flex justify-center items-center px-6 py-3 bg-gray-100 text-gray-700 font-semibold rounded-xl hover:bg-gray-200 transform transition hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-gray-200 focus:ring-offset-2">
-                                {{ __('PLUS DE DÉTAILS') }}
+                                {{ __('Plus de détails') }}
                             </a>
                         @endif
                     @else
@@ -252,7 +259,7 @@
             </div>
 
             <!-- Formulaire -->
-            <form action="{{ route('events.register', $event) }}" method="POST" class="space-y-6">
+            <form action="{{ route('events.register', $event->slug) }}" method="POST" class="space-y-6">
                 @csrf
                 <!-- Nom -->
                 <div class="relative">

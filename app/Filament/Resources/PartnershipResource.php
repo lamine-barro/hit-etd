@@ -33,8 +33,6 @@ class PartnershipResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-heart';
     
-    protected static ?string $navigationGroup = 'Gestion des partenariats';
-    
     protected static ?int $navigationSort = 1;
     
     protected static ?string $recordTitleAttribute = 'organization_name';

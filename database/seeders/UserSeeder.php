@@ -22,10 +22,10 @@ class UserSeeder extends Seeder
             'password' => bcrypt('lamine.azinakou@wazmine.com'),
         ]);
 
-        if (!User::query()->where('email', 'hello@hubivoiretech.ci')->exists()) {
+        if (!User::query()->where('email', env('HIT_SUPPORT_EMAIL'))->exists()) {
             User::create([
                 'name' => 'Hub Ivoire Tech',
-                'email' => 'hello@hubivoiretech.ci',
+                'email' => env('HIT_SUPPORT_EMAIL'),
                 'password' => Hash::make('HIT_#secret@2025'),
                 'email_verified_at' => now(),
             ]);

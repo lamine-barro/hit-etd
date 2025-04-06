@@ -115,7 +115,7 @@
                 <p class="text-lg text-primary-100 mb-8">
                     {{ __('Contactez-nous pour discuter des différentes possibilités de soutien et devenir partenaire de l\'innovation.') }}
                 </p>
-                <a href="mailto:hello@hubivoiretech.ci" class="inline-flex items-center px-6 py-3 text-lg font-semibold rounded-lg text-primary-700 bg-white hover:bg-primary-50 transition-all duration-300 shadow-md hover:shadow-xl transform hover:-translate-y-0.5">
+                <a href="mailto:{{ env('HIT_SUPPORT_EMAIL') }}" class="inline-flex items-center px-6 py-3 text-lg font-semibold rounded-lg text-primary-700 bg-white hover:bg-primary-50 transition-all duration-300 shadow-md hover:shadow-xl transform hover:-translate-y-0.5">
                     {{ __('Contactez-nous') }}
                     <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />

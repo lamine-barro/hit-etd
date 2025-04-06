@@ -250,7 +250,61 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const form = document.getElementById('newsletter-form');
-        // La gestion du champ WhatsApp est maintenant gérée dans le script des toggles
+        const whatsappToggle = document.getElementById('newsletter_whatsapp');
+        const whatsappField = document.querySelector('.newsletter-whatsapp-field');
+        const whatsappToggleBtn = document.getElementById('whatsapp-toggle-button');
+        
+        // Fonction pour gérer l'affichage du champ WhatsApp
+        function toggleWhatsappField() {
+            const isChecked = whatsappToggle.checked;
+            const toggleCircle = whatsappToggleBtn.previousElementSibling;
+            const toggleBg = whatsappToggleBtn.parentElement;
+            
+            // Mettre à jour l'état visuel du toggle
+            if (isChecked) {
+                toggleCircle.classList.add('translate-x-5');
+                toggleBg.classList.add('bg-green-500');
+                toggleBg.classList.remove('bg-gray-200');
+                whatsappField.classList.remove('hidden');
+            } else {
+                toggleCircle.classList.remove('translate-x-5');
+                toggleBg.classList.remove('bg-green-500');
+                toggleBg.classList.add('bg-gray-200');
+                whatsappField.classList.add('hidden');
+            }
+        }
+        
+        // Initialiser l'état du champ WhatsApp au chargement
+        toggleWhatsappField();
+        
+        // Ajouter l'écouteur d'événement pour le toggle WhatsApp
+        whatsappToggleBtn.addEventListener('click', function() {
+            whatsappToggle.checked = !whatsappToggle.checked;
+            toggleWhatsappField();
+        });
+        
+        // Écouter également les changements directs sur la checkbox
+        whatsappToggle.addEventListener('change', toggleWhatsappField);
+        
+        // Gestion du toggle Email
+        const emailToggle = document.getElementById('newsletter_email');
+        const emailToggleBtn = emailToggle.nextElementSibling.nextElementSibling;
+        
+        emailToggleBtn.addEventListener('click', function() {
+            emailToggle.checked = !emailToggle.checked;
+            const toggleCircle = emailToggleBtn.previousElementSibling;
+            const toggleBg = emailToggleBtn.parentElement;
+            
+            if (emailToggle.checked) {
+                toggleCircle.classList.add('translate-x-5');
+                toggleBg.classList.add('bg-primary-500');
+                toggleBg.classList.remove('bg-gray-200');
+            } else {
+                toggleCircle.classList.remove('translate-x-5');
+                toggleBg.classList.remove('bg-primary-500');
+                toggleBg.classList.add('bg-gray-200');
+            }
+        });
         
         // Gestion de la soumission du formulaire
         form.addEventListener('submit', function(e) {
