@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ArticleStatus;
 use App\Models\Article;
 use Illuminate\Http\Request;
 
@@ -42,7 +43,7 @@ class ArticleListController extends Controller
      */
     public function show(Article $article)
     {
-        if ($article->status !== 'published' || $article->published_at->isFuture()) {
+        if ($article->status !== ArticleStatus::PUBLISHED || $article->published_at->isFuture()) {
             abort(404);
         }
 

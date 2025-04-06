@@ -15,7 +15,7 @@
             <!-- Grille de points clés -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 <!-- Écosystème Dynamique -->
-                <div class="bg-white rounded-xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col h-full">
+                <div class="bg-white rounded-xl p-4 sm:p-6 shadow-sm border transition-shadow duration-300 flex flex-col h-full">
                     <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
                         <i class="fas fa-users text-primary text-xl"></i>
                     </div>
@@ -26,7 +26,7 @@
                 </div>
 
                 <!-- Infrastructures Modernes -->
-                <div class="bg-white rounded-xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col h-full">
+                <div class="bg-white rounded-xl p-4 sm:p-6 shadow-sm border transition-shadow duration-300 flex flex-col h-full">
                     <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
                         <i class="fas fa-building text-primary text-xl"></i>
                     </div>
@@ -37,7 +37,7 @@
                 </div>
 
                 <!-- Accompagnement Sur-Mesure -->
-                <div class="bg-white rounded-xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col h-full">
+                <div class="bg-white rounded-xl p-4 sm:p-6 shadow-sm border transition-shadow duration-300 flex flex-col h-full">
                     <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
                         <i class="fas fa-hands-helping text-primary text-xl"></i>
                     </div>
@@ -48,7 +48,7 @@
                 </div>
 
                 <!-- Soutien Institutionnel -->
-                <div class="bg-white rounded-xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col h-full">
+                <div class="bg-white rounded-xl p-4 sm:p-6 shadow-sm border transition-shadow duration-300 flex flex-col h-full">
                     <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
                         <i class="fas fa-shield-alt text-primary text-xl"></i>
                     </div>

@@ -18,12 +18,12 @@
                          class="h-24 sm:h-32 w-auto object-contain transform transition-all duration-300 group-hover:scale-105">
                 </div>
         </div>
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 place-items-center mb-16">
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-6 max-w-4xl mx-auto place-items-center mb-16">
             @foreach(['MTND', 'fjn', 'gude','ANSUT', 'VITIB','mpjipsc'] as $partner)
-                <div class="group relative bg-white rounded-xl p-6 w-full max-w-[200px] sm:max-w-[240px] aspect-square flex items-center justify-center shadow-sm hover:shadow-lg transition-all duration-300">
+                <div class="group relative bg-white rounded-xl p-4 w-full max-w-[160px] sm:max-w-[180px] aspect-square flex items-center justify-center shadow-sm hover:shadow-lg transition-all duration-300">
                     <img src="{{ asset('partenaires/' . Str::slug($partner) . '.png') }}" 
                          alt="Logo {{ $partner }}" 
-                         class="h-24 sm:h-32 w-auto object-contain transform transition-all duration-300 group-hover:scale-105">
+                         class="h-16 sm:h-20 w-auto object-contain transform transition-all duration-300 group-hover:scale-105">
                 </div>
             @endforeach
         </div>

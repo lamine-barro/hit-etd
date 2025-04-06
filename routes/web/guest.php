@@ -8,6 +8,7 @@ use App\Http\Controllers\EventRegistrationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\PartnershipController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -48,6 +49,13 @@ Route::post('/campus/book-visit', [CampusController::class, 'bookVisit'])->name(
 
 // Language Switch
 Route::get('language/{lang}', [LanguageController::class, 'switchLang'])->name('language.switch');
+
+// Partenariat
+Route::prefix('partenariat')->group(function () {
+    Route::get('/', [PartnershipController::class, 'index'])->name('partnership');
+    Route::post('/soumettre', [PartnershipController::class, 'store'])->name('partnership.store');
+    Route::get('/merci', [PartnershipController::class, 'thankYou'])->name('partnership.thank-you');
+});
 
 // Pages statiques
 Route::view('/devenir-donateur', 'pages.become-donor')->name('devenir-donateur');
