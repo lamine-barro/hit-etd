@@ -98,7 +98,7 @@
                 <p class="text-base sm:text-lg text-gray-700 mb-4 font-medium">
                     Vous souhaitez soutenir notre initiative ?
                 </p>
-                <a href="{{ route('devenir-donateur') }}" class="group inline-flex items-center px-6 py-3 text-base font-semibold rounded-lg text-white bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-500 hover:to-orange-400 transition-all duration-300 shadow-md hover:shadow-xl transform hover:-translate-y-0.5">
+                <a href="{{ route('partnership') }}" class="group inline-flex items-center px-6 py-3 text-base font-semibold rounded-lg text-white bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-500 hover:to-orange-400 transition-all duration-300 shadow-md hover:shadow-xl transform hover:-translate-y-0.5">
                     Devenir Donateur
                     <svg class="ml-2 w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />

@@ -12,9 +12,9 @@
         {{ __('News') }}
     </x-nav-link>
 
-    <x-nav-link :href="route('visitez-le-campus')" :active="request()->routeIs('visitez-le-campus')">
+   {{--  <x-nav-link :href="route('visitez-le-campus')" :active="request()->routeIs('visitez-le-campus')">
         {{ __('Visit Campus') }}
-    </x-nav-link>
+    </x-nav-link> --}}
 </div>
 
 <!-- Mobile menu -->
@@ -42,8 +42,8 @@
             {{ __('News') }}
         </x-responsive-nav-link>
 
-        <x-responsive-nav-link :href="route('visitez-le-campus')" :active="request()->routeIs('visitez-le-campus')">
+        {{-- <x-responsive-nav-link :href="route('visitez-le-campus')" :active="request()->routeIs('visitez-le-campus')">
             {{ __('Visit Campus') }}
-        </x-responsive-nav-link>
+        </x-responsive-nav-link> --}}
     </div>
 </div>

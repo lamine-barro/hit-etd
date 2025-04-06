@@ -135,8 +135,7 @@ class PartnershipResource extends Resource
                 BadgeColumn::make('type')
                     ->label('Type')
                     ->getStateUsing(fn (Partnership $record): string => $record->type->label())
-                    ->colors(fn (Partnership $record): string => $record->type->color())
-                    ->icon(fn (Partnership $record): string => $record->type->icon())
+                    ->color(fn (Partnership $record) => $record->type->color())
                     ->sortable(),
                     
                 TextColumn::make('email')
@@ -152,8 +151,8 @@ class PartnershipResource extends Resource
                 BadgeColumn::make('status')
                     ->label('Statut')
                     ->getStateUsing(fn (Partnership $record): string => $record->status->label())
-                    ->colors(fn (Partnership $record): string => $record->status->color())
-                    ->icon(fn (Partnership $record): string => $record->status->icon())
+                    ->color(fn (Partnership $record) => $record->status->color())
+                    ->icon(fn (Partnership $record) => $record->status->icon())
                     ->sortable(),
                     
                 TextColumn::make('created_at')
@@ -166,7 +165,8 @@ class PartnershipResource extends Resource
                     ->label('Date de traitement')
                     ->dateTime('d/m/Y H:i')
                     ->sortable()
-                    ->toggleable(),
+                    ->toggleable(isToggledHiddenByDefault: true),
+                    
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
