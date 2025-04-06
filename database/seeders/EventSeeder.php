@@ -381,7 +381,5 @@ class EventSeeder extends Seeder
         foreach ($events as $eventData) {
             Event::create($eventData);
         }
-        
-        $this->command->info('20 événements ont été créés avec succès.');
     }
 }

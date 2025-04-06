@@ -24,6 +24,9 @@ return new class extends Migration
             $table->integer('reading_time')->nullable();
             $table->enum('status', ['draft', 'published', 'archived'])->default('draft');
             $table->dateTime('published_at')->nullable();
+            $table->foreignUuid('author_id')->on('administrators')->onDelete('set null');
+            $table->unsignedInteger('views')->default(0)->after('reading_time');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

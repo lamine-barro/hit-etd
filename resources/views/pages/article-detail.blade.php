@@ -31,8 +31,34 @@
                 <div class="max-w-3xl mx-auto">
                     <div class="flex items-center justify-between mb-6">
                         <div class="flex items-center gap-4">
-                            <span class="text-sm font-medium px-3 py-1 rounded {{ $article->category === 'actualite' ? 'bg-blue-100 text-blue-800' : ($article->category === 'technologie' ? 'bg-green-100 text-green-800' : 'bg-purple-100 text-purple-800') }}">
-                                {{ __($article->category) }}
+                            <span class="text-sm font-medium px-3 py-1 rounded
+                                @switch($article->category->value)
+                                    @case('tech_ecosystem')
+                                        bg-blue-100 text-blue-800
+                                        @break
+                                    @case('digital_transformation')
+                                        bg-indigo-100 text-indigo-800
+                                        @break
+                                    @case('artificial_intelligence')
+                                        bg-purple-100 text-purple-800
+                                        @break
+                                    @case('cybersecurity')
+                                        bg-red-100 text-red-800
+                                        @break
+                                    @case('fintech')
+                                        bg-green-100 text-green-800
+                                        @break
+                                    @case('entrepreneurship')
+                                        bg-yellow-100 text-yellow-800
+                                        @break
+                                    @case('diversity_inclusion')
+                                        bg-pink-100 text-pink-800
+                                        @break
+                                    @default
+                                        bg-gray-100 text-gray-800
+                                @endswitch
+                            ">
+                                {{ $article->category->label() }}
                             </span>
                             <span class="text-sm text-gray-500">
                                 {{ $article->reading_time }} min de lecture
