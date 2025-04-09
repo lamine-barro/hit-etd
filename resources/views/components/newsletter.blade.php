@@ -307,7 +307,7 @@
         });
         
         // Gestion de la soumission du formulaire
-        form.addEventListener('submit', function(e) {
+        form.addEventListener('submit', function·e {
             e.preventDefault();
             
             const submitButton = form.querySelector('button[type="submit"]');

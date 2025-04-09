@@ -89,7 +89,7 @@
                         @click="active = active === 4 ? null : 4"
                         :class="{ 'bg-gray-50': active === 4 }"
                     >
-                        <span class="text-base font-semibold text-gray-900">{{ __('Comment rester informé(e) des actualités et événements ?') }}</span>
+                        <span class="text-base font-semibold text-gray-900">{{ __('Comment rester informé·e des actualités et événements ?') }}</span>
                         <svg class="w-5 h-5 text-gray-500 transform transition-transform duration-200" 
                             :class="{ 'rotate-180': active === 4 }"
                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -102,7 +102,7 @@
                         x-cloak
                         class="px-6 py-4 bg-white border-t border-gray-200"
                     >
-                        <p class="text-gray-600">{{ __('Pour être tenu(e) au courant de nos dernières actualités, formations, hackathons et autres événements, inscrivez-vous à notre newsletter et activez les notifications via WhatsApp. Vous recevrez directement dans votre boîte mail ou sur votre téléphone toutes les informations importantes et opportunités proposées par Hub Ivoire Tech.') }}</p>
+                        <p class="text-gray-600">{{ __('Pour être tenu·e au courant de nos dernières actualités, formations, hackathons et autres événements, inscrivez-vous à notre newsletter et activez les notifications via WhatsApp. Vous recevrez directement dans votre boîte mail ou sur votre téléphone toutes les informations importantes et opportunités proposées par Hub Ivoire Tech.') }}</p>
                     </div>
                 </div>
             </div>

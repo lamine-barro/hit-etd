@@ -1,7 +1,7 @@
 @component('mail::message')
 # Confirmation de votre demande de visite
 
-Cher(e) {{ $name }},
+Cher·e {{ $name }},
 
 Nous avons bien reçu votre demande de visite du Hub Ivoire Tech. Voici un récapitulatif de votre réservation :
 

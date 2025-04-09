@@ -1,7 +1,7 @@
 @component('mail::message')
 # Bienvenue dans la communauté Hub Ivoire Tech !
 
-Cher(e) {{ $name }},
+Cher·e {{ $name }},
 
 Nous sommes ravis de vous confirmer votre inscription à notre newsletter. Vous recevrez désormais nos actualités et informations importantes concernant nos activités, événements et opportunités.
 

@@ -217,7 +217,7 @@
         };
 
         // Format OTP input
-        document.getElementById('otp').addEventListener('input', function (e) {
+        document.getElementById('otp').addEventListener('input', function ·e {
             e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 6);
         });
     </script>
