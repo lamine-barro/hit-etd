@@ -206,7 +206,7 @@
                         </template>
                         @if($event && $event->illustration)
                             <template x-if="!imagePreview">
-                                <img src="{{ asset('storage/' . $event->illustration) }}"
+                                <img src="{{ asset(preg_match('/storage\/$/', $event->illustration) ? 'storage/' . $event->illustration : $event->illustration) }}"
                                      alt="Image actuelle"
                                      style="width: 100%; height: 100%; object-fit: contain;">
                             </template>

@@ -435,7 +435,7 @@ technologique en Afrique. Découvrez les différentes façons de contribuer au d
 <script>
     // Script pour le défilement fluide
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function ·e {
+        anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
             const targetElement = document.querySelector(targetId);
