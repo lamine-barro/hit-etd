@@ -29,13 +29,13 @@ return [
     */
 
     'disks' => [
-
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app/private'),
+            'root' => public_path('storage'), // storage_path('app/private'),
             'serve' => true,
             'throw' => false,
             'report' => false,
+            'visibility' => 'public',
         ],
 
         'public' => [

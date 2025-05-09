@@ -1,4 +1,4 @@
-.fi-sidebar-item span {
+/*.fi-sidebar-item span {
     font-size: .85rem !important;
     font-weight: 500 !important;
 }
@@ -25,4 +25,4 @@ body {
 .w-\[--sidebar-width\] {
     --sidebar-width: 16rem;
     width: var(--sidebar-width) !important;
-}
+}*/
