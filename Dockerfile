@@ -1,5 +1,7 @@
 FROM richarvey/nginx-php-fpm:3.1.6
 
+RUN apk add build-base
+
 RUN sed -i \
     -e "s/;memory_limit\s*=\s*128M/memory_limit = 512M/g" \
     ${php_vars}
