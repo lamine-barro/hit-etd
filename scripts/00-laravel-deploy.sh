@@ -17,15 +17,8 @@ php artisan migrate --force
 echo "Seed master data..."
 php artisan db:seed --force
 
+# for avoid loading error
 touch database/database.sqlite
-
-# Install nvm
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
-
-# Init nvm
-\. "$HOME/.nvm/nvm.sh"
-
-nvm install 22
 
 echo "Build Assets"
 npm i
