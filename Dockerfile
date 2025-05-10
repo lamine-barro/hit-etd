@@ -1,10 +1,21 @@
+#################### BUILD
+FROM node:22-alpine AS build
+
+WORKDIR /app
+
+COPY . .
+
+RUN npm i
+RUN npm run build
+
+#################### DEPLOY
 FROM richarvey/nginx-php-fpm:3.1.6
 
 RUN sed -i \
     -e "s/;memory_limit\s*=\s*128M/memory_limit = 512M/g" \
     ${php_vars}
 
-COPY . .
+COPY --from=build /app/ .
 
 # Image config
 ENV SKIP_COMPOSER 1
