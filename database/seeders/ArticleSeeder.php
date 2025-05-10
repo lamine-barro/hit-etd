@@ -111,8 +111,11 @@ class ArticleSeeder extends Seeder
             ]
         ];
         
-        foreach ($articles as $articleData) {
-            Article::create($articleData);
+        foreach ($articles as $article) {
+            $slug = Str::slug($article['title']);
+            if (!Article::query()->whereSlug($slug)->exists()) {
+                Article::create($article);
+            }
         }
     }
 }

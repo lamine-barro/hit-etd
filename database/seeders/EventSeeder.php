@@ -10,6 +10,7 @@ use App\Models\Event;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class EventSeeder extends Seeder
 {
@@ -377,10 +378,13 @@ class EventSeeder extends Seeder
         if (!Storage::exists('public/events/illustrations')) {
             Storage::makeDirectory('public/events/illustrations');
         }
-        
-        foreach ($events as $eventData) {
-            $eventData['illustration'] = null;
-            Event::create($eventData);
+
+        foreach ($events as $event) {
+            $slug = Str::slug($event['title']);
+            if (!Event::query()->whereSlug($slug)->exists()) {
+                $event['illustration'] = null;
+                Event::updateOrCreate($event);
+            }
         }
     }
 }
