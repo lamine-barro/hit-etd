@@ -19,10 +19,14 @@ php artisan db:seed --force
 
 touch database/database.sqlite
 
-# install nvm
+# Install nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 
-/root/.nvm/nvm.sh install 20
+# Init nvm
+\. "$HOME/.nvm/nvm.sh"
 
+nvm install 22
+
+echo "Build Assets"
 npm i
 npm run build
