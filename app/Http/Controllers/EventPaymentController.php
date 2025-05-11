@@ -54,8 +54,13 @@ class EventPaymentController extends Controller
 
     public function callback(Request $request)
     {
+        $reference = $request->query('reference');
+
+        if (!$reference) {
+            return abort(404);
+        }
+
         try {
-            $reference = $request->query('reference');
             $paymentData = $this->paystackService->verifyPayment($reference);
 
             $payment = EventPayment::where('paystack_reference', $reference)->firstOrFail();
@@ -68,19 +73,19 @@ class EventPaymentController extends Controller
 
                 // Update EventRegistration status
                 $payment->registration->update(['status' => \App\Enums\RegistrationStatus::CONFIRMED]);
-                
+   
                 // Récupérer l'événement pour son slug
                 $event = $payment->registration->event;
-                
+
                 // Envoyer une notification par email après paiement réussi
                 try {
                     $supportEmail = env('HIT_SUPPORT_EMAIL');
-                    
+
                     Log::info('Tentative d\'envoi d\'email après paiement réussi', ['email' => $supportEmail]);
-                    
+
                     Notification::route('mail', $supportEmail)
                         ->notify(new \App\Notifications\NewEventRegistration($payment->registration));
-                    
+
                     Log::info('Notification d\'inscription envoyée avec succès après paiement', [
                         'event_id' => $event->id,
                         'event_title' => $event->title,

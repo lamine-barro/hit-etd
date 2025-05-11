@@ -24,10 +24,14 @@ Route::get('/visitez-le-campus', [CampusController::class, 'index'])->name('visi
 // Événements
 Route::prefix('evenements')->group(function () {
     Route::get('/', [EventListController::class, 'index'])->name('events');
-    Route::get('{slug}', [EventListController::class, 'show'])->name('events.show')->where('slug', '[a-z0-9\-]+');
-    Route::post('{slug}/register', [EventRegistrationController::class, 'store'])->name('events.register')->where('slug', '[a-z0-9\-]+');
-    Route::post('{registration}/payment', [EventPaymentController::class, 'initiate'])->name('events.payment.initiate');
-    Route::post('registration/{registration}/cancel', [EventRegistrationController::class, 'cancel'])->name('events.registration.cancel');
+    Route::get('{slug}', [EventListController::class, 'show'])
+        ->name('events.show')->where('slug', '[a-z0-9\-]+');
+    Route::post('{slug}/register', [EventRegistrationController::class, 'store'])
+        ->name('events.register')->where('slug', '[a-z0-9\-]+');
+    Route::post('{registration}/payment', [EventPaymentController::class, 'initiate'])
+        ->name('events.payment.initiate');
+    Route::post('registration/{registration}/cancel', [EventRegistrationController::class, 'cancel'])
+        ->name('events.registration.cancel');
 });
 
 // Actualités
@@ -42,7 +46,8 @@ Route::prefix('payment')->group(function () {
 });
 
 // Newsletter
-Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
+Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])
+    ->name('newsletter.subscribe');
 
 // Campus Visit Booking
 Route::post('/campus/book-visit', [CampusController::class, 'bookVisit'])->name('campus.book-visit');
@@ -66,4 +71,10 @@ Route::view('/conditions-utilisation', 'pages.terms')->name('terms');
 Route::view('/espace-membre', 'pages.member-space')->name('member-space');
 
 Route::get('/payment/{registration}', [EventPaymentController::class, 'show'])->name('payment.show');
-Route::post('/payment/{registration}/initiate', [EventPaymentController::class, 'initiate'])->name('payment.initiate');
+Route::post('/payment/{registration}/initiate', [EventPaymentController::class, 'initiate'])
+    ->name('payment.initiate');
+
+// Paystack Webhook
+Route::post('/webhooks/paystack', [EventPaymentController::class, 'webhook'])
+    ->name('paystack.webhook')
+    ->middleware('paystack.webhook');

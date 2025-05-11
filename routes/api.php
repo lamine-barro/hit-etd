@@ -18,8 +18,3 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-// Paystack Webhook
-Route::post('/webhooks/paystack', [EventPaymentController::class, 'webhook'])
-    ->name('paystack.webhook')
-    ->middleware('paystack.webhook');
