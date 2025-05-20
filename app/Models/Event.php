@@ -103,10 +103,10 @@ class Event extends Model
         if ($this->early_bird_price &&
             $this->early_bird_end_date &&
             now()->lt($this->early_bird_end_date)) {
-            return $this->early_bird_price;
+            return (int) $this->early_bird_price;
         }
 
-        return $this->price;
+        return (int) $this->price;
     }
 
     public function getFee()

@@ -21,7 +21,7 @@ class EventPayment extends Model
     ];
 
     protected $casts = [
-        'amount' => 'decimal:2',
+        'amount' => 'integer',
         'paystack_response' => 'array',
         'paid_at' => 'datetime',
     ];

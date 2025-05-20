@@ -1,4 +1,4 @@
-<section class="py-20 bg-gray-50 relative overflow-hidden" x-data="{ 
+<section class="py-20 bg-gray-50 relative overflow-hidden" x-data="{
     showContent: false,
     showPoints: false
 }" x-init="() => {
@@ -19,7 +19,7 @@
                 <h2 class="text-3xl font-bold text-gray-900 sm:text-4xl mb-6">
                     {{ __("Une vision portée par la Présidence de la République") }}
                 </h2>
-                
+
                 <div class="prose prose-lg text-gray-600 max-w-none">
                     <p class="mb-6">
                         {{ __("Hub Ivoire Tech est une initiative du secteur public qui vise à stimuler l'innovation en Côte d'Ivoire, favoriser la création de solutions technologiques et renforcer la compétitivité du pays sur la scène internationale.") }}

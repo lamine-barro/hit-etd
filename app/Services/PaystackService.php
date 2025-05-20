@@ -45,7 +45,7 @@ class PaystackService
                 'Content-Type' => 'application/json',
             ])->post($this->baseUrl.'/transaction/initialize', [
                 'email' => $eventRegistration->email,
-                'amount' => $payment->amount,
+                'amount' => (int) $payment->amount,
                 'currency' => $payment->currency,
                 'reference' => $payment->reference,
                 'callback_url' => route('events.payment.callback'),
