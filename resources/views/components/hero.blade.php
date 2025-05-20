@@ -19,25 +19,25 @@
                 x-transition:enter-end="opacity-100 transform translate-y-0">
                 <h1 class="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight sm:leading-tight">
                     <span class="block mb-2 hover:text-primary-500 transition-colors duration-300 transform hover:scale-105">
-                        {{ __('Join the largest') }}
+                        {{ __('messages.hero.join_the_largest') }}
                     </span>
                     <span class="block bg-gradient-to-r from-primary-500 to-secondary-500 text-transparent bg-clip-text hover:scale-110 transition-transform duration-500">
-                        {{ __('Startup Campus') }}
+                        {{ __('messages.hero.startup_campus') }}
                     </span>
                     <span class="block mt-2 hover:text-primary-500 transition-colors duration-300 transform hover:scale-105">
-                        {{ __('in Africa') }}
+                        {{ __('messages.hero.in_africa') }}
                     </span>
                 </h1>
                 <p class="mt-6 text-base sm:text-lg md:text-xl text-gray-100 max-w-2xl mx-auto font-light bg-black/30 backdrop-blur-sm hover:backdrop-blur-lg rounded-lg p-4 sm:p-6 border border-white/10 transition-all duration-500 hover:border-primary-500/50 hover:shadow-lg hover:shadow-primary-500/20">
-                    {{ __('Accelerate your growth, innovate and transform your ideas into success. A unique place dedicated to innovation, sharing and creating solutions that transform Ivory Coast and Africa.') }}
+                    {{ __('messages.hero.description') }}
                 </p>
                 <!-- Boutons CTA -->
                 <div class="mt-8 flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
                     <a href="#why-hit" class="btn-primary w-full sm:w-auto text-base sm:text-lg py-3 px-6 sm:px-8 smooth-scroll hover:scale-105 transition-transform duration-300">
-                        {{ __('Learn more') }}
+                        {{ __('messages.hero.learn_more') }}
                     </a>
                     <a href="{{ route('visitez-le-campus') }}" class="btn-secondary w-full sm:w-auto text-base sm:text-lg py-3 px-6 sm:px-8 hover:scale-105 transition-transform duration-300">
-                        {{ __('Visit the campus') }}
+                        {{ __('messages.hero.visit_the_campus') }}
                     </a>
                 </div>
             </div>

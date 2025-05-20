@@ -40,21 +40,21 @@ class NewEventRegistration extends Notification implements ShouldQueue
         $event = $this->eventRegistration->event;
         
         return (new MailMessage)
-            ->subject('Nouvelle inscription : ' . $event->title)
-            ->greeting('Bonjour !')
-            ->line('Une nouvelle inscription a été enregistrée pour l\'événement : ' . $event->title)
-            ->line('Détails du participant :')
-            ->line('Nom : ' . $this->eventRegistration->name)
-            ->line('Email : ' . $this->eventRegistration->email)
-            ->line('WhatsApp : ' . ($this->eventRegistration->whatsapp ?? 'Non renseigné'))
-            ->line('Fonction : ' . $this->eventRegistration->position)
-            ->line('Organisation : ' . $this->eventRegistration->organization)
-            ->line('Pays : ' . $this->eventRegistration->country)
-            ->line('Type d\'acteur : ' . $this->eventRegistration->actor_type)
-            ->line('Statut : ' . $this->getStatusLabel())
-            ->line('Date d\'inscription : ' . $this->eventRegistration->created_at->format('d/m/Y H:i'))
-            ->action('Voir les détails dans l\'administration', url('/admin/event-registrations/' . $this->eventRegistration->id))
-            ->line('Merci d\'utiliser notre plateforme !');
+            ->subject(__('Nouvelle inscription : ') . $event->title)
+            ->greeting(__('Bonjour !'))
+            ->line(__('Une nouvelle inscription a été enregistrée pour l\'événement : ') . $event->title)
+            ->line(__('Détails du participant :'))
+            ->line(__('Nom : ') . $this->eventRegistration->name)
+            ->line(__('Email : ') . $this->eventRegistration->email)
+            ->line(__('WhatsApp : ') . ($this->eventRegistration->whatsapp ?? __('Non renseigné')))
+            ->line(__('Fonction : ') . $this->eventRegistration->position)
+            ->line(__('Organisation : ') . $this->eventRegistration->organization)
+            ->line(__('Pays : ') . $this->eventRegistration->country)
+            ->line(__('Type d\'acteur : ') . $this->eventRegistration->actor_type)
+            ->line(__('Statut : ') . $this->getStatusLabel())
+            ->line(__('Date d\'inscription : ') . $this->eventRegistration->created_at->format('d/m/Y H:i'))
+            ->action(__('Voir les détails dans l\'administration'), url('/admin/event-registrations/' . $this->eventRegistration->id))
+            ->line(__('Merci d\'utiliser notre plateforme !'));
     }
 
     /**
@@ -81,11 +81,11 @@ class NewEventRegistration extends Notification implements ShouldQueue
         
         // Si c'est une chaîne
         if (is_string($status)) {
-            return $status;
+            return __('' . $status);
         }
         
         // Valeur par défaut
-        return 'non défini';
+        return __('non défini');
     }
 
     public function toArray(object $notifiable): array

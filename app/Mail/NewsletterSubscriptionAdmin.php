@@ -19,7 +19,7 @@ class NewsletterSubscriptionAdmin extends Mailable
 
     public function build()
     {
-        return $this->subject('Nouvel abonné à la newsletter - Hub Ivoire Tech')
+        return $this->subject(__('Nouvel abonné à la newsletter - Hub Ivoire Tech'))
             ->markdown('emails.newsletter-subscription-admin')
             ->with([
                 'name' => $this->subscriber['name'],

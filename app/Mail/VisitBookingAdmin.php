@@ -20,7 +20,7 @@ class VisitBookingAdmin extends Mailable
 
     public function build()
     {
-        return $this->subject('Nouvelle demande de visite - Hub Ivoire Tech')
+        return $this->subject(__('Nouvelle demande de visite - Hub Ivoire Tech'))
             ->markdown('emails.visit-booking-admin')
             ->with([
                 'name' => $this->booking->full_name,

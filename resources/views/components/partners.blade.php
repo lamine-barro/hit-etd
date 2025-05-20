@@ -3,10 +3,10 @@
         <!-- Partenaires Fondateurs -->
         <div class="text-center max-w-3xl mx-auto mb-16">
             <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Nos Partenaires
+                {{ __('Nos Partenaires') }}
             </h2>
             <p class="mt-4 text-lg sm:text-xl text-gray-600 leading-relaxed">
-                Ensemble, nous avons créer HIT et espérons être rejoins par de nombreux autres acteurs pour co-créer un écosystème d'innovation dynamique pour transformer les idées en succès.
+                {{ __('Ensemble, nous avons créer HIT et espérons être rejoins par de nombreux autres acteurs pour co-créer un écosystème d'innovation dynamique pour transformer les idées en succès.') }}
             </p>
         </div>
 
@@ -31,10 +31,10 @@
         <!-- Donateurs -->
         <div class="text-center max-w-3xl mx-auto mb-12">
             <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Nos Donateurs
+                {{ __('Nos Donateurs') }}
             </h2>
             <p class="mt-4 text-lg sm:text-xl text-gray-600 leading-relaxed">
-                Ces entreprises qui ont contribué financièrement afin de permettre la réalisation du pilote au niveau du Postel 2001
+                {{ __('Ces entreprises qui ont contribué financièrement afin de permettre la réalisation du pilote au niveau du Postel 2001') }}
             </p>
         </div>
 
@@ -96,10 +96,10 @@
         <div class="mt-16 text-center">
             <div class="inline-flex flex-col items-center bg-white p-6 rounded-xl shadow-lg transform hover:-translate-y-1 transition-all duration-300">
                 <p class="text-base sm:text-lg text-gray-700 mb-4 font-medium">
-                    Vous souhaitez soutenir notre initiative ?
+                    {{ __('Vous souhaitez soutenir notre initiative ?') }}
                 </p>
                 <a href="{{ route('partnership') }}" class="group inline-flex items-center px-6 py-3 text-base font-semibold rounded-lg text-white bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-500 hover:to-orange-400 transition-all duration-300 shadow-md hover:shadow-xl transform hover:-translate-y-0.5">
-                    Devenir Donateur
+                    {{ __('Devenir Donateur') }}
                     <svg class="ml-2 w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>

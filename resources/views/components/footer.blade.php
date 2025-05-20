@@ -13,7 +13,7 @@
         <div class="grid grid-cols-1 gap-8 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
             <!-- À propos -->
             <div class="text-center sm:text-left">
-                <h3 class="text-lg font-semibold mb-4 sm:mb-6">À propos</h3>
+                <h3 class="text-lg font-semibold mb-4 sm:mb-6">{{ __('messages.footer.about') }}</h3>
                 <p class="text-gray-400 mb-6 text-sm sm:text-base">
                     {{ config('hit.description') }}
                 </p>

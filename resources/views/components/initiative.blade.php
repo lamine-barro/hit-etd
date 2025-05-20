@@ -17,20 +17,20 @@
                 x-transition:enter-start="opacity-0 transform translate-y-8"
                 x-transition:enter-end="opacity-100 transform translate-y-0">
                 <h2 class="text-3xl font-bold text-gray-900 sm:text-4xl mb-6">
-                    Une vision portée par la Présidence de la République
+                    {{ __('Une vision portée par la Présidence de la République') }}
                 </h2>
                 
                 <div class="prose prose-lg text-gray-600 max-w-none">
                     <p class="mb-6">
-                        Hub Ivoire Tech est une initiative du secteur public qui vise à stimuler l'innovation en Côte d'Ivoire, favoriser la création de solutions technologiques et renforcer la compétitivité du pays sur la scène internationale.
+                        {{ __('Hub Ivoire Tech est une initiative du secteur public qui vise à stimuler l\'innovation en Côte d\'Ivoire, favoriser la création de solutions technologiques et renforcer la compétitivité du pays sur la scène internationale.') }}
                     </p>
 
                     <!-- Points clés -->
                     <div class="space-y-4 mt-8">
                         <template x-for="(point, index) in [
-                            { title: 'Programmes pour la Diaspora', content: 'Dispositifs incitatifs et subventions pour les entrepreneurs innovants.' },
-                            { title: 'Partenariats Internationaux', content: 'Collaborations avec des hubs technologiques mondiaux.' },
-                            { title: 'Facilités Administratives', content: 'Accompagnement dans les démarches réglementaires.' }
+                            { title: '{{ __('Programmes pour la Diaspora') }}', content: '{{ __('Dispositifs incitatifs et subventions pour les entrepreneurs innovants.') }}' },
+                            { title: '{{ __('Partenariats Internationaux') }}', content: '{{ __('Collaborations avec des hubs technologiques mondiaux.') }}' },
+                            { title: '{{ __('Facilités Administratives') }}', content: '{{ __('Accompagnement dans les démarches réglementaires.') }}' }
                         ]" :key="index">
                             <div class="flex items-start"
                                 x-show="showPoints"
@@ -54,7 +54,7 @@
                 <!-- Bouton d'action -->
                 <div class="mt-8">
                     <a href="#services" class="btn-primary w-full sm:w-auto text-base sm:text-lg py-3 px-6 sm:px-8 smooth-scroll">
-                        Découvrir nos programmes
+                        {{ __('Découvrir nos programmes') }}
                         <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>

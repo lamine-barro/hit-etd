@@ -27,7 +27,7 @@ class EventPaymentController extends Controller
             if (!$eventRegistration) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Inscription non trouvée',
+                    'message' => __('Inscription non trouvée'),
                 ], 404);
             }
             
@@ -35,7 +35,7 @@ class EventPaymentController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Payment initiated successfully',
+                'message' => __('Payment initiated successfully'),
                 'data' => [
                     'authorization_url' => $payment->paystack_response['data']['authorization_url'],
                     'reference' => $payment->paystack_reference,
@@ -46,7 +46,7 @@ class EventPaymentController extends Controller
 
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to initiate payment',
+                'message' => __('Failed to initiate payment'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -115,12 +115,16 @@ class EventPaymentController extends Controller
                 'event' => $event->slug,
                 'registration' => $payment->registration->uuid,
             ])->with('error', __('Le paiement a échoué. Veuillez réessayer.'));
-
         } catch (\Exception $e) {
+            if ($e->getMessage() === __('Payment verification failed')) {
+                return redirect()->route('events.index')
+                    ->with('error', __('Le paiement a échoué. Veuillez réessayer.'));
+            }
+
             Log::error('Payment callback failed: '.$e->getMessage());
 
             return redirect()->route('events.index')
-                ->with('error', 'We could not verify your payment. Please contact support.');
+                ->with('error', __('We could not verify your payment. Please contact support.'));
         }
     }
 

@@ -2,10 +2,10 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- En-tête -->
         <div class="section-title text-center">
-            <span class="section-subtitle text-sm sm:text-base">Nos Services</span>
-            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mt-2">Des services complets pour réussir</h2>
+            <span class="section-subtitle text-sm sm:text-base">{{ __('Nos Services') }}</span>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mt-2">{{ __('Des services complets pour réussir') }}</h2>
             <p class="mt-4 text-base sm:text-xl max-w-2xl mx-auto text-gray-600">
-                Quel que soit votre stade de développement, nous avons la solution adaptée à vos besoins.
+                {{ __('Quel que soit votre stade de développement, nous avons la solution adaptée à vos besoins.') }}
             </p>
         </div>
 
@@ -18,31 +18,31 @@
                          class="w-full h-full object-cover transform transition duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
                     <h3 class="absolute bottom-4 left-4 right-4 text-lg sm:text-xl font-semibold text-white transform transition duration-300 group-hover:translate-x-2">
-                        Incubation & Accélération
+                        {{ __('Incubation & Accélération') }}
                     </h3>
                 </div>
                 <div class="p-6">
                     <p class="text-gray-600 mb-6">
-                        Programmes de formation, coaching, mentorat, accès aux experts et à notre réseau de partenaires.
+                        {{ __('Programmes de formation, coaching, mentorat, accès aux experts et à notre réseau de partenaires.') }}
                     </p>
                     <ul class="space-y-3 mb-8">
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span class="text-gray-600">Programme de 6 à 12 mois</span>
+                            <span class="text-gray-600">{{ __('Programme de 6 à 12 mois') }}</span>
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span class="text-gray-600">Suivi personnalisé hebdomadaire</span>
+                            <span class="text-gray-600">{{ __('Suivi personnalisé hebdomadaire') }}</span>
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span class="text-gray-600">Réseau d'experts & mentors</span>
+                            <span class="text-gray-600">{{ __('Réseau d\'experts & mentors') }}</span>
                         </li>
                     </ul>
                     {{-- 
@@ -62,31 +62,31 @@
                          class="w-full h-full object-cover transform transition duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
                     <h3 class="absolute bottom-4 left-4 right-4 text-lg sm:text-xl font-semibold text-white transform transition duration-300 group-hover:translate-x-2">
-                        Espaces de travail
+                        {{ __('Espaces de travail') }}
                     </h3>
                 </div>
                 <div class="p-6">
                     <p class="text-gray-600 mb-6">
-                        Bureaux privés, espaces de coworking équipés, internet haut débit, salles de réunion équipées.
+                        {{ __('Bureaux privés, espaces de coworking équipés, internet haut débit, salles de réunion équipées.') }}
                     </p>
                     <ul class="space-y-3 mb-8">
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span class="text-gray-600">Accès sécurisé 24/7</span>
+                            <span class="text-gray-600">{{ __('Accès sécurisé 24/7') }}</span>
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span class="text-gray-600">Internet fibre haut débit</span>
+                            <span class="text-gray-600">{{ __('Internet fibre haut débit') }}</span>
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span class="text-gray-600">Salles de réunion équipées</span>
+                            <span class="text-gray-600">{{ __('Salles de réunion équipées') }}</span>
                         </li>
                     </ul>
                     {{-- 
@@ -106,31 +106,31 @@
                          class="w-full h-full object-cover transform transition duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
                     <h3 class="absolute bottom-4 left-4 right-4 text-lg sm:text-xl font-semibold text-white transform transition duration-300 group-hover:translate-x-2">
-                        Espaces de détente
+                        {{ __('Espaces de détente') }}
                     </h3>
                 </div>
                 <div class="p-6">
                     <p class="text-gray-600 mb-6">
-                        Des espaces conviviaux pour vous détendre et favoriser les échanges informels entre entrepreneurs.
+                        {{ __('Des espaces conviviaux pour vous détendre et favoriser les échanges informels entre entrepreneurs.') }}
                     </p>
                     <ul class="space-y-3 mb-8">
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span class="text-gray-600">Salle de jeux</span>
+                            <span class="text-gray-600">{{ __('Salle de jeux') }}</span>
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span class="text-gray-600">Kitchenette équipée</span>
+                            <span class="text-gray-600">{{ __('Kitchenette équipée') }}</span>
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span class="text-gray-600">Cafétéria moderne</span>
+                            <span class="text-gray-600">{{ __('Cafétéria moderne') }}</span>
                         </li>
                     </ul>
                     {{-- 
@@ -153,29 +153,29 @@
                          class="w-full h-full object-cover transform transition duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
                     <h4 class="absolute bottom-4 left-4 right-4 text-lg font-semibold text-white transform transition duration-300 group-hover:translate-x-2">
-                        Fablab & Innovation
+                        {{ __('Fablab & Innovation') }}
                     </h4>
                 </div>
                 <div class="p-6">
-                    <p class="text-gray-600 mb-6">Prototypage rapide, impression 3D, découpe laser, électronique et support technique personnalisé.</p>
+                    <p class="text-gray-600 mb-6">{{ __('Prototypage rapide, impression 3D, découpe laser, électronique et support technique personnalisé.') }}</p>
                     <ul class="space-y-3">
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span class="text-gray-600">Équipements de pointe</span>
+                            <span class="text-gray-600">{{ __('Équipements de pointe') }}</span>
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span class="text-gray-600">Formation technique avancée</span>
+                            <span class="text-gray-600">{{ __('Formation technique avancée') }}</span>
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span class="text-gray-600">Support technique dédié</span>
+                            <span class="text-gray-600">{{ __('Support technique dédié') }}</span>
                         </li>
                     </ul>
                 </div>
@@ -188,29 +188,29 @@
                          class="w-full h-full object-cover transform transition duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
                     <h4 class="absolute bottom-4 left-4 right-4 text-lg font-semibold text-white transform transition duration-300 group-hover:translate-x-2">
-                        Formation & Ateliers
+                        {{ __('Formation & Ateliers') }}
                     </h4>
                 </div>
                 <div class="p-6">
-                    <p class="text-gray-600 mb-6">Programme complet de formations et d'événements pour développer vos compétences et votre réseau.</p>
+                    <p class="text-gray-600 mb-6">{{ __('Programme complet de formations et d\'événements pour développer vos compétences et votre réseau.') }}</p>
                     <ul class="space-y-3">
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span class="text-gray-600">Masterclasses régulières</span>
+                            <span class="text-gray-600">{{ __('Masterclasses régulières') }}</span>
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span class="text-gray-600">Hackathons & challenges</span>
+                            <span class="text-gray-600">{{ __('Hackathons & challenges') }}</span>
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span class="text-gray-600">Conférences thématiques</span>
+                            <span class="text-gray-600">{{ __('Conférences thématiques') }}</span>
                         </li>
                     </ul>
                 </div>
@@ -223,29 +223,29 @@
                          class="w-full h-full object-cover transform transition duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
                     <h4 class="absolute bottom-4 left-4 right-4 text-lg font-semibold text-white transform transition duration-300 group-hover:translate-x-2">
-                        Support Administratif
+                        {{ __('Support Administratif') }}
                     </h4>
                 </div>
                 <div class="p-6">
-                    <p class="text-gray-600 mb-6">Accompagnement complet dans vos démarches administratives avec le Guichet Unique de l'Administration.</p>
+                    <p class="text-gray-600 mb-6">{{ __('Accompagnement complet dans vos démarches administratives avec le Guichet Unique de l\'Administration.') }}</p>
                     <ul class="space-y-3">
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span class="text-gray-600">Création d'entreprise</span>
+                            <span class="text-gray-600">{{ __('Création d\'entreprise') }}</span>
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span class="text-gray-600">Conseils juridiques</span>
+                            <span class="text-gray-600">{{ __('Conseils juridiques') }}</span>
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-primary-500 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span class="text-gray-600">Support fiscal</span>
+                            <span class="text-gray-600">{{ __('Support fiscal') }}</span>
                         </li>
                     </ul>
                 </div>

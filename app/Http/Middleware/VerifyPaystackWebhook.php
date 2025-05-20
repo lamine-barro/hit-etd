@@ -12,12 +12,12 @@ class VerifyPaystackWebhook
     {
         // Vérifier que c'est une requête POST
         if ($request->method() !== 'POST') {
-            return response()->json(['message' => 'Invalid method'], 405);
+            return response()->json(['message' => __('Invalid method')], 405);
         }
 
         // Vérifier la signature Paystack
         if (! $request->hasHeader('x-paystack-signature')) {
-            return response()->json(['message' => 'No Paystack signature'], 400);
+            return response()->json(['message' => __('No Paystack signature')], 400);
         }
 
         $signature = $request->header('x-paystack-signature');
@@ -30,7 +30,7 @@ class VerifyPaystackWebhook
                 'computed' => $computedSignature,
             ]);
 
-            return response()->json(['message' => 'Invalid signature'], 400);
+            return response()->json(['message' => __('Invalid signature')], 400);
         }
 
         return $next($request);

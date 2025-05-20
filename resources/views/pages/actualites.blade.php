@@ -8,9 +8,9 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- En-tête -->
             <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-                <h1 class="text-4xl font-bold text-gray-900 sm:text-5xl">Actualités</h1>
+                <h1 class="text-4xl font-bold text-gray-900 sm:text-5xl">{{ __('Actualités') }}</h1>
                 <p class="mt-4 text-xl text-gray-600">
-                    Restez informé des dernières nouvelles et événements du Hub Ivoire Tech
+                    {{ __('Restez informé des dernières nouvelles et événements du Hub Ivoire Tech') }}
                 </p>
             </div>
 
@@ -19,8 +19,8 @@
                 @foreach($news as $article)
                     <article class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
                         <div class="aspect-w-16 aspect-h-9">
-                            <img src="{{ asset($article['image']) }}" 
-                                 alt="{{ $article['title'] }}" 
+                            <img src="{{ asset($article['image']) }}"
+                                 alt="{{ $article['title'] }}"
                                  class="w-full h-full object-cover">
                         </div>
                         <div class="p-6">
@@ -35,7 +35,7 @@
                             </p>
                             <div class="mt-6">
                                 <a href="#" class="inline-flex items-center text-primary-600 hover:text-primary-700">
-                                    Lire la suite
+                                    {{ __('Lire la suite') }}
                                     <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                                     </svg>
@@ -71,4 +71,4 @@
 
     <!-- Newsletter Section -->
     @include('components.newsletter')
-@endsection 
+@endsection

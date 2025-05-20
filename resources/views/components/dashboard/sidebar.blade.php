@@ -7,7 +7,7 @@
         <div class="d-flex align-items-center justify-content-center">
             <span class="badge bg-primary-subtle text-primary px-3 py-2">
                 <i class="bi bi-shield-lock me-1"></i>
-                Administration
+                {{ __('Administration') }}
             </span>
         </div>
     </div>
@@ -15,61 +15,70 @@
     <!-- Menu -->
     <div class="p-3">
         <div class="mb-4">
-            <small class="text-muted text-uppercase fw-semibold">Menu principal</small>
+            <small class="text-muted text-uppercase fw-semibold">{{ __('Menu principal') }}</small>
             <ul class="nav flex-column mt-2">
                 <li class="nav-item">
                     <a class="nav-link d-flex align-items-center {{ request()->routeIs('dashboard') ? 'active text-primary fw-medium' : 'text-dark' }}" 
                        href="{{ route('dashboard') }}">
                         <i class="bi bi-speedometer2 me-2"></i>
-                        Tableau de bord
+                        {{ __('Tableau de bord') }}
                     </a>
                 </li>
             </ul>
         </div>
 
         <div class="mb-4">
-            <small class="text-muted text-uppercase fw-semibold">Gestion</small>
+            <small class="text-muted text-uppercase fw-semibold">{{ __('Gestion') }}</small>
             <ul class="nav flex-column mt-2">
                 <li class="nav-item">
                     <a class="nav-link d-flex align-items-center {{ request()->routeIs('events.*') ? 'active text-primary fw-medium' : 'text-dark' }}" 
                        href="#">
                         <i class="bi bi-calendar-event me-2"></i>
-                        Événements
+                        {{ __('Événements') }}
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link d-flex align-items-center {{ request()->routeIs('articles.*') ? 'active text-primary fw-medium' : 'text-dark' }}" 
                        href="{{ route('articles.index') }}">
                         <i class="bi bi-newspaper me-2"></i>
-                        Actualités
+                        {{ __('Articles') }}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center {{ request()->routeIs('bookings.*') ? 'active text-primary fw-medium' : 'text-dark' }}" 
-                       href="{{ route('bookings.index') }}">
-                        <i class="bi bi-bookmark-check me-2"></i>
-                        Réservations
+                    <a class="nav-link d-flex align-items-center {{ request()->routeIs('users.*') ? 'active text-primary fw-medium' : 'text-dark' }}" 
+                       href="{{ route('users.index') }}">
+                        <i class="bi bi-people me-2"></i>
+                        {{ __('Utilisateurs') }}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center {{ request()->routeIs('audiences.subscribers.*') ? 'active text-primary fw-medium' : 'text-dark' }}" 
-                       href="{{ route('audiences.subscribers.index') }}">
-                        <i class="bi bi-envelope me-2"></i>
-                        Newsletter
+                    <a class="nav-link d-flex align-items-center {{ request()->routeIs('partners.*') ? 'active text-primary fw-medium' : 'text-dark' }}" 
+                       href="{{ route('partners.index') }}">
+                        <i class="bi bi-link-45deg me-2"></i>
+                        {{ __('Partenaires') }}
                     </a>
                 </li>
             </ul>
         </div>
 
         <div class="mb-4">
-            <small class="text-muted text-uppercase fw-semibold">Paramètres</small>
+            <small class="text-muted text-uppercase fw-semibold">{{ __('Paramètres') }}</small>
             <ul class="nav flex-column mt-2">
                 <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center {{ request()->routeIs('config.*') ? 'active text-primary fw-medium' : 'text-dark' }}" 
-                       href="{{ route('config.index') }}">
-                        <i class="bi bi-gear me-2"></i>
-                        Configuration
+                    <a class="nav-link d-flex align-items-center {{ request()->routeIs('profile') ? 'active text-primary fw-medium' : 'text-dark' }}" 
+                       href="{{ route('profile.edit') }}">
+                        <i class="bi bi-person me-2"></i>
+                        {{ __('Profil') }}
                     </a>
+                </li>
+                <li class="nav-item">
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="nav-link d-flex align-items-center text-dark">
+                            <i class="bi bi-box-arrow-right me-2"></i>
+                            {{ __('Déconnexion') }}
+                        </button>
+                    </form>
                 </li>
             </ul>
         </div>
@@ -81,7 +90,7 @@
             @csrf
             <button type="submit" class="btn btn-light d-flex align-items-center justify-content-center w-100">
                 <i class="bi bi-box-arrow-right me-2"></i>
-                Déconnexion
+                {{ __('Déconnexion') }}
             </button>
         </form>
     </div>

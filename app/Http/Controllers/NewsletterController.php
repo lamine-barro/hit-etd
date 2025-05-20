@@ -42,13 +42,13 @@ class NewsletterController extends Controller
                 if ($request->ajax()) {
                     return response()->json([
                         'status' => 'success',
-                        'message' => 'Vos préférences ont été mises à jour. Merci de votre fidélité !',
+                        'message' => __('Vos préférences ont été mises à jour. Merci de votre fidélité !'),
                     ]);
                 }
                 
                 return back()->with('notification', [
                     'type' => 'success',
-                    'message' => 'Vos préférences ont été mises à jour. Merci de votre fidélité !',
+                    'message' => __('Vos préférences ont été mises à jour. Merci de votre fidélité !'),
                 ]);
             }
             
@@ -86,13 +86,13 @@ class NewsletterController extends Controller
             if ($request->ajax()) {
                 return response()->json([
                     'status' => 'success',
-                    'message' => 'Merci pour votre inscription ! Vous recevrez bientôt nos actualités.',
+                    'message' => __('Merci pour votre inscription ! Vous recevrez bientôt nos actualités.'),
                 ]);
             }
 
             return back()->with('notification', [
                 'type' => 'success',
-                'message' => 'Merci pour votre inscription ! Vous recevrez bientôt nos actualités.',
+                'message' => __('Merci pour votre inscription ! Vous recevrez bientôt nos actualités.'),
             ]);
 
         } catch (\Illuminate\Validation\ValidationException $e) {
@@ -102,21 +102,16 @@ class NewsletterController extends Controller
             ]);
             
             // Messages d'erreur personnalisés
-            $errorMessage = 'Veuillez vérifier les informations saisies.';
+            $errorMessage = __('Veuillez vérifier les informations saisies.');
             
             // Messages spécifiques pour certaines erreurs
-            if (isset($e->errors()['newsletter_email_input'])) {
-                foreach ($e->errors()['newsletter_email_input'] as $error) {
-                    if (strpos($error, 'unique') !== false) {
-                        $errorMessage = 'Cet email est déjà inscrit. Vous pouvez mettre à jour vos préférences.';
-                        break;
-                    } elseif (strpos($error, 'email') !== false) {
-                        $errorMessage = 'Veuillez saisir une adresse email valide.';
-                        break;
-                    }
-                }
-            } elseif (isset($e->errors()['newsletter_name'])) {
-                $errorMessage = 'Veuillez saisir votre nom.';
+            $errors = $e->errors();
+            if (isset($errors['newsletter_name'])) {
+                $errorMessage = __('Ce champ est requis.');
+            } elseif (isset($errors['newsletter_email_input'])) {
+                $errorMessage = __('L\'adresse email n\'est pas valide.');
+            } elseif (isset($errors['newsletter_whatsapp_input'])) {
+                $errorMessage = __('Le numéro de téléphone WhatsApp n\'est pas valide.');
             }
 
             if ($request->ajax()) {
@@ -145,13 +140,13 @@ class NewsletterController extends Controller
             if ($request->ajax()) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Une erreur est survenue lors de votre inscription. Veuillez réessayer plus tard.',
+                    'message' => __('Une erreur est survenue lors de votre inscription. Veuillez réessayer plus tard.'),
                 ], 500);
             }
 
             return back()->with('notification', [
                 'type' => 'error',
-                'message' => 'Une erreur est survenue lors de votre inscription. Veuillez réessayer plus tard.',
+                'message' => __('Une erreur est survenue lors de votre inscription. Veuillez réessayer plus tard.'),
             ]);
         }
     }

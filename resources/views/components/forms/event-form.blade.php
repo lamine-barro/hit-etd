@@ -56,7 +56,7 @@
                         <i class="bi bi-1-circle"></i>
                     </div>
                 </div>
-                <h4 class="step-title">Informations générales</h4>
+                <h4 class="step-title">{{ __('Informations générales') }}</h4>
             </div>
             <div class="step" :class="{'active': currentStep === 2, 'completed': currentStep > 2}">
                 <div class="step-icon-wrap">
@@ -64,7 +64,7 @@
                         <i class="bi bi-2-circle"></i>
                     </div>
                 </div>
-                <h4 class="step-title">Détails & Description</h4>
+                <h4 class="step-title">{{ __('Détails & Description') }}</h4>
             </div>
             <div class="step" :class="{'active': currentStep === 3}">
                 <div class="step-icon-wrap">
@@ -72,7 +72,7 @@
                         <i class="bi bi-3-circle"></i>
                     </div>
                 </div>
-                <h4 class="step-title">Options de paiement</h4>
+                <h4 class="step-title">{{ __('Options de paiement') }}</h4>
             </div>
         </div>
     </div>
@@ -80,13 +80,13 @@
     <!-- Étape 1: Informations générales -->
     <div class="mb-4" x-show.transition.in="currentStep === 1">
         <div class="card-header bg-white">
-            <h5 class="mb-0">Informations générales</h5>
+            <h5 class="mb-0">{{ __('Informations générales') }}</h5>
         </div>
         <div class="card-body">
             <div class="row g-4">
                 <!-- Type d'événement -->
                 <div class="col-md-6">
-                    <label class="form-label fw-bold">Type d'événement</label>
+                    <label class="form-label fw-bold">{{ __('Type d’événement') }}</label>
                     <select name="type" class="form-select @error('type') is-invalid @enderror" required>
                         <option value="">Sélectionner un type</option>
                         <option value="conference" {{ old('type', $event?->type) === 'conference' ? 'selected' : '' }}>Conférence</option>
@@ -101,7 +101,7 @@
 
                 <!-- Titre -->
                 <div class="col-md-6">
-                    <label class="form-label fw-bold">Titre</label>
+                    <label class="form-label fw-bold">{{ __('Titre') }}</label>
                     <input type="text" name="title" class="form-control @error('title') is-invalid @enderror"
                            value="{{ old('title', $event?->title) }}" required>
                     @error('title')
@@ -111,7 +111,7 @@
 
                 <!-- Date de début -->
                 <div class="col-md-6">
-                    <label class="form-label fw-bold">Date de début</label>
+                    <label class="form-label fw-bold">{{ __('Date de début') }}</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="bi bi-calendar"></i></span>
                         <input type="datetime-local" name="start_date"
@@ -125,7 +125,7 @@
 
                 <!-- Date de fin -->
                 <div class="col-md-6">
-                    <label class="form-label fw-bold">Date de fin</label>
+                    <label class="form-label fw-bold">{{ __('Date de fin') }}</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="bi bi-calendar"></i></span>
                         <input type="datetime-local" name="end_date"
@@ -139,7 +139,7 @@
 
                 <!-- Lieu -->
                 <div class="col-md-6">
-                    <label class="form-label fw-bold">Lieu</label>
+                    <label class="form-label fw-bold">{{ __('Lieu') }}</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
                         <input type="text" name="location" class="form-control @error('location') is-invalid @enderror"
@@ -152,20 +152,20 @@
 
                 <!-- Format -->
                 <div class="col-md-6">
-                    <label class="form-label fw-bold">Format</label>
+                    <label class="form-label fw-bold">{{ __('Format') }}</label>
                     <div class="d-flex gap-4">
                         <div class="form-check">
                             <input type="radio" name="is_remote" value="0" class="form-check-input" id="format_presentiel"
                                    {{ old('is_remote', $event?->is_remote) == '0' ? 'checked' : '' }}>
                             <label class="form-check-label" for="format_presentiel">
-                                <i class="bi bi-building me-1"></i> Présentiel
+                                <i class="bi bi-building me-1"></i> {{ __('Présentiel') }}
                             </label>
                         </div>
                         <div class="form-check">
                             <input type="radio" name="is_remote" value="1" class="form-check-input" id="format_online"
                                    {{ old('is_remote', $event?->is_remote) == '1' ? 'checked' : '' }}>
                             <label class="form-check-label" for="format_online">
-                                <i class="bi bi-laptop me-1"></i> En ligne
+                                <i class="bi bi-laptop me-1"></i> {{ __('En ligne') }}
                             </label>
                         </div>
                     </div>
@@ -180,12 +180,12 @@
     <!-- Étape 2: Détails & Description -->
     <div class="mb-4" x-show.transition.in="currentStep === 2">
         <div class="card-header bg-white">
-            <h5 class="mb-0">Détails & Description</h5>
+            <h5 class="mb-0">{{ __('Détails & Description') }}</h5>
         </div>
         <div class="card-body">
             <!-- Description -->
             <div class="mb-4">
-                <label class="form-label fw-bold">Description</label>
+                <label class="form-label fw-bold">{{ __('Description') }}</label>
                 <textarea name="description" rows="4"
                           class="form-control @error('description') is-invalid @enderror"
                           required>{{ old('description', $event?->description) }}</textarea>
@@ -196,7 +196,7 @@
 
             <!-- Image -->
             <div class="mb-4">
-                <label class="form-label fw-bold">Image de l'événement</label>
+                <label class="form-label fw-bold">{{ __('Image de l’événement') }}</label>
                 <div class="upload-btn-wrapper">
                     <div class="image-preview mb-3"
                          x-show="imagePreview || '{{ $event?->illustration }}'"
@@ -217,8 +217,8 @@
                          style="background-color: #f8f9fa;">
                         <div class="placeholder">
                             <i class="bi bi-image fs-2 mb-2"></i>
-                            <p class="mb-0">Cliquez ou déposez une image ici</p>
-                            <small class="text-muted">Format: JPG, PNG, GIF (max 2MB)</small>
+                            <p class="mb-0">{{ __('Cliquez ou déposez une image ici') }}</p>
+                            <small class="text-muted">{{ __('Format: JPG, PNG, GIF (max 2MB)') }}</small>
                         </div>
                     </div>
                     <input type="file"
@@ -235,11 +235,11 @@
             <!-- Paramètres d'inscription -->
             <div class="card mb-4">
                 <div class="card-body">
-                    <h6 class="card-title mb-3">Paramètres d'inscription</h6>
+                    <h6 class="card-title mb-3">{{ __('Paramètres d’inscription') }}</h6>
                     <div class="row g-3">
                         <!-- Nombre maximum de participants -->
                         <div class="col-md-6">
-                            <label class="form-label">Nombre maximum de participants</label>
+                            <label class="form-label">{{ __('Nombre maximum de participants') }}</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-people"></i></span>
                                 <input type="number" name="max_participants" min="0"
@@ -254,7 +254,7 @@
 
                         <!-- Date limite d'inscription -->
                         <div class="col-md-6">
-                            <label class="form-label">Date limite d'inscription</label>
+                            <label class="form-label">{{ __('Date limite d’inscription') }}</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-calendar"></i></span>
                                 <input type="datetime-local" name="registration_end_date"
@@ -271,7 +271,7 @@
 
             <!-- Lien externe -->
             <div>
-                <label class="form-label">Lien externe</label>
+                <label class="form-label">{{ __('Lien externe') }}</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-link-45deg"></i></span>
                     <input type="url" name="external_link"
@@ -289,25 +289,25 @@
     <!-- Étape 3: Options de paiement -->
     <div class="mb-4" x-show.transition.in="currentStep === 3">
         <div class="card-header bg-white">
-            <h5 class="mb-0">Options de paiement</h5>
+            <h5 class="mb-0">{{ __('Options de paiement') }}</h5>
         </div>
         <div class="card-body">
             <!-- Options de paiement -->
             <div class="mb-4">
-                <label class="form-label fw-bold">Type d'accès</label>
+                <label class="form-label fw-bold">{{ __('Type d’accès') }}</label>
                 <div class="d-flex gap-4">
                     <div class="form-check">
                         <input type="radio" name="is_paid" value="0" class="form-check-input" id="is_paid_free"
                                x-model="isPaid" required>
                         <label class="form-check-label" for="is_paid_free">
-                            <i class="bi bi-unlock me-1"></i> Gratuit
+                            <i class="bi bi-unlock me-1"></i> {{ __('Gratuit') }}
                         </label>
                     </div>
                     <div class="form-check">
                         <input type="radio" name="is_paid" value="1" class="form-check-input" id="is_paid_paid"
                                x-model="isPaid">
                         <label class="form-check-label" for="is_paid_paid">
-                            <i class="bi bi-lock me-1"></i> Payant
+                            <i class="bi bi-lock me-1"></i> {{ __('Payant') }}
                         </label>
                     </div>
                 </div>
@@ -323,7 +323,7 @@
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-body">
-                                <h6 class="card-title mb-3">Prix standard</h6>
+                                <h6 class="card-title mb-3">{{ __('Prix standard') }}</h6>
                                 <div class="input-group">
                                     <input type="number" name="price" min="0" step="0.01"
                                            class="form-control @error('price') is-invalid @enderror"
@@ -353,20 +353,20 @@
 
             <!-- Statut de publication -->
             <div class="mt-4">
-                <label class="form-label fw-bold">Statut de publication</label>
+                <label class="form-label fw-bold">{{ __('Statut de publication') }}</label>
                 <div class="d-flex gap-4">
                     <div class="form-check">
                         <input type="radio" name="status" value="draft" class="form-check-input" id="status_draft"
                                {{ old('status', $event?->status ?? 'draft') === 'draft' ? 'checked' : '' }} required>
                         <label class="form-check-label" for="status_draft">
-                            <i class="bi bi-save me-1"></i> Brouillon
+                            <i class="bi bi-save me-1"></i> {{ __('Brouillon') }}
                         </label>
                     </div>
                     <div class="form-check">
                         <input type="radio" name="status" value="published" class="form-check-input" id="status_published"
                                {{ old('status', $event?->status) === 'published' ? 'checked' : '' }}>
                         <label class="form-check-label" for="status_published">
-                            <i class="bi bi-globe me-1"></i> Publier
+                            <i class="bi bi-globe me-1"></i> {{ __('Publier') }}
                         </label>
                     </div>
                 </div>
@@ -380,13 +380,13 @@
     <!-- Navigation des étapes -->
     <div class="d-flex justify-content-between">
         <button type="button" class="btn btn-light" @click="previousStep" x-show="currentStep > 1">
-            <i class="bi bi-arrow-left me-2"></i> Précédent
+            {{ __('Précédent') }}
         </button>
         <button type="button" class="btn btn-primary" @click="nextStep" x-show="currentStep < 3">
-            Suivant <i class="bi bi-arrow-right ms-2"></i>
+            {{ __('Suivant') }}
         </button>
         <button type="submit" class="btn btn-success" x-show="currentStep === 3">
-            <i class="bi bi-check-circle me-2"></i> {{ $event ? 'Enregistrer les modifications' : 'Créer l\'événement' }}
+            {{ $event ? __('Enregistrer les modifications') : __('Créer l’événement') }}
         </button>
     </div>
 </form>

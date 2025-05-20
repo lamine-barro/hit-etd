@@ -53,7 +53,7 @@ class CampusController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Votre demande de visite a été enregistrée avec succès. Nous vous contacterons bientôt pour confirmer le rendez-vous.',
+                'message' => __('Votre demande de visite a été enregistrée avec succès. Nous vous contacterons bientôt pour confirmer le rendez-vous.'),
             ]);
 
         } catch (\Exception $e) {
@@ -63,8 +63,8 @@ class CampusController extends Controller
 
             return response()->json([
                 'status' => 'error',
-                'message' => 'Une erreur est survenue lors de votre demande. Veuillez réessayer plus tard.',
-            ], 422);
+                'message' => __('Une erreur est survenue lors de la réservation de votre visite. Veuillez réessayer plus tard.'),
+            ], 500);
         }
     }
 }
