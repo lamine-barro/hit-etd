@@ -1,32 +1,32 @@
 @component('mail::message')
-# Nouvelle demande de visite
+# {{ __("Nouvelle demande de visite") }}
 
-Une nouvelle demande de visite a été soumise avec les détails suivants :
+{{ __("Une nouvelle demande de visite a été soumise avec les détails suivants :") }}
 
-**Informations du visiteur :**
-- Nom complet : {{ $name }}
-- Email : {{ $email }}
-- Téléphone : {{ $phone }}
+**{{ __("Informations du visiteur") }} :**
+- {{ __("Nom complet") }} : {{ $name }}
+- {{ __("Email") }} : {{ $email }}
+- {{ __("Téléphone") }} : {{ $phone }}
 
-**Détails de la visite :**
-- Date : {{ \Carbon\Carbon::parse($date)->format('d/m/Y') }}
-- Heure : {{ $time }}
-- Objet : {{ $purpose }}
+**{{ __("Détails de la visite") }} :**
+- {{ __("Date") }} : {{ \Carbon\Carbon::parse($date)->format('d/m/Y') }}
+- {{ __("Heure") }} : {{ $time }}
+- {{ __("Objet") }} : {{ $purpose }}
 
-**Espaces à visiter :**
+**{{ __("Espaces à visiter") }} :**
 @foreach($spaces as $space)
 - {{ ucfirst($space) }}
 @endforeach
 
 @if($message)
-**Message du visiteur :**
+**{{ __("Message du visiteur") }} :**
 {{ $message }}
 @endif
 
 @component('mail::button', ['url' => route('admin.bookings')])
-Voir toutes les réservations
+{{ __("Voir toutes les réservations") }}
 @endcomponent
 
-Cordialement,<br>
+{{ __("Cordialement,") }}<br>
 {{ config('app.name') }}
 @endcomponent 

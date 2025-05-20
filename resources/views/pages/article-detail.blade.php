@@ -12,7 +12,7 @@
                             <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                             </svg>
-                            <span>{{ __('Accueil') }}</span>
+                            <span>{{ __("Accueil") }}</span>
                         </a>
                     </li>
                     <li class="flex items-center">
@@ -20,7 +20,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
                         <a href="{{ route('actualites') }}" class="text-gray-500 hover:text-primary-600 transition-colors duration-200">
-                            {{ __('Actualités') }}
+                            {{ __("Actualités") }}
                         </a>
                     </li>
                     <li class="flex items-center">
@@ -117,7 +117,7 @@
 
                     <div class="flex items-center justify-between border-b border-gray-200 pb-6 mb-8">
                         <div class="flex items-center">
-                            <span class="text-gray-600">{{ __('Publié le') }} {{ $article->published_at->format('d/m/Y') }}</span>
+                            <span class="text-gray-600">{{ __("Publié le") }} {{ $article->published_at->format('d/m/Y') }}</span>
                         </div>
                         @if($article->tags && is_array($article->tags) && count($article->tags) > 0)
                             <div class="flex flex-wrap gap-2">
@@ -141,7 +141,7 @@
         <!-- Articles similaires -->
         @if($relatedArticles->isNotEmpty())
             <div class="mt-16 mb-24">
-                <h2 class="text-2xl font-bold text-gray-900 mb-8">{{ __('Articles similaires') }}</h2>
+                <h2 class="text-2xl font-bold text-gray-900 mb-8">{{ __("Articles similaires") }}</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     @foreach($relatedArticles as $relatedArticle)
                         <div class="bg-white rounded-lg shadow-md overflow-hidden">
@@ -159,7 +159,7 @@
                             <div class="p-6">
                                 <div class="flex items-center justify-between mb-2">
                                     <span class="text-sm font-medium px-2 py-1 rounded {{ $relatedArticle->category === 'actualite' ? 'bg-blue-100 text-blue-800' : ($relatedArticle->category === 'technologie' ? 'bg-green-100 text-green-800' : 'bg-purple-100 text-purple-800') }}">
-                                        {{ __($relatedArticle->category) }}
+                                        {{ __("Catégorie") }} {{ $relatedArticle->category }}
                                     </span>
                                     <span class="text-sm text-gray-500">
                                         {{ $relatedArticle->reading_time }} min
@@ -172,7 +172,7 @@
                                         {{ $relatedArticle->published_at->format('d/m/Y') }}
                                     </span>
                                     <a href="{{ route('actualites.show', $relatedArticle) }}" class="inline-flex items-center text-primary-600 hover:text-primary-700">
-                                        {{ __('Lire plus') }}
+                                        {{ __("Lire plus") }}
                                         <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                                         </svg>

@@ -8,7 +8,7 @@
             <div class="absolute inset-0 bg-black opacity-30"></div>
             <div class="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-blue-500/20 to-transparent"></div>
             <div
-                class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yLjIgMS44LTQgNC00czQgMS44IDQgNC0xLjggNC00IDQtNC0xLjgtNC00eiIvPjxwYXRoIGQ9Ik0xNiAxNmMyLjIgMCA0IDEuOCA0IDRzLTEuOCA0LTQgNC00LTEuOC00LTQgMS44LTQgNC00em0xNiAwYzIuMiAwIDQgMS44IDQgNHMtMS44IDQtNCA0LTQtMS44LTQtNCAxLjgtNCA0LTR6TTM2IDM0YzAtMi4yIDEuOC00IDQtNHM0IDEuOCA0IDQtMS44IDQtNCA0LTQtMS44LTQtNHoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-40">
+                class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yLjIgMS44LTQgNC00czQgMS44IDQgNC0xLjggNC00IDQtNC0xLjgtNC00eiIvPjxwYXRoIGQ9Ik0xNiAxNmMyLjIgMCA0IDEuOCA0IDRzLTEuOCA0LTQgNC00LTEuOC00LTQgNC0xLjgtNC00em0xNiAwYzIuMiAwIDQgMS44IDQgNHMtMS44IDQtNCA0LTQtMS44LTQtNCAxLjgtNCA0LTR6TTM2IDM0YzAtMi4yIDEuOC00IDQtNHM0IDEuOCA0IDQtMS44IDQtNCA0LTQtMS44LTQtNHoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-40">
             </div>
         </div>
 
@@ -27,15 +27,15 @@
                             xmlns="http://www.w3.org/2000/svg">
                             <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
                         </svg>
-                        {{ __('Actualités & Insights') }}
+                        {{ __("Actualités & Insights") }}
                     </div>
 
                     <h1 class="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
-                        <span class="block mt-1 text-transparent bg-clip-text bg-gradient-to-r from-orange-300 via-green-300 to-green-200">{{ __('Actualités & Insights') }}</span>
+                        <span class="block mt-1 text-transparent bg-clip-text bg-gradient-to-r from-orange-300 via-green-300 to-green-200">{{ __("Actualités & Insights") }}</span>
                     </h1>
 
                     <p class="text-xl text-center font-light mb-8 text-green-100 leading-relaxed">
-                        Restez informé des dernières tendances et innovations de <br> l'écosystème tech en Afrique et dans le monde.
+                        {{ __("Restez informé des dernières tendances et innovations de l'écosystème tech en Afrique et dans le monde.") }}
                     </p>
                 </div>
             </div>
@@ -64,7 +64,7 @@
                         <div class="w-full md:w-auto md:flex-1">
                             <div class="relative">
                                 <select id="category" name="category" class="w-full rounded border border-gray-300 bg-white py-2.5 px-3 pr-8 text-gray-700 focus:border-orange-500 focus:ring-0 focus:outline-none">
-                                    <option value="">{{ __('Toutes les catégories') }}</option>
+                                    <option value="">{{ __("Toutes les catégories") }}</option>
                                     @foreach(\App\Enums\ArticleCategory::cases() as $category)
                                         <option value="{{ $category->value }}" {{ request('category') === $category->value ? 'selected' : '' }}>
                                             {{ $category->label() }}
@@ -81,7 +81,7 @@
                         
                         <div class="w-full md:w-auto md:flex-1">
                             <input type="text" id="search" name="search" value="{{ request('search') }}" 
-                                placeholder="{{ __('Rechercher un article...') }}" 
+                                placeholder="{{ __("Rechercher un article...") }}" 
                                 class="w-full rounded border border-gray-300 bg-white py-2.5 px-3 text-gray-700 focus:border-orange-500 focus:ring-0 focus:outline-none" 
                                 autocomplete="off">
                         </div>
@@ -91,7 +91,7 @@
                                 <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                 </svg>
-                                <span>{{ __('Filtrer') }}</span>
+                                <span>{{ __("Filtrer") }}</span>
                             </button>
                             
                             @if(request('category') || request('search'))
@@ -99,7 +99,7 @@
                                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                                     </svg>
-                                    <span>{{ __('Réinitialiser') }}</span>
+                                    <span>{{ __("Réinitialiser") }}</span>
                                 </a>
                             @endif
                         </div>
@@ -123,7 +123,7 @@
                 <div class="flex items-center justify-between mb-8">
                     <div class="flex items-center">
                         <span class="w-10 h-1 bg-primary-600 mr-3"></span>
-                        <h2 class="text-xl md:text-3xl font-bold text-gray-900">{{ __('À la une') }}</h2>
+                        <h2 class="text-xl md:text-3xl font-bold text-gray-900">{{ __("À la une") }}</h2>
                     </div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -208,7 +208,7 @@
                                         </div>
                                         
                                         <div class="inline-flex items-center font-medium text-primary-600 hover:text-primary-700 transition-colors duration-300 text-sm">
-                                            {{ __('Lire plus') }}
+                                            {{ __("Lire plus") }}
                                             <svg class="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                                             </svg>
@@ -226,7 +226,7 @@
         <div id="tous-articles" class="mb-8">
             <div class="flex items-center mb-8">
                 <span class="w-10 h-1 bg-primary-600 mr-3"></span>
-                <h2 class="text-2xl font-bold text-gray-900">{{ __('Tous les articles') }}</h2>
+                <h2 class="text-2xl font-bold text-gray-900">{{ __("Tous les articles") }}</h2>
             </div>
         </div>
         
@@ -312,7 +312,7 @@
                                 </div>
                                 
                                 <div class="inline-flex items-center font-medium text-primary-600 hover:text-primary-700 transition-colors duration-300 text-sm">
-                                    {{ __('Lire plus') }}
+                                    {{ __("Lire plus") }}
                                     <svg class="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                                     </svg>
@@ -326,13 +326,13 @@
                     <svg class="w-20 h-20 text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
                     </svg>
-                    <p class="text-gray-500 text-xl text-center font-light">{{ __('Aucun article disponible pour le moment.') }}</p>
+                    <p class="text-gray-500 text-xl text-center font-light">{{ __("Aucun article disponible pour le moment.") }}</p>
                     @if(request('category') || request('search'))
                         <a href="{{ route('actualites') }}" class="mt-4 text-primary-600 hover:text-primary-700 font-medium flex items-center">
                             <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                             </svg>
-                            {{ __('Voir tous les articles') }}
+                            {{ __("Voir tous les articles") }}
                         </a>
                     @endif
                 </div>
@@ -348,7 +348,7 @@
         
         <!-- Information sur le nombre d'articles -->
         <div class="text-center text-gray-500 mt-4">
-            {{ __('Affichage de') }} {{ $articles->firstItem() ?? 0 }} {{ __('à') }} {{ $articles->lastItem() ?? 0 }} {{ __('sur') }} {{ $articles->total() }} {{ __('articles') }}
+            {{ __("Affichage de") }} {{ $articles->firstItem() ?? 0 }} {{ __("à") }} {{ $articles->lastItem() ?? 0 }} {{ __("sur") }} {{ $articles->total() }} {{ __("articles") }}
         </div>
     </div>
 </div>

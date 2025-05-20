@@ -11,17 +11,17 @@
             <!-- Logo à gauche -->
             <div class="flex-shrink-0">
                 <a href="{{ route('home') }}" class="flex items-center space-x-2 p-1">
-                    <img src="{{ asset('logo_hit.png') }}" alt="{{ __('messages.nav.logo_alt.hit') }}" class="h-8 sm:h-10 w-auto">
+                    <img src="{{ asset('logo_hit.png') }}" alt="{{ __("messages.nav.logo_alt.hit") }}" class="h-8 sm:h-10 w-auto">
                 </a>
             </div>
 
             <!-- Menu de navigation (centre) -->
             <div class="hidden md:flex items-center justify-center space-x-6 lg:space-x-8">
-                <a href="{{ route('home') }}#why-hit" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __('Home') }}</a>
-                {{-- <a href="{{ route('visitez-le-campus') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __('Visit Campus') }}</a> --}}
-                <a href="{{ route('events') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __('Events') }}</a>
-                <a href="{{ route('actualites') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __('News') }}</a>
-                <a href="{{ route('partnership') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __('Devenir Partenaire') }}</a>
+                <a href="{{ route('home') }}#why-hit" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __("Home") }}</a>
+                {{-- <a href="{{ route('visitez-le-campus') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __("Visit Campus") }}</a> --}}
+                <a href="{{ route('events') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __("Events") }}</a>
+                <a href="{{ route('actualites') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __("News") }}</a>
+                <a href="{{ route('partnership') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __("Devenir Partenaire") }}</a>
             </div>
 
             <!-- Sélecteur de langue et Logo à droite -->
@@ -31,7 +31,7 @@
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
-                    <span>{{ __('Espace Résident') }}</span>
+                    <span>{{ __("Espace Résident") }}</span>
                 </a>
 
                 <!-- Language Toggle Desktop -->
@@ -48,7 +48,7 @@
                 <!-- Logo CIV -->
                 <div class="flex-shrink-0">
                     <a href="{{ route('home') }}">
-                        <img src="{{ asset('logo_civ.jpg') }}" alt="{{ __('messages.nav.logo_alt.civ') }}" class="h-8 sm:h-10 w-auto">
+                        <img src="{{ asset('logo_civ.jpg') }}" alt="{{ __("messages.nav.logo_alt.civ") }}" class="h-8 sm:h-10 w-auto">
                     </a>
                 </div>
             </div>
@@ -60,7 +60,7 @@
                     class="text-gray-700 hover:text-primary-600 p-2 -mr-2 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded-lg"
                     aria-expanded="false"
                     :aria-expanded="open.toString()">
-                    <span class="sr-only">{{ __('messages.nav.toggle_menu') }}</span>
+                    <span class="sr-only">{{ __("messages.nav.toggle_menu") }}</span>
                     <svg class="h-6 w-6" :class="{'hidden': open, 'block': !open }" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                     </svg>
@@ -82,18 +82,18 @@
         x-transition:leave-start="opacity-100 transform translate-y-0"
         x-transition:leave-end="opacity-0 transform -translate-y-2">
         <div class="bg-white shadow-lg rounded-lg mt-2 px-4 py-3 space-y-3">
-            <a href="{{ route('home') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __('Home') }}</a>
-            <a href="{{ route('visitez-le-campus') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __('Visit Campus') }}</a>
-            <a href="{{ route('events') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __('Events') }}</a>
-            <a href="{{ route('actualites') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __('News') }}</a>
-            <a href="{{ route('partnership') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __('Devenir Partenaire') }}</a>
+            <a href="{{ route('home') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __("Home") }}</a>
+            <a href="{{ route('visitez-le-campus') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __("Visit Campus") }}</a>
+            <a href="{{ route('events') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __("Events") }}</a>
+            <a href="{{ route('actualites') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __("News") }}</a>
+            <a href="{{ route('partnership') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __("Devenir Partenaire") }}</a>
 
             <!-- Espace membre (Mobile) -->
             <a href="#" class="flex items-center space-x-2 text-primary-600 hover:text-primary-700 font-medium transition px-2 py-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
-                <span>{{ __('Espace Résident') }}</span>
+                <span>{{ __("Espace Résident") }}</span>
             </a>
 
             <!-- Language Toggle Mobile -->

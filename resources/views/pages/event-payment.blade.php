@@ -6,13 +6,13 @@
     <div class="mt-36">
         <div class="container mx-auto px-10 py-3">
             <nav class="flex text-sm">
-                <a href="{{ route('home') }}" class="text-gray-500 hover:text-gray-700">{{ __('Accueil') }}</a>
+                <a href="{{ route('home') }}" class="text-gray-500 hover:text-gray-700">{{ __("Accueil") }}</a>
                 <span class="mx-2 text-gray-400">/</span>
-                <a href="{{ route('events') }}" class="text-gray-500 hover:text-gray-700">{{ __('Événements') }}</a>
+                <a href="{{ route('events') }}" class="text-gray-500 hover:text-gray-700">{{ __("Événements") }}</a>
                 <span class="mx-2 text-gray-400">/</span>
                 <a href="{{ route('events.show', $eventRegistration->event) }}" class="text-gray-500 hover:text-gray-700">{{ $eventRegistration->event->title }}</a>
                 <span class="mx-2 text-gray-400">/</span>
-                <span class="text-gray-900">{{ __('Paiement') }}</span>
+                <span class="text-gray-900">{{ __("Paiement") }}</span>
             </nav>
         </div>
     </div>
@@ -37,25 +37,25 @@
             <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
                 <!-- En-tête -->
                 <div class="bg-primary-600 px-6 py-4">
-                    <h2 class="text-xl font-semibold text-white">{{ __('Finaliser votre inscription') }}</h2>
+                    <h2 class="text-xl font-semibold text-white">{{ __("Finaliser votre inscription") }}</h2>
                 </div>
 
                 <!-- Détails de la commande -->
                 <div class="p-6 space-y-6">
                     <!-- Informations de l'événement -->
                     <div class="border-b border-gray-200 pb-6">
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">{{ __('Détails de l\'événement') }}</h3>
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">{{ __("Détails de l'événement") }}</h3>
                         <div class="space-y-3">
                             <div class="flex justify-between">
-                                <span class="text-gray-600">{{ __('Événement') }}</span>
+                                <span class="text-gray-600">{{ __("Événement") }}</span>
                                 <span class="text-gray-900 font-medium">{{ $eventRegistration->event->title }}</span>
                             </div>
                             <div class="flex justify-between">
-                                <span class="text-gray-600">{{ __('Date') }}</span>
+                                <span class="text-gray-600">{{ __("Date") }}</span>
                                 <span class="text-gray-900">{{ $eventRegistration->event->start_date->format('d/m/Y H:i') }}</span>
                             </div>
                             <div class="flex justify-between">
-                                <span class="text-gray-600">{{ __('Lieu') }}</span>
+                                <span class="text-gray-600">{{ __("Lieu") }}</span>
                                 <span class="text-gray-900">{{ $eventRegistration->event->location }}</span>
                             </div>
                         </div>
@@ -63,19 +63,19 @@
 
                     <!-- Informations du participant -->
                     <div class="border-b border-gray-200 pb-6">
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">{{ __('Vos informations') }}</h3>
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">{{ __("Vos informations") }}</h3>
                         <div class="space-y-3">
                             <div class="flex justify-between">
-                                <span class="text-gray-600">{{ __('Nom') }}</span>
+                                <span class="text-gray-600">{{ __("Nom") }}</span>
                                 <span class="text-gray-900">{{ $eventRegistration->name }}</span>
                             </div>
                             <div class="flex justify-between">
-                                <span class="text-gray-600">{{ __('Email') }}</span>
+                                <span class="text-gray-600">{{ __("Email") }}</span>
                                 <span class="text-gray-900">{{ $eventRegistration->email }}</span>
                             </div>
                             @if($eventRegistration->whatsapp)
                             <div class="flex justify-between">
-                                <span class="text-gray-600">{{ __('WhatsApp') }}</span>
+                                <span class="text-gray-600">{{ __("WhatsApp") }}</span>
                                 <span class="text-gray-900">{{ $eventRegistration->whatsapp }}</span>
                             </div>
                             @endif
@@ -84,10 +84,10 @@
 
                     <!-- Récapitulatif du paiement -->
                     <div>
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">{{ __('Récapitulatif') }}</h3>
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">{{ __("Récapitulatif") }}</h3>
                         <div class="space-y-3">
                             <div class="flex justify-between">
-                                <span class="text-gray-600">{{ __('Prix') }}</span>
+                                <span class="text-gray-600">{{ __("Prix") }}</span>
                                 <span class="text-gray-900 font-medium">
                                     {{ number_format($eventRegistration->event->getCurrentPrice(), 0, ',', ' ') }} {{ $eventRegistration->event->currency }}
                                 </span>
@@ -105,7 +105,7 @@
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
                         </svg>
-                        {{ __('Payer maintenant') }}
+                        {{ __("Payer maintenant") }}
                     </button>
                 </div>
             </div>
@@ -128,12 +128,12 @@
             if (data.status === 'success') {
                 window.location.href = data.data.authorization_url;
             } else {
-                alert("{{ __('Une erreur est survenue. Veuillez réessayer.') }}");
+                alert("{{ __("Une erreur est survenue. Veuillez réessayer.") }}");
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert("{{ __('Une erreur est survenue. Veuillez réessayer.') }}");
+            alert("{{ __("Une erreur est survenue. Veuillez réessayer.") }}");
         });
     }
 

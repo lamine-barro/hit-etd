@@ -6,9 +6,9 @@
     <div class="mt-36">
         <div class="container mx-auto px-10 py-3">
             <nav class="flex text-sm">
-                <a href="{{ route('home') }}" class="text-gray-500 hover:text-gray-700">{{ __('Accueil') }}</a>
+                <a href="{{ route('home') }}" class="text-gray-500 hover:text-gray-700">{{ __("Accueil") }}</a>
                 <span class="mx-2 text-gray-400">/</span>
-                <a href="{{ route('events') }}" class="text-gray-500 hover:text-gray-700">{{ __('Événements') }}</a>
+                <a href="{{ route('events') }}" class="text-gray-500 hover:text-gray-700">{{ __("Événements") }}</a>
                 <span class="mx-2 text-gray-400">/</span>
                 <span class="text-gray-900">{{ $event->title }}</span>
             </nav>
@@ -62,7 +62,7 @@
                                 {{ __($event->type) }}
                             </span>
                             <span class="text-sm font-semibold px-4 py-1.5 rounded-full {{ $event->is_remote ? 'bg-primary-100 text-primary-800' : 'bg-orange-100 text-orange-800' }}">
-                                {{ $event->is_remote ? __('En ligne') : __('Présentiel') }}
+                                {{ $event->is_remote ? __("En ligne") : __("Présentiel") }}
                             </span>
                         </div>
                         <div class="relative" x-data="{ open: false }">
@@ -70,7 +70,7 @@
                                 @click="open = !open"
                                 @click.away="open = false"
                                 class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
-                                title="{{ __('Partager l\'événement') }}"
+                                title="{{ __("Partager l'événement") }}"
                             >
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
@@ -94,7 +94,7 @@
                                        target="_blank"
                                        class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                         <svg class="w-5 h-5 mr-3 text-green-600" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824zm-3.423-14.416c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm.029 18.88c-1.161 0-2.305-.292-3.318-.844l-3.677.964.984-3.595c-.607-1.052-.927-2.246-.926-3.468.001-3.825 3.113-6.937 6.937-6.937 1.856.001 3.598.723 4.907 2.034 1.31 1.311 2.031 3.054 2.03 4.908-.001 3.825-3.113 6.938-6.937 6.938z"/>
+                                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                                         </svg>
                                         WhatsApp
                                     </a>
@@ -113,8 +113,8 @@
                                     <a href="https://twitter.com/intent/tweet?text={{ urlencode($event->title) }}&url={{ urlencode(route('events.show', $event)) }}"
                                        target="_blank"
                                        class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                        <svg class="w-5 h-5 mr-3 text-gray-900" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                                        <svg class="w-5 h-5 mr-3 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                                         </svg>
                                         Twitter/X
                                     </a>
@@ -175,6 +175,16 @@
                             <p>{{ $event->location }}</p>
                         </div>
 
+                        <!-- Format -->
+                        <div class="flex items-center gap-3 text-gray-700">
+                            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-primary-50">
+                                <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+                                </svg>
+                            </div>
+                            <p>{{ $event->is_remote ? __("En ligne") : __("Présentiel") }}</p>
+                        </div>
+
                         <!-- Prix -->
                         <div class="flex items-center gap-3 text-gray-700">
                             <div class="w-10 h-10 flex items-center justify-center rounded-full bg-primary-50">
@@ -188,7 +198,7 @@
                                     <span class="text-base font-normal text-gray-500">{{ $event->currency }}</span>
                                 </p>
                             @else
-                                <p class="text-green-600 font-medium">{{ __('Gratuit') }}</p>
+                                <p class="text-green-600 font-medium">{{ __("Gratuit") }}</p>
                             @endif
                         </div>
 
@@ -222,16 +232,16 @@
                             onclick="openEventRegistrationModal()"
                             class="flex-1 inline-flex justify-center items-center px-6 py-3 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 transform transition hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                         >
-                            {{ __('S\'inscrire maintenant') }}
+                            {{ __("S'inscrire maintenant") }}
                         </button>
                         @if($event->phone || $event->external_link)
                             <a href="{{ $event->phone ? 'https://wa.me/'.$event->phone : $event->external_link }}" target="_blank" class="flex-1 inline-flex justify-center items-center px-6 py-3 bg-gray-100 text-gray-700 font-semibold rounded-xl hover:bg-gray-200 transform transition hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-gray-200 focus:ring-offset-2">
-                                {{ __('Plus de détails') }}
+                                {{ __("Plus de détails") }}
                             </a>
                         @endif
                     @else
                         <button disabled class="flex-1 px-6 py-3 bg-gray-200 text-gray-500 font-semibold rounded-xl cursor-not-allowed">
-                            {{ __('Inscriptions fermées') }}
+                            {{ __("Inscriptions fermées") }}
                         </button>
                     @endif
                 </div>
@@ -249,7 +259,7 @@
             <!-- En-tête du modal -->
             <div class="flex justify-between items-center mb-6">
                 <h3 class="text-xl font-semibold leading-6 text-gray-900">
-                    {{ __('Inscription à l\'événement') }}
+                    {{ __("Inscription à l'événement") }}
                 </h3>
                 <button onclick="closeEventRegistrationModal()" class="text-gray-400 hover:text-gray-500 transition-colors">
                     <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -264,7 +274,7 @@
                 <!-- Nom -->
                 <div class="relative">
                     <label for="name" class="block text-sm font-medium text-gray-700 mb-1">
-                        {{ __('Nom complet') }} <span class="text-red-500">*</span>
+                        {{ __("Nom complet") }} <span class="text-red-500">*</span>
                     </label>
                     <div class="relative rounded-md shadow-sm">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -274,14 +284,14 @@
                         </div>
                         <input type="text" name="name" id="name" required
                             class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 sm:text-sm transition-shadow"
-                            placeholder="{{ __('Entrez votre nom complet') }}">
+                            placeholder="{{ __("Entrez votre nom complet") }}">
                     </div>
                 </div>
 
                 <!-- Email -->
                 <div class="relative">
                     <label for="email" class="block text-sm font-medium text-gray-700 mb-1">
-                        {{ __('Email') }} <span class="text-red-500">*</span>
+                        {{ __("Email") }} <span class="text-red-500">*</span>
                     </label>
                     <div class="relative rounded-md shadow-sm">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -291,14 +301,14 @@
                         </div>
                         <input type="email" name="email" id="email" required
                             class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 sm:text-sm transition-shadow"
-                            placeholder="{{ __('Entrez votre adresse email') }}">
+                            placeholder="{{ __("Entrez votre adresse email") }}">
                     </div>
                 </div>
 
                 <!-- WhatsApp -->
                 <div class="relative">
                     <label for="whatsapp" class="block text-sm font-medium text-gray-700 mb-1">
-                        {{ __('WhatsApp') }}
+                        {{ __("WhatsApp") }}
                     </label>
                     <div class="relative rounded-md shadow-sm">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -308,14 +318,14 @@
                         </div>
                         <input type="text" name="whatsapp" id="whatsapp"
                             class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 sm:text-sm transition-shadow"
-                            placeholder="{{ __('+225 XX XX XX XX XX') }}">
+                            placeholder="{{ __("Entrez votre numéro WhatsApp") }}">
                     </div>
                 </div>
 
                 <!-- Poste/Fonction -->
                 <div class="relative">
                     <label for="position" class="block text-sm font-medium text-gray-700 mb-1">
-                        {{ __('Poste/Fonction') }} <span class="text-red-500">*</span>
+                        {{ __("Poste/Fonction") }} <span class="text-red-500">*</span>
                     </label>
                     <div class="relative rounded-md shadow-sm">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -325,14 +335,14 @@
                         </div>
                         <input type="text" name="position" id="position" required
                             class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 sm:text-sm transition-shadow"
-                            placeholder="{{ __('Votre poste ou fonction') }}">
+                            placeholder="{{ __("Votre poste ou fonction") }}">
                     </div>
                 </div>
 
                 <!-- Organisation -->
                 <div class="relative">
                     <label for="organization" class="block text-sm font-medium text-gray-700 mb-1">
-                        {{ __('Organisation/Entreprise') }} <span class="text-red-500">*</span>
+                        {{ __("Organisation/Entreprise") }} <span class="text-red-500">*</span>
                     </label>
                     <div class="relative rounded-md shadow-sm">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -342,35 +352,35 @@
                         </div>
                         <input type="text" name="organization" id="organization" required
                             class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 sm:text-sm transition-shadow"
-                            placeholder="{{ __('Nom de votre organisation') }}">
+                            placeholder="{{ __("Nom de votre organisation") }}">
                     </div>
                 </div>
 
                 <!-- Pays -->
                 <div class="relative">
                     <label for="country" class="block text-sm font-medium text-gray-700 mb-1">
-                        {{ __('Pays') }} <span class="text-red-500">*</span>
+                        {{ __("Pays") }} <span class="text-red-500">*</span>
                     </label>
                     <div class="relative rounded-md shadow-sm">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.5a2.5 2.5 0 013.182 0l-6 11A2.5 2.5 0 001 17.5V9a2 2 0 012-2h5.5a2 2 0 012 2v5a2 2 0 01-2 2H1v-2c0-1.103.887-2 2-2m0-1h2a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                             </svg>
                         </div>
                         <select name="country" id="country" required
                             class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 sm:text-sm transition-shadow">
-                            <option value="">{{ __('Sélectionnez votre pays') }}</option>
-                            <option value="Côte d'Ivoire">{{ __('Côte d\'Ivoire') }}</option>
-                            <option value="Sénégal">{{ __('Sénégal') }}</option>
-                            <option value="Cameroun">{{ __('Cameroun') }}</option>
-                            <option value="Mali">{{ __('Mali') }}</option>
-                            <option value="Burkina Faso">{{ __('Burkina Faso') }}</option>
-                            <option value="Togo">{{ __('Togo') }}</option>
-                            <option value="Bénin">{{ __('Bénin') }}</option>
-                            <option value="Guinée">{{ __('Guinée') }}</option>
-                            <option value="Niger">{{ __('Niger') }}</option>
-                            <option value="France">{{ __('France') }}</option>
-                            <option value="Autre">{{ __('Autre') }}</option>
+                            <option value="">{{ __("Sélectionnez votre pays") }}</option>
+                            <option value="Côte d'Ivoire">{{ __("Côte d'Ivoire") }}</option>
+                            <option value="Sénégal">{{ __("Sénégal") }}</option>
+                            <option value="Cameroun">{{ __("Cameroun") }}</option>
+                            <option value="Mali">{{ __("Mali") }}</option>
+                            <option value="Burkina Faso">{{ __("Burkina Faso") }}</option>
+                            <option value="Togo">{{ __("Togo") }}</option>
+                            <option value="Bénin">{{ __("Bénin") }}</option>
+                            <option value="Guinée">{{ __("Guinée") }}</option>
+                            <option value="Niger">{{ __("Niger") }}</option>
+                            <option value="France">{{ __("France") }}</option>
+                            <option value="Autre">{{ __("Autre") }}</option>
                         </select>
                     </div>
                 </div>
@@ -378,7 +388,7 @@
                 <!-- Type d'acteur -->
                 <div class="relative">
                     <label for="actor_type" class="block text-sm font-medium text-gray-700 mb-1">
-                        {{ __('Vous êtes') }} <span class="text-red-500">*</span>
+                        {{ __("Vous êtes") }} <span class="text-red-500">*</span>
                     </label>
                     <div class="relative rounded-md shadow-sm">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -388,16 +398,16 @@
                         </div>
                         <select name="actor_type" id="actor_type" required
                             class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 sm:text-sm transition-shadow">
-                            <option value="">{{ __('Sélectionnez votre profil') }}</option>
-                            <option value="startup">{{ __('Startup / Entrepreneur') }}</option>
-                            <option value="etudiant">{{ __('Étudiant') }}</option>
-                            <option value="chercheur">{{ __('Chercheur / Académique') }}</option>
-                            <option value="investisseur">{{ __('Investisseur') }}</option>
-                            <option value="media">{{ __('Média') }}</option>
-                            <option value="corporate">{{ __('Grande entreprise') }}</option>
-                            <option value="service_public">{{ __('Service public') }}</option>
-                            <option value="structure_accompagnement">{{ __('Structure d\'accompagnement') }}</option>
-                            <option value="autre">{{ __('Autre') }}</option>
+                            <option value="">{{ __("Sélectionnez votre profil") }}</option>
+                            <option value="startup">{{ __("Startup / Entrepreneur") }}</option>
+                            <option value="etudiant">{{ __("Étudiant") }}</option>
+                            <option value="chercheur">{{ __("Chercheur / Académique") }}</option>
+                            <option value="investisseur">{{ __("Investisseur") }}</option>
+                            <option value="media">{{ __("Média") }}</option>
+                            <option value="corporate">{{ __("Grande entreprise") }}</option>
+                            <option value="service_public">{{ __("Service public") }}</option>
+                            <option value="structure_accompagnement">{{ __("Structure d'accompagnement") }}</option>
+                            <option value="autre">{{ __("Autre") }}</option>
                         </select>
                     </div>
                 </div>
@@ -409,7 +419,7 @@
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
-                        {{ __('S\'inscrire') }}
+                        {{ __("S'inscrire") }}
                     </button>
                 </div>
             </form>

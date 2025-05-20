@@ -3,10 +3,10 @@
         <!-- En-tête de section -->
         <div class="text-center mb-12 sm:mb-16">
             <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                {{ __('Pourquoi le Hub Ivoire Tech ?') }}
+                {{ __("Pourquoi le Hub Ivoire Tech ?") }}
             </h2>
             <p class="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4">
-                {{ __('Des ressources et une localisation idéale pour faciliter votre parcours entrepreneurial') }}
+                {{ __("Des ressources et une localisation idéale pour faciliter votre parcours entrepreneurial") }}
             </p>
         </div>
 
@@ -19,9 +19,9 @@
                     <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
                         <i class="fas fa-users text-primary text-xl"></i>
                     </div>
-                    <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-3">{{ __('Un écosystème dynamique') }}</h3>
+                    <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-3">{{ __("Un écosystème dynamique") }}</h3>
                     <p class="text-gray-600 text-sm flex-grow">
-                        {{ __('Rejoignez une communauté d'incubateurs, d'accélérateurs, d'investisseurs, d'experts, de mentors, de startups ambitieuses, et de porteurs d'idées prêts à changer le monde.') }}
+                        {{ __("Rejoignez une communauté d'incubateurs, d'accélérateurs, d'investisseurs, d'experts, de mentors, de startups ambitieuses, et de porteurs d'idées prêts à changer le monde.") }}
                     </p>
                 </div>
 
@@ -30,9 +30,9 @@
                     <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
                         <i class="fas fa-building text-primary text-xl"></i>
                     </div>
-                    <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-3">{{ __('Des infrastructures modernes') }}</h3>
+                    <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-3">{{ __("Infrastructures Modernes") }}</h3>
                     <p class="text-gray-600 text-sm flex-grow">
-                        {{ __('Accès à des espaces de coworking équipés, salles de réunion, fablab, auditorium, outils numériques et équipements de pointe.') }}
+                        {{ __("Des espaces de travail de haute qualité, des salles de réunion équipées, et une connexion internet ultra-rapide pour votre productivité.") }}
                     </p>
                 </div>
 
@@ -41,9 +41,9 @@
                     <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
                         <i class="fas fa-hands-helping text-primary text-xl"></i>
                     </div>
-                    <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-3">{{ __('Accompagnement Sur-Mesure') }}</h3>
+                    <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-3">{{ __("Accompagnement Expert") }}</h3>
                     <p class="text-gray-600 text-sm flex-grow">
-                        {{ __('Programmes personnalisés d'incubation et d'accélération, coaching, mentorat, formation et support technique.') }}
+                        {{ __("Des experts en résidence, des mentors expérimentés et des programmes de formation personnalisés pour votre réussite.") }}
                     </p>
                 </div>
 
@@ -52,9 +52,9 @@
                     <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
                         <i class="fas fa-shield-alt text-primary text-xl"></i>
                     </div>
-                    <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-3">{{ __('Réseau de Partenaires') }}</h3>
+                    <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-3">{{ __("Position Stratégique") }}</h3>
                     <p class="text-gray-600 text-sm flex-grow">
-                        {{ __('Accès à un réseau d'investisseurs, d'entreprises, de médias et d'institutions pour développer votre projet.') }}
+                        {{ __("Idéalement situé dans le centre de la Côte d'Ivoire, à proximité des institutions et des partenaires clés.") }}
                     </p>
                 </div>
             </div>

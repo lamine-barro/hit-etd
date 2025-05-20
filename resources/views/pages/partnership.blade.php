@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', __('Devenir Partenaire - HIT'))
-@section('meta_description', __('Rejoignez-nous en tant que partenaire ou donateur pour soutenir l\'innovation technologique en Afrique. Découvrez les différentes façons de contribuer au développement du HIT.'))
+@section('title', __("Devenir Partenaire - HIT"))
+@section('meta_description', __("Rejoignez-nous en tant que partenaire ou donateur pour soutenir l'innovation technologique en Afrique. Découvrez les différentes façons de contribuer au développement du HIT."))
 
 @section('content')
 <!-- Hero Section -->
@@ -11,7 +11,7 @@
         <div class="absolute inset-0 bg-black opacity-30"></div>
         <div class="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-blue-500/20 to-transparent"></div>
         <div
-            class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yLjIgMS44LTQgNC00czQgMS44IDQgNC0xLjggNC00IDQtNC0xLjgtNC00em0xNiAwYzIuMiAwIDQgMS44IDQgNHMtMS44IDQtNCA0LTQtMS44LTQtNCA0LTQtMS44LTQtNHoiLz48cGF0aCBkPSJNMTYgMTZjMi4yIDAgNCAxLjggNCA0czEtLjggLTQgNC00LTEuOC00LTQtMS44LTQtNHoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-40">
+            class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yLjIgMS44LTQgNC00czQgMS44IDQgNC0xLjggNC00IDQtNC0xLjggNC00em0xNiAwYzIuMiAwIDQgMS44IDQgNHMtMS44IDQtNCA0LTQtMS44LTQtNCA0LTQtMS44LTQtNHoiLz48cGF0aCBkPSJNMTYgMTZjMi4yIDAgNCAxLjggNCA0czEtLjggLTQgNC00LTEuOC00LTQtMS44LTQtNHoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-40">
         </div>
     </div>
 
@@ -32,24 +32,24 @@
                             d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z">
                         </path>
                     </svg>
-                    {{ __('Ensemble pour l\'innovation') }}
+                    {{ __("Ensemble pour l'innovation") }}
                 </div>
 
                 <h1 class="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
-                    <span class="block">{{ __('Devenez') }}</span>
+                    <span class="block">{{ __("Devenez") }}</span>
                     <span
-                        class="block mt-1 text-transparent bg-clip-text bg-gradient-to-r from-orange-300 via-green-300 to-green-200">{{ __('notre partenaire') }}</span>
+                        class="block mt-1 text-transparent bg-clip-text bg-gradient-to-r from-orange-300 via-green-300 to-green-200">{{ __("notre partenaire") }}</span>
                 </h1>
 
                 <p class="text-xl font-light mb-8 text-green-100 leading-relaxed max-w-xl">
-                    {{ __('Rejoignez notre écosystème d\'innovation et contribuez au développement technologique en Afrique à travers un partenariat stratégique.') }}
+                    {{ __("Rejoignez notre écosystème d'innovation et contribuez au développement technologique en Afrique à travers un partenariat stratégique.") }}
                 </p>
 
                 <div class="flex flex-wrap gap-4 mt-8">
                     <a href="#partnership-form"
                         class="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-orange-600 rounded-md shadow-md hover:bg-orange-700 transition-colors duration-300"
                         aria-label="Accéder au formulaire de demande de partenariat">
-                        {{ __('Soumettre une demande') }}
+                        {{ __("Soumettre une demande") }}
                         <svg class="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -59,7 +59,7 @@
                         class="relative inline-flex items-center justify-center px-6 py-3 overflow-hidden font-medium text-white transition duration-300 ease-out border border-white/50 rounded-lg shadow-md group hover:bg-white/10"
                         aria-label="En savoir plus sur les avantages de devenir partenaire">
                         <span class="flex items-center justify-center w-full h-full">
-                            {{ __('En savoir plus') }}
+                            {{ __("En savoir plus") }}
                             <svg class="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M19 9l-7 7-7-7"></path>
@@ -88,7 +88,7 @@
                         </div>
                     </div>
 
-                    <h3 class="text-xl font-semibold text-white mb-4">{{ __('Types de partenariats') }}</h3>
+                    <h3 class="text-xl font-semibold text-white mb-4">{{ __("Types de partenariats") }}</h3>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <!-- Première colonne -->
@@ -101,7 +101,7 @@
                                         clip-rule="evenodd"></path>
                                 </svg>
                             </div>
-                            <div class="text-sm text-white">{{ __('Donateur') }}</div>
+                            <div class="text-sm text-white">{{ __("Donateur") }}</div>
                         </div>
 
                         <div
@@ -116,7 +116,7 @@
                                         clip-rule="evenodd"></path>
                                 </svg>
                             </div>
-                            <div class="text-sm text-white">{{ __('Partenaire financier') }}</div>
+                            <div class="text-sm text-white">{{ __("Partenaire financier") }}</div>
                         </div>
 
                         <!-- Deuxième colonne -->
@@ -129,7 +129,7 @@
                                         clip-rule="evenodd"></path>
                                 </svg>
                             </div>
-                            <div class="text-sm text-white">{{ __('Partenaire technique') }}</div>
+                            <div class="text-sm text-white">{{ __("Partenaire technique") }}</div>
                         </div>
 
                         <div
@@ -141,13 +141,13 @@
                                     </path>
                                 </svg>
                             </div>
-                            <div class="text-sm text-white">{{ __('Partenaire stratégique') }}</div>
+                            <div class="text-sm text-white">{{ __("Partenaire stratégique") }}</div>
                         </div>
                     </div>
 
                     <div class="mt-6 pt-6 border-t border-white/10 text-center">
                         <a href="#partnership-form"
-                            class="text-xs font-medium text-green-200 hover:text-white transition-colors duration-300">{{ __('Découvrir tous les types de partenariats →') }}</a>
+                            class="text-xs font-medium text-green-200 hover:text-white transition-colors duration-300">{{ __("Découvrir tous les types de partenariats →") }}</a>
                     </div>
                 </div>
             </div>
@@ -159,7 +159,7 @@
         <a href="#why-partner"
             class="flex flex-col items-center text-white/80 hover:text-white transition-colors duration-300"
             aria-label="Découvrir pourquoi devenir partenaire">
-            <span class="text-xs font-medium mb-1">{{ __('Découvrir') }}</span>
+            <span class="text-xs font-medium mb-1">{{ __("Découvrir") }}</span>
             <div class="w-8 h-12 border-2 border-white/40 rounded-full flex justify-center pt-1" aria-hidden="true">
                 <div class="w-1.5 h-3 bg-white/80 rounded-full animate-bounce"></div>
             </div>
@@ -177,14 +177,14 @@
                         d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812a3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812a3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                         clip-rule="evenodd"></path>
                 </svg>
-                {{ __('Nos opportunités') }}
+                {{ __("Nos opportunités") }}
             </span>
             <h2 id="why-partner" class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                <span class="block">{{ __('Pourquoi devenir') }}</span>
-                <span class="block text-orange-600">{{ __('partenaire du HIT ?') }}</span>
+                <span class="block">{{ __("Pourquoi devenir") }}</span>
+                <span class="block text-orange-600">{{ __("partenaire du HIT ?") }}</span>
             </h2>
             <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
-                {{ __('Rejoignez un écosystème dynamique d\'innovation et contribuez au développement technologique en Afrique tout en bénéficiant d\'avantages exclusifs.') }}
+                {{ __("Rejoignez un écosystème dynamique d'innovation et contribuez au développement technologique en Afrique tout en bénéficiant d'avantages exclusifs.") }}
             </p>
         </div>
 
@@ -193,8 +193,8 @@
             <!-- Types de partenariats -->
             <div class="mb-16">
                 <div class="text-center mb-10">
-                    <h3 class="text-2xl font-bold text-gray-900">{{ __('Types de partenariats') }}</h3>
-                    <p class="mt-2 text-green-700">{{ __('Choisissez le type de partenariat qui correspond le mieux à vos objectifs') }}</p>
+                    <h3 class="text-2xl font-bold text-gray-900">{{ __("Types de partenariats") }}</h3>
+                    <p class="mt-2 text-green-700">{{ __("Choisissez le type de partenariat qui correspond le mieux à vos objectifs") }}</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -212,10 +212,10 @@
                                             clip-rule="evenodd"></path>
                                     </svg>
                                 </div>
-                                <h4 class="text-lg font-medium text-gray-900">{{ __('Donateur') }}</h4>
+                                <h4 class="text-lg font-medium text-gray-900">{{ __("Donateur") }}</h4>
                             </div>
-                            <p class="text-gray-600 mb-4">{{ __('Soutenez nos initiatives par des dons ponctuels ou réguliers pour contribuer au développement de nos programmes.') }}</p>
-                            <div class="text-green-600 text-sm font-medium">{{ __('Accessible à tous') }}</div>
+                            <p class="text-gray-600 mb-4">{{ __("Soutenez nos initiatives par des dons ponctuels ou réguliers pour contribuer au développement de nos programmes.") }}</p>
+                            <div class="text-green-600 text-sm font-medium">{{ __("Accessible à tous") }}</div>
                         </div>
                     </div>
 
@@ -236,10 +236,10 @@
                                             clip-rule="evenodd"></path>
                                     </svg>
                                 </div>
-                                <h4 class="text-lg font-medium text-gray-900">{{ __('Partenaire financier') }}</h4>
+                                <h4 class="text-lg font-medium text-gray-900">{{ __("Partenaire financier") }}</h4>
                             </div>
-                            <p class="text-gray-600 mb-4">{{ __('Investissez dans notre écosystème pour soutenir l\'innovation et bénéficier d\'une visibilité privilégiée.') }}</p>
-                            <div class="text-orange-600 text-sm font-medium">{{ __('Visibilité accrue') }}</div>
+                            <p class="text-gray-600 mb-4">{{ __("Investissez dans notre écosystème pour soutenir l'innovation et bénéficier d'une visibilité privilégiée.") }}</p>
+                            <div class="text-orange-600 text-sm font-medium">{{ __("Visibilité accrue") }}</div>
                         </div>
                     </div>
 
@@ -257,10 +257,10 @@
                                             clip-rule="evenodd"></path>
                                     </svg>
                                 </div>
-                                <h4 class="text-lg font-medium text-gray-900">{{ __('Partenaire technique') }}</h4>
+                                <h4 class="text-lg font-medium text-gray-900">{{ __("Partenaire technique") }}</h4>
                             </div>
-                            <p class="text-gray-600 mb-4">{{ __('Apportez votre expertise, vos technologies ou vos services pour enrichir notre offre et collaborer sur des projets innovants.') }}</p>
-                            <div class="text-green-600 text-sm font-medium">{{ __('Échange de compétences') }}</div>
+                            <p class="text-gray-600 mb-4">{{ __("Apportez votre expertise, vos technologies ou vos services pour enrichir notre offre et collaborer sur des projets innovants.") }}</p>
+                            <div class="text-green-600 text-sm font-medium">{{ __("Échange de compétences") }}</div>
                         </div>
                     </div>
 
@@ -278,10 +278,10 @@
                                         </path>
                                     </svg>
                                 </div>
-                                <h4 class="text-lg font-medium text-gray-900">{{ __('Partenaire stratégique') }}</h4>
+                                <h4 class="text-lg font-medium text-gray-900">{{ __("Partenaire stratégique") }}</h4>
                             </div>
-                            <p class="text-gray-600 mb-4">{{ __('Établissez une relation à long terme pour développer des initiatives conjointes et créer un impact durable.') }}</p>
-                            <div class="text-orange-600 text-sm font-medium">{{ __('Impact maximal') }}</div>
+                            <p class="text-gray-600 mb-4">{{ __("Établissez une relation à long terme pour développer des initiatives conjointes et créer un impact durable.") }}</p>
+                            <div class="text-orange-600 text-sm font-medium">{{ __("Impact maximal") }}</div>
                         </div>
                     </div>
                 </div>
@@ -294,9 +294,9 @@
     <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-sm border overflow-hidden border border-gray-100 mt-16" id="partnership-form" itemscope itemtype="https://schema.org/ContactPoint">
         <div class="bg-primary-600 px-6 py-5 text-white">
             <div class="flex items-center">
-                <h3 class="text-xl font-bold">{{ __('Formulaire de demande de partenariat') }}</h3>
+                <h3 class="text-xl font-bold">{{ __("Formulaire de demande de partenariat") }}</h3>
             </div>
-            <p class="mt-2 text-white/80 text-sm">{{ __('Remplissez ce formulaire pour nous faire part de votre intérêt') }}</p>
+            <p class="mt-2 text-white/80 text-sm">{{ __("Remplissez ce formulaire pour nous faire part de votre intérêt") }}</p>
         </div>
 
         <div class="p-8">
@@ -306,7 +306,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <!-- Type de partenariat -->
                     <div class="md:col-span-2">
-                        <label for="type" class="block text-sm font-medium text-gray-700 mb-2">{{ __('Type de partenariat') }}</label>
+                        <label for="type" class="block text-sm font-medium text-gray-700 mb-2">{{ __("Type de partenariat") }}</label>
                         <div class="relative">
                             <select id="type" name="type"
                                 class="w-full rounded-lg border border-gray-300 bg-white py-3 px-4 pr-10 text-gray-700 shadow-sm focus:border-orange-500 focus:ring focus:ring-orange-200 focus:ring-opacity-50 transition-all duration-200">
@@ -329,11 +329,11 @@
 
                     <!-- Organisation -->
                     <div class="">
-                        <label for="organization_name" class="block text-sm font-medium text-gray-700 mb-2">{{ __('Nom de l\'organisation') }}</label>
+                        <label for="organization_name" class="block text-sm font-medium text-gray-700 mb-2">{{ __("Nom de l'organisation") }}</label>
                         <input type="text" id="organization_name" name="organization_name"
                             value="{{ old('organization_name') }}"
                             class="w-full rounded-lg border border-gray-300 bg-white py-3 px-4 text-gray-700 shadow-sm focus:border-orange-500 focus:ring focus:ring-orange-200 focus:ring-opacity-50 transition-all duration-200"
-                            placeholder="{{ __('Nom de votre entreprise ou organisation') }}" autocomplete="off">
+                            placeholder="{{ __("Nom de votre entreprise ou organisation") }}" autocomplete="off">
                         @error('organization_name')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -341,10 +341,10 @@
 
                     <!-- Nom du contact -->
                     <div>
-                        <label for="contact_name" class="block text-sm font-medium text-gray-700 mb-2">{{ __('Nom du contact') }}</label>
+                        <label for="contact_name" class="block text-sm font-medium text-gray-700 mb-2">{{ __("Nom du contact") }}</label>
                         <input type="text" id="contact_name" name="contact_name" value="{{ old('contact_name') }}"
                             class="w-full rounded-lg border border-gray-300 bg-white py-3 px-4 text-gray-700 shadow-sm focus:border-orange-500 focus:ring focus:ring-orange-200 focus:ring-opacity-50 transition-all duration-200"
-                            placeholder="{{ __('Votre nom complet') }}" autocomplete="off">
+                            placeholder="{{ __("Votre nom complet") }}" autocomplete="off">
                         @error('contact_name')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -352,10 +352,10 @@
 
                     <!-- Email -->
                     <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">{{ __('Email') }}</label>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">{{ __("Email") }}</label>
                         <input type="email" id="email" name="email" value="{{ old('email') }}"
                             class="w-full rounded-lg border border-gray-300 bg-white py-3 px-4 text-gray-700 shadow-sm focus:border-orange-500 focus:ring focus:ring-orange-200 focus:ring-opacity-50 transition-all duration-200"
-                            placeholder="{{ __('votre.email@exemple.com') }}" autocomplete="off">
+                            placeholder="{{ __("votre.email@exemple.com") }}" autocomplete="off">
                         @error('email')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -363,10 +363,10 @@
 
                     <!-- Téléphone -->
                     <div>
-                        <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">{{ __('Téléphone') }}</label>
+                        <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">{{ __("Téléphone") }}</label>
                         <input type="tel" id="phone" name="phone" value="{{ old('phone') }}"
                             class="w-full rounded-lg border border-gray-300 bg-white py-3 px-4 text-gray-700 shadow-sm focus:border-orange-500 focus:ring focus:ring-orange-200 focus:ring-opacity-50 transition-all duration-200"
-                            placeholder="{{ __('+XXX XX XXX XX XX') }}" autocomplete="off">
+                            placeholder="{{ __("+XXX XX XXX XX XX") }}" autocomplete="off">
                         @error('phone')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -374,10 +374,10 @@
 
                     <!-- Message -->
                     <div class="md:col-span-2">
-                        <label for="message" class="block text-sm font-medium text-gray-700 mb-2">{{ __('Votre message') }}</label>
+                        <label for="message" class="block text-sm font-medium text-gray-700 mb-2">{{ __("Votre message") }}</label>
                         <textarea id="message" name="message" rows="5"
                             class="w-full rounded-lg border border-gray-300 bg-white py-3 px-4 text-gray-700 shadow-sm focus:border-orange-500 focus:ring focus:ring-orange-200 focus:ring-opacity-50 transition-all duration-200"
-                            placeholder="{{ __('Décrivez votre intérêt et vos attentes concernant ce partenariat...') }}" autocomplete="off">{{ old('message') }}</textarea>
+                            placeholder="{{ __("Décrivez votre intérêt et vos attentes concernant ce partenariat...") }}" autocomplete="off">{{ old('message') }}</textarea>
                         @error('message')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -388,8 +388,8 @@
                 <div class="mt-8">
                     <button type="submit"
                         class="w-full bg-orange-600 hover:bg-orange-700 text-white font-medium py-3 px-6 rounded-lg transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 shadow-md flex items-center justify-center"
-                        aria-label="{{ __('Soumettre ma demande de partenariat') }}">
-                        <span>{{ __('Soumettre ma demande') }}</span>
+                        aria-label="{{ __("Soumettre ma demande de partenariat") }}">
+                        <span>{{ __("Soumettre ma demande") }}</span>
                         <svg class="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M14 5l7 7m0 0l-7 7m7-7H3"></path>

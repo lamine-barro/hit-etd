@@ -7,10 +7,10 @@
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto">
                 <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
-                    {{ __('Soutenez l\'innovation en Afrique') }}
+                    {{ __("Soutenez l'innovation en Afrique") }}
                 </h1>
                 <p class="text-xl text-gray-600 mb-8">
-                    {{ __('Participez au développement de l\'écosystème tech africain en soutenant les startups innovantes.') }}
+                    {{ __("Participez au développement de l'écosystème tech africain en soutenant les startups innovantes.") }}
                 </p>
             </div>
         </div>
@@ -21,7 +21,7 @@
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="max-w-3xl mx-auto">
                 <h2 class="text-3xl font-bold text-gray-900 text-center mb-12">
-                    {{ __('Votre impact') }}
+                    {{ __("Votre impact") }}
                 </h2>
                 
                 <div class="grid gap-8 md:grid-cols-2">
@@ -35,10 +35,10 @@
                             </div>
                             <div>
                                 <h3 class="text-lg font-semibold text-gray-900 mb-2">
-                                    {{ __('Accélération des startups') }}
+                                    {{ __("Accélération des startups") }}
                                 </h3>
                                 <p class="text-gray-600">
-                                    {{ __('Permettez aux startups de bénéficier de ressources et d\'accompagnement pour accélérer leur croissance.') }}
+                                    {{ __("Permettez aux startups de bénéficier de ressources et d'accompagnement pour accélérer leur croissance.") }}
                                 </p>
                             </div>
                         </div>
@@ -54,10 +54,10 @@
                             </div>
                             <div>
                                 <h3 class="text-lg font-semibold text-gray-900 mb-2">
-                                    {{ __('Création d\'emplois') }}
+                                    {{ __("Création d'emplois") }}
                                 </h3>
                                 <p class="text-gray-600">
-                                    {{ __('Contribuez à la création d\'emplois qualifiés et au développement économique local.') }}
+                                    {{ __("Contribuez à la création d'emplois qualifiés et au développement économique local.") }}
                                 </p>
                             </div>
                         </div>
@@ -73,10 +73,10 @@
                             </div>
                             <div>
                                 <h3 class="text-lg font-semibold text-gray-900 mb-2">
-                                    {{ __('Innovation technologique') }}
+                                    {{ __("Innovation technologique") }}
                                 </h3>
                                 <p class="text-gray-600">
-                                    {{ __('Soutenez le développement de solutions innovantes pour répondre aux défis locaux.') }}
+                                    {{ __("Soutenez le développement de solutions innovantes pour répondre aux défis locaux.") }}
                                 </p>
                             </div>
                         </div>
@@ -92,10 +92,10 @@
                             </div>
                             <div>
                                 <h3 class="text-lg font-semibold text-gray-900 mb-2">
-                                    {{ __('Rayonnement international') }}
+                                    {{ __("Rayonnement international") }}
                                 </h3>
                                 <p class="text-gray-600">
-                                    {{ __('Participez au rayonnement de la Côte d\'Ivoire sur la scène tech internationale.') }}
+                                    {{ __("Participez au rayonnement de la Côte d'Ivoire sur la scène tech internationale.") }}
                                 </p>
                             </div>
                         </div>
@@ -110,13 +110,13 @@
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="max-w-3xl mx-auto text-center">
                 <h2 class="text-3xl font-bold text-white mb-6">
-                    {{ __('Prêt à nous soutenir ?') }}
+                    {{ __("Prêt à nous soutenir ?") }}
                 </h2>
                 <p class="text-lg text-primary-100 mb-8">
-                    {{ __('Contactez-nous pour discuter des différentes possibilités de soutien et devenir partenaire de l\'innovation.') }}
+                    {{ __("Contactez-nous pour discuter des différentes possibilités de soutien et devenir partenaire de l'innovation.") }}
                 </p>
                 <a href="mailto:{{ env('HIT_SUPPORT_EMAIL') }}" class="inline-flex items-center px-6 py-3 text-lg font-semibold rounded-lg text-primary-700 bg-white hover:bg-primary-50 transition-all duration-300 shadow-md hover:shadow-xl transform hover:-translate-y-0.5">
-                    {{ __('Contactez-nous') }}
+                    {{ __("Contactez-nous") }}
                     <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                     </svg>

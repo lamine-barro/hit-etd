@@ -3,10 +3,10 @@
         <!-- En-tête -->
         <div class="text-center max-w-3xl mx-auto mb-16">
             <h2 class="text-3xl font-bold text-gray-900 sm:text-4xl">
-                {{ __('news.title') }}
+                {{ __("news.title") }}
             </h2>
             <p class="mt-4 text-xl text-gray-600">
-                {{ __('news.subtitle') }}
+                {{ __("news.subtitle") }}
             </p>
         </div>
 
@@ -44,7 +44,7 @@
                         {{ $featuredArticle->excerpt ?? Str::limit(strip_tags($featuredArticle->content), 150) }}
                     </p>
                     <a href="{{ route('actualites.show', $featuredArticle) }}" class="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium">
-                        {{ __('news.read_more') }}
+                        {{ __("news.read_more") }}
                         <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
@@ -55,7 +55,7 @@
 
             <!-- Événements à venir -->
             <div class="space-y-6">
-                <h3 class="text-lg font-semibold text-gray-900 mb-4">{{ __('news.upcoming_events') }}</h3>
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">{{ __("news.upcoming_events") }}</h3>
 
                 @forelse(\App\Models\Event::whereNotNull('start_date')
                     ->whereNotNull('end_date')
@@ -80,18 +80,18 @@
                                 @if($event->start_date && $event->end_date)
                                     {{ $event->start_date->format('H:i') }} - {{ $event->end_date->format('H:i') }} | {{ $event->location }}
                                 @else
-                                    {{ $event->location ?? __('news.location_tbd') }}
+                                    {{ $event->location ?? __("news.location_tbd") }}
                                 @endif
                             </p>
                             <a href="{{ route('events.show', $event) }}" class="text-primary-600 hover:text-primary-700 text-sm font-medium">
-                                {{ __('news.register') }} →
+                                {{ __("news.register") }} →
                             </a>
                         </div>
                     </div>
                 </div>
                 @empty
                 <div class="text-center text-gray-500 py-8">
-                    {{ __('news.no_events') }}
+                    {{ __("news.no_events") }}
                 </div>
                 @endforelse
             </div>
@@ -132,7 +132,7 @@
         <!-- CTA -->
         <div class="mt-12 text-center">
             <a href="{{ route('actualites') }}" class="inline-flex items-center px-6 py-3 border border-primary-600 text-base font-medium rounded-md text-primary-600 bg-white hover:bg-primary-50 transition duration-300">
-                {{ __('news.view_all_news') }}
+                {{ __("news.view_all_news") }}
                 <svg class="ml-2 -mr-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>

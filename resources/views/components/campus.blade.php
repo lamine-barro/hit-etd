@@ -7,8 +7,8 @@
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- En-tête -->
         <div class="text-center mb-12">
-            <h1 class="text-4xl font-bold text-gray-900 mb-4">Visitez notre campus !</h1>
-            <p class="text-lg text-gray-600">Réservez dès maintenant votre visite guidée et plongez dans l'univers stimulant du {{ config('hit.name') }}</p>
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">{{ __("Visitez notre campus !") }}</h1>
+            <p class="text-lg text-gray-600">{{ __("Réservez dès maintenant votre visite guidée et plongez dans l'univers stimulant du ") }}{{ config('hit.name') }}</p>
         </div>
 
         <div class="lg:grid lg:grid-cols-2 lg:gap-12">
@@ -21,8 +21,8 @@
                         <!-- Nom et Prénom -->
                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                             <div class="relative">
-                                <label for="firstname" class="block text-sm font-medium text-gray-700 mb-2">Prénom</label>
-                                <input type="text" name="firstname" id="firstname" class="block w-full px-4 py-3.5 rounded-xl border-gray-300 bg-gray-50 focus:bg-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none transition duration-200 placeholder-gray-400" placeholder="Votre prénom">
+                                <label for="firstname" class="block text-sm font-medium text-gray-700 mb-2">{{ __("Prénom") }}</label>
+                                <input type="text" name="firstname" id="firstname" class="block w-full px-4 py-3.5 rounded-xl border-gray-300 bg-gray-50 focus:bg-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none transition duration-200 placeholder-gray-400" placeholder="{{ __("Votre prénom") }}">
                                 <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 mt-6">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -30,8 +30,8 @@
                                 </div>
                             </div>
                             <div class="relative">
-                                <label for="lastname" class="block text-sm font-medium text-gray-700 mb-2">Nom</label>
-                                <input type="text" name="lastname" id="lastname" class="block w-full px-4 py-3.5 rounded-xl border-gray-300 bg-gray-50 focus:bg-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none transition duration-200 placeholder-gray-400" placeholder="Votre nom">
+                                <label for="lastname" class="block text-sm font-medium text-gray-700 mb-2">{{ __("Nom") }}</label>
+                                <input type="text" name="lastname" id="lastname" class="block w-full px-4 py-3.5 rounded-xl border-gray-300 bg-gray-50 focus:bg-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none transition duration-200 placeholder-gray-400" placeholder="{{ __("Votre nom") }}">
                                 <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 mt-6">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -43,8 +43,8 @@
                         <!-- Email et Téléphone -->
                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                             <div class="relative">
-                                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                                <input type="email" name="email" id="email" class="block w-full px-4 py-3.5 rounded-xl border-gray-300 bg-gray-50 focus:bg-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none transition duration-200 placeholder-gray-400" placeholder="vous@exemple.com">
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">{{ __("Email") }}</label>
+                                <input type="email" name="email" id="email" class="block w-full px-4 py-3.5 rounded-xl border-gray-300 bg-gray-50 focus:bg-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none transition duration-200 placeholder-gray-400" placeholder="{{ __("vous@exemple.com") }}">
                                 <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 mt-6">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -52,8 +52,8 @@
                                 </div>
                             </div>
                             <div class="relative">
-                                <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Téléphone</label>
-                                <input type="tel" name="phone" id="phone" class="block w-full px-4 py-3.5 rounded-xl border-gray-300 bg-gray-50 focus:bg-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none transition duration-200 placeholder-gray-400" placeholder="+225 XX XX XX XX XX">
+                                <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">{{ __("Téléphone") }}</label>
+                                <input type="tel" name="phone" id="phone" class="block w-full px-4 py-3.5 rounded-xl border-gray-300 bg-gray-50 focus:bg-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none transition duration-200 placeholder-gray-400" placeholder="{{ __("+225 XX XX XX XX XX") }}">
                                 <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 mt-6">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
@@ -65,19 +65,19 @@
                         <!-- Date et Heure -->
                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                             <div class="relative">
-                                <label for="date" class="block text-sm font-medium text-gray-700 mb-2">Date souhaitée</label>
+                                <label for="date" class="block text-sm font-medium text-gray-700 mb-2">{{ __("Date souhaitée") }}</label>
                                 <input type="date" name="date" id="date" class="block w-full px-4 py-3.5 rounded-xl border-gray-300 bg-gray-50 focus:bg-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none transition duration-200">
                             </div>
                             <div class="relative">
-                                <label for="time" class="block text-sm font-medium text-gray-700 mb-2">Heure souhaitée</label>
+                                <label for="time" class="block text-sm font-medium text-gray-700 mb-2">{{ __("Heure souhaitée") }}</label>
                                 <select name="time" id="time" class="block w-full px-4 py-3.5 rounded-xl border-gray-300 bg-gray-50 focus:bg-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none transition duration-200">
-                                    <option value="">Sélectionnez une heure</option>
-                                    <option value="09:00">09:00</option>
-                                    <option value="10:00">10:00</option>
-                                    <option value="11:00">11:00</option>
-                                    <option value="14:00">14:00</option>
-                                    <option value="15:00">15:00</option>
-                                    <option value="16:00">16:00</option>
+                                    <option value="">{{ __("Sélectionnez une heure") }}</option>
+                                    <option value="09:00">{{ __("09:00") }}</option>
+                                    <option value="10:00">{{ __("10:00") }}</option>
+                                    <option value="11:00">{{ __("11:00") }}</option>
+                                    <option value="14:00">{{ __("14:00") }}</option>
+                                    <option value="15:00">{{ __("15:00") }}</option>
+                                    <option value="16:00">{{ __("16:00") }}</option>
                                 </select>
                                 <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 mt-6">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -89,14 +89,14 @@
 
                         <!-- Objet de la visite -->
                         <div class="relative">
-                            <label for="purpose" class="block text-sm font-medium text-gray-700 mb-2">Objet de la visite</label>
+                            <label for="purpose" class="block text-sm font-medium text-gray-700 mb-2">{{ __("Objet de la visite") }}</label>
                             <select name="purpose" id="purpose" class="block w-full px-4 py-3.5 rounded-xl border-gray-300 bg-gray-50 focus:bg-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none transition duration-200">
-                                <option value="">Sélectionnez l'objet de votre visite</option>
-                                <option value="decouverte">Découverte du Hub</option>
-                                <option value="incubation">Programme d'incubation</option>
-                                <option value="coworking">Espace de coworking</option>
-                                <option value="evenement">Organisation d'événement</option>
-                                <option value="partenariat">Partenariat</option>
+                                <option value="">{{ __("Sélectionnez l'objet de votre visite") }}</option>
+                                <option value="decouverte">{{ __("Découverte du Hub") }}</option>
+                                <option value="incubation">{{ __("Programme d'incubation") }}</option>
+                                <option value="coworking">{{ __("Espace de coworking") }}</option>
+                                <option value="evenement">{{ __("Organisation d'événement") }}</option>
+                                <option value="partenariat">{{ __("Partenariat") }}</option>
                             </select>
                             <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 mt-6">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -107,14 +107,14 @@
 
                         <!-- Espaces à visiter -->
                         <div class="space-y-4">
-                            <label class="block text-sm font-medium text-gray-700">Espaces à visiter</label>
+                            <label class="block text-sm font-medium text-gray-700">{{ __("Espaces à visiter") }}</label>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <!-- Espace de Coworking -->
                                 <div class="relative">
                                     <input type="checkbox" name="spaces[]" value="coworking" id="space-coworking" class="absolute opacity-0 w-0 h-0 peer">
                                     <label for="space-coworking" class="block h-[160px] p-4 bg-gray-50 border-2 rounded-xl cursor-pointer transition-all duration-200 peer-checked:border-primary-500 peer-checked:bg-primary-50 hover:bg-gray-100">
-                                        <div class="font-medium text-gray-900">Espace de Coworking</div>
-                                        <div class="mt-1 text-sm text-gray-500">Espace moderne et collaboratif de 500m²</div>
+                                        <div class="font-medium text-gray-900">{{ __("Espace de Coworking") }}</div>
+                                        <div class="mt-1 text-sm text-gray-500">{{ __("Espace moderne et collaboratif de 500m²") }}</div>
                                         <div class="absolute top-4 right-4 w-5 h-5 rounded-full border-2 peer-checked:border-primary-500 peer-checked:bg-primary-500 transition-all duration-200">
                                             <svg class="w-5 h-5 text-white scale-0 peer-checked:scale-100 transition-transform duration-200" fill="currentColor" viewBox="0 0 20 20">
                                                 <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
@@ -127,8 +127,8 @@
                                 <div class="relative">
                                     <input type="checkbox" name="spaces[]" value="meeting" id="space-meeting" class="absolute opacity-0 w-0 h-0 peer">
                                     <label for="space-meeting" class="block h-[160px] p-4 bg-gray-50 border-2 rounded-xl cursor-pointer transition-all duration-200 peer-checked:border-primary-500 peer-checked:bg-primary-50 hover:bg-gray-100">
-                                        <div class="font-medium text-gray-900">Salles de Réunion</div>
-                                        <div class="mt-1 text-sm text-gray-500">6 salles équipées de 4 à 20 personnes</div>
+                                        <div class="font-medium text-gray-900">{{ __("Salles de Réunion") }}</div>
+                                        <div class="mt-1 text-sm text-gray-500">{{ __("6 salles équipées de 4 à 20 personnes") }}</div>
                                         <div class="absolute top-4 right-4 w-5 h-5 rounded-full border-2 peer-checked:border-primary-500 peer-checked:bg-primary-500 transition-all duration-200">
                                             <svg class="w-5 h-5 text-white scale-0 peer-checked:scale-100 transition-transform duration-200" fill="currentColor" viewBox="0 0 20 20">
                                                 <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
@@ -141,8 +141,8 @@
                                 <div class="relative">
                                     <input type="checkbox" name="spaces[]" value="auditorium" id="space-auditorium" class="absolute opacity-0 w-0 h-0 peer">
                                     <label for="space-auditorium" class="block h-[160px] p-4 bg-gray-50 border-2 rounded-xl cursor-pointer transition-all duration-200 peer-checked:border-primary-500 peer-checked:bg-primary-50 hover:bg-gray-100">
-                                        <div class="font-medium text-gray-900">Auditorium</div>
-                                        <div class="mt-1 text-sm text-gray-500">Une salle de conférence de 138 places</div>
+                                        <div class="font-medium text-gray-900">{{ __("Auditorium") }}</div>
+                                        <div class="mt-1 text-sm text-gray-500">{{ __("Une salle de conférence de 138 places") }}</div>
                                         <div class="absolute top-4 right-4 w-5 h-5 rounded-full border-2 peer-checked:border-primary-500 peer-checked:bg-primary-500 transition-all duration-200">
                                             <svg class="w-5 h-5 text-white scale-0 peer-checked:scale-100 transition-transform duration-200" fill="currentColor" viewBox="0 0 20 20">
                                                 <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
@@ -155,14 +155,14 @@
 
                         <!-- Message -->
                         <div class="relative">
-                            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Message (optionnel)</label>
-                            <textarea name="message" id="message" rows="3" class="block w-full px-4 py-3.5 rounded-xl border-gray-300 bg-gray-50 focus:bg-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none transition duration-200 placeholder-gray-400" placeholder="Informations complémentaires..."></textarea>
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">{{ __("Message (optionnel)") }}</label>
+                            <textarea name="message" id="message" rows="3" class="block w-full px-4 py-3.5 rounded-xl border-gray-300 bg-gray-50 focus:bg-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none transition duration-200 placeholder-gray-400" placeholder="{{ __("Informations complémentaires...") }}"></textarea>
                         </div>
 
                         <!-- Bouton de soumission -->
                         <div class="pt-4">
                             <button type="submit" class="w-full inline-flex items-center justify-center px-8 py-4 text-base font-medium rounded-xl text-white bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5">
-                                <span>Réserver ma visite</span>
+                                <span>{{ __("Réserver ma visite") }}</span>
                                 <svg class="ml-3 w-5 h-5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                                 </svg>
@@ -203,7 +203,7 @@
                                     </svg>
                                 </div>
                                 <div class="ml-4 flex-1">
-                                    <p class="text-gray-900 font-medium">Adresse</p>
+                                    <p class="text-gray-900 font-medium">{{ __("Adresse") }}</p>
                                     <p class="mt-1 text-gray-600">{{ config('hit.address') }}</p>
                                 </div>
                             </div>
@@ -214,8 +214,8 @@
                                     </svg>
                                 </div>
                                 <div class="ml-4 flex-1">
-                                    <p class="text-gray-900 font-medium">Horaires d'ouverture</p>
-                                    <p class="mt-1 text-gray-600">Lun - Sam : 08h00 - 20h00</p>
+                                    <p class="text-gray-900 font-medium">{{ __("Horaires d'ouverture") }}</p>
+                                    <p class="mt-1 text-gray-600">{{ __("Lun - Sam : 08h00 - 20h00") }}</p>
                                 </div>
                             </div>
                             <div class="flex items-start">
@@ -225,9 +225,9 @@
                                     </svg>
                                 </div>
                                 <div class="ml-4 flex-1">
-                                    <p class="text-gray-900 font-medium">Contact</p>
-                                    <p class="mt-1 text-gray-600">Tel : {{ config('hit.phone') }}</p>
-                                    <p class="text-gray-600">Email : {{ config('hit.email') }}</p>
+                                    <p class="text-gray-900 font-medium">{{ __("Contact") }}</p>
+                                    <p class="mt-1 text-gray-600">{{ __("Tel : ") }}{{ config('hit.phone') }}</p>
+                                    <p class="text-gray-600">{{ __("Email : ") }}{{ config('hit.email') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -260,7 +260,7 @@
             
             // Disable the submit button and show loading state
             submitButton.disabled = true;
-            buttonText.textContent = 'Envoi en cours...';
+            buttonText.textContent = '{{ __("Envoi en cours...") }}';
             console.log('⏳ Désactivation du bouton et affichage du chargement');
             
             fetch(form.action, {
@@ -293,7 +293,7 @@
                                 </svg>
                             </div>
                             <div class="ml-3">
-                                <p class="text-sm font-medium">${data.message}</p>
+                                <p class="text-sm font-medium">{{ __("Merci pour votre réservation !") }}</p>
                             </div>
                         </div>
                     `;
@@ -324,7 +324,7 @@
                             </svg>
                         </div>
                         <div class="ml-3">
-                            <p class="text-sm font-medium">${error.message}</p>
+                            <p class="text-sm font-medium">{{ __("Erreur lors de la réservation") }}</p>
                         </div>
                     </div>
                 `;
