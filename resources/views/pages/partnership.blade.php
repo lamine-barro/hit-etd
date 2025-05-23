@@ -57,7 +57,7 @@
                     </a>
                     <a href="#why-partner"
                         class="relative inline-flex items-center justify-center px-6 py-3 overflow-hidden font-medium text-white transition duration-300 ease-out border border-white/50 rounded-lg shadow-md group hover:bg-white/10"
-                        aria-label="En savoir plus sur les avantages de devenir partenaire">
+                        aria-label="{{ __("En savoir plus sur les avantages de devenir partenaire") }}">
                         <span class="flex items-center justify-center w-full h-full">
                             {{ __("En savoir plus") }}
                             <svg class="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -158,7 +158,7 @@
     <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2">
         <a href="#why-partner"
             class="flex flex-col items-center text-white/80 hover:text-white transition-colors duration-300"
-            aria-label="Découvrir pourquoi devenir partenaire">
+            aria-label="{{ __("Découvrir pourquoi devenir partenaire") }}">
             <span class="text-xs font-medium mb-1">{{ __("Découvrir") }}</span>
             <div class="w-8 h-12 border-2 border-white/40 rounded-full flex justify-center pt-1" aria-hidden="true">
                 <div class="w-1.5 h-3 bg-white/80 rounded-full animate-bounce"></div>
@@ -410,7 +410,7 @@
         border-color: #f97316 !important; /* orange-500 */
         box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.2) !important; /* orange-500 avec opacité */
     }
-    
+
     /* Supprimer l'outline bleu par défaut des navigateurs */
     #partnership-request-form input,
     #partnership-request-form textarea,
@@ -439,16 +439,16 @@
     // Script pour s'assurer que les champs du formulaire sont interactifs
     document.addEventListener('DOMContentLoaded', function() {
         const formInputs = document.querySelectorAll('#partnership-request-form input, #partnership-request-form textarea, #partnership-request-form select');
-        
+
         formInputs.forEach(input => {
             // S'assurer que les champs ne sont pas en lecture seule
             input.readOnly = false;
-            
+
             // Ajouter un gestionnaire d'événements pour vérifier l'interactivité
             input.addEventListener('click', function() {
                 this.focus();
             });
-            
+
             // Forcer la mise au point sur le premier clic
             input.addEventListener('mousedown', function() {
                 this.focus();
