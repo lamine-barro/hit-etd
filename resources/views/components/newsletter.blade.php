@@ -43,7 +43,7 @@
             @endif
             <form action="{{ route('newsletter.subscribe') }}" method="POST" class="space-y-8 bg-white rounded-2xl shadow-xl p-8 border border-gray-100 backdrop-blur-sm bg-white/90" id="newsletter-form">
                 @csrf
-                
+
                 <!-- Options d'abonnement -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div class="relative group">
@@ -117,7 +117,7 @@
                             <p class="text-gray-600 text-sm">{{ __("Notifications d'événements et rappels") }}</p>
                         </div>
                     </div>
-                    
+
                     <script>
                         // Initialisation des toggles et du champ WhatsApp
                         document.addEventListener('DOMContentLoaded', function() {
@@ -126,7 +126,7 @@
                             const whatsappToggleContainer = whatsappToggle.closest('.relative.inline-flex');
                             const whatsappToggleCircle = whatsappToggleContainer.querySelector('span[aria-hidden="true"]');
                             const whatsappToggleClickable = whatsappToggleContainer.querySelector('span.absolute.inset-0');
-                            
+
                             // Fonction pour afficher/masquer le champ WhatsApp
                             function toggleWhatsappField() {
                                 if (whatsappToggle.checked) {
@@ -135,12 +135,12 @@
                                     whatsappField.classList.add('hidden');
                                 }
                             }
-                            
+
                             // Gestion du clic sur le toggle WhatsApp
                             whatsappToggleClickable.addEventListener('click', function() {
                                 // Inverser l'état du checkbox
                                 whatsappToggle.checked = !whatsappToggle.checked;
-                                
+
                                 // Mettre à jour l'apparence du toggle
                                 if (whatsappToggle.checked) {
                                     whatsappToggleCircle.classList.add('translate-x-5');
@@ -151,25 +151,25 @@
                                     whatsappToggleContainer.classList.remove('bg-green-500');
                                     whatsappToggleContainer.classList.add('bg-gray-200');
                                 }
-                                
+
                                 // Afficher/masquer le champ WhatsApp
                                 toggleWhatsappField();
                             });
-                            
+
                             // Gestion du changement direct du checkbox
                             whatsappToggle.addEventListener('change', toggleWhatsappField);
-                            
+
                             // Initialisation de l'état au chargement de la page
                             toggleWhatsappField();
-                            
+
                             // Gestion du toggle Email (inchangé)
                             const emailToggle = document.querySelector('#newsletter_email');
                             const emailToggleContainer = emailToggle.closest('.relative.inline-flex');
                             const emailToggleCircle = emailToggleContainer.querySelector('span[aria-hidden="true"]');
-                            
+
                             emailToggleContainer.querySelector('span.absolute.inset-0').addEventListener('click', function() {
                                 emailToggle.checked = !emailToggle.checked;
-                                
+
                                 if (emailToggle.checked) {
                                     emailToggleCircle.classList.add('translate-x-5');
                                     emailToggleContainer.classList.add('bg-primary-500');
@@ -180,7 +180,7 @@
                                     emailToggleContainer.classList.add('bg-gray-200');
                                 }
                             });
-                            
+
                             // Initialisation de l'état du toggle Email
                             if (emailToggle.checked) {
                                 emailToggleCircle.classList.add('translate-x-5');
@@ -197,14 +197,14 @@
                         <svg class="w-5 h-5 mr-2 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                         </svg>
-                       {{ __("Centres d'intérêt") }} 
+                       {{ __("Centres d'intérêt") }}
                     </h3>
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
                         @php
                             use App\Enums\AudienceType;
                             $audienceTypes = AudienceType::cases();
                         @endphp
-                        
+
                         @foreach($audienceTypes as $type)
                         <label class="relative flex flex-col items-center p-4 bg-white border-2 border-primary-500/20 rounded-xl cursor-pointer hover:border-primary-500 hover:shadow-md transition-all duration-200 group">
                             <input type="checkbox" name="interests[]" value="{{ $type->value }}" class="sr-only peer">
@@ -256,13 +256,13 @@
         const whatsappToggle = document.getElementById('newsletter_whatsapp');
         const whatsappField = document.querySelector('.newsletter-whatsapp-field');
         const whatsappToggleBtn = document.getElementById('whatsapp-toggle-button');
-        
+
         // Fonction pour gérer l'affichage du champ WhatsApp
         function toggleWhatsappField() {
             const isChecked = whatsappToggle.checked;
             const toggleCircle = whatsappToggleBtn.previousElementSibling;
             const toggleBg = whatsappToggleBtn.parentElement;
-            
+
             // Mettre à jour l'état visuel du toggle
             if (isChecked) {
                 toggleCircle.classList.add('translate-x-5');
@@ -276,28 +276,28 @@
                 whatsappField.classList.add('hidden');
             }
         }
-        
+
         // Initialiser l'état du champ WhatsApp au chargement
         toggleWhatsappField();
-        
+
         // Ajouter l'écouteur d'événement pour le toggle WhatsApp
         whatsappToggleBtn.addEventListener('click', function() {
             whatsappToggle.checked = !whatsappToggle.checked;
             toggleWhatsappField();
         });
-        
+
         // Écouter également les changements directs sur la checkbox
         whatsappToggle.addEventListener('change', toggleWhatsappField);
-        
+
         // Gestion du toggle Email
         const emailToggle = document.getElementById('newsletter_email');
         const emailToggleBtn = emailToggle.nextElementSibling.nextElementSibling;
-        
+
         emailToggleBtn.addEventListener('click', function() {
             emailToggle.checked = !emailToggle.checked;
             const toggleCircle = emailToggleBtn.previousElementSibling;
             const toggleBg = emailToggleBtn.parentElement;
-            
+
             if (emailToggle.checked) {
                 toggleCircle.classList.add('translate-x-5');
                 toggleBg.classList.add('bg-primary-500');
@@ -308,18 +308,18 @@
                 toggleBg.classList.add('bg-gray-200');
             }
         });
-        
+
         // Gestion de la soumission du formulaire
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
             const submitButton = form.querySelector('button[type="submit"]');
             const buttonText = submitButton.textContent;
-            
+
             // Disable submit button and show loading state
             submitButton.disabled = true;
             submitButton.textContent = {{ __("Envoi en cours...") }};
-            
+
             fetch(form.action, {
                 method: 'POST',
                 body: new FormData(form),
@@ -341,7 +341,7 @@
                         },
                         close: true
                     }).showToast();
-                    
+
                     // Reset form
                     form.reset();
                     whatsappField.classList.add('hidden');
