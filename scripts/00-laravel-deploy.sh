@@ -23,3 +23,10 @@ touch database/database.sqlite
 echo "Build Assets"
 npm i
 npm run build
+
+chmod -R 777 storage
+chmod -R 777 bootstrap/cache
+
+php artisan storage:link
+
+echo "Laravel deploy completed"
