@@ -11,16 +11,16 @@
             <!-- Logo à gauche -->
             <div class="flex-shrink-0">
                 <a href="{{ route('home') }}" class="flex items-center space-x-2 p-1">
-                    <img src="{{ asset('logo_hit.png') }}" alt="{{ __("messages.nav.logo_alt.hit") }}" class="h-8 sm:h-10 w-auto">
+                    <img src="{{ asset('logo_hit.png') }}" alt="{{ __("messages.nav.logo_alt.hit") }}" style="width: auto; height: 30px" class="h-8 sm:h-10 w-auto">
                 </a>
             </div>
 
             <!-- Menu de navigation (centre) -->
             <div class="hidden md:flex items-center justify-center space-x-6 lg:space-x-8">
-                <a href="{{ route('home') }}#why-hit" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __("Home") }}</a>
+                <a href="{{ route('home') }}#why-hit" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __("Accuiel") }}</a>
                 {{-- <a href="{{ route('visitez-le-campus') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __("Visit Campus") }}</a> --}}
-                <a href="{{ route('events') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __("Events") }}</a>
-                <a href="{{ route('actualites') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __("News") }}</a>
+                <a href="{{ route('events') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __("Événements") }}</a>
+                <a href="{{ route('actualites') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __("Actualités") }}</a>
                 <a href="{{ route('partnership') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __("Devenir Partenaire") }}</a>
             </div>
 

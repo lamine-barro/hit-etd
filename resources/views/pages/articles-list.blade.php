@@ -53,7 +53,7 @@
             </a>
         </div>
     </div>
-    
+
     <div class="bg-gray-50 py-16">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Filtres compacts -->
@@ -78,11 +78,11 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="w-full md:w-auto md:flex-1">
-                            <input type="text" id="search" name="search" value="{{ request('search') }}" 
-                                placeholder="{{ __("Rechercher un article...") }}" 
-                                class="w-full rounded border border-gray-300 bg-white py-2.5 px-3 text-gray-700 focus:border-orange-500 focus:ring-0 focus:outline-none" 
+                            <input type="text" id="search" name="search" value="{{ request('search') }}"
+                                placeholder="{{ __("Rechercher un article...") }}"
+                                class="w-full rounded border border-gray-300 bg-white py-2.5 px-3 text-gray-700 focus:border-orange-500 focus:ring-0 focus:outline-none"
                                 autocomplete="off">
                         </div>
 
@@ -93,7 +93,7 @@
                                 </svg>
                                 <span>{{ __("Filtrer") }}</span>
                             </button>
-                            
+
                             @if(request('category') || request('search'))
                                 <a href="{{ route('actualites') }}" class="text-gray-500 hover:text-gray-700 flex items-center">
                                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -104,7 +104,7 @@
                             @endif
                         </div>
                     </div>
-                    
+
                     <!-- Styles pour éliminer la couleur bleue sur les inputs -->
                     <style>
                         input:focus, select:focus, textarea:focus {
@@ -116,7 +116,7 @@
                 </form>
             </div>
         </div>
-        
+
         <!-- Articles mis en avant -->
         @if($featuredArticles->isNotEmpty())
             <div class="mb-16">
@@ -133,8 +133,8 @@
                                 <div class="relative">
                                     @if($article->illustration)
                                         <div class="aspect-w-16 aspect-h-9 overflow-hidden">
-                                            <img src="{{ Storage::url($article->illustration) }}" 
-                                                alt="{{ $article->title }}" 
+                                            <img src="{{ Storage::url($article->illustration) }}"
+                                                alt="{{ $article->title }}"
                                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                                         </div>
                                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -179,7 +179,7 @@
                                 </div>
                                 <div class="p-6">
                                     <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary-600 transition-colors duration-300 line-clamp-2">{{ $article->title }}</h3>
-                                    
+
                                     <p class="text-gray-600 mb-5 line-clamp-3 h-[4.5rem]">
                                         @php
                                             $excerpt = $article->excerpt ?? strip_tags($article->content);
@@ -189,7 +189,7 @@
                                             echo count($words) > 25 ? $limitedExcerpt . '...' : $limitedExcerpt;
                                         @endphp
                                     </p>
-                                    
+
                                     <div class="flex items-center justify-between pt-3 border-t border-gray-100">
                                         <div class="flex items-center space-x-4">
                                             <div class="flex items-center space-x-1">
@@ -198,7 +198,7 @@
                                                 </svg>
                                                 <span class="text-xs text-gray-500">{{ $article->published_at->format('d/m/Y') }}</span>
                                             </div>
-                                            
+
                                             <div class="flex items-center space-x-1">
                                                 <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -206,7 +206,7 @@
                                                 <span class="text-xs text-gray-500">{{ $article->reading_time ?? 5 }} min</span>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="inline-flex items-center font-medium text-primary-600 hover:text-primary-700 transition-colors duration-300 text-sm">
                                             {{ __("Lire plus") }}
                                             <svg class="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -229,7 +229,7 @@
                 <h2 class="text-2xl font-bold text-gray-900">{{ __("Tous les articles") }}</h2>
             </div>
         </div>
-        
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="articles-list">
             @forelse($articles as $article)
                 <a href="{{ route('actualites.show', $article) }}" class="block relative">
@@ -237,8 +237,8 @@
                         <div class="relative">
                             @if($article->illustration)
                                 <div class="aspect-w-16 aspect-h-9 overflow-hidden">
-                                    <img src="{{ Storage::url($article->illustration) }}" 
-                                        alt="{{ $article->title }}" 
+                                    <img src="{{ Storage::url($article->illustration) }}"
+                                        alt="{{ $article->title }}"
                                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                                 </div>
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -283,7 +283,7 @@
                         </div>
                         <div class="p-6">
                             <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary-600 transition-colors duration-300 line-clamp-2">{{ $article->title }}</h3>
-                            
+
                             <p class="text-gray-600 mb-5 line-clamp-3 h-[4.5rem]">
                                 @php
                                     $excerpt = $article->excerpt ?? strip_tags($article->content);
@@ -293,7 +293,7 @@
                                     echo count($words) > 25 ? $limitedExcerpt . '...' : $limitedExcerpt;
                                 @endphp
                             </p>
-                            
+
                             <div class="flex items-center justify-between pt-3 border-t border-gray-100">
                                 <div class="flex items-center space-x-4">
                                     <div class="flex items-center space-x-1">
@@ -302,7 +302,7 @@
                                         </svg>
                                         <span class="text-xs text-gray-500">{{ $article->published_at->format('d/m/Y') }}</span>
                                     </div>
-                                    
+
                                     <div class="flex items-center space-x-1">
                                         <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -310,7 +310,7 @@
                                         <span class="text-xs text-gray-500">{{ $article->reading_time ?? 5 }} min</span>
                                     </div>
                                 </div>
-                                
+
                                 <div class="inline-flex items-center font-medium text-primary-600 hover:text-primary-700 transition-colors duration-300 text-sm">
                                     {{ __("Lire plus") }}
                                     <svg class="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -345,7 +345,7 @@
                 {{ $articles->onEachSide(1)->links() }}
             </div>
         </div>
-        
+
         <!-- Information sur le nombre d'articles -->
         <div class="text-center text-gray-500 mt-4">
             {{ __("Affichage de") }} {{ $articles->firstItem() ?? 0 }} {{ __("à") }} {{ $articles->lastItem() ?? 0 }} {{ __("sur") }} {{ $articles->total() }} {{ __("articles") }}
