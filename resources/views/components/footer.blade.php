@@ -13,9 +13,9 @@
         <div class="grid grid-cols-1 gap-8 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
             <!-- À propos -->
             <div class="text-center sm:text-left">
-                <h3 class="text-lg font-semibold mb-4 sm:mb-6">{{ __("messages.footer.about") }}</h3>
+                <h3 class="text-lg font-semibold mb-4 sm:mb-6">{{ config("hit.name") }}</h3>
                 <p class="text-gray-400 mb-6 text-sm sm:text-base">
-                    {{ config('hit.description') }}
+                    {{ __("Hub Ivoire Tech a pour vocation d'être le plus grand Campus de Startups en Afrique. Il réunit un écosystème d'incubateurs, d'accélérateurs, d'investisseurs, d'experts et d'entrepreneurs afin de stimuler l'innovation et de transformer les idées en succès concrets sur le territoire ivoirien et au-delà.") }}
                 </p>
                 <div class="flex justify-center sm:justify-start space-x-6 sm:space-x-4">
                     <a href="https://web.facebook.com/profile.php?id=61568083378984" target="_blank" class="text-gray-400 hover:text-primary-500 transition-colors duration-200">
