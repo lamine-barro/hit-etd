@@ -2,17 +2,20 @@
 
 namespace App\Models;
 
+use App\Enums\LanguageEnum;
+use App\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 use Spatie\Sluggable\SlugOptions;
 
 class Event extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, HasTranslations;
 
     /**
      * The attributes that are mass assignable.
@@ -20,14 +23,9 @@ class Event extends Model
      * @var array<string>
      */
     protected $fillable = [
-        'slug',
         'type',
-        'title',
-        'slug',
-        'description',
         'start_date',
         'end_date',
-        'location',
         'is_remote',
         'max_participants',
         'registration_end_date',
@@ -39,7 +37,8 @@ class Event extends Model
         'early_bird_end_date',
         'status',
         'illustration',
-        'created_by'
+        'created_by',
+        'default_locale'
     ];
 
     /**
@@ -57,31 +56,26 @@ class Event extends Model
         'price' => 'decimal:2',
         'early_bird_price' => 'decimal:2',
         'max_participants' => 'integer',
+        'default_locale' => LanguageEnum::class,
+    ];
+    
+    /**
+     * Les attributs qui doivent être accessibles pour les traductions.
+     *
+     * @var array<string>
+     */
+    protected $translatable = [
+        'title',
+        'slug',
+        'description',
+        'location',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
+        'og_type',
     ];
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($event) {
-            $event->slug = $event->generateUniqueSlug($event->title);
-        });
-
-        static::updating(function ($event) {
-            if ($event->isDirty('title')) {
-                $event->slug = $event->generateUniqueSlug($event->title);
-            }
-        });
-    }
-
-    protected function generateUniqueSlug($title)
-    {
-        $slug = Str::slug($title);
-
-        $count = static::where('slug', $slug)->count();
-
-        return $count ? "{$slug}-{$count}" : $slug;
-    }
+    // Les méthodes boot() et generateUniqueSlug() ont été supprimées car le slug est maintenant géré par les traductions
 
     /**
      * Get the registrations for the event.
@@ -177,18 +171,24 @@ class Event extends Model
             ->orderByDesc('start_date');
     }
 
-    /**
-     * Get the options for generating the slug.
-     */
-    public function getSlugOptions() : SlugOptions
-    {
-        return SlugOptions::create()
-            ->generateSlugsFrom('title')
-            ->saveSlugsTo('slug');
-    }
-
     public function createdBy(): BelongsTo
     {
-        return $this->belongsTo(Administrator::class);
+        return $this->belongsTo(Administrator::class, 'created_by');
+    }
+    
+    /**
+     * Obtenir toutes les traductions de l'événement.
+     */
+    public function translations(): HasMany
+    {
+        return $this->hasMany(EventTranslation::class);
+    }
+    
+    /**
+     * Obtenir le nom de la classe de traduction associée.
+     */
+    protected function getTranslationModelName(): string
+    {
+        return EventTranslation::class;
     }
 }

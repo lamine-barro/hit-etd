@@ -47,6 +47,16 @@ class Administrator  extends Authenticatable implements FilamentUser, HasAvatar,
         'password',
         'remember_token',
     ];
+    
+    /**
+     * Obtenir le nom complet de l'administrateur
+     *
+     * @return string
+     */
+    public function getFullNameAttribute(): string
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
 
     /**
      * Get the attributes that should be cast.

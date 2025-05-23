@@ -45,8 +45,10 @@ class EventListController extends Controller
      */
     public function show($slug)
     {
-        // Recherche par slug
-        $event = Event::where('slug', $slug)->first();
+        // Recherche par slug dans les traductions
+        $event = Event::whereHas('translations', function($query) use ($slug) {
+            $query->where('slug', $slug);
+        })->first();
 
         // Vérifier si l'événement existe et est publié
         if (!$event || $event->status !== 'published') {

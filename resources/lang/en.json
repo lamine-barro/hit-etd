@@ -123,7 +123,6 @@
     "Impossible d'annuler une inscription pour un événement qui a déjà commencé.": "It is not possible to cancel a registration for an event that has already started.",
     "Votre inscription a été annulée.": "Your registration has been cancelled.",
     "Une erreur est survenue lors de l'annulation. Veuillez réessayer.": "An error occurred during cancellation. Please try again.",
-    "Actualités": "Actualités",
     "Restez informé des dernières nouvelles et événements du Hub Ivoire Tech": "Stay informed about the latest news and events of Hub Ivoire Tech",
     "Lire la suite": "Read more",
     "Nos Événements": "Our Events",
@@ -373,5 +372,11 @@
     "Tous les articles": "All articles",
     "À la une": "Featured",
     "Réinitialiser": "Reset",
-    "Tous les types": "All types"
+    "Tous les types": "All types",
+    "S'inscrire maintenant": "Register now",
+    "Partager cet événement": "Share this event",
+    "À propos de cet événement": "About this event",
+    "Date et heure": "Date and time",
+    "Actualités": "News",
+    "Places disponibles": "Available places"
 }

@@ -22,8 +22,10 @@ class EventRegistrationController extends Controller
      */
     public function store(Request $request, $eventSlug)
     {
-        // Récupérer l'événement par son slug
-        $event = Event::where('slug', $eventSlug)->firstOrFail();
+        // Récupérer l'événement par son slug dans les traductions
+        $event = Event::whereHas('translations', function($query) use ($eventSlug) {
+            $query->where('slug', $eventSlug);
+        })->firstOrFail();
         try {
             // Validate request
             $validatedData = $request->validate([

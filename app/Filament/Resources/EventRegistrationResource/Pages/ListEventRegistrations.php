@@ -19,9 +19,7 @@ class ListEventRegistrations extends ListRecords
 
     protected function getHeaderActions(): array
     {
-        return [
-            Actions\CreateAction::make()->label('Nouvelle inscription'),
-        ];
+        return [];
     }
 
     public function getTabs(): array

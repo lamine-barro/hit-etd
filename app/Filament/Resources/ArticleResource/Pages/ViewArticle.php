@@ -127,7 +127,7 @@ class ViewArticle extends ViewRecord
                             return Infolists\Components\Tabs\Tab::make($label)
                                 ->icon('heroicon-o-language')
                                 ->schema([
-                                    Grid::make(1)
+                                    Grid::make(3)
                                         ->schema([
                                             TextEntry::make('translations')
                                                 ->label('Titre')

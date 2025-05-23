@@ -15,6 +15,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 
 class EventRegistrationResource extends Resource
@@ -36,77 +37,13 @@ class EventRegistrationResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\Section::make('Informations du participant')
-                    ->schema([
-                        Forms\Components\TextInput::make('uuid')
-                            ->label('Identifiant unique')
-                            ->default(fn () => Str::uuid())
-                            ->disabled()
-                            ->dehydrated(),
-                        Forms\Components\TextInput::make('name')
-                            ->label('Nom complet')
-                            ->required()
-                            ->maxLength(255),
-                        Forms\Components\TextInput::make('email')
-                            ->label('Email')
-                            ->email()
-                            ->required()
-                            ->maxLength(255),
-                        Forms\Components\TextInput::make('whatsapp')
-                            ->label('WhatsApp')
-                            ->tel()
-                            ->maxLength(255),
-                        Forms\Components\TextInput::make('position')
-                            ->label('Fonction/Position')
-                            ->maxLength(255),
-                        Forms\Components\TextInput::make('organization')
-                            ->label('Organisation')
-                            ->maxLength(255),
-                        Forms\Components\TextInput::make('country')
-                            ->label('Pays')
-                            ->maxLength(255),
-                        Forms\Components\TextInput::make('actor_type')
-                            ->label('Type d\'acteur')
-                            ->maxLength(255),
-                    ])->columns(2),
-                    
-                Forms\Components\Section::make('Informations de l\'événement')
-                    ->schema([
-                        Forms\Components\Select::make('event_id')
-                            ->label('Événement')
-                            ->relationship('event', 'title')
-                            ->searchable()
-                            ->preload()
-                            ->required(),
-                        Forms\Components\Select::make('status')
-                            ->label('Statut')
-                            ->options(RegistrationStatus::options())
-                            ->default(RegistrationStatus::PENDING->value)
-                            ->required(),
-                    ])->columns(2),
-                    
-                Forms\Components\Section::make('Informations de paiement')
-                    ->schema([
-                        Forms\Components\Select::make('payment_status')
-                            ->label('Statut du paiement')
-                            ->options(PaymentStatus::options())
-                            ->default(PaymentStatus::PENDING->value)
-                            ->required(),
-                        Forms\Components\TextInput::make('amount_paid')
-                            ->label('Montant payé')
-                            ->numeric()
-                            ->prefix('XOF')
-                            ->default(0),
-                        Forms\Components\TextInput::make('payment_reference')
-                            ->label('Référence de paiement')
-                            ->maxLength(255),
-                    ])->columns(2),
-            ]);
+            ->schema([]);
     }
 
     public static function table(Table $table): Table
     {
+        $currentLocale = App::getLocale();
+    
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('uuid')
@@ -119,9 +56,34 @@ class EventRegistrationResource extends Resource
                 Tables\Columns\TextColumn::make('email')
                     ->label('Email')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('event.title')
+                    Tables\Columns\TextColumn::make('translations_title')
                     ->label('Événement')
-                    ->searchable(),
+                    ->state(function (EventRegistration $record) use ($currentLocale) {
+                        // Récupérer directement la traduction depuis la relation
+                        $translationModel = $record->event->translations()
+                            ->where('locale', $currentLocale)
+                            ->first();
+                        
+                        // Si on a une traduction, utiliser son titre
+                        if ($translationModel && !empty($translationModel->title)) {
+                            return $translationModel->title;
+                        }
+                        
+                        // Sinon, essayer de récupérer la traduction dans la langue par défaut
+                        $defaultTranslation = $record->translations()
+                            ->where('locale', $record->default_locale)
+                            ->first();
+                            
+                        if ($defaultTranslation && !empty($defaultTranslation->title)) {
+                            return $defaultTranslation->title;
+                        }
+                        
+                        // Si aucune traduction n'est trouvée, retourner un message
+                        return '[Titre manquant]';
+                    })
+                    ->searchable()
+                    ->sortable()
+                    ->limit(40),
                 Tables\Columns\TextColumn::make('status')
                     ->label('Statut')
                     ->badge()
@@ -146,7 +108,22 @@ class EventRegistrationResource extends Resource
             ->filters([
                 Tables\Filters\SelectFilter::make('event_id')
                     ->label('Événement')
-                    ->relationship('event', 'title')
+                    ->options(function () {
+                        // Récupérer les événements avec leurs traductions dans la langue actuelle
+                        $currentLocale = App::getLocale();
+                        $events = Event::with(['translations' => function ($query) use ($currentLocale) {
+                            $query->where('locale', $currentLocale);
+                        }])->get();
+                        
+                        // Créer un tableau d'options avec l'ID comme clé et le titre traduit comme valeur
+                        return $events->mapWithKeys(function ($event) {
+                            // Utiliser la traduction dans la langue actuelle si disponible
+                            $translation = $event->translations->first();
+                            $title = $translation && !empty($translation->title) ? $translation->title : '[Titre non traduit]';
+                            
+                            return [$event->id => $title];
+                        });
+                    })
                     ->searchable()
                     ->preload(),
                 Tables\Filters\SelectFilter::make('status')
@@ -178,8 +155,6 @@ class EventRegistrationResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make()
                     ->label('Voir'),
-                Tables\Actions\EditAction::make()
-                    ->label('Modifier'),
                 Tables\Actions\DeleteAction::make()
                     ->label('Supprimer'),
             ])
