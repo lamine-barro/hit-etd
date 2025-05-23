@@ -78,18 +78,19 @@ class ArticleResource extends Resource
                                             ->prefixIcon('heroicon-o-tag'),
                                             
                                         Forms\Components\TextInput::make('title')
-                                            ->label('Titre (langue par défaut)')
+                                            ->label(function () {
+                                                // Récupérer la langue actuelle
+                                                $currentLocale = App::getLocale();
+                                                $languageLabel = LanguageEnum::fromLocale($currentLocale)?->label() ?? $currentLocale;
+                                                return 'Titre (langue par défaut - ' . $languageLabel . ')';
+                                            })
                                             ->required()
                                             ->maxLength(255)
                                             ->columnSpanFull(),
                                         
-                                    Forms\Components\Select::make('author_id')
-                                        ->label('Auteur')
-                                        ->relationship('author', 'first_name', fn (Builder $query) => $query->orderBy('first_name'))
-                                        ->getOptionLabelFromRecordUsing(fn ($record) => $record->first_name . ' ' . $record->last_name)
-                                        ->searchable()
-                                        ->hidden()
-                                        ->visibleOn('create')
+                                    Forms\Components\Hidden::make('author_id')
+                                        ->default(fn () => auth()->id()) // Utilise automatiquement l'ID de l'utilisateur connecté
+                                        ->dehydrated(true) // Assure que la valeur est envoyée au serveur
                                         ->required(),
                                         
                                     Forms\Components\Select::make('status')
@@ -219,6 +220,8 @@ class ArticleResource extends Resource
 
     public static function table(Table $table): Table
     {
+        $currentLocale = App::getLocale();
+        
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('illustration')
@@ -229,16 +232,41 @@ class ArticleResource extends Resource
                     
                 Tables\Columns\TextColumn::make('title')
                     ->label('Titre')
+                    ->formatStateUsing(function (Article $record) use ($currentLocale) {
+                        // Récupérer la traduction dans la langue actuelle si elle existe
+                        $translation = $record->translations()->where('locale', $currentLocale)->first();
+                        
+                        if ($translation && !empty($translation->title)) {
+                            return $translation->title;
+                        }
+                        
+                        // Sinon, utiliser le titre dans la langue par défaut
+                        return $record->title;
+                    })
                     ->searchable()
                     ->sortable()
                     ->limit(50),
                     
                 Tables\Columns\TextColumn::make('category')
                     ->label('Catégorie')
-                    ->formatStateUsing(fn (ArticleCategory $state): string => $state->label())
+                    ->formatStateUsing(function (ArticleCategory $state) use ($currentLocale) {
+                        // Utiliser la méthode getTranslatedLabel pour avoir le nom de la catégorie dans la langue actuelle
+                        return $state->getTranslatedLabel($currentLocale);
+                    })
                     ->badge()
                     ->icon(fn (ArticleCategory $state): string => $state->icon())
                     ->color(fn (ArticleCategory $state): string => $state->color())
+                    ->searchable()
+                    ->sortable(),
+                    
+                Tables\Columns\TextColumn::make('default_locale')
+                    ->label('Langue')
+                    ->formatStateUsing(function (string $state) {
+                        // Convertir le code de langue en nom complet
+                        return LanguageEnum::fromLocale($state)?->label() ?? $state;
+                    })
+                    ->badge()
+                    ->color('primary')
                     ->searchable()
                     ->sortable(),
                     
@@ -321,6 +349,11 @@ class ArticleResource extends Resource
                     ->label('Catégorie')
                     ->options(ArticleCategory::options())
                     ->multiple()
+                    ->searchable(),
+                    
+                Tables\Filters\SelectFilter::make('default_locale')
+                    ->label('Langue principale')
+                    ->options(LanguageEnum::toArray())
                     ->searchable(),
                     
                 Tables\Filters\SelectFilter::make('author_id')

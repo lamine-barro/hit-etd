@@ -88,4 +88,34 @@ class EditArticle extends EditRecord
         
         return $data;
     }
+    
+    /**
+     * Prépare les données du formulaire avant qu'il ne soit rempli.
+     * Cette méthode charge les traductions dans le formulaire.
+     *
+     * @param array $data
+     * @return array
+     */
+    protected function mutateFormDataBeforeFill(array $data): array
+    {
+        // Récupérer toutes les traductions de l'article
+        $translations = $this->record->translations()->get();
+        
+        // Préparer les données de traduction pour le formulaire
+        $data['translations'] = [];
+        
+        foreach ($translations as $translation) {
+            // Assurez-vous que la clé est une chaîne de caractères
+            $locale = $translation->locale;
+            
+            // Si c'est un enum, convertissez-le en chaîne
+            if ($locale instanceof \App\Enums\LanguageEnum) {
+                $locale = $locale->value;
+            }
+            
+            $data['translations'][$locale] = $translation->toArray();
+        }
+        
+        return $data;
+    }
 }
