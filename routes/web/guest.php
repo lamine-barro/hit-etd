@@ -37,7 +37,9 @@ Route::prefix('evenements')->group(function () {
 // Actualités
 Route::prefix('actualites')->group(function () {
     Route::get('/', [ArticleListController::class, 'index'])->name('actualites');
-    Route::get('/{article:slug}', [ArticleListController::class, 'show'])->name('actualites.show');
+    Route::get('/{slug}', [ArticleListController::class, 'show'])
+        ->name('actualites.show')
+        ->where('slug', '[a-z0-9\-]+');
 });
 
 // Paiements

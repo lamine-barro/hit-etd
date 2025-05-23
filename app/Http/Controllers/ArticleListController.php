@@ -14,7 +14,7 @@ class ArticleListController extends Controller
     public function index(Request $request)
     {
         $query = Article::query()
-            ->where('status', 'published')
+            ->where('status', ArticleStatus::PUBLISHED)
             ->where('published_at', '<=', now());
 
         // Appliquer les filtres
@@ -26,24 +26,50 @@ class ArticleListController extends Controller
         $query->latest('published_at');
 
         // Articles mis en avant en premier
-        $featuredArticles = clone $query;
-        $featuredArticles->where('featured', true)->limit(3);
+        $featuredArticlesQuery = clone $query;
+        $featuredArticlesQuery->where('featured', true)->limit(3);
+        $featuredArticles = $featuredArticlesQuery->get();
 
         // Articles normaux
         $articles = $query->paginate(9)->withQueryString();
+        
+        // Précharger les traductions pour optimiser les performances
+        $articles->load('translations');
+        $featuredArticles->load('translations');
 
         return view('pages.articles-list', [
             'articles' => $articles,
-            'featuredArticles' => $featuredArticles->get(),
+            'featuredArticles' => $featuredArticles,
         ]);
     }
 
     /**
      * Display the specified article.
      */
-    public function show(Article $article)
+    public function show($slug)
     {
-        if ($article->status !== ArticleStatus::PUBLISHED || $article->published_at->isFuture()) {
+        // Récupérer l'article par son slug dans la langue actuelle
+        $locale = app()->getLocale();
+        
+        $article = Article::whereHas('translations', function ($query) use ($slug, $locale) {
+            $query->where('slug', $slug)->where('locale', $locale);
+        })->first();
+        
+        // Si l'article n'est pas trouvé dans la langue actuelle, essayer avec la langue par défaut
+        if (!$article && $locale !== config('app.fallback_locale')) {
+            $article = Article::whereHas('translations', function ($query) use ($slug) {
+                $query->where('slug', $slug)->where('locale', config('app.fallback_locale'));
+            })->first();
+        }
+        
+        // Si toujours pas trouvé, vérifier dans toutes les langues
+        if (!$article) {
+            $article = Article::whereHas('translations', function ($query) use ($slug) {
+                $query->where('slug', $slug);
+            })->first();
+        }
+        
+        if (!$article || $article->status !== ArticleStatus::PUBLISHED || $article->published_at->isFuture()) {
             abort(404);
         }
 
@@ -52,7 +78,7 @@ class ArticleListController extends Controller
 
         // Récupérer les articles similaires
         $relatedArticles = Article::where('id', '!=', $article->id)
-            ->where('status', 'published')
+            ->where('status', ArticleStatus::PUBLISHED)
             ->where('published_at', '<=', now())
             ->where('category', $article->category)
             ->latest('published_at')

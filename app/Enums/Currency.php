@@ -2,6 +2,8 @@
 
 namespace App\Enums;
 
+use App\Traits\HasEnumTranslations;
+
 enum Currency: string
 {
     case XOF = 'XOF'; // Franc CFA BCEAO
@@ -34,6 +36,8 @@ enum Currency: string
         };
     }
 
+    use HasEnumTranslations;
+    
     public function label(): string
     {
         return match($this) {
@@ -46,6 +50,51 @@ enum Currency: string
             self::GHS => 'Cedi ghanéen',
             self::MAD => 'Dirham marocain',
             self::ZAR => 'Rand sud-africain',
+        };
+    }
+    
+    /**
+     * Récupère les traductions disponibles pour cette devise
+     */
+    public function translations(): array
+    {
+        return match($this) {
+            self::XOF => [
+                'fr' => 'Franc CFA',
+                'en' => 'CFA Franc',
+            ],
+            self::EUR => [
+                'fr' => 'Euro',
+                'en' => 'Euro',
+            ],
+            self::USD => [
+                'fr' => 'Dollar américain',
+                'en' => 'US Dollar',
+            ],
+            self::GBP => [
+                'fr' => 'Livre sterling',
+                'en' => 'British Pound',
+            ],
+            self::CAD => [
+                'fr' => 'Dollar canadien',
+                'en' => 'Canadian Dollar',
+            ],
+            self::NGN => [
+                'fr' => 'Naira nigérian',
+                'en' => 'Nigerian Naira',
+            ],
+            self::GHS => [
+                'fr' => 'Cedi ghanéen',
+                'en' => 'Ghanaian Cedi',
+            ],
+            self::MAD => [
+                'fr' => 'Dirham marocain',
+                'en' => 'Moroccan Dirham',
+            ],
+            self::ZAR => [
+                'fr' => 'Rand sud-africain',
+                'en' => 'South African Rand',
+            ],
         };
     }
     

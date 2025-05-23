@@ -2,6 +2,8 @@
 
 namespace App\Enums;
 
+use App\Traits\HasEnumTranslations;
+
 enum RegistrationStatus: string
 {
     case PENDING = 'pending';
@@ -9,6 +11,8 @@ enum RegistrationStatus: string
     case CANCELLED = 'cancelled';
     case ATTENDED = 'attended';
 
+    use HasEnumTranslations;
+    
     /**
      * Récupère le libellé du statut.
      */
@@ -19,6 +23,31 @@ enum RegistrationStatus: string
             self::CONFIRMED => 'Confirmé',
             self::CANCELLED => 'Annulé',
             self::ATTENDED => 'A participé',
+        };
+    }
+    
+    /**
+     * Récupère les traductions disponibles pour ce statut d'inscription
+     */
+    public function translations(): array
+    {
+        return match($this) {
+            self::PENDING => [
+                'fr' => 'En attente',
+                'en' => 'Pending',
+            ],
+            self::CONFIRMED => [
+                'fr' => 'Confirmé',
+                'en' => 'Confirmed',
+            ],
+            self::CANCELLED => [
+                'fr' => 'Annulé',
+                'en' => 'Cancelled',
+            ],
+            self::ATTENDED => [
+                'fr' => 'A participé',
+                'en' => 'Attended',
+            ],
         };
     }
 

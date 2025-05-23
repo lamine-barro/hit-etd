@@ -1,2 +1,7 @@
 User-agent: *
-Disallow:
+Disallow: /admin/
+Disallow: /admin
+
+# Autoriser l'indexation du reste du site
+User-agent: *
+Allow: /

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\ArticleCategory;
 use App\Enums\ArticleStatus;
+use App\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,22 +14,18 @@ use Spatie\Sluggable\SlugOptions;
 
 class Article extends Model
 {
-    use HasFactory, SoftDeletes, SoftDeletes;
+    use HasFactory, SoftDeletes, HasTranslations;
 
     protected $fillable = [
-        'title',
-        'slug',
-        'excerpt',
-        'content',
         'category',
         'illustration',
         'tags',
         'featured',
-        'reading_time',
         'views',
         'status',
         'published_at',
         'author_id',
+        'default_locale',
     ];
 
     protected $casts = [
@@ -40,6 +37,23 @@ class Article extends Model
         'status' => ArticleStatus::class,
         'category' => ArticleCategory::class,
     ];
+    
+    /**
+     * Les attributs qui doivent être accessibles pour les traductions.
+     *
+     * @var array<string>
+     */
+    protected $translatable = [
+        'title',
+        'slug',
+        'excerpt',
+        'content',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
+        'og_type',
+        'reading_time',
+    ];
 
     /**
      * Boot the model.
@@ -49,39 +63,48 @@ class Article extends Model
         parent::boot();
 
         static::creating(function ($article) {
-            if (empty($article->slug)) {
-                $article->slug = Str::slug($article->title);
-            }
             if ($article->status === ArticleStatus::PUBLISHED && empty($article->published_at)) {
                 $article->published_at = now();
-            }
-            if (empty($article->reading_time)) {
-                $article->reading_time = static::calculateReadingTime($article->content);
             }
         });
 
         static::updating(function ($article) {
-            if ($article->isDirty('title') && empty($article->slug)) {
-                $article->slug = Str::slug($article->title);
-            }
             if ($article->isDirty('status') && $article->status === ArticleStatus::PUBLISHED && empty($article->published_at)) {
                 $article->published_at = now();
-            }
-            if ($article->isDirty('content') && empty($article->reading_time)) {
-                $article->reading_time = static::calculateReadingTime($article->content);
             }
         });
     }
 
     /**
-     * Calculate estimated reading time in minutes.
+     * Récupère le titre de l'article dans la langue actuelle ou par défaut
      */
-    protected static function calculateReadingTime($content)
+    public function getTitle(): string
     {
-        $wordsPerMinute = 200;
-        $numberOfWords = str_word_count(strip_tags($content));
-
-        return max(1, ceil($numberOfWords / $wordsPerMinute));
+        return $this->getTranslatedAttribute('title');
+    }
+    
+    /**
+     * Récupère le slug de l'article dans la langue actuelle ou par défaut
+     */
+    public function getSlug(): string
+    {
+        return $this->getTranslatedAttribute('slug');
+    }
+    
+    /**
+     * Récupère l'extrait de l'article dans la langue actuelle ou par défaut
+     */
+    public function getExcerpt(): ?string
+    {
+        return $this->getTranslatedAttribute('excerpt');
+    }
+    
+    /**
+     * Récupère le contenu de l'article dans la langue actuelle ou par défaut
+     */
+    public function getContent(): ?string
+    {
+        return $this->getTranslatedAttribute('content');
     }
 
     /**
@@ -104,9 +127,16 @@ class Article extends Model
 
     /**
      * Get the route key for the model.
+     * 
+     * Retourne 'id' pour l'administration Filament et 'slug' pour le frontend public
      */
     public function getRouteKeyName()
     {
+        // Vérifier si la requête concerne l'administration Filament
+        if (request()->is('admin/*')) {
+            return 'id';
+        }
+        
         return 'slug';
     }
 
@@ -138,6 +168,16 @@ class Article extends Model
     public function author(): BelongsTo
     {
         return $this->belongsTo(Administrator::class, 'author_id');
+    }
+    
+    /**
+     * Obtenir le nom du modèle de traduction.
+     *
+     * @return string
+     */
+    protected function getTranslationModelName(): string
+    {
+        return ArticleTranslation::class;
     }
 
     /**

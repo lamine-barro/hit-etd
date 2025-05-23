@@ -105,7 +105,7 @@
                             <p class="text-gray-600 text-sm">{{ __("Actualités hebdomadaires et opportunités") }}</p>
                         </div>
 
-                        <div class="relative p-5 bg-white border rounded-2 transition-all duration-200 group cursor-pointer">
+                        <div class="relative p-5 bg-white border border-gray-300 rounded-xl transition-all duration-200 group cursor-pointer">
                             <div class="flex justify-between items-center mb-2">
                                 <label for="newsletter_whatsapp" class="font-semibold text-gray-900 group-hover:text-green-600 transition-colors duration-200 cursor-pointer">{{ __("WhatsApp") }}</label>
                                 <div class="relative inline-flex h-6 w-11 items-center rounded-full bg-gray-200 p-1 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
@@ -318,7 +318,7 @@
 
             // Disable submit button and show loading state
             submitButton.disabled = true;
-            submitButton.textContent = {{ __("Envoi en cours...") }};
+            submitButton.textContent = '{{ __("Envoi en cours...") }}';
 
             fetch(form.action, {
                 method: 'POST',
@@ -346,7 +346,7 @@
                     form.reset();
                     whatsappField.classList.add('hidden');
                 } else {
-                    throw new Error(data.message || {{ __("Une erreur est survenue") }});
+                    throw new Error(data.message || '{{ __("Une erreur est survenue") }}');
                 }
             })
             .catch(error => {

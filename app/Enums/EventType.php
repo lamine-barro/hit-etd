@@ -2,6 +2,8 @@
 
 namespace App\Enums;
 
+use App\Traits\HasEnumTranslations;
+
 enum EventType: string
 {
     case CONFERENCE = 'conference';
@@ -17,6 +19,8 @@ enum EventType: string
         return array_column(self::cases(), 'value');
     }
 
+    use HasEnumTranslations;
+    
     public function label(): string
     {
         return match($this) {
@@ -27,6 +31,43 @@ enum EventType: string
             self::TRAINING => 'Formation',
             self::HACKATHON => 'Hackathon',
             self::OTHER => 'Autre',
+        };
+    }
+    
+    /**
+     * Récupère les traductions disponibles pour ce type d'événement
+     */
+    public function translations(): array
+    {
+        return match($this) {
+            self::CONFERENCE => [
+                'fr' => 'Conférence',
+                'en' => 'Conference',
+            ],
+            self::WORKSHOP => [
+                'fr' => 'Atelier',
+                'en' => 'Workshop',
+            ],
+            self::WEBINAR => [
+                'fr' => 'Webinaire',
+                'en' => 'Webinar',
+            ],
+            self::MEETUP => [
+                'fr' => 'Meetup',
+                'en' => 'Meetup',
+            ],
+            self::TRAINING => [
+                'fr' => 'Formation',
+                'en' => 'Training',
+            ],
+            self::HACKATHON => [
+                'fr' => 'Hackathon',
+                'en' => 'Hackathon',
+            ],
+            self::OTHER => [
+                'fr' => 'Autre',
+                'en' => 'Other',
+            ],
         };
     }
     

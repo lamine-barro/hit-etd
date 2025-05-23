@@ -2,6 +2,8 @@
 
 namespace App\Enums;
 
+use App\Traits\HasEnumTranslations;
+
 enum ArticleCategory: string
 {
     case TECH_ECOSYSTEM = 'tech_ecosystem';
@@ -17,6 +19,8 @@ enum ArticleCategory: string
     case BLOCKCHAIN = 'blockchain';
     case OTHER = 'other';
 
+    use HasEnumTranslations;
+    
     /**
      * Récupère le libellé de la catégorie.
      */
@@ -35,6 +39,63 @@ enum ArticleCategory: string
             self::CLOUD => 'Cloud',
             self::BLOCKCHAIN => 'Blockchain',
             self::OTHER => 'Autre',
+        };
+    }
+    
+    /**
+     * Récupère les traductions disponibles pour cette catégorie
+     */
+    public function translations(): array
+    {
+        return match($this) {
+            self::TECH_ECOSYSTEM => [
+                'fr' => 'Écosystème Tech',
+                'en' => 'Tech Ecosystem',
+            ],
+            self::DIGITAL_TRANSFORMATION => [
+                'fr' => 'Transformation Numérique',
+                'en' => 'Digital Transformation',
+            ],
+            self::ARTIFICIAL_INTELLIGENCE => [
+                'fr' => 'Intelligence Artificielle',
+                'en' => 'Artificial Intelligence',
+            ],
+            self::CYBERSECURITY => [
+                'fr' => 'Cybersécurité',
+                'en' => 'Cybersecurity',
+            ],
+            self::FINTECH => [
+                'fr' => 'Fintech',
+                'en' => 'Fintech',
+            ],
+            self::ENTREPRENEURSHIP => [
+                'fr' => 'Entrepreneuriat',
+                'en' => 'Entrepreneurship',
+            ],
+            self::DIVERSITY_INCLUSION => [
+                'fr' => 'Diversité & Inclusion',
+                'en' => 'Diversity & Inclusion',
+            ],
+            self::WEB_DEVELOPMENT => [
+                'fr' => 'Développement Web',
+                'en' => 'Web Development',
+            ],
+            self::MOBILE => [
+                'fr' => 'Mobile',
+                'en' => 'Mobile',
+            ],
+            self::CLOUD => [
+                'fr' => 'Cloud',
+                'en' => 'Cloud',
+            ],
+            self::BLOCKCHAIN => [
+                'fr' => 'Blockchain',
+                'en' => 'Blockchain',
+            ],
+            self::OTHER => [
+                'fr' => 'Autre',
+                'en' => 'Other',
+            ],
         };
     }
 

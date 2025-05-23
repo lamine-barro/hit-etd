@@ -1,5 +1,58 @@
 @extends('layouts.app')
 
+@php
+    // Métadonnées SEO
+    $pageTitle = __('Actualités & Insights') . ' | ' . config('app.name');
+    $metaDescription = __('Restez informé des dernières tendances et innovations de l\'écosystème tech en Afrique et dans le monde.');
+    $ogType = 'website';
+    
+    // Catégorie filtrée
+    if (request('category')) {
+        $categoryEnum = \App\Enums\ArticleCategory::tryFrom(request('category'));
+        if ($categoryEnum) {
+            $categoryLabel = $categoryEnum->getTranslatedLabel();
+            $pageTitle = $categoryLabel . ' | ' . config('app.name');
+            $metaDescription = __('Articles sur') . ' ' . $categoryLabel . ' | ' . config('app.name');
+        }
+    }
+    
+    // Recherche
+    if (request('search')) {
+        $searchTerm = request('search');
+        $pageTitle = __('Recherche') . ': ' . $searchTerm . ' | ' . config('app.name');
+        $metaDescription = __('Résultats de recherche pour') . ' "' . $searchTerm . '" | ' . config('app.name');
+    }
+@endphp
+
+@section('meta')
+    <!-- Meta Tags SEO -->
+    <meta name="description" content="{{ $metaDescription }}">
+    <meta name="keywords" content="actualités, articles, blog, tech, innovation, Afrique, Côte d'Ivoire, startups">
+    <meta name="author" content="{{ config('hit.name') }}">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="{{ $ogType }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="{{ $pageTitle }}">
+    <meta property="og:description" content="{{ $metaDescription }}">
+    <meta property="og:image" content="{{ asset('images/hero_bg.jpg') }}">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url()->current() }}">
+    <meta property="twitter:title" content="{{ $pageTitle }}">
+    <meta property="twitter:description" content="{{ $metaDescription }}">
+    <meta property="twitter:image" content="{{ asset('images/hero_bg.jpg') }}">
+    
+    <!-- Pagination SEO -->
+    @if($articles->previousPageUrl())
+        <link rel="prev" href="{{ $articles->previousPageUrl() }}">
+    @endif
+    @if($articles->nextPageUrl())
+        <link rel="next" href="{{ $articles->nextPageUrl() }}">
+    @endif
+@endsection
+
 @section('content')
     <!-- Hero Section -->
     <div class="relative bg-gradient-to-br from-green-900 via-green-800 to-orange-900 text-white overflow-hidden">
@@ -67,7 +120,7 @@
                                     <option value="">{{ __("Toutes les catégories") }}</option>
                                     @foreach(\App\Enums\ArticleCategory::cases() as $category)
                                         <option value="{{ $category->value }}" {{ request('category') === $category->value ? 'selected' : '' }}>
-                                            {{ $category->label() }}
+                                            {{ $category->getTranslatedLabel() }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -81,7 +134,7 @@
 
                         <div class="w-full md:w-auto md:flex-1">
                             <input type="text" id="search" name="search" value="{{ request('search') }}"
-                                placeholder="{{ __("Rechercher un article...") }}"
+                                placeholder="{{ __("Rechercher un article") }}..."
                                 class="w-full rounded border border-gray-300 bg-white py-2.5 px-3 text-gray-700 focus:border-orange-500 focus:ring-0 focus:outline-none"
                                 autocomplete="off">
                         </div>
@@ -128,13 +181,13 @@
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     @foreach($featuredArticles as $article)
-                        <a href="{{ route('actualites.show', $article) }}" class="block relative">
+                        <a href="{{ route('actualites.show', $article->getTranslatedAttribute('slug')) }}" class="block relative">
                             <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group border border-gray-100 h-full">
                                 <div class="relative">
                                     @if($article->illustration)
                                         <div class="aspect-w-16 aspect-h-9 overflow-hidden">
                                             <img src="{{ Storage::url($article->illustration) }}"
-                                                alt="{{ $article->title }}"
+                                                alt="{{ $article->getTranslatedAttribute('title') }}"
                                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                                         </div>
                                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -173,21 +226,21 @@
                                                     bg-gray-100/90 text-gray-800
                                             @endswitch
                                         ">
-                                            {{ $article->category->label() }}
+                                            {{ $article->category->getTranslatedLabel() }}
                                         </span>
                                     </div>
                                 </div>
                                 <div class="p-6">
-                                    <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary-600 transition-colors duration-300 line-clamp-2">{{ $article->title }}</h3>
+                                    <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary-600 transition-colors duration-300 line-clamp-2">{{ $article->getTranslatedAttribute('title') }}</h3>
 
                                     <p class="text-gray-600 mb-5 line-clamp-3 h-[4.5rem]">
                                         @php
-                                            $excerpt = $article->excerpt ?? strip_tags($article->content);
-                                            $words = str_word_count($excerpt, 1);
-                                            $limitedWords = array_slice($words, 0, 25);
-                                            $limitedExcerpt = implode(' ', $limitedWords);
-                                            echo count($words) > 25 ? $limitedExcerpt . '...' : $limitedExcerpt;
+                                            $excerpt = $article->getTranslatedAttribute('excerpt');
+                                            if (empty($excerpt)) {
+                                                $excerpt = Str::limit(strip_tags($article->getTranslatedAttribute('content')), 150);
+                                            }
                                         @endphp
+                                        {{ $excerpt }}
                                     </p>
 
                                     <div class="flex items-center justify-between pt-3 border-t border-gray-100">
@@ -203,7 +256,7 @@
                                                 <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                 </svg>
-                                                <span class="text-xs text-gray-500">{{ $article->reading_time ?? 5 }} min</span>
+                                                <span class="text-xs text-gray-500">{{ $article->getTranslatedAttribute('reading_time') }} min</span>
                                             </div>
                                         </div>
 
@@ -232,13 +285,13 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="articles-list">
             @forelse($articles as $article)
-                <a href="{{ route('actualites.show', $article) }}" class="block relative">
+                <a href="{{ route('actualites.show', $article->getTranslatedAttribute('slug')) }}" class="block relative">
                     <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group border border-gray-100 h-full">
                         <div class="relative">
                             @if($article->illustration)
                                 <div class="aspect-w-16 aspect-h-9 overflow-hidden">
                                     <img src="{{ Storage::url($article->illustration) }}"
-                                        alt="{{ $article->title }}"
+                                        alt="{{ $article->getTranslatedAttribute('title') }}"
                                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                                 </div>
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -277,21 +330,21 @@
                                             bg-gray-100/90 text-gray-800
                                     @endswitch
                                 ">
-                                    {{ $article->category->label() }}
+                                    {{ $article->category->getTranslatedLabel() }}
                                 </span>
                             </div>
                         </div>
                         <div class="p-6">
-                            <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary-600 transition-colors duration-300 line-clamp-2">{{ $article->title }}</h3>
+                            <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary-600 transition-colors duration-300 line-clamp-2">{{ $article->getTranslatedAttribute('title') }}</h3>
 
                             <p class="text-gray-600 mb-5 line-clamp-3 h-[4.5rem]">
                                 @php
-                                    $excerpt = $article->excerpt ?? strip_tags($article->content);
-                                    $words = str_word_count($excerpt, 1);
-                                    $limitedWords = array_slice($words, 0, 25);
-                                    $limitedExcerpt = implode(' ', $limitedWords);
-                                    echo count($words) > 25 ? $limitedExcerpt . '...' : $limitedExcerpt;
+                                    $excerpt = $article->getTranslatedAttribute('excerpt');
+                                    if (empty($excerpt)) {
+                                        $excerpt = Str::limit(strip_tags($article->getTranslatedAttribute('content')), 150);
+                                    }
                                 @endphp
+                                {{ $excerpt }}
                             </p>
 
                             <div class="flex items-center justify-between pt-3 border-t border-gray-100">
@@ -307,7 +360,7 @@
                                         <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                         </svg>
-                                        <span class="text-xs text-gray-500">{{ $article->reading_time ?? 5 }} min</span>
+                                        <span class="text-xs text-gray-500">{{ $article->getTranslatedAttribute('reading_time') }} min</span>
                                     </div>
                                 </div>
 

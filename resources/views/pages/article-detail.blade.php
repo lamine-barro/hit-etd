@@ -1,5 +1,42 @@
 @extends('layouts.app')
 
+@php
+    // Métadonnées SEO
+    $pageTitle = $article->getTranslatedAttribute('meta_title') ?: $article->getTranslatedAttribute('title');
+    $metaDescription = $article->getTranslatedAttribute('meta_description') ?: $article->getTranslatedAttribute('excerpt');
+    $ogImage = $article->illustration ? Storage::url($article->illustration) : asset('images/hero_bg.jpg');
+    $ogType = 'article';
+    $articleTags = is_array($article->tags) ? implode(', ', $article->tags) : '';
+@endphp
+
+@section('meta')
+    <!-- Meta Tags SEO -->
+    <meta name="description" content="{{ $metaDescription }}">
+    <meta name="keywords" content="{{ $articleTags }}">
+    <meta name="author" content="{{ config('hit.name') }}">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="{{ $ogType }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="{{ $pageTitle }}">
+    <meta property="og:description" content="{{ $metaDescription }}">
+    <meta property="og:image" content="{{ $ogImage }}">
+    <meta property="article:published_time" content="{{ $article->published_at->toIso8601String() }}">
+    <meta property="article:section" content="{{ $article->category->getTranslatedLabel() }}">
+    @if(is_array($article->tags))
+        @foreach($article->tags as $tag)
+            <meta property="article:tag" content="{{ $tag }}">
+        @endforeach
+    @endif
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url()->current() }}">
+    <meta property="twitter:title" content="{{ $pageTitle }}">
+    <meta property="twitter:description" content="{{ $metaDescription }}">
+    <meta property="twitter:image" content="{{ $ogImage }}">
+@endsection
+
 @section('content')
 <div class="min-h-screen bg-white mt-20">
     <!-- Fil d'Ariane -->
@@ -27,8 +64,8 @@
                         <svg class="w-4 h-4 text-gray-400 mx-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
-                        <span class="text-primary-600 font-semibold truncate max-w-xs" title="{{ $article->title }}">
-                            {{ Str::limit($article->title, 40) }}
+                        <span class="text-primary-600 font-semibold truncate max-w-xs" title="{{ $article->getTranslatedAttribute('title') }}">
+                            {{ Str::limit($article->getTranslatedAttribute('title'), 40) }}
                         </span>
                     </li>
                 </ol>
@@ -42,7 +79,7 @@
             @if ($article->illustration)
                 <div class="relative h-96">
                     <img src="{{ Storage::url($article->illustration) }}" 
-                         alt="{{ $article->title }}" 
+                         alt="{{ $article->getTranslatedAttribute('title') }}" 
                          class="w-full h-full object-cover">
                 </div>
             @endif
@@ -79,10 +116,10 @@
                                         bg-gray-100 text-gray-800
                                 @endswitch
                             ">
-                                {{ $article->category->label() }}
+                                {{ $article->category->getTranslatedLabel() }}
                             </span>
                             <span class="text-sm text-gray-500">
-                                {{ $article->reading_time }} min de lecture
+                                {{ $article->getTranslatedAttribute('reading_time') }} {{ __('min de lecture') }}
                             </span>
                         </div>
                         <div class="flex items-center gap-4">
@@ -92,7 +129,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                 </svg>
-                                {{ $article->views + 1 }} vues
+                                {{ $article->views + 1 }} {{ __('vues') }}
                             </span>
                             <!-- Boutons de partage -->
                             <div class="flex items-center gap-2">
@@ -109,10 +146,12 @@
                         </div>
                     </div>
 
-                    <h1 class="text-4xl font-bold text-gray-900 mb-4">{{ $article->title }}</h1>
+                    <h1 class="text-4xl font-bold text-gray-900 mb-4">{{ $article->getTranslatedAttribute('title') }}</h1>
                     
-                    @if($article->excerpt)
-                        <p class="text-xl text-gray-600 mb-8">{{ $article->excerpt }}</p>
+                    @if($article->getTranslatedAttribute('excerpt'))
+                        <div class="text-xl text-gray-600 mb-8 leading-relaxed">
+                            {{ $article->getTranslatedAttribute('excerpt') }}
+                        </div>
                     @endif
 
                     <div class="flex items-center justify-between border-b border-gray-200 pb-6 mb-8">
@@ -130,9 +169,9 @@
                         @endif
                     </div>
 
-                    <!-- Contenu -->
-                    <div class="prose max-w-none">
-                        {!! $article->content !!}
+                    <!-- Contenu de l'article -->
+                    <div class="prose prose-lg max-w-none prose-headings:text-gray-900 prose-a:text-primary-600 prose-a:no-underline hover:prose-a:text-primary-700 prose-a:font-medium prose-img:rounded-lg">
+                        {!! $article->getTranslatedAttribute('content') !!}
                     </div>
                 </div>
             </div>
@@ -147,7 +186,7 @@
                         <div class="bg-white rounded-lg shadow-md overflow-hidden">
                             @if($relatedArticle->illustration)
                                 <img src="{{ Storage::url($relatedArticle->illustration) }}" 
-                                     alt="{{ $relatedArticle->title }}" 
+                                     alt="{{ $relatedArticle->getTranslatedAttribute('title') }}" 
                                      class="w-full h-48 object-cover">
                             @else
                                 <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
@@ -158,20 +197,56 @@
                             @endif
                             <div class="p-6">
                                 <div class="flex items-center justify-between mb-2">
-                                    <span class="text-sm font-medium px-2 py-1 rounded {{ $relatedArticle->category === 'actualite' ? 'bg-blue-100 text-blue-800' : ($relatedArticle->category === 'technologie' ? 'bg-green-100 text-green-800' : 'bg-purple-100 text-purple-800') }}">
-                                        {{ __("Catégorie") }} {{ $relatedArticle->category }}
+                                    <span class="text-sm font-medium px-2 py-1 rounded
+                                        @switch($relatedArticle->category->value)
+                                            @case('tech_ecosystem')
+                                                bg-blue-100 text-blue-800
+                                                @break
+                                            @case('digital_transformation')
+                                                bg-indigo-100 text-indigo-800
+                                                @break
+                                            @case('artificial_intelligence')
+                                                bg-purple-100 text-purple-800
+                                                @break
+                                            @case('cybersecurity')
+                                                bg-red-100 text-red-800
+                                                @break
+                                            @case('fintech')
+                                                bg-green-100 text-green-800
+                                                @break
+                                            @case('entrepreneurship')
+                                                bg-yellow-100 text-yellow-800
+                                                @break
+                                            @case('diversity_inclusion')
+                                                bg-pink-100 text-pink-800
+                                                @break
+                                            @default
+                                                bg-gray-100 text-gray-800
+                                        @endswitch
+                                    ">
+                                        {{ $relatedArticle->category->getTranslatedLabel() }}
                                     </span>
                                     <span class="text-sm text-gray-500">
-                                        {{ $relatedArticle->reading_time }} min
+                                        {{ $relatedArticle->getTranslatedAttribute('reading_time') }} {{ __('min de lecture') }}
                                     </span>
                                 </div>
-                                <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ $relatedArticle->title }}</h3>
-                                <p class="text-gray-600 mb-4">{{ Str::limit($relatedArticle->excerpt ?? strip_tags($relatedArticle->content), 120) }}</p>
+                                <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ $relatedArticle->getTranslatedAttribute('title') }}</h3>
+                                <p class="text-gray-600 mb-4">
+                                    @php
+                                        $excerpt = $relatedArticle->getTranslatedAttribute('excerpt');
+                                        if (empty($excerpt)) {
+                                            $excerpt = Str::limit(strip_tags($relatedArticle->getTranslatedAttribute('content')), 120);
+                                        } else {
+                                            $excerpt = Str::limit($excerpt, 120);
+                                        }
+                                    @endphp
+                                    {{ $excerpt }}
+                                </p>
                                 <div class="flex items-center justify-between">
                                     <span class="text-sm text-gray-500">
-                                        {{ $relatedArticle->published_at->format('d/m/Y') }}
+                                        {{ __('Publié le') }} {{ $relatedArticle->published_at->format('d/m/Y') }}
                                     </span>
-                                    <a href="{{ route('actualites.show', $relatedArticle) }}" class="inline-flex items-center text-primary-600 hover:text-primary-700">
+                                    <a href="{{ route('actualites.show', $relatedArticle->getTranslatedAttribute('slug')) }}" class="inline-flex items-center text-primary-600 hover:text-primary-700">
                                         {{ __("Lire plus") }}
                                         <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />

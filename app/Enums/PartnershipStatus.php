@@ -2,6 +2,8 @@
 
 namespace App\Enums;
 
+use App\Traits\HasEnumTranslations;
+
 enum PartnershipStatus: string
 {
     case PENDING = 'pending';
@@ -9,6 +11,8 @@ enum PartnershipStatus: string
     case REJECTED = 'rejected';
     case IN_DISCUSSION = 'in_discussion';
 
+    use HasEnumTranslations;
+    
     /**
      * Récupère le libellé du statut.
      */
@@ -19,6 +23,31 @@ enum PartnershipStatus: string
             self::APPROVED => 'Approuvé',
             self::REJECTED => 'Refusé',
             self::IN_DISCUSSION => 'En discussion',
+        };
+    }
+    
+    /**
+     * Récupère les traductions disponibles pour ce statut de partenariat
+     */
+    public function translations(): array
+    {
+        return match($this) {
+            self::PENDING => [
+                'fr' => 'En attente',
+                'en' => 'Pending',
+            ],
+            self::APPROVED => [
+                'fr' => 'Approuvé',
+                'en' => 'Approved',
+            ],
+            self::REJECTED => [
+                'fr' => 'Refusé',
+                'en' => 'Rejected',
+            ],
+            self::IN_DISCUSSION => [
+                'fr' => 'En discussion',
+                'en' => 'In Discussion',
+            ],
         };
     }
 

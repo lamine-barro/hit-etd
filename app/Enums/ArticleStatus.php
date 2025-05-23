@@ -2,12 +2,16 @@
 
 namespace App\Enums;
 
+use App\Traits\HasEnumTranslations;
+
 enum ArticleStatus: string
 {
     case DRAFT = 'draft';
     case PUBLISHED = 'published';
     case ARCHIVED = 'archived';
 
+    use HasEnumTranslations;
+    
     /**
      * Récupère le libellé de l'état.
      */
@@ -17,6 +21,27 @@ enum ArticleStatus: string
             self::DRAFT => 'Brouillon',
             self::PUBLISHED => 'Publié',
             self::ARCHIVED => 'Archivé',
+        };
+    }
+    
+    /**
+     * Récupère les traductions disponibles pour cet état
+     */
+    public function translations(): array
+    {
+        return match($this) {
+            self::DRAFT => [
+                'fr' => 'Brouillon',
+                'en' => 'Draft',
+            ],
+            self::PUBLISHED => [
+                'fr' => 'Publié',
+                'en' => 'Published',
+            ],
+            self::ARCHIVED => [
+                'fr' => 'Archivé',
+                'en' => 'Archived',
+            ],
         };
     }
 

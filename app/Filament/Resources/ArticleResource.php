@@ -4,9 +4,11 @@ namespace App\Filament\Resources;
 
 use App\Enums\ArticleCategory;
 use App\Enums\ArticleStatus;
+use App\Enums\LanguageEnum;
 use App\Filament\Resources\ArticleResource\Pages;
 use App\Filament\Resources\ArticleResource\RelationManagers;
 use App\Models\Article;
+use App\Models\ArticleTranslation;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -14,6 +16,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 
@@ -33,29 +37,51 @@ class ArticleResource extends Resource
 
     public static function form(Form $form): Form
     {
+        // Langues disponibles
+        $availableLocales = LanguageEnum::toArray();
+        $currentLocale = App::getLocale();
+        
         return $form
             ->columns(1)
             ->schema([
-                Forms\Components\Wizard::make([
-                    Forms\Components\Wizard\Step::make('Informations générales')
-                        ->icon('heroicon-o-information-circle')
-                        ->description('Détails de base de l\'article')
-                        ->schema([
+                Forms\Components\Tabs::make('Langues')
+                    ->tabs([
+                        // Onglet principal pour les informations générales (non traduites)
+                        Forms\Components\Tabs\Tab::make('Informations générales')
+                            ->icon('heroicon-o-information-circle')
+                            ->schema([
                             Forms\Components\Grid::make(2)
                                 ->schema([
-                                    Forms\Components\TextInput::make('title')
-                                        ->label('Titre')
-                                        ->required()
-                                        ->maxLength(255)
-                                        ->columnSpanFull(),
-                                    Forms\Components\Select::make('category')
-                                        ->label('Catégorie')
-                                        ->required()
-                                        ->options(ArticleCategory::options())
-                                        ->enum(ArticleCategory::class)
-                                        ->searchable()
-                                        ->native(false)
-                                        ->prefixIcon('heroicon-o-tag'),
+                                        Forms\Components\Select::make('default_locale')
+                                            ->label('Langue principale')
+                                            ->options($availableLocales)
+                                            ->default(LanguageEnum::FRENCH->value)
+                                            ->required()
+                                            ->reactive(),
+                                            
+                                        Forms\Components\Select::make('category')
+                                            ->label('Catégorie')
+                                            ->options(function () {
+                                                $locale = App::getLocale();
+                                                $categories = [];
+                                                
+                                                foreach (ArticleCategory::cases() as $category) {
+                                                    $categories[$category->value] = $category->getTranslatedLabel($locale);
+                                                }
+                                                
+                                                return $categories;
+                                            })
+                                            ->required()
+                                            ->enum(ArticleCategory::class)
+                                            ->searchable()
+                                            ->native(false)
+                                            ->prefixIcon('heroicon-o-tag'),
+                                            
+                                        Forms\Components\TextInput::make('title')
+                                            ->label('Titre (langue par défaut)')
+                                            ->required()
+                                            ->maxLength(255)
+                                            ->columnSpanFull(),
                                         
                                     Forms\Components\Select::make('author_id')
                                         ->label('Auteur')
@@ -74,35 +100,85 @@ class ArticleResource extends Resource
                                         ->default(ArticleStatus::DRAFT)
                                         ->native(false)
                                         ->prefixIcon('heroicon-o-document-check')
+                                        ->columnSpanFull()
                                         ->live(),
-                                ]),
-                        ]),
-                        
-                    Forms\Components\Wizard\Step::make('Contenu')
-                        ->icon('heroicon-o-document-text')
-                        ->description('Rédaction de l\'article')
+                                    ]),
+                            ]),
+                            
+                        // Onglets pour chaque langue disponible
+                        ...collect($availableLocales)->map(function ($label, $locale) {
+                            return Forms\Components\Tabs\Tab::make($label)
+                                ->icon('heroicon-o-language')
+                                ->schema([
+                                    Forms\Components\Hidden::make('translations.' . $locale . '.locale')
+                                        ->default($locale),
+                                        
+                                    Forms\Components\Section::make('Contenu en ' . $label)
+                                        ->schema([
+                                            Forms\Components\TextInput::make('translations.' . $locale . '.title')
+                                                ->label('Titre')
+                                                ->required(fn (callable $get) => $get('default_locale') === $locale)
+                                                ->maxLength(255),
+                                                
+                                            Forms\Components\Textarea::make('translations.' . $locale . '.excerpt')
+                                                ->label('Extrait')
+                                                ->helperText('Un résumé court et accrocheur de l\'article (important pour le SEO)')
+                                                ->rows(3)
+                                                ->required(fn (callable $get) => $get('default_locale') === $locale),
+                                                
+                                            Forms\Components\RichEditor::make('translations.' . $locale . '.content')
+                                                ->label('Contenu')
+                                                ->required(fn (callable $get) => $get('default_locale') === $locale)
+                                                ->fileAttachmentsDisk('public')
+                                                ->fileAttachmentsDirectory('articles')
+                                                ->fileAttachmentsVisibility('public')
+                                                ->helperText('Utilisez les outils de mise en forme pour structurer votre contenu'),
+                                                
+                                            Forms\Components\Toggle::make('show_seo_' . $locale)
+                                                ->label('Afficher les options SEO')
+                                                ->default(false)
+                                                ->live()
+                                                ->helperText('Activez cette option pour configurer les paramètres SEO spécifiques'),
+                                                
+                                            Forms\Components\Grid::make(2)
+                                                ->schema([
+                                                    Forms\Components\TextInput::make('translations.' . $locale . '.meta_title')
+                                                        ->label('Titre SEO')
+                                                        ->helperText('Laissez vide pour utiliser le titre de l\'article'),
+                                                        
+                                                    Forms\Components\Textarea::make('translations.' . $locale . '.meta_description')
+                                                        ->label('Description SEO')
+                                                        ->helperText('Laissez vide pour utiliser l\'extrait de l\'article')
+                                                        ->rows(2),
+                                                    
+                                                    Forms\Components\TextInput::make('translations.' . $locale . '.meta_keywords')
+                                                        ->label('Mots-clés SEO')
+                                                        ->placeholder('mot-clé1, mot-clé2, mot-clé3')
+                                                        ->helperText('Séparés par des virgules (important pour le référencement)'),
+                                                        
+                                                    Forms\Components\Select::make('translations.' . $locale . '.og_type')
+                                                        ->label('Type Open Graph')
+                                                        ->options([
+                                                            'article' => 'Article',
+                                                            'website' => 'Site web',
+                                                            'blog' => 'Blog'
+                                                        ])
+                                                        ->default('article')
+                                                        ->helperText('Type de contenu pour les réseaux sociaux')
+                                                ])
+                                                ->columns(2)
+                                                ->visible(fn (callable $get) => $get('show_seo_' . $locale))
+                                                ->columnSpanFull()
+                                        ])
+                                ])
+                                ->visible(fn (callable $get) => $get('default_locale') === $locale || static::shouldShowTranslation($locale));
+                        })->toArray()
+                    ]),
+                    
+                    Forms\Components\Section::make('Médias et métadonnées')
                         ->schema([
-                            Forms\Components\Textarea::make('excerpt')
-                                ->label('Extrait')
-                                ->helperText('Un résumé court et accrocheur de l\'article (important pour le SEO)')
-                                ->rows(3)
-                                ->required()
-                                ->columnSpanFull(),
-                                
-                            Forms\Components\RichEditor::make('content')
-                                ->label('Contenu')
-                                ->required()
-                                ->columnSpanFull()
-                                ->fileAttachmentsDisk('public')
-                                ->fileAttachmentsDirectory('articles')
-                                ->fileAttachmentsVisibility('public')
-                                ->helperText('Utilisez les outils de mise en forme pour structurer votre contenu'),
-                        ]),
-                        
-                    Forms\Components\Wizard\Step::make('Médias et métadonnées')
-                        ->icon('heroicon-o-photo')
-                        ->description('Images et informations complémentaires')
-                        ->schema([
+
+
                             Forms\Components\FileUpload::make('illustration')
                                 ->label('Image d\'illustration')
                                 ->helperText('Recommandé : 1200x630px pour un affichage optimal sur les réseaux sociaux')
@@ -126,7 +202,6 @@ class ArticleResource extends Resource
                                     }
                                 })
                                 ->dehydrateStateUsing(fn (array $state) => json_encode($state)),
-                                
                             Forms\Components\Grid::make(2)
                                 ->schema([
                                     Forms\Components\Toggle::make('featured')
@@ -135,11 +210,7 @@ class ArticleResource extends Resource
                                         ->default(false),
                                 ]),
                         ]),
-                ])
-                ->skippable()
-                ->persistStepInQueryString()
-                ->submitAction(new HtmlString('<button type="submit" class="fi-btn fi-btn-primary fi-btn-size-md relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75 focus-visible:ring-2 rounded-lg fi-color-custom fi-btn-color-primary gap-1.5 px-3 py-2 text-sm inline-grid shadow-sm bg-primary-600 text-white hover:bg-primary-500 dark:bg-primary-500 dark:hover:bg-primary-400 focus-visible:ring-primary-500/50 dark:focus-visible:ring-primary-400/50 fi-ac-btn-action">Enregistrer l\'article</button>')),
-            ]);
+                    ]);
     }
 
     public static function table(Table $table): Table
@@ -268,6 +339,7 @@ class ArticleResource extends Resource
             ->actions([
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\ViewAction::make()
+                        ->url(fn (Article $record) => route('filament.admin.resources.articles.view', $record->id))
                         ->label('Voir'),
                     Tables\Actions\EditAction::make()
                         ->label('Modifier'),
@@ -346,4 +418,107 @@ class ArticleResource extends Resource
                 SoftDeletingScope::class,
             ]);
     }
+    
+    /**
+     * Détermine si une traduction doit être affichée dans le formulaire.
+     *
+     * @param string $locale
+     * @return bool
+     */
+    protected static function shouldShowTranslation(string $locale): bool
+    {
+        // Par défaut, on affiche toutes les traductions
+        // Vous pouvez personnaliser cette logique selon vos besoins
+        return true;
+    }
+    
+    /**
+     * Gère l'enregistrement des données du formulaire, y compris les traductions.
+     *
+     * @param array $data
+     * @param Article $record
+     * @return void
+     */
+    public static function mutateFormDataBeforeCreate(array $data): array
+    {
+        // Extraire les données de traduction du formulaire
+        $translations = $data['translations'] ?? [];
+        unset($data['translations']);
+        
+        // Stocker les traductions dans une propriété temporaire pour les récupérer après la création
+        static::$pendingTranslations = $translations;
+        
+        return $data;
+    }
+    
+    /**
+     * Gère l'enregistrement des traductions après la création de l'article.
+     *
+     * @param Article $record
+     * @param array $data
+     * @return void
+     */
+    public static function afterCreate(Article $record, array $data): void
+    {
+        // Récupérer les traductions temporaires
+        $translations = static::$pendingTranslations ?? [];
+        
+        // Enregistrer chaque traduction
+        foreach ($translations as $locale => $translationData) {
+            if (!empty($translationData) && isset($translationData['locale'])) {
+                $record->translations()->updateOrCreate(
+                    ['locale' => $locale],
+                    $translationData
+                );
+            }
+        }
+    }
+    
+    /**
+     * Gère la mise à jour des données du formulaire, y compris les traductions.
+     *
+     * @param array $data
+     * @return array
+     */
+    public static function mutateFormDataBeforeSave(array $data): array
+    {
+        // Extraire les données de traduction du formulaire
+        $translations = $data['translations'] ?? [];
+        unset($data['translations']);
+        
+        // Stocker les traductions dans une propriété temporaire pour les récupérer après la sauvegarde
+        static::$pendingTranslations = $translations;
+        
+        return $data;
+    }
+    
+    /**
+     * Gère l'enregistrement des traductions après la mise à jour de l'article.
+     *
+     * @param Article $record
+     * @param array $data
+     * @return void
+     */
+    public static function afterSave(Article $record, array $data): void
+    {
+        // Récupérer les traductions temporaires
+        $translations = static::$pendingTranslations ?? [];
+        
+        // Enregistrer chaque traduction
+        foreach ($translations as $locale => $translationData) {
+            if (!empty($translationData) && isset($translationData['locale'])) {
+                $record->translations()->updateOrCreate(
+                    ['locale' => $locale],
+                    $translationData
+                );
+            }
+        }
+    }
+    
+    /**
+     * Propriété statique pour stocker temporairement les traductions pendant le processus de sauvegarde.
+     *
+     * @var array
+     */
+    protected static $pendingTranslations = [];
 }

@@ -17,7 +17,7 @@
 
             <!-- Menu de navigation (centre) -->
             <div class="hidden md:flex items-center justify-center space-x-6 lg:space-x-8">
-                <a href="{{ route('home') }}#why-hit" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __("Accuiel") }}</a>
+                <a href="{{ route('home') }}#why-hit" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __("Accueil") }}</a>
                 {{-- <a href="{{ route('visitez-le-campus') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __("Visit Campus") }}</a> --}}
                 <a href="{{ route('events') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __("Événements") }}</a>
                 <a href="{{ route('actualites') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __("Actualités") }}</a>
@@ -118,7 +118,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Gestion du défilement fluide pour tous les liens d'ancrage
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function·e {
+        anchor.addEventListener('click', function(e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
             const targetElement = document.querySelector(targetId);

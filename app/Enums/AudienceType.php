@@ -2,12 +2,16 @@
 
 namespace App\Enums;
 
+use App\Traits\HasEnumTranslations;
+
 enum AudienceType: string
 {
     case STARTUPS = 'startups';
     case TECH = 'tech';
     case EVENTS = 'events';
     case FORMATION = 'formation';
+    
+    use HasEnumTranslations;
     
     /**
      * Retourne le libellé associé au type d'audience
@@ -21,6 +25,31 @@ enum AudienceType: string
             self::TECH => 'Tech',
             self::EVENTS => 'Événements',
             self::FORMATION => 'Formation',
+        };
+    }
+    
+    /**
+     * Récupère les traductions disponibles pour ce type d'audience
+     */
+    public function translations(): array
+    {
+        return match($this) {
+            self::STARTUPS => [
+                'fr' => 'Startups',
+                'en' => 'Startups',
+            ],
+            self::TECH => [
+                'fr' => 'Tech',
+                'en' => 'Tech',
+            ],
+            self::EVENTS => [
+                'fr' => 'Événements',
+                'en' => 'Events',
+            ],
+            self::FORMATION => [
+                'fr' => 'Formation',
+                'en' => 'Training',
+            ],
         };
     }
     

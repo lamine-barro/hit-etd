@@ -8,14 +8,14 @@
 <meta property="og:url" content="{{ url()->current() }}">
 <meta property="og:title" content="{{ $pageTitle ?? config('hit.name') }}">
 <meta property="og:description" content="{{ $metaDescription ?? config('hit.description') }}">
-<meta property="og:image" content="{{ asset('images/og-image.jpg') }}">
+<meta property="og:image" content="{{ asset('images/hero_bg.jpg') }}">
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image">
 <meta property="twitter:url" content="{{ url()->current() }}">
 <meta property="twitter:title" content="{{ $pageTitle ?? config('hit.name') }}">
 <meta property="twitter:description" content="{{ $metaDescription ?? config('hit.description') }}">
-<meta property="twitter:image" content="{{ asset('images/og-image.jpg') }}">
+<meta property="twitter:image" content="{{ asset('images/hero_bg.jpg') }}">
 
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">

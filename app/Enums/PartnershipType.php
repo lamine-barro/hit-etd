@@ -2,6 +2,8 @@
 
 namespace App\Enums;
 
+use App\Traits\HasEnumTranslations;
+
 enum PartnershipType: string
 {
     case DONOR = 'donor';
@@ -10,6 +12,8 @@ enum PartnershipType: string
     case STRATEGIC_PARTNER = 'strategic_partner';
     case OTHER = 'other';
 
+    use HasEnumTranslations;
+    
     /**
      * Récupère le libellé du type de partenariat.
      */
@@ -21,6 +25,35 @@ enum PartnershipType: string
             self::TECHNICAL_PARTNER => 'Partenaire technique',
             self::STRATEGIC_PARTNER => 'Partenaire stratégique',
             self::OTHER => 'Autre',
+        };
+    }
+    
+    /**
+     * Récupère les traductions disponibles pour ce type de partenariat
+     */
+    public function translations(): array
+    {
+        return match($this) {
+            self::DONOR => [
+                'fr' => 'Donateur',
+                'en' => 'Donor',
+            ],
+            self::FINANCIAL_PARTNER => [
+                'fr' => 'Partenaire financier',
+                'en' => 'Financial Partner',
+            ],
+            self::TECHNICAL_PARTNER => [
+                'fr' => 'Partenaire technique',
+                'en' => 'Technical Partner',
+            ],
+            self::STRATEGIC_PARTNER => [
+                'fr' => 'Partenaire stratégique',
+                'en' => 'Strategic Partner',
+            ],
+            self::OTHER => [
+                'fr' => 'Autre',
+                'en' => 'Other',
+            ],
         };
     }
 

@@ -2,6 +2,8 @@
 
 namespace App\Enums;
 
+use App\Traits\HasEnumTranslations;
+
 enum PaymentStatus: string
 {
     case PENDING = 'pending';
@@ -9,6 +11,8 @@ enum PaymentStatus: string
     case FAILED = 'failed';
     case REFUNDED = 'refunded';
 
+    use HasEnumTranslations;
+    
     /**
      * Récupère le libellé du statut.
      */
@@ -19,6 +23,31 @@ enum PaymentStatus: string
             self::PAID => 'Payé',
             self::FAILED => 'Échoué',
             self::REFUNDED => 'Remboursé',
+        };
+    }
+    
+    /**
+     * Récupère les traductions disponibles pour ce statut de paiement
+     */
+    public function translations(): array
+    {
+        return match($this) {
+            self::PENDING => [
+                'fr' => 'En attente',
+                'en' => 'Pending',
+            ],
+            self::PAID => [
+                'fr' => 'Payé',
+                'en' => 'Paid',
+            ],
+            self::FAILED => [
+                'fr' => 'Échoué',
+                'en' => 'Failed',
+            ],
+            self::REFUNDED => [
+                'fr' => 'Remboursé',
+                'en' => 'Refunded',
+            ],
         };
     }
 
