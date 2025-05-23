@@ -24,6 +24,7 @@ class ViewArticle extends ViewRecord
     {
         return [
             Actions\EditAction::make()
+                ->url(fn () => route('filament.admin.resources.articles.edit', $this->record->id))
                 ->label('Modifier'),
             Actions\Action::make('publish')
                 ->label('Publier')

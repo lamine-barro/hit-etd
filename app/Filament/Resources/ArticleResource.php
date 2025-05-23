@@ -188,7 +188,11 @@ class ArticleResource extends Resource
                                 ->visibility('public')
                                 ->imagePreviewHeight('250')
                                 ->panelAspectRatio('16:9')
+                                ->imageEditor()
                                 ->panelLayout('integrated')
+                                ->imageEditorAspectRatios([
+                                    '16:9',
+                                ])
                                 ->columnSpanFull(),
                                 
                             Forms\Components\TagsInput::make('tags')
@@ -342,6 +346,7 @@ class ArticleResource extends Resource
                         ->url(fn (Article $record) => route('filament.admin.resources.articles.view', $record->id))
                         ->label('Voir'),
                     Tables\Actions\EditAction::make()
+                        ->url(fn (Article $record) => route('filament.admin.resources.articles.edit', $record->id))
                         ->label('Modifier'),
                     Tables\Actions\Action::make('publish')
                         ->label('Publier')

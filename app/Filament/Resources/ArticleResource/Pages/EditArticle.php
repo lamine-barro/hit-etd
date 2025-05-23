@@ -17,6 +17,7 @@ class EditArticle extends EditRecord
     {
         return [
             Actions\ViewAction::make()
+                ->url(fn () => route('filament.admin.resources.articles.view', $this->record->id))
                 ->label('Voir'),
             Actions\Action::make('publish')
                 ->label('Publier')
@@ -67,7 +68,8 @@ class EditArticle extends EditRecord
     
     protected function getRedirectUrl(): string
     {
-        return $this->getResource()::getUrl('index');
+        // Rediriger vers la page de visualisation avec l'ID explicite de l'article
+        return $this->getResource()::getUrl('view', ['record' => $this->record->id]);
     }
     
     protected function getSavedNotificationTitle(): ?string
