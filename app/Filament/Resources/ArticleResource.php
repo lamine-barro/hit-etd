@@ -17,6 +17,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
@@ -230,17 +231,20 @@ class ArticleResource extends Resource
                     ->defaultImageUrl(fn (Article $record): string => $record->illustration ?? 'https://placehold.co/600x400?text=Article')
                     ->square(),
                     
-                Tables\Columns\TextColumn::make('title')
+                Tables\Columns\TextColumn::make('translations')
                     ->label('Titre')
-                    ->formatStateUsing(function (Article $record) use ($currentLocale) {
-                        // Récupérer la traduction dans la langue actuelle si elle existe
-                        $translation = $record->translations()->where('locale', $currentLocale)->first();
+                    ->state(function (Article $record) use ($currentLocale) {
+                        // Récupérer directement la traduction depuis la relation
+                        $translationModel = $record->translations()
+                            ->where('locale', $currentLocale)
+                            ->first();
                         
-                        if ($translation && !empty($translation->title)) {
-                            return $translation->title;
+                        // Si on a une traduction, utiliser son titre
+                        if ($translationModel && !empty($translationModel->title)) {
+                            return $translationModel->title;
                         }
                         
-                        // Sinon, utiliser le titre dans la langue par défaut
+                        // Sinon, utiliser le titre par défaut
                         return $record->title;
                     })
                     ->searchable()
@@ -469,94 +473,4 @@ class ArticleResource extends Resource
         // Vous pouvez personnaliser cette logique selon vos besoins
         return true;
     }
-    
-    /**
-     * Gère l'enregistrement des données du formulaire, y compris les traductions.
-     *
-     * @param array $data
-     * @param Article $record
-     * @return void
-     */
-    public static function mutateFormDataBeforeCreate(array $data): array
-    {
-        // Extraire les données de traduction du formulaire
-        $translations = $data['translations'] ?? [];
-        unset($data['translations']);
-        
-        // Stocker les traductions dans une propriété temporaire pour les récupérer après la création
-        static::$pendingTranslations = $translations;
-        
-        return $data;
-    }
-    
-    /**
-     * Gère l'enregistrement des traductions après la création de l'article.
-     *
-     * @param Article $record
-     * @param array $data
-     * @return void
-     */
-    public static function afterCreate(Article $record, array $data): void
-    {
-        // Récupérer les traductions temporaires
-        $translations = static::$pendingTranslations ?? [];
-        
-        // Enregistrer chaque traduction
-        foreach ($translations as $locale => $translationData) {
-            if (!empty($translationData) && isset($translationData['locale'])) {
-                $record->translations()->updateOrCreate(
-                    ['locale' => $locale],
-                    $translationData
-                );
-            }
-        }
-    }
-    
-    /**
-     * Gère la mise à jour des données du formulaire, y compris les traductions.
-     *
-     * @param array $data
-     * @return array
-     */
-    public static function mutateFormDataBeforeSave(array $data): array
-    {
-        // Extraire les données de traduction du formulaire
-        $translations = $data['translations'] ?? [];
-        unset($data['translations']);
-        
-        // Stocker les traductions dans une propriété temporaire pour les récupérer après la sauvegarde
-        static::$pendingTranslations = $translations;
-        
-        return $data;
-    }
-    
-    /**
-     * Gère l'enregistrement des traductions après la mise à jour de l'article.
-     *
-     * @param Article $record
-     * @param array $data
-     * @return void
-     */
-    public static function afterSave(Article $record, array $data): void
-    {
-        // Récupérer les traductions temporaires
-        $translations = static::$pendingTranslations ?? [];
-        
-        // Enregistrer chaque traduction
-        foreach ($translations as $locale => $translationData) {
-            if (!empty($translationData) && isset($translationData['locale'])) {
-                $record->translations()->updateOrCreate(
-                    ['locale' => $locale],
-                    $translationData
-                );
-            }
-        }
-    }
-    
-    /**
-     * Propriété statique pour stocker temporairement les traductions pendant le processus de sauvegarde.
-     *
-     * @var array
-     */
-    protected static $pendingTranslations = [];
 }

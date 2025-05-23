@@ -71,31 +71,45 @@ class ViewArticle extends ViewRecord
     
     public function infolist(Infolist $infolist): Infolist
     {
+        // Récupérer la langue actuelle
+        $currentLocale = app()->getLocale();
+        
+        // Récupérer toutes les langues disponibles
+        $availableLocales = \App\Enums\LanguageEnum::toArray();
+        
         return $infolist
             ->schema([
                 Section::make('Informations générales')
                     ->schema([
                         Grid::make(2)
                             ->schema([
-                                TextEntry::make('title')
-                                    ->label('Titre'),
-                                TextEntry::make('slug')
-                                    ->label('Slug'),
+                                TextEntry::make('default_locale')
+                                    ->label('Langue principale')
+                                    ->formatStateUsing(function ($state) {
+                                        // Convertir le code de langue en nom complet
+                                        return \App\Enums\LanguageEnum::fromLocale($state)?->label() ?? $state;
+                                    })
+                                    ->badge()
+                                    ->color('primary'),
+                                    
                                 TextEntry::make('category')
                                     ->label('Catégorie')
-                                    ->formatStateUsing(fn (ArticleCategory $state): string => $state->label())
+                                    ->formatStateUsing(function (ArticleCategory $state) use ($currentLocale) {
+                                        // Utiliser la méthode getTranslatedLabel pour avoir le nom de la catégorie dans la langue actuelle
+                                        return $state->getTranslatedLabel($currentLocale);
+                                    })
                                     ->badge()
                                     ->icon(fn (ArticleCategory $state): string => $state->icon())
                                     ->color(fn (ArticleCategory $state): string => $state->color()),
-                                TextEntry::make('author.first_name')
-                                    ->label('Auteur')
-                                    ->formatStateUsing(fn (Article $record) => $record->author ? $record->author->first_name . ' ' . $record->author->last_name : 'Non assigné'),
+                                    
+                                
                                 TextEntry::make('status')
                                     ->label('Statut')
                                     ->badge()
                                     ->formatStateUsing(fn (ArticleStatus $state): string => $state->label())
                                     ->icon(fn (ArticleStatus $state): string => $state->icon())
                                     ->color(fn (ArticleStatus $state): string => $state->color()),
+                                    
                                 TextEntry::make('published_at')
                                     ->label('Date de publication')
                                     ->dateTime('d/m/Y H:i')
@@ -103,14 +117,106 @@ class ViewArticle extends ViewRecord
                             ]),
                     ]),
                     
-                Section::make('Contenu')
-                    ->schema([
-                        TextEntry::make('excerpt')
-                            ->label('Extrait'),
-                        TextEntry::make('content')
-                            ->label('Contenu')
-                            ->html()
-                            ->columnSpanFull(),
+                // Onglets pour chaque langue disponible
+                Infolists\Components\Tabs::make('Langues')
+                    ->columns(1)
+                    ->columnSpanFull()
+                    ->tabs([
+                        // Créer un onglet pour chaque langue disponible
+                        ...collect($availableLocales)->map(function ($label, $locale) {
+                            return Infolists\Components\Tabs\Tab::make($label)
+                                ->icon('heroicon-o-language')
+                                ->schema([
+                                    Grid::make(1)
+                                        ->schema([
+                                            TextEntry::make('translations')
+                                                ->label('Titre')
+                                                ->state(function (Article $record) use ($locale) {
+                                                    // Récupérer la traduction pour cette langue
+                                                    $translationModel = $record->translations()
+                                                        ->where('locale', $locale)
+                                                        ->first();
+                                                    
+                                                    // Si on a une traduction, utiliser son titre
+                                                    if ($translationModel && !empty($translationModel->title)) {
+                                                        return $translationModel->title;
+                                                    }
+                                                    
+                                                    // Sinon, utiliser le titre par défaut si c'est la langue par défaut
+                                                    if ($locale === $record->default_locale) {
+                                                        return $record->title;
+                                                    }
+                                                    
+                                                    return 'Non traduit';
+                                                }),
+                                                
+                                            TextEntry::make('slug')
+                                                ->label('Slug')
+                                                ->state(function (Article $record) use ($locale) {
+                                                    // Récupérer la traduction pour cette langue
+                                                    $translationModel = $record->translations()
+                                                        ->where('locale', $locale)
+                                                        ->first();
+                                                    
+                                                    // Si on a une traduction, utiliser son slug
+                                                    if ($translationModel && !empty($translationModel->slug)) {
+                                                        return $translationModel->slug;
+                                                    }
+                                                    
+                                                    // Sinon, utiliser le slug par défaut si c'est la langue par défaut
+                                                    if ($locale === $record->default_locale) {
+                                                        return $record->slug;
+                                                    }
+                                                    
+                                                    return 'Non traduit';
+                                                }),
+                                                
+                                            TextEntry::make('excerpt')
+                                                ->label('Extrait')
+                                                ->state(function (Article $record) use ($locale) {
+                                                    // Récupérer la traduction pour cette langue
+                                                    $translationModel = $record->translations()
+                                                        ->where('locale', $locale)
+                                                        ->first();
+                                                    
+                                                    // Si on a une traduction, utiliser son extrait
+                                                    if ($translationModel && !empty($translationModel->excerpt)) {
+                                                        return $translationModel->excerpt;
+                                                    }
+                                                    
+                                                    // Sinon, utiliser l'extrait par défaut si c'est la langue par défaut
+                                                    if ($locale === $record->default_locale) {
+                                                        return $record->excerpt;
+                                                    }
+                                                    
+                                                    return 'Non traduit';
+                                                }),
+                                                
+                                            TextEntry::make('content')
+                                                ->label('Contenu')
+                                                ->state(function (Article $record) use ($locale) {
+                                                    // Récupérer la traduction pour cette langue
+                                                    $translationModel = $record->translations()
+                                                        ->where('locale', $locale)
+                                                        ->first();
+                                                    
+                                                    // Si on a une traduction, utiliser son contenu
+                                                    if ($translationModel && !empty($translationModel->content)) {
+                                                        return $translationModel->content;
+                                                    }
+                                                    
+                                                    // Sinon, utiliser le contenu par défaut si c'est la langue par défaut
+                                                    if ($locale === $record->default_locale) {
+                                                        return $record->content;
+                                                    }
+                                                    
+                                                    return 'Non traduit';
+                                                })
+                                                ->html()
+                                                ->columnSpanFull(),
+                                        ]),
+                                ]);
+                        })->toArray(),
                     ]),
                     
                 Section::make('Médias et métadonnées')
@@ -166,6 +272,9 @@ class ViewArticle extends ViewRecord
                     ->schema([
                         Grid::make(3)
                             ->schema([
+                                TextEntry::make('author.first_name')
+                                    ->label('Auteur')
+                                    ->formatStateUsing(fn (Article $record) => $record->author ? $record->author->first_name . ' ' . $record->author->last_name : 'Non assigné'),
                                 TextEntry::make('created_at')
                                     ->label('Créé le')
                                     ->dateTime('d/m/Y H:i'),
