@@ -5,6 +5,7 @@ namespace App\Traits;
 use App\Enums\LanguageEnum;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 
 trait HasTranslations
 {
@@ -15,7 +16,7 @@ trait HasTranslations
     {
         return $this->hasMany($this->getTranslationModelName());
     }
-    
+
     /**
      * Obtenir la traduction du modèle dans la langue spécifiée.
      *
@@ -27,12 +28,12 @@ trait HasTranslations
         if ($locale instanceof LanguageEnum) {
             $locale = $locale->value;
         } else {
-            $locale = $locale ?: App::getLocale();
+            $locale = $locale ?: Session::get('locale') ?? App::getLocale();
         }
-        
+
         return $this->translations()->where('locale', $locale)->first();
     }
-    
+
     /**
      * Obtenir ou créer une traduction dans la langue spécifiée.
      *
@@ -46,32 +47,32 @@ trait HasTranslations
         } else {
             $locale = $locale ?: App::getLocale();
         }
-        
+
         $translation = $this->translation($locale);
-        
+
         if (!$translation) {
             // Créer une nouvelle traduction basée sur la langue par défaut
             $defaultTranslation = $this->translation($this->default_locale);
-            
+
             $data = ['locale' => $locale];
-            
+
             foreach ($this->getTranslatableAttributes() as $attribute) {
-                $data[$attribute] = $defaultTranslation && isset($defaultTranslation->$attribute) 
-                    ? $defaultTranslation->$attribute 
+                $data[$attribute] = $defaultTranslation && isset($defaultTranslation->$attribute)
+                    ? $defaultTranslation->$attribute
                     : $this->getAttribute($attribute);
-                
+
                 // Cas spécial pour le slug, ajouter le code de langue
                 if ($attribute === 'slug') {
                     $data[$attribute] = $data[$attribute] . '-' . $locale;
                 }
             }
-            
+
             $translation = $this->translations()->create($data);
         }
-        
+
         return $translation;
     }
-    
+
     /**
      * Obtenir l'attribut traduit dans la langue actuelle.
      *
@@ -83,25 +84,25 @@ trait HasTranslations
         if (!in_array($key, $this->getTranslatableAttributes())) {
             return $this->$key;
         }
-        
+
         $translation = $this->translation();
-        
+
         if ($translation && isset($translation->$key)) {
             return $translation->$key;
         }
-        
+
         // Fallback à la langue par défaut
         $defaultTranslation = $this->translation($this->default_locale);
-        
+
         if ($defaultTranslation && isset($defaultTranslation->$key)) {
             return $defaultTranslation->$key;
         }
-        
+
         // Fallback aux attributs du modèle lui-même
         // Utiliser getAttribute pour accéder aux propriétés du modèle
         return $this->getAttribute($key);
     }
-    
+
     /**
      * Définir l'attribut traduit dans la langue actuelle.
      *
@@ -116,18 +117,18 @@ trait HasTranslations
             $this->$key = $value;
             return;
         }
-        
+
         if ($locale instanceof LanguageEnum) {
             $locale = $locale->value;
         } else {
             $locale = $locale ?: App::getLocale();
         }
-        
+
         $translation = $this->getOrCreateTranslation($locale);
         $translation->$key = $value;
         $translation->save();
     }
-    
+
     /**
      * Obtenir le nom du modèle de traduction.
      *
@@ -137,7 +138,7 @@ trait HasTranslations
     {
         return static::class . 'Translation';
     }
-    
+
     /**
      * Obtenir les attributs traduisibles.
      *
@@ -147,7 +148,7 @@ trait HasTranslations
     {
         return $this->translatable ?? [];
     }
-    
+
     /**
      * Méthode magique pour accéder aux attributs traduits.
      *
@@ -159,10 +160,10 @@ trait HasTranslations
         if (in_array($key, $this->getTranslatableAttributes())) {
             return $this->getTranslatedAttribute($key);
         }
-        
+
         return parent::__get($key);
     }
-    
+
     /**
      * Méthode magique pour définir les attributs traduits.
      *
@@ -176,7 +177,7 @@ trait HasTranslations
             $this->setTranslatedAttribute($key, $value);
             return;
         }
-        
+
         parent::__set($key, $value);
     }
 }

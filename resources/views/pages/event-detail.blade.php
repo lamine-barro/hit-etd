@@ -31,10 +31,10 @@
                 onerror="this.onerror=null; this.src='https://placehold.co/1920x1080/f3f4f6/64748b?text=HIT+%7C+{{ urlencode($event->type) }}'"
             >
         @endif
-        
+
         <!-- Superposition dégradée pour améliorer la lisibilité du texte -->
         <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 to-transparent"></div>
-        
+
         <!-- Contenu superposé sur l'image -->
         <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
             <div class="container mx-auto">
@@ -46,7 +46,7 @@
                     <span class="mx-2">/</span>
                     <span class="text-white/90">{{ $event->title }}</span>
                 </nav>
-                
+
                 <!-- Tags -->
                 <div class="flex flex-wrap items-center gap-3 mb-4">
                     <span class="text-sm font-semibold px-4 py-1.5 rounded-full bg-secondary-500 text-white">
@@ -56,12 +56,12 @@
                         {{ $event->is_remote ? __("En ligne") : __("Présentiel") }}
                     </span>
                 </div>
-                
+
                 <!-- Titre -->
                 <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight">
                     {{ $event->title }}
                 </h1>
-                
+
                 <!-- Date et lieu -->
                 <div class="flex flex-wrap items-center gap-6 text-white/90">
                     <div class="flex items-center gap-2">
@@ -95,7 +95,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Colonne secondaire (droite, 35%) -->
             <div class="w-full lg:w-1/3">
                 <!-- Bloc d'inscription flottant -->
@@ -111,7 +111,7 @@
                             <p class="text-2xl font-bold text-green-600">{{ __("Gratuit") }}</p>
                         @endif
                     </div>
-                    
+
                     <!-- Places disponibles -->
                     <div class="mb-6">
                         <div class="flex items-center justify-between gap-4 mb-2">
@@ -126,7 +126,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Date et heure -->
                     <div class="flex items-center gap-3 text-gray-700 mb-4">
                         <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -137,7 +137,7 @@
                             <p class="text-sm text-gray-500">{{ $event->start_date->format('d/m/Y') }} à {{ $event->start_date->format('H:i') }}</p>
                         </div>
                     </div>
-                    
+
                     <!-- Lieu -->
                     <div class="flex items-center gap-3 text-gray-700 mb-4">
                         <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -149,7 +149,7 @@
                             <p class="text-sm text-gray-500">{{ $event->location }}</p>
                         </div>
                     </div>
-                    
+
                     <!-- Format -->
                     <div class="flex items-center gap-3 text-gray-700 mb-6">
                         <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -172,9 +172,9 @@
                             </svg>
                             {{ __("S'inscrire maintenant") }}
                         </button>
-                        
+
                         @if($event->phone || $event->external_link)
-                            <a href="{{ $event->phone ? 'https://wa.me/'.$event->phone : $event->external_link }}" target="_blank" 
+                            <a href="{{ $event->phone ? 'https://wa.me/'.$event->phone : $event->external_link }}" target="_blank"
                                class="mt-3 w-full py-3 px-6 bg-gray-100 text-gray-700 font-semibold rounded-lg hover:bg-gray-200 transition-colors flex items-center justify-center gap-2">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -183,7 +183,7 @@
                             </a>
                         @endif
                     @else
-                        <button disabled 
+                        <button disabled
                             class="w-full py-4 px-6 bg-gray-200 text-gray-500 font-semibold rounded-lg cursor-not-allowed flex items-center justify-center gap-2"
                         >
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -192,31 +192,31 @@
                             {{ __("Inscriptions fermées") }}
                         </button>
                     @endif
-                    
+
                     <!-- Boutons de partage -->
                     <div class="mt-6">
                         <p class="text-sm font-medium text-gray-700 mb-3">{{ __("Partager cet événement") }}</p>
                         <div class="flex space-x-3">
-                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('events.show', $event)) }}" target="_blank" 
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('events.show', $event)) }}" target="_blank"
                                class="w-10 h-10 flex items-center justify-center rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-colors">
                                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                                 </svg>
                             </a>
-                            <a href="https://twitter.com/intent/tweet?text={{ urlencode($event->title) }}&url={{ urlencode(route('events.show', $event)) }}" target="_blank" 
+                            <a href="https://twitter.com/intent/tweet?text={{ urlencode($event->title) }}&url={{ urlencode(route('events.show', $event)) }}" target="_blank"
                                class="w-10 h-10 flex items-center justify-center rounded-full bg-blue-400 text-white hover:bg-blue-500 transition-colors">
                                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723 10.1 10.1 0 01-3.127 1.184 4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
                                 </svg>
                             </a>
-                            <a href="https://wa.me/?text={{ urlencode($event->title . ' - ' . route('events.show', $event)) }}" target="_blank" 
+                            <a href="https://wa.me/?text={{ urlencode($event->title . ' - ' . route('events.show', $event)) }}" target="_blank"
                                class="w-10 h-10 flex items-center justify-center rounded-full bg-green-500 text-white hover:bg-green-600 transition-colors">
                                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
                                     <path d="M12 0C5.373 0 0 5.373 0 12c0 6.628 5.373 12 12 12 6.628 0 12-5.373 12-12 0-6.627-5.372-12-12-12zm.029 18.88a7.947 7.947 0 01-3.77-.954l-4.195 1.1 1.12-4.082a7.906 7.906 0 01-1.039-3.936c0-4.417 3.582-8 8-8s8 3.583 8 8-3.582 8-8 8z"/>
                                 </svg>
                             </a>
-                            <button onclick="copyEventLink('{{ route('events.show', $event) }}')" 
+                            <button onclick="copyEventLink('{{ route('events.show', $event) }}')"
                                     class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 text-gray-600 hover:bg-gray-300 transition-colors">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />

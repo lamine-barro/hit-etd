@@ -37,7 +37,7 @@ class Article extends Model
         'status' => ArticleStatus::class,
         'category' => ArticleCategory::class,
     ];
-    
+
     /**
      * Les attributs qui doivent être accessibles pour les traductions.
      *
@@ -82,7 +82,7 @@ class Article extends Model
     {
         return $this->getTranslatedAttribute('title');
     }
-    
+
     /**
      * Récupère le slug de l'article dans la langue actuelle ou par défaut
      */
@@ -90,7 +90,7 @@ class Article extends Model
     {
         return $this->getTranslatedAttribute('slug');
     }
-    
+
     /**
      * Récupère l'extrait de l'article dans la langue actuelle ou par défaut
      */
@@ -98,7 +98,7 @@ class Article extends Model
     {
         return $this->getTranslatedAttribute('excerpt');
     }
-    
+
     /**
      * Récupère le contenu de l'article dans la langue actuelle ou par défaut
      */
@@ -127,7 +127,7 @@ class Article extends Model
 
     /**
      * Get the route key for the model.
-     * 
+     *
      * Retourne 'id' pour l'administration Filament et 'slug' pour le frontend public
      */
     public function getRouteKeyName()
@@ -136,7 +136,7 @@ class Article extends Model
         if (request()->is('admin/*')) {
             return 'id';
         }
-        
+
         return 'slug';
     }
 
@@ -169,7 +169,7 @@ class Article extends Model
     {
         return $this->belongsTo(Administrator::class, 'author_id');
     }
-    
+
     /**
      * Obtenir le nom du modèle de traduction.
      *

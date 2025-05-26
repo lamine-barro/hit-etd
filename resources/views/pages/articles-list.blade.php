@@ -5,7 +5,7 @@
     $pageTitle = __('Actualités & Insights') . ' | ' . config('app.name');
     $metaDescription = __('Restez informé des dernières tendances et innovations de l\'écosystème tech en Afrique et dans le monde.');
     $ogType = 'website';
-    
+
     // Catégorie filtrée
     if (request('category')) {
         $categoryEnum = \App\Enums\ArticleCategory::tryFrom(request('category'));
@@ -15,7 +15,7 @@
             $metaDescription = __('Articles sur') . ' ' . $categoryLabel . ' | ' . config('app.name');
         }
     }
-    
+
     // Recherche
     if (request('search')) {
         $searchTerm = request('search');
@@ -29,21 +29,21 @@
     <meta name="description" content="{{ $metaDescription }}">
     <meta name="keywords" content="actualités, articles, blog, tech, innovation, Afrique, Côte d'Ivoire, startups">
     <meta name="author" content="{{ config('hit.name') }}">
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="{{ $ogType }}">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:title" content="{{ $pageTitle }}">
     <meta property="og:description" content="{{ $metaDescription }}">
     <meta property="og:image" content="{{ asset('images/hero_bg.jpg') }}">
-    
+
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="{{ url()->current() }}">
     <meta property="twitter:title" content="{{ $pageTitle }}">
     <meta property="twitter:description" content="{{ $metaDescription }}">
     <meta property="twitter:image" content="{{ asset('images/hero_bg.jpg') }}">
-    
+
     <!-- Pagination SEO -->
     @if($articles->previousPageUrl())
         <link rel="prev" href="{{ $articles->previousPageUrl() }}">
@@ -181,7 +181,7 @@
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     @foreach($featuredArticles as $article)
-                        <a href="{{ route('actualites.show', $article->getTranslatedAttribute('slug')) }}" class="block relative">
+                        <a href="{{ route('actualites.show', ['slug' => $article->getTranslatedAttribute('slug')]) }}" class="block relative">
                             <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group border border-gray-100 h-full">
                                 <div class="relative">
                                     @if($article->illustration)
@@ -285,7 +285,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="articles-list">
             @forelse($articles as $article)
-                <a href="{{ route('actualites.show', $article->getTranslatedAttribute('slug')) }}" class="block relative">
+                <a href="{{ route('actualites.show', ['slug' => $article->getTranslatedAttribute('slug')]) }}" class="block relative">
                     <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group border border-gray-100 h-full">
                         <div class="relative">
                             @if($article->illustration)

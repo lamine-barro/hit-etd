@@ -14,7 +14,7 @@
     <meta name="description" content="{{ $metaDescription }}">
     <meta name="keywords" content="{{ $articleTags }}">
     <meta name="author" content="{{ config('hit.name') }}">
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="{{ $ogType }}">
     <meta property="og:url" content="{{ url()->current() }}">
@@ -28,7 +28,7 @@
             <meta property="article:tag" content="{{ $tag }}">
         @endforeach
     @endif
-    
+
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="{{ url()->current() }}">
@@ -64,8 +64,8 @@
                         <svg class="w-4 h-4 text-gray-400 mx-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
-                        <span class="text-primary-600 font-semibold truncate max-w-xs" title="{{ $article->getTranslatedAttribute('title') }}">
-                            {{ Str::limit($article->getTranslatedAttribute('title'), 40) }}
+                        <span class="text-primary-600 font-semibold truncate max-w-xs" title="{{ $article->title }}">
+                            {{ Str::limit($article->title, 40) }}
                         </span>
                     </li>
                 </ol>
@@ -78,8 +78,8 @@
             <!-- Image de l'article -->
             @if ($article->illustration)
                 <div class="relative h-96">
-                    <img src="{{ Storage::url($article->illustration) }}" 
-                         alt="{{ $article->getTranslatedAttribute('title') }}" 
+                    <img src="{{ Storage::url($article->illustration) }}"
+                         alt="{{ $article->title }}"
                          class="w-full h-full object-cover">
                 </div>
             @endif
@@ -119,7 +119,7 @@
                                 {{ $article->category->getTranslatedLabel() }}
                             </span>
                             <span class="text-sm text-gray-500">
-                                {{ $article->getTranslatedAttribute('reading_time') }} {{ __('min de lecture') }}
+                                {{ $article->reading_time }} {{ __('min de lecture') }}
                             </span>
                         </div>
                         <div class="flex items-center gap-4">
@@ -147,10 +147,10 @@
                     </div>
 
                     <h1 class="text-4xl font-bold text-gray-900 mb-4">{{ $article->getTranslatedAttribute('title') }}</h1>
-                    
-                    @if($article->getTranslatedAttribute('excerpt'))
+
+                    @if($article->excerpt)
                         <div class="text-xl text-gray-600 mb-8 leading-relaxed">
-                            {{ $article->getTranslatedAttribute('excerpt') }}
+                            {{ $article->excerpt }}
                         </div>
                     @endif
 
@@ -171,7 +171,7 @@
 
                     <!-- Contenu de l'article -->
                     <div class="prose prose-lg max-w-none prose-headings:text-gray-900 prose-a:text-primary-600 prose-a:no-underline hover:prose-a:text-primary-700 prose-a:font-medium prose-img:rounded-lg">
-                        {!! $article->getTranslatedAttribute('content') !!}
+                        {!! $article->content !!}
                     </div>
                 </div>
             </div>
@@ -185,8 +185,8 @@
                     @foreach($relatedArticles as $relatedArticle)
                         <div class="bg-white rounded-lg shadow-md overflow-hidden">
                             @if($relatedArticle->illustration)
-                                <img src="{{ Storage::url($relatedArticle->illustration) }}" 
-                                     alt="{{ $relatedArticle->getTranslatedAttribute('title') }}" 
+                                <img src="{{ Storage::url($relatedArticle->illustration) }}"
+                                     alt="{{ $relatedArticle->getTranslatedAttribute('title') }}"
                                      class="w-full h-48 object-cover">
                             @else
                                 <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
@@ -261,4 +261,4 @@
         @endif
     </div>
 </div>
-@endsection 
+@endsection

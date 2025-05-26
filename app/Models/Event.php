@@ -58,7 +58,7 @@ class Event extends Model
         'max_participants' => 'integer',
         'default_locale' => LanguageEnum::class,
     ];
-    
+
     /**
      * Les attributs qui doivent être accessibles pour les traductions.
      *
@@ -175,7 +175,7 @@ class Event extends Model
     {
         return $this->belongsTo(Administrator::class, 'created_by');
     }
-    
+
     /**
      * Obtenir toutes les traductions de l'événement.
      */
@@ -183,7 +183,7 @@ class Event extends Model
     {
         return $this->hasMany(EventTranslation::class);
     }
-    
+
     /**
      * Obtenir le nom de la classe de traduction associée.
      */
