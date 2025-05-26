@@ -128,7 +128,7 @@
                             <span class="text-sm text-gray-500">
                                 {{ $event->registrations_count }} / {{ $event->max_participants }} {{ __("inscrits") }}
                             </span>
-                            <a href="{{ route('events.show', ['slug' => $event->slug ?? '/']) }}" class="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700">
+                            <a href="{{ route('events.show', ['slug' => $event->slug]) }}" class="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700">
                                 {{ __("En savoir plus") }}
                                 <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -139,7 +139,7 @@
                 </div>
             @empty
                 <div class="col-span-3 text-center py-12">
-                    <p class="text-gray-500 text-lg">{{ __("") }}</p>
+                    <p class="text-gray-500 text-lg">{{ __("Aucun événement à venir pour le moment.") }}</p>
                 </div>
             @endforelse
         </div>
