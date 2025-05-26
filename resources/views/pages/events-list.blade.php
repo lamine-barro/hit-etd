@@ -55,7 +55,7 @@
 </div>
     <div class="bg-gray-50 py-12">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-  
+
         <!-- Filtres -->
         <div class="mb-8">
             <form action="{{ route('events') }}" method="GET" class="flex flex-wrap gap-4 justify-center">
@@ -84,13 +84,13 @@
             @forelse ($events as $event)
                 <div class="bg-white rounded-lg shadow-md overflow-hidden">
                     @if ($event->illustration)
-                        <img src="{{ Storage::url($event->illustration) }}" 
-                             alt="{{ $event->title }}" 
+                        <img src="{{ Storage::url($event->illustration) }}"
+                             alt="{{ $event->title }}"
                              class="w-full h-48 object-cover"
                              loading="lazy">
                     @else
-                        <img src="{{ asset('images/default-event.jpg') }}" 
-                             alt="{{ $event->title }}" 
+                        <img src="{{ asset('images/default-event.jpg') }}"
+                             alt="{{ $event->title }}"
                              class="w-full h-48 object-cover"
                              loading="lazy"
                              onerror="this.onerror=null; this.src='https://placehold.co/800x400/f3f4f6/64748b?text=HIT+%7C+{{ urlencode($event->type) }}'">
@@ -139,7 +139,7 @@
                 </div>
             @empty
                 <div class="col-span-3 text-center py-12">
-                    <p class="text-gray-500 text-lg">{{ __("Aucun événement à venir pour le moment.") }}</p>
+                    <p class="text-gray-500 text-lg">{{ __("") }}</p>
                 </div>
             @endforelse
         </div>

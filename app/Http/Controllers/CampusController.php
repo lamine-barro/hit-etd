@@ -14,8 +14,8 @@ class CampusController extends Controller
     public function index()
     {
         return view('pages.visitez-le-campus', [
-            'pageTitle' => 'Visitez notre Campus - Hub Ivoire Tech',
-            'metaDescription' => 'Planifiez votre visite du Hub Ivoire Tech, qui a pour vocation d\'être le plus grand campus de startups en Afrique. Découvrez nos installations et réservez une visite guidée.',
+            'pageTitle' => __('Visitez notre Campus - Hub Ivoire Tech'),
+            'metaDescription' => __("Planifiez votre visite du Hub Ivoire Tech, qui a pour vocation d'être le plus grand campus de startups en Afrique. Découvrez nos installations et réservez une visite guidée."),
         ]);
     }
 

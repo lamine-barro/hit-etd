@@ -13,21 +13,21 @@ enum PartnershipType: string
     case OTHER = 'other';
 
     use HasEnumTranslations;
-    
+
     /**
      * Récupère le libellé du type de partenariat.
      */
     public function label(): string
     {
         return match($this) {
-            self::DONOR => 'Donateur',
-            self::FINANCIAL_PARTNER => 'Partenaire financier',
-            self::TECHNICAL_PARTNER => 'Partenaire technique',
-            self::STRATEGIC_PARTNER => 'Partenaire stratégique',
-            self::OTHER => 'Autre',
+            self::DONOR => __('Donateur'),
+            self::FINANCIAL_PARTNER => __('Partenaire financier'),
+            self::TECHNICAL_PARTNER => __('Partenaire technique'),
+            self::STRATEGIC_PARTNER => __('Partenaire stratégique'),
+            self::OTHER => __('Autre'),
         };
     }
-    
+
     /**
      * Récupère les traductions disponibles pour ce type de partenariat
      */

@@ -8,7 +8,7 @@
         <!-- En-tête -->
         <div class="text-center mb-12">
             <h1 class="text-4xl font-bold text-gray-900 mb-4">{{ __("Visitez notre campus !") }}</h1>
-            <p class="text-lg text-gray-600">{{ __("Réservez dès maintenant votre visite guidée et plongez dans l'univers stimulant du ") }}{{ config('hit.name') }}</p>
+            <p class="text-lg text-gray-600">{{ __("Réservez dès maintenant votre visite guidée et plongez dans l'univers stimulant du") }} {{ config('hit.name') }}</p>
         </div>
 
         <div class="lg:grid lg:grid-cols-2 lg:gap-12">
@@ -177,7 +177,7 @@
                 <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 h-[850px]">
                     <!-- Carte Google Maps -->
                     <div class="h-[450px] relative">
-                        <iframe 
+                        <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3972.596586554539!2d-4.019864524664149!3d5.325444294653074!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfc1ebe68aa6e9b7%3A0x674e8bdd65ee891b!2sImmeuble%20Postel%202001!5e0!3m2!1sen!2sci!4v1737931023375!5m2!1sen!2sci"
                             class="w-full h-full border-0"
                             allowfullscreen=""
@@ -245,24 +245,24 @@
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         console.log('🚀 Initialisation du formulaire de réservation...');
-        
+
         document.getElementById('booking-form').addEventListener('submit', function·e {
             e.preventDefault();
             console.log('📝 Soumission du formulaire détectée');
-            
+
             const form = this;
             const formData = new FormData(form);
             console.log('📊 Données du formulaire:', Object.fromEntries(formData));
-            
+
             const submitButton = form.querySelector('button[type="submit"]');
             const buttonText = submitButton.querySelector('span');
             const originalText = buttonText.textContent;
-            
+
             // Disable the submit button and show loading state
             submitButton.disabled = true;
             buttonText.textContent = '{{ __("Envoi en cours...") }}';
             console.log('⏳ Désactivation du bouton et affichage du chargement');
-            
+
             fetch(form.action, {
                 method: 'POST',
                 body: formData,
@@ -279,7 +279,7 @@
             })
             .then(data => {
                 console.log('✨ Données reçues:', data);
-                
+
                 if (data.status === 'success') {
                     console.log('✅ Réservation réussie');
                     // Show success message
@@ -299,7 +299,7 @@
                     `;
                     document.body.appendChild(successDiv);
                     console.log('📢 Message de succès affiché');
-                    
+
                     // Remove success message after 5 seconds and redirect
                     setTimeout(() => {
                         successDiv.remove();
@@ -330,7 +330,7 @@
                 `;
                 document.body.appendChild(errorDiv);
                 console.log('📢 Message d\'erreur affiché');
-                
+
                 // Remove error message after 5 seconds
                 setTimeout(() => {
                     console.log('🗑️ Suppression du message d\'erreur');
