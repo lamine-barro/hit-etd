@@ -24,8 +24,8 @@ echo "Build Assets"
 npm i
 npm run build
 
-chmod -R 777 storage
-chmod -R 777 bootstrap/cache
+chmod -R 777 /var/www/html
+chown -R www-data:nginx /var/www/html
 
 php artisan storage:link
 
