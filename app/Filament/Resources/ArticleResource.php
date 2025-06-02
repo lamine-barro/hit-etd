@@ -77,17 +77,6 @@ class ArticleResource extends Resource
                                             ->searchable()
                                             ->native(false)
                                             ->prefixIcon('heroicon-o-tag'),
-                                            
-                                        Forms\Components\TextInput::make('title')
-                                            ->label(function () {
-                                                // Récupérer la langue actuelle
-                                                $currentLocale = App::getLocale();
-                                                $languageLabel = LanguageEnum::fromLocale($currentLocale)?->label() ?? $currentLocale;
-                                                return 'Titre (langue par défaut - ' . $languageLabel . ')';
-                                            })
-                                            ->required()
-                                            ->maxLength(255)
-                                            ->columnSpanFull(),
                                         
                                     Forms\Components\Hidden::make('author_id')
                                         ->default(fn () => auth()->id()) // Utilise automatiquement l'ID de l'utilisateur connecté
