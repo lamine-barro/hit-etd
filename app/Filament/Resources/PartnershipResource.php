@@ -7,7 +7,6 @@ use App\Enums\PartnershipType;
 use App\Filament\Resources\PartnershipResource\Pages;
 use App\Models\Partnership;
 use Carbon\Carbon;
-use Filament\Forms;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Section;
@@ -32,9 +31,9 @@ class PartnershipResource extends Resource
     protected static ?string $model = Partnership::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-heart';
-    
+
     protected static ?int $navigationSort = 1;
-    
+
     protected static ?string $recordTitleAttribute = 'organization_name';
 
     public static function getModelLabel(): string
@@ -68,51 +67,51 @@ class PartnershipResource extends Resource
                                 ->options(PartnershipType::options())
                                 ->required()
                                 ->native(false),
-                            
+
                             TextInput::make('organization_name')
                                 ->label('Nom de l\'organisation')
                                 ->required()
                                 ->maxLength(255),
-                                
+
                             TextInput::make('contact_name')
                                 ->label('Nom du contact')
                                 ->required()
                                 ->maxLength(255),
-                                
+
                             TextInput::make('email')
                                 ->label('Email')
                                 ->email()
                                 ->required()
                                 ->maxLength(255),
-                                
+
                             PhoneInput::make('phone')
                                 ->label('Téléphone'),
                         ])->columnSpan(1),
-                        
+
                     Section::make('Détails de la demande')
                         ->schema([
                             Textarea::make('message')
                                 ->label('Message')
                                 ->required()
                                 ->rows(5),
-                                
+
                             Select::make('status')
                                 ->label('Statut')
                                 ->options(PartnershipStatus::options())
                                 ->default(PartnershipStatus::PENDING->value)
                                 ->required()
                                 ->native(false),
-                                
+
                             Textarea::make('internal_notes')
                                 ->label('Notes internes')
                                 ->placeholder('Notes visibles uniquement par l\'équipe')
                                 ->rows(3),
-                                
+
                             DateTimePicker::make('processed_at')
                                 ->label('Date de traitement')
                                 ->placeholder('Automatiquement rempli lors du changement de statut'),
                         ])->columnSpan(1),
-                ])
+                ]),
             ]);
     }
 
@@ -124,57 +123,57 @@ class PartnershipResource extends Resource
                     ->label('Organisation')
                     ->searchable()
                     ->sortable(),
-                    
+
                 TextColumn::make('contact_name')
                     ->label('Contact')
                     ->searchable()
                     ->sortable(),
-                    
+
                 BadgeColumn::make('type')
                     ->label('Type')
                     ->getStateUsing(fn (Partnership $record): string => $record->type->label())
                     ->color(fn (Partnership $record) => $record->type->color())
                     ->sortable(),
-                    
+
                 TextColumn::make('email')
                     ->label('Email')
                     ->searchable()
                     ->sortable()
                     ->toggleable(),
-                    
+
                 TextColumn::make('phone')
                     ->label('Téléphone')
                     ->toggleable(isToggledHiddenByDefault: true),
-                    
+
                 BadgeColumn::make('status')
                     ->label('Statut')
                     ->getStateUsing(fn (Partnership $record): string => $record->status->label())
                     ->color(fn (Partnership $record) => $record->status->color())
                     ->icon(fn (Partnership $record) => $record->status->icon())
                     ->sortable(),
-                    
+
                 TextColumn::make('created_at')
                     ->label('Date de demande')
                     ->dateTime('d/m/Y H:i')
                     ->sortable()
                     ->toggleable(),
-                    
+
                 TextColumn::make('processed_at')
                     ->label('Date de traitement')
                     ->dateTime('d/m/Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                    
+
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
-                
+
                 SelectFilter::make('type')
                     ->label('Type de partenariat')
                     ->options(PartnershipType::options())
                     ->attribute('type'),
-                    
+
                 SelectFilter::make('status')
                     ->label('Statut')
                     ->options(PartnershipStatus::options())
@@ -191,13 +190,13 @@ class PartnershipResource extends Resource
                         $record->status = PartnershipStatus::APPROVED;
                         $record->processed_at = Carbon::now();
                         $record->save();
-                        
+
                         Notification::make()
                             ->title('Partenariat approuvé')
                             ->success()
                             ->send();
                     }),
-                    
+
                 Action::make('reject')
                     ->label('Refuser')
                     ->icon('heroicon-o-x-circle')
@@ -208,13 +207,13 @@ class PartnershipResource extends Resource
                         $record->status = PartnershipStatus::REJECTED;
                         $record->processed_at = Carbon::now();
                         $record->save();
-                        
+
                         Notification::make()
                             ->title('Partenariat refusé')
                             ->danger()
                             ->send();
                     }),
-                    
+
                 Action::make('in_discussion')
                     ->label('En discussion')
                     ->icon('heroicon-o-chat-bubble-left-right')
@@ -224,13 +223,13 @@ class PartnershipResource extends Resource
                     ->action(function (Partnership $record) {
                         $record->status = PartnershipStatus::IN_DISCUSSION;
                         $record->save();
-                        
+
                         Notification::make()
                             ->title('Partenariat en discussion')
                             ->info()
                             ->send();
                     }),
-                    
+
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
@@ -260,7 +259,7 @@ class PartnershipResource extends Resource
             'edit' => Pages\EditPartnership::route('/{record}/edit'),
         ];
     }
-    
+
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()

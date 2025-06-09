@@ -9,12 +9,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Str;
-use Spatie\Sluggable\SlugOptions;
 
 class Article extends Model
 {
-    use HasFactory, SoftDeletes, HasTranslations;
+    use HasFactory, HasTranslations, SoftDeletes;
 
     protected $fillable = [
         'category',
@@ -172,8 +170,6 @@ class Article extends Model
 
     /**
      * Obtenir le nom du modèle de traduction.
-     *
-     * @return string
      */
     protected function getTranslationModelName(): string
     {

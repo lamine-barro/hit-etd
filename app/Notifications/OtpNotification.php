@@ -35,7 +35,7 @@ class OtpNotification extends Notification
     {
         return (new MailMessage)
             ->subject(__('Your OTP Code'))
-            ->line(__('Your OTP code is: ') . $this->otp)
+            ->line(__('Your OTP code is: ').$this->otp)
             ->line(__('This code will expire in 5 minutes.'))
             ->line(__('If you did not request this code, no further action is required.'));
     }
@@ -49,7 +49,7 @@ class OtpNotification extends Notification
     {
         return [
             'otp' => $this->otp,
-            'expires_at' => now()->addMinutes(5)
+            'expires_at' => now()->addMinutes(5),
         ];
     }
 }

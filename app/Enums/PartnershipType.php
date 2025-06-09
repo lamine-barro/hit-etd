@@ -19,7 +19,7 @@ enum PartnershipType: string
      */
     public function label(): string
     {
-        return match($this) {
+        return match ($this) {
             self::DONOR => __('Donateur'),
             self::FINANCIAL_PARTNER => __('Partenaire financier'),
             self::TECHNICAL_PARTNER => __('Partenaire technique'),
@@ -33,7 +33,7 @@ enum PartnershipType: string
      */
     public function translations(): array
     {
-        return match($this) {
+        return match ($this) {
             self::DONOR => [
                 'fr' => 'Donateur',
                 'en' => 'Donor',
@@ -62,7 +62,7 @@ enum PartnershipType: string
      */
     public function color(): string
     {
-        return match($this) {
+        return match ($this) {
             self::DONOR => 'success',
             self::FINANCIAL_PARTNER => 'primary',
             self::TECHNICAL_PARTNER => 'info',
@@ -76,7 +76,7 @@ enum PartnershipType: string
      */
     public function icon(): string
     {
-        return match($this) {
+        return match ($this) {
             self::DONOR => 'heroicon-o-heart',
             self::FINANCIAL_PARTNER => 'heroicon-o-banknotes',
             self::TECHNICAL_PARTNER => 'heroicon-o-wrench-screwdriver',

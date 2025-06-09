@@ -7,7 +7,6 @@ use App\Models\EventRegistration;
 use App\Notifications\NewEventRegistration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 
@@ -15,15 +14,14 @@ class EventRegistrationController extends Controller
 {
     /**
      * Enregistrer une nouvelle inscription à un événement.
-     * 
-     * @param Request $request
-     * @param string $eventSlug Le slug de l'événement
+     *
+     * @param  string  $eventSlug  Le slug de l'événement
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function store(Request $request, $eventSlug)
     {
         // Récupérer l'événement par son slug dans les traductions
-        $event = Event::whereHas('translations', function($query) use ($eventSlug) {
+        $event = Event::whereHas('translations', function ($query) use ($eventSlug) {
             $query->where('slug', $eventSlug);
         })->firstOrFail();
         try {
@@ -60,7 +58,7 @@ class EventRegistrationController extends Controller
             $eventRegistration->status = \App\Enums\RegistrationStatus::PENDING;
             $eventRegistration->uuid = Str::uuid()->toString();
             $eventRegistration->save();
-            
+
             // Handle payment if required
             if ($event->getCurrentPrice() > 0) {
                 return redirect()->route('payment.show', ['registration' => $eventRegistration->uuid])
@@ -70,21 +68,21 @@ class EventRegistrationController extends Controller
             // For free events, confirm registration immediately
             $eventRegistration->status = \App\Enums\RegistrationStatus::CONFIRMED;
             $eventRegistration->save();
-            
+
             // Envoyer une notification par email pour les événements gratuits
             try {
                 $supportEmail = env('HIT_SUPPORT_EMAIL');
-                
+
                 Log::info('Tentative d\'envoi d\'email pour événement gratuit', ['email' => $supportEmail]);
-                
+
                 Notification::route('mail', $supportEmail)
                     ->notify(new NewEventRegistration($eventRegistration));
-                
+
                 Log::info('Notification d\'inscription envoyée avec succès', [
                     'event_id' => $event->id,
                     'event_title' => $event->title,
                     'registration_id' => $eventRegistration->id,
-                    'support_email' => $supportEmail
+                    'support_email' => $supportEmail,
                 ]);
             } catch (\Exception $e) {
                 Log::error('Erreur lors de l\'envoi de la notification d\'inscription', [
@@ -99,6 +97,7 @@ class EventRegistrationController extends Controller
         } catch (\Illuminate\Validation\ValidationException $e) {
             // Gestion spécifique des erreurs de validation
             Log::error('EventRegistration error: validation.'.$e->validator->errors()->keys()[0]);
+
             return back()->withErrors($e->validator)->withInput();
         } catch (\Exception $e) {
             // Autres erreurs

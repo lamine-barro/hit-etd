@@ -4,9 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\ValidationException;
 
 class EventListController extends Controller
 {
@@ -46,12 +43,12 @@ class EventListController extends Controller
     public function show($slug)
     {
         // Recherche par slug dans les traductions
-        $event = Event::whereHas('translations', function($query) use ($slug) {
+        $event = Event::whereHas('translations', function ($query) use ($slug) {
             $query->where('slug', $slug);
         })->first();
 
         // Vérifier si l'événement existe et est publié
-        if (!$event || $event->status !== 'published') {
+        if (! $event || $event->status !== 'published') {
             abort(404);
         }
 

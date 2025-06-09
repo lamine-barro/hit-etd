@@ -12,26 +12,26 @@ enum PaymentStatus: string
     case REFUNDED = 'refunded';
 
     use HasEnumTranslations;
-    
+
     /**
      * Récupère le libellé du statut.
      */
     public function label(): string
     {
-        return match($this) {
+        return match ($this) {
             self::PENDING => 'En attente',
             self::PAID => 'Payé',
             self::FAILED => 'Échoué',
             self::REFUNDED => 'Remboursé',
         };
     }
-    
+
     /**
      * Récupère les traductions disponibles pour ce statut de paiement
      */
     public function translations(): array
     {
-        return match($this) {
+        return match ($this) {
             self::PENDING => [
                 'fr' => 'En attente',
                 'en' => 'Pending',
@@ -56,7 +56,7 @@ enum PaymentStatus: string
      */
     public function color(): string
     {
-        return match($this) {
+        return match ($this) {
             self::PENDING => 'warning',
             self::PAID => 'success',
             self::FAILED => 'danger',
@@ -69,7 +69,7 @@ enum PaymentStatus: string
      */
     public function icon(): string
     {
-        return match($this) {
+        return match ($this) {
             self::PENDING => 'heroicon-o-clock',
             self::PAID => 'heroicon-o-banknotes',
             self::FAILED => 'heroicon-o-x-circle',

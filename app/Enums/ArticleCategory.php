@@ -20,13 +20,13 @@ enum ArticleCategory: string
     case OTHER = 'other';
 
     use HasEnumTranslations;
-    
+
     /**
      * Récupère le libellé de la catégorie.
      */
     public function label(): string
     {
-        return match($this) {
+        return match ($this) {
             self::TECH_ECOSYSTEM => 'Écosystème Tech',
             self::DIGITAL_TRANSFORMATION => 'Transformation Numérique',
             self::ARTIFICIAL_INTELLIGENCE => 'Intelligence Artificielle',
@@ -41,13 +41,13 @@ enum ArticleCategory: string
             self::OTHER => 'Autre',
         };
     }
-    
+
     /**
      * Récupère les traductions disponibles pour cette catégorie
      */
     public function translations(): array
     {
-        return match($this) {
+        return match ($this) {
             self::TECH_ECOSYSTEM => [
                 'fr' => 'Écosystème Tech',
                 'en' => 'Tech Ecosystem',
@@ -104,7 +104,7 @@ enum ArticleCategory: string
      */
     public function color(): string
     {
-        return match($this) {
+        return match ($this) {
             self::TECH_ECOSYSTEM => 'primary',
             self::DIGITAL_TRANSFORMATION => 'info',
             self::ARTIFICIAL_INTELLIGENCE => 'purple',
@@ -125,7 +125,7 @@ enum ArticleCategory: string
      */
     public function icon(): string
     {
-        return match($this) {
+        return match ($this) {
             self::TECH_ECOSYSTEM => 'heroicon-o-globe-alt',
             self::DIGITAL_TRANSFORMATION => 'heroicon-o-arrow-path',
             self::ARTIFICIAL_INTELLIGENCE => 'heroicon-o-cpu-chip',

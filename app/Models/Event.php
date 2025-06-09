@@ -9,13 +9,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Str;
-use Spatie\Sluggable\SlugOptions;
 
 class Event extends Model
 {
-    use HasFactory, SoftDeletes, HasTranslations;
+    use HasFactory, HasTranslations, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -38,7 +35,7 @@ class Event extends Model
         'status',
         'illustration',
         'created_by',
-        'default_locale'
+        'default_locale',
     ];
 
     /**

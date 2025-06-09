@@ -5,13 +5,9 @@ namespace App\Filament\Resources\EventRegistrationResource\Pages;
 use App\Enums\RegistrationStatus;
 use App\Filament\Resources\EventRegistrationResource;
 use App\Models\EventRegistration;
-use Filament\Actions;
-use Filament\Resources\Pages\ListRecords;
-use Filament\Tables\Filters\Indicator;
-use Filament\Tables\Filters\SelectFilter;
-use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 use Filament\Resources\Components\Tab;
+use Filament\Resources\Pages\ListRecords;
+use Illuminate\Database\Eloquent\Builder;
 
 class ListEventRegistrations extends ListRecords
 {

@@ -20,10 +20,10 @@ enum EventType: string
     }
 
     use HasEnumTranslations;
-    
+
     public function label(): string
     {
-        return match($this) {
+        return match ($this) {
             self::CONFERENCE => 'Conférence',
             self::WORKSHOP => 'Atelier',
             self::WEBINAR => 'Webinaire',
@@ -33,13 +33,13 @@ enum EventType: string
             self::OTHER => 'Autre',
         };
     }
-    
+
     /**
      * Récupère les traductions disponibles pour ce type d'événement
      */
     public function translations(): array
     {
-        return match($this) {
+        return match ($this) {
             self::CONFERENCE => [
                 'fr' => 'Conférence',
                 'en' => 'Conference',
@@ -70,10 +70,10 @@ enum EventType: string
             ],
         };
     }
-    
+
     public function icon(): string
     {
-        return match($this) {
+        return match ($this) {
             self::CONFERENCE => 'heroicon-o-presentation-chart-bar',
             self::WORKSHOP => 'heroicon-o-beaker',
             self::WEBINAR => 'heroicon-o-computer-desktop',

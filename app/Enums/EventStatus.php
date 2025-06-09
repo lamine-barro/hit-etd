@@ -16,22 +16,22 @@ enum EventStatus: string
     }
 
     use HasEnumTranslations;
-    
+
     public function label(): string
     {
-        return match($this) {
+        return match ($this) {
             self::DRAFT => 'Brouillon',
             self::PUBLISHED => 'Publié',
             self::CANCELLED => 'Annulé',
         };
     }
-    
+
     /**
      * Récupère les traductions disponibles pour ce statut d'événement
      */
     public function translations(): array
     {
-        return match($this) {
+        return match ($this) {
             self::DRAFT => [
                 'fr' => 'Brouillon',
                 'en' => 'Draft',
@@ -46,10 +46,10 @@ enum EventStatus: string
             ],
         };
     }
-    
+
     public function icon(): string
     {
-        return match($this) {
+        return match ($this) {
             self::DRAFT => 'heroicon-o-document-text',
             self::PUBLISHED => 'heroicon-o-check-circle',
             self::CANCELLED => 'heroicon-o-x-circle',

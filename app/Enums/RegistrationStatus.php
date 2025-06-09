@@ -12,26 +12,26 @@ enum RegistrationStatus: string
     case ATTENDED = 'attended';
 
     use HasEnumTranslations;
-    
+
     /**
      * Récupère le libellé du statut.
      */
     public function label(): string
     {
-        return match($this) {
+        return match ($this) {
             self::PENDING => 'En attente',
             self::CONFIRMED => 'Confirmé',
             self::CANCELLED => 'Annulé',
             self::ATTENDED => 'A participé',
         };
     }
-    
+
     /**
      * Récupère les traductions disponibles pour ce statut d'inscription
      */
     public function translations(): array
     {
-        return match($this) {
+        return match ($this) {
             self::PENDING => [
                 'fr' => 'En attente',
                 'en' => 'Pending',
@@ -56,7 +56,7 @@ enum RegistrationStatus: string
      */
     public function color(): string
     {
-        return match($this) {
+        return match ($this) {
             self::PENDING => 'gray',
             self::CONFIRMED => 'success',
             self::CANCELLED => 'danger',
@@ -69,7 +69,7 @@ enum RegistrationStatus: string
      */
     public function icon(): string
     {
-        return match($this) {
+        return match ($this) {
             self::PENDING => 'heroicon-o-clock',
             self::CONFIRMED => 'heroicon-o-check-circle',
             self::CANCELLED => 'heroicon-o-x-circle',

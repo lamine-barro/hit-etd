@@ -46,7 +46,7 @@ class EventTranslation extends Model
         parent::boot();
 
         static::creating(function ($translation) {
-            if (empty($translation->slug) && !empty($translation->title)) {
+            if (empty($translation->slug) && ! empty($translation->title)) {
                 $translation->slug = $translation->generateUniqueSlug($translation->title);
             }
         });
@@ -61,7 +61,7 @@ class EventTranslation extends Model
     /**
      * Génère un slug unique basé sur le titre.
      *
-     * @param string $title
+     * @param  string  $title
      * @return string
      */
     protected function generateUniqueSlug($title)

@@ -4,15 +4,12 @@ namespace App\Filament\Resources;
 
 use App\Enums\AudienceType;
 use App\Filament\Resources\AudienceResource\Pages;
-use App\Filament\Resources\AudienceResource\RelationManagers;
 use App\Models\Audience;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 use Ysfkaya\FilamentPhoneInput\Tables\PhoneColumn;
 
@@ -50,7 +47,7 @@ class AudienceResource extends Resource
                             ->columnSpanFull(),
                     ])
                     ->columns(2),
-                    
+
                 Forms\Components\Section::make('Préférences de communication')
                     ->schema([
                         Forms\Components\Toggle::make('newsletter_email')
@@ -61,7 +58,7 @@ class AudienceResource extends Resource
                             ->required(),
                     ])
                     ->columns(2),
-                    
+
                 Forms\Components\Section::make('Centres d\'intérêt')
                     ->schema([
                         Forms\Components\CheckboxList::make('interests')
@@ -71,6 +68,7 @@ class AudienceResource extends Resource
                                 foreach (AudienceType::cases() as $type) {
                                     $options[$type->value] = $type->label();
                                 }
+
                                 return $options;
                             })
                             ->columns(2)
@@ -105,6 +103,7 @@ class AudienceResource extends Resource
                         foreach ($record->getInterestTypes() as $type) {
                             $labels[] = $type->label();
                         }
+
                         return $labels;
                     })
                     ->colors([

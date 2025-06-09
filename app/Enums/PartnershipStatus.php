@@ -12,26 +12,26 @@ enum PartnershipStatus: string
     case IN_DISCUSSION = 'in_discussion';
 
     use HasEnumTranslations;
-    
+
     /**
      * Récupère le libellé du statut.
      */
     public function label(): string
     {
-        return match($this) {
+        return match ($this) {
             self::PENDING => 'En attente',
             self::APPROVED => 'Approuvé',
             self::REJECTED => 'Refusé',
             self::IN_DISCUSSION => 'En discussion',
         };
     }
-    
+
     /**
      * Récupère les traductions disponibles pour ce statut de partenariat
      */
     public function translations(): array
     {
-        return match($this) {
+        return match ($this) {
             self::PENDING => [
                 'fr' => 'En attente',
                 'en' => 'Pending',
@@ -56,7 +56,7 @@ enum PartnershipStatus: string
      */
     public function color(): string
     {
-        return match($this) {
+        return match ($this) {
             self::PENDING => 'warning',
             self::APPROVED => 'success',
             self::REJECTED => 'danger',
@@ -69,7 +69,7 @@ enum PartnershipStatus: string
      */
     public function icon(): string
     {
-        return match($this) {
+        return match ($this) {
             self::PENDING => 'heroicon-o-clock',
             self::APPROVED => 'heroicon-o-check-circle',
             self::REJECTED => 'heroicon-o-x-circle',

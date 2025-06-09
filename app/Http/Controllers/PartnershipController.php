@@ -19,16 +19,15 @@ class PartnershipController extends Controller
     public function index()
     {
         $partnershipTypes = PartnershipType::options();
-        
+
         return view('pages.partnership', [
             'partnershipTypes' => $partnershipTypes,
         ]);
     }
-    
+
     /**
      * Traite la soumission d'une demande de partenariat.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
@@ -41,13 +40,13 @@ class PartnershipController extends Controller
             'phone' => 'nullable|string|max:20',
             'message' => 'required|string|min:10',
         ]);
-        
+
         if ($validator->fails()) {
             return back()
                 ->withErrors($validator)
                 ->withInput();
         }
-        
+
         $partnership = Partnership::create([
             'type' => $request->type,
             'organization_name' => $request->organization_name,
@@ -57,12 +56,12 @@ class PartnershipController extends Controller
             'message' => $request->message,
             'status' => PartnershipStatus::PENDING,
         ]);
-        
+
         // Ici, on pourrait ajouter l'envoi d'un email de confirmation
-        
+
         return redirect()->route('partnership.thank-you');
     }
-    
+
     /**
      * Affiche la page de remerciement après soumission d'une demande.
      *

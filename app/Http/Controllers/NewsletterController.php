@@ -23,7 +23,7 @@ class NewsletterController extends Controller
 
             // Vérifier si l'email existe déjà
             $existingSubscriber = Audience::where('email', $data['newsletter_email_input'])->first();
-            
+
             if ($existingSubscriber) {
                 // Mise à jour des intérêts et préférences si l'abonné existe déjà
                 $existingSubscriber->update([
@@ -33,25 +33,25 @@ class NewsletterController extends Controller
                     'newsletter_whatsapp' => $data['newsletter_whatsapp'] ?? false,
                     'interests' => array_unique(array_merge($existingSubscriber->interests ?? [], $data['interests'] ?? [])),
                 ]);
-                
+
                 Log::info('Newsletter subscriber updated', [
                     'subscriber_id' => $existingSubscriber->id,
                     'subscriber_data' => $existingSubscriber->toArray(),
                 ]);
-                
+
                 if ($request->ajax()) {
                     return response()->json([
                         'status' => 'success',
                         'message' => __('Vos préférences ont été mises à jour. Merci de votre fidélité !'),
                     ]);
                 }
-                
+
                 return back()->with('notification', [
                     'type' => 'success',
                     'message' => __('Vos préférences ont été mises à jour. Merci de votre fidélité !'),
                 ]);
             }
-            
+
             // Validation pour un nouvel abonné
             $validated = validator($data, [
                 'newsletter_name' => 'required|string|max:255',
@@ -100,10 +100,10 @@ class NewsletterController extends Controller
                 'errors' => $e->errors(),
                 'data' => $request->all(),
             ]);
-            
+
             // Messages d'erreur personnalisés
             $errorMessage = __('Veuillez vérifier les informations saisies.');
-            
+
             // Messages spécifiques pour certaines erreurs
             $errors = $e->errors();
             if (isset($errors['newsletter_name'])) {

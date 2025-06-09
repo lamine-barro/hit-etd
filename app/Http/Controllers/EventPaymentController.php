@@ -6,7 +6,6 @@ use App\Models\EventPayment;
 use App\Models\EventRegistration;
 use App\Services\PaystackService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 
@@ -23,14 +22,14 @@ class EventPaymentController extends Controller
     {
         try {
             $eventRegistration = EventRegistration::where('uuid', $registrationId)->first();
-            
-            if (!$eventRegistration) {
+
+            if (! $eventRegistration) {
                 return response()->json([
                     'status' => 'error',
                     'message' => __('Inscription non trouvée'),
                 ], 404);
             }
-            
+
             $payment = $this->paystackService->initiatePayment($eventRegistration);
 
             return response()->json([
@@ -56,7 +55,7 @@ class EventPaymentController extends Controller
     {
         $reference = $request->query('reference');
 
-        if (!$reference) {
+        if (! $reference) {
             return abort(404);
         }
 
@@ -73,7 +72,7 @@ class EventPaymentController extends Controller
 
                 // Update EventRegistration status
                 $payment->registration->update(['status' => \App\Enums\RegistrationStatus::CONFIRMED]);
-   
+
                 // Récupérer l'événement pour son slug
                 $event = $payment->registration->event;
 
@@ -90,7 +89,7 @@ class EventPaymentController extends Controller
                         'event_id' => $event->id,
                         'event_title' => $event->title,
                         'registration_id' => $payment->registration->id,
-                        'support_email' => $supportEmail
+                        'support_email' => $supportEmail,
                     ]);
                 } catch (\Exception $e) {
                     Log::error('Erreur lors de l\'envoi de la notification d\'inscription après paiement', [
@@ -107,7 +106,7 @@ class EventPaymentController extends Controller
             }
 
             $payment->markAsFailed($paymentData);
-            
+
             // Récupérer l'événement pour son slug
             $event = $payment->registration->event;
 
@@ -144,8 +143,8 @@ class EventPaymentController extends Controller
     public function show(Request $request, string $registrationId)
     {
         $eventRegistration = EventRegistration::where('uuid', $registrationId)->first();
-        
-        if (!$eventRegistration) {
+
+        if (! $eventRegistration) {
             return redirect()->route('events.index')
                 ->with('error', __('Inscription non trouvée.'));
         }
@@ -154,6 +153,7 @@ class EventPaymentController extends Controller
         if ($eventRegistration->status !== \App\Enums\RegistrationStatus::PENDING) {
             // Récupérer l'événement et utiliser son slug pour la redirection
             $event = $eventRegistration->event;
+
             return redirect()->route('events.show', $event->slug)
                 ->with('error', __('Cette inscription a déjà été traitée.'));
         }

@@ -23,7 +23,7 @@ enum Currency: string
 
     public function symbol(): string
     {
-        return match($this) {
+        return match ($this) {
             self::XOF => 'FCFA',
             self::EUR => '€',
             self::USD => '$',
@@ -37,10 +37,10 @@ enum Currency: string
     }
 
     use HasEnumTranslations;
-    
+
     public function label(): string
     {
-        return match($this) {
+        return match ($this) {
             self::XOF => 'Franc CFA',
             self::EUR => 'Euro',
             self::USD => 'Dollar américain',
@@ -52,13 +52,13 @@ enum Currency: string
             self::ZAR => 'Rand sud-africain',
         };
     }
-    
+
     /**
      * Récupère les traductions disponibles pour cette devise
      */
     public function translations(): array
     {
-        return match($this) {
+        return match ($this) {
             self::XOF => [
                 'fr' => 'Franc CFA',
                 'en' => 'CFA Franc',
@@ -97,10 +97,10 @@ enum Currency: string
             ],
         };
     }
-    
+
     public function icon(): string
     {
-        return match($this) {
+        return match ($this) {
             self::XOF => 'heroicon-o-banknotes',
             self::EUR => 'heroicon-o-currency-euro',
             self::USD => 'heroicon-o-currency-dollar',

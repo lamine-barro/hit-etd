@@ -6,9 +6,9 @@ use App\Enums\ArticleStatus;
 use App\Filament\Resources\ArticleResource;
 use App\Models\Article;
 use Filament\Actions;
+use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Database\Eloquent\Builder;
-use Filament\Resources\Components\Tab;
 
 class ListArticles extends ListRecords
 {
@@ -48,7 +48,7 @@ class ListArticles extends ListRecords
                 ->modifyQueryUsing(fn (Builder $query) => $query->where('status', ArticleStatus::ARCHIVED->value)),
         ];
     }
-    
+
     protected function getTableEmptyStateActions(): array
     {
         return [
@@ -56,32 +56,32 @@ class ListArticles extends ListRecords
                 ->label('Créer votre premier article'),
         ];
     }
-    
+
     protected function getTableEmptyStateIcon(): ?string
     {
         return 'heroicon-o-document-text';
     }
-    
+
     protected function getTableEmptyStateHeading(): ?string
     {
         return 'Aucun article trouvé';
     }
-    
+
     protected function getTableEmptyStateDescription(): ?string
     {
         return 'Vous pouvez créer un article en cliquant sur le bouton ci-dessous.';
     }
-    
+
     protected function getDefaultTableSortColumn(): ?string
     {
         return 'created_at';
     }
-    
+
     protected function getDefaultTableSortDirection(): ?string
     {
         return 'desc';
     }
-    
+
     protected function getTableRecordsPerPageSelectOptions(): array
     {
         return [10, 25, 50, 100];

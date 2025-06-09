@@ -21,12 +21,13 @@ class ArticleSeeder extends Seeder
     {
         // Récupérer un administrateur pour le champ author_id
         $admin = Administrator::first();
-        
-        if (!$admin) {
+
+        if (! $admin) {
             $this->command->error('Aucun administrateur trouvé. Veuillez d\'abord créer un administrateur.');
+
             return;
         }
-        
+
         $articles = [
             [
                 'category' => ArticleCategory::TECH_ECOSYSTEM,
@@ -46,8 +47,8 @@ class ArticleSeeder extends Seeder
                         'title' => 'The Ivorian Tech Ecosystem in Full Expansion',
                         'excerpt' => 'Discover how Ivory Coast is becoming a major technology hub in West Africa.',
                         'content' => "<p><em>This is an automatically translated version of the original French content.</em></p>\n<p>The Ivorian technological ecosystem has experienced remarkable growth in recent years. With the emergence of numerous innovative startups, dynamic coworking spaces, and increasing investor support, Abidjan is gradually establishing itself as an essential tech hub in West Africa.</p>\n\n<p>Several factors explain this rise in power:</p>\n\n<ul>\n<li>A young and increasingly connected population</li>\n<li>Telecommunication infrastructure in constant improvement</li>\n<li>The establishment of major international technology groups</li>\n<li>The development of specialized digital training</li>\n<li>A regulatory framework increasingly favorable to innovation</li>\n</ul>\n\n<p>Initiatives such as the Information Technology and Biotechnology Village (VITIB) in Grand-Bassam or Orange Digital Center in Abidjan demonstrate this positive dynamic.</p>",
-                    ]
-                ]
+                    ],
+                ],
             ],
             [
                 'category' => ArticleCategory::DIGITAL_TRANSFORMATION,
@@ -67,8 +68,8 @@ class ArticleSeeder extends Seeder
                         'title' => 'Challenges of Digital Transformation in Africa',
                         'excerpt' => 'Analysis of obstacles and opportunities in the digitalization process of African economies.',
                         'content' => "<p><em>This is an automatically translated version of the original French content.</em></p>\n<p>Digital transformation represents an unprecedented opportunity for Africa's economic and social development. However, several major challenges must be addressed for this digital revolution to be inclusive and sustainable.</p>\n\n<h3>Infrastructure and connectivity</h3>\n<p>Despite significant progress, internet access remains unequal across the continent. Rural areas are particularly affected by the digital divide. Access costs remain high compared to average purchasing power.</p>\n\n<h3>Training and skills</h3>\n<p>The lack of digital skills is a significant barrier. Educational systems must adapt to train the talent needed for the digital economy.</p>\n\n<h3>Regulatory framework</h3>\n<p>The absence of an adapted legal framework in certain countries limits the development of innovative digital services and consumer protection.</p>",
-                    ]
-                ]
+                    ],
+                ],
             ],
             [
                 'category' => ArticleCategory::ARTIFICIAL_INTELLIGENCE,
@@ -88,26 +89,26 @@ class ArticleSeeder extends Seeder
                         'title' => 'Artificial Intelligence: Practical Applications for African Businesses',
                         'excerpt' => 'How African businesses can leverage AI to improve their operations and services.',
                         'content' => "<p><em>This is an automatically translated version of the original French content.</em></p>\n<p>Artificial intelligence (AI) is no longer a technology of the future, but a reality that is already transforming many economic sectors. In Africa, despite certain constraints, innovative companies are beginning to harness the potential of AI to solve local problems and improve their competitiveness.</p>\n\n<h3>Agriculture</h3>\n<p>Startups like Hello Tractor in Nigeria or Aerobotics in South Africa use AI to optimize agricultural yields, predict crop diseases, and facilitate access to equipment.</p>\n\n<h3>Health</h3>\n<p>In the medical field, AI improves the diagnosis of diseases such as malaria or tuberculosis, particularly in areas where specialists are scarce.</p>\n\n<h3>Financial services</h3>\n<p>Financial institutions use AI to assess credit risks, detect fraud, and offer personalized financial services to unbanked populations.</p>",
-                    ]
-                ]
-            ]
+                    ],
+                ],
+            ],
         ];
-        
+
         foreach ($articles as $articleData) {
             // Extraire les traductions
             $translations = $articleData['translations'];
             unset($articleData['translations']);
-            
+
             // Définir la langue par défaut
             $articleData['default_locale'] = LanguageEnum::FRENCH->value;
-            
+
             // Créer l'article
             $article = Article::create($articleData);
-            
+
             // Ajouter les traductions
             foreach ($translations as $locale => $translationData) {
                 $slug = Str::slug($translationData['title']);
-                
+
                 ArticleTranslation::create([
                     'article_id' => $article->id,
                     'locale' => $locale,
@@ -122,7 +123,7 @@ class ArticleSeeder extends Seeder
             }
         }
     }
-    
+
     /**
      * Calcule le temps de lecture estimé en minutes
      */

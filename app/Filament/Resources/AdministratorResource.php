@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\AdministratorResource\Pages;
-use App\Filament\Resources\AdministratorResource\RelationManagers;
 use App\Models\Administrator;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -19,17 +18,16 @@ class AdministratorResource extends Resource
     protected static ?string $model = Administrator::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-user-circle';
-    
+
     protected static ?string $navigationLabel = 'Administrateurs';
-    
+
     protected static ?string $modelLabel = 'Administrateur';
-    
+
     protected static ?string $pluralModelLabel = 'Administrateurs';
 
     protected static ?string $navigationGroup = 'Administration';
-    
-    protected static ?int $navigationSort = 1;
 
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
@@ -56,7 +54,7 @@ class AdministratorResource extends Resource
                             ->tel()
                             ->maxLength(255),
                     ])->columns(2),
-                    
+
                 Forms\Components\Section::make('Authentification')
                     ->schema([
                         Forms\Components\TextInput::make('password')
@@ -70,7 +68,7 @@ class AdministratorResource extends Resource
                             ->label('Email vérifié le')
                             ->hidden(fn (string $operation): bool => $operation === 'create'),
                     ])->columns(2),
-                    
+
                 Forms\Components\Section::make('Avatar')
                     ->schema([
                         Forms\Components\FileUpload::make('avatar_url')
@@ -153,12 +151,12 @@ class AdministratorResource extends Resource
             'index' => Pages\ManageAdministrators::route('/'),
         ];
     }
-    
+
     public static function getModelLabel(): string
     {
         return __('Administrateur');
     }
-    
+
     public static function getPluralModelLabel(): string
     {
         return __('Administrateurs');

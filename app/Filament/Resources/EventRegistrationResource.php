@@ -5,7 +5,6 @@ namespace App\Filament\Resources;
 use App\Enums\PaymentStatus;
 use App\Enums\RegistrationStatus;
 use App\Filament\Resources\EventRegistrationResource\Pages;
-use App\Filament\Resources\EventRegistrationResource\RelationManagers;
 use App\Models\Event;
 use App\Models\EventRegistration;
 use Filament\Forms;
@@ -14,24 +13,22 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Str;
 
 class EventRegistrationResource extends Resource
 {
     protected static ?string $model = EventRegistration::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-ticket';
-    
+
     protected static ?string $navigationLabel = 'Inscriptions';
-    
+
     protected static ?string $modelLabel = 'Inscription';
-    
+
     protected static ?string $pluralModelLabel = 'Inscriptions';
-    
+
     protected static ?string $navigationGroup = 'Événements';
-    
+
     protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
@@ -43,7 +40,7 @@ class EventRegistrationResource extends Resource
     public static function table(Table $table): Table
     {
         $currentLocale = App::getLocale();
-    
+
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('uuid')
@@ -56,28 +53,28 @@ class EventRegistrationResource extends Resource
                 Tables\Columns\TextColumn::make('email')
                     ->label('Email')
                     ->searchable(),
-                    Tables\Columns\TextColumn::make('translations_title')
+                Tables\Columns\TextColumn::make('translations_title')
                     ->label('Événement')
                     ->state(function (EventRegistration $record) use ($currentLocale) {
                         // Récupérer directement la traduction depuis la relation
                         $translationModel = $record->event->translations()
                             ->where('locale', $currentLocale)
                             ->first();
-                        
+
                         // Si on a une traduction, utiliser son titre
-                        if ($translationModel && !empty($translationModel->title)) {
+                        if ($translationModel && ! empty($translationModel->title)) {
                             return $translationModel->title;
                         }
-                        
+
                         // Sinon, essayer de récupérer la traduction dans la langue par défaut
                         $defaultTranslation = $record->translations()
                             ->where('locale', $record->default_locale)
                             ->first();
-                            
-                        if ($defaultTranslation && !empty($defaultTranslation->title)) {
+
+                        if ($defaultTranslation && ! empty($defaultTranslation->title)) {
                             return $defaultTranslation->title;
                         }
-                        
+
                         // Si aucune traduction n'est trouvée, retourner un message
                         return '[Titre manquant]';
                     })
@@ -114,13 +111,13 @@ class EventRegistrationResource extends Resource
                         $events = Event::with(['translations' => function ($query) use ($currentLocale) {
                             $query->where('locale', $currentLocale);
                         }])->get();
-                        
+
                         // Créer un tableau d'options avec l'ID comme clé et le titre traduit comme valeur
                         return $events->mapWithKeys(function ($event) {
                             // Utiliser la traduction dans la langue actuelle si disponible
                             $translation = $event->translations->first();
-                            $title = $translation && !empty($translation->title) ? $translation->title : '[Titre non traduit]';
-                            
+                            $title = $translation && ! empty($translation->title) ? $translation->title : '[Titre non traduit]';
+
                             return [$event->id => $title];
                         });
                     })

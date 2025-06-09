@@ -32,7 +32,7 @@ class ArticleListController extends Controller
 
         // Articles normaux
         $articles = $query->paginate(9)->withQueryString();
-        
+
         // Précharger les traductions pour optimiser les performances
         $articles->load('translations');
         $featuredArticles->load('translations');
@@ -50,26 +50,26 @@ class ArticleListController extends Controller
     {
         // Récupérer l'article par son slug dans la langue actuelle
         $locale = app()->getLocale();
-        
+
         $article = Article::whereHas('translations', function ($query) use ($slug, $locale) {
             $query->where('slug', $slug)->where('locale', $locale);
         })->first();
-        
+
         // Si l'article n'est pas trouvé dans la langue actuelle, essayer avec la langue par défaut
-        if (!$article && $locale !== config('app.fallback_locale')) {
+        if (! $article && $locale !== config('app.fallback_locale')) {
             $article = Article::whereHas('translations', function ($query) use ($slug) {
                 $query->where('slug', $slug)->where('locale', config('app.fallback_locale'));
             })->first();
         }
-        
+
         // Si toujours pas trouvé, vérifier dans toutes les langues
-        if (!$article) {
+        if (! $article) {
             $article = Article::whereHas('translations', function ($query) use ($slug) {
                 $query->where('slug', $slug);
             })->first();
         }
-        
-        if (!$article || $article->status !== ArticleStatus::PUBLISHED || $article->published_at->isFuture()) {
+
+        if (! $article || $article->status !== ArticleStatus::PUBLISHED || $article->published_at->isFuture()) {
             abort(404);
         }
 

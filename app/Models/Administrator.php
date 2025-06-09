@@ -8,19 +8,14 @@ use Filament\Models\Contracts\HasName;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
-use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
-use Spatie\Permission\Traits\HasRoles;
 
-class Administrator  extends Authenticatable implements FilamentUser, HasAvatar, HasName
+class Administrator extends Authenticatable implements FilamentUser, HasAvatar, HasName
 {
-    use HasFactory, Notifiable, SoftDeletes, HasUuids;
+    use HasFactory, HasUuids, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -35,7 +30,7 @@ class Administrator  extends Authenticatable implements FilamentUser, HasAvatar,
         'email',
         'password',
         'created_by',
-        'deleted_by'
+        'deleted_by',
     ];
 
     /**
@@ -47,11 +42,9 @@ class Administrator  extends Authenticatable implements FilamentUser, HasAvatar,
         'password',
         'remember_token',
     ];
-    
+
     /**
      * Obtenir le nom complet de l'administrateur
-     *
-     * @return string
      */
     public function getFullNameAttribute(): string
     {
@@ -71,11 +64,13 @@ class Administrator  extends Authenticatable implements FilamentUser, HasAvatar,
         ];
     }
 
-    public function author(){
+    public function author()
+    {
         return $this->belongsTo(Administrator::class, 'created_by');
     }
 
-    public function deletedBy(){
+    public function deletedBy()
+    {
         return $this->belongsTo(Administrator::class, 'deleted_by');
     }
 
@@ -91,6 +86,6 @@ class Administrator  extends Authenticatable implements FilamentUser, HasAvatar,
 
     public function getFilamentAvatarUrl(): ?string
     {
-        return $this->avatar_url ? Storage::url($this->avatar_url) : null ;
+        return $this->avatar_url ? Storage::url($this->avatar_url) : null;
     }
 }

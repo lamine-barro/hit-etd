@@ -7,13 +7,8 @@ use App\Enums\RegistrationStatus;
 use App\Filament\Resources\EventRegistrationResource;
 use App\Models\EventRegistration;
 use Filament\Actions;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\ViewField;
 use Filament\Infolists\Components\Grid;
 use Filament\Infolists\Components\Group;
-use Filament\Infolists\Components\IconEntry;
-use Filament\Infolists\Components\ImageEntry;
 use Filament\Infolists\Components\Section as InfolistSection;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
@@ -34,11 +29,11 @@ class ViewEventRegistration extends ViewRecord
                 ->modalSubmitActionLabel('Oui, supprimer'),
         ];
     }
-    
+
     public function infolist(Infolist $infolist): Infolist
     {
         $currentLocale = App::getLocale();
-        
+
         return $infolist
             ->schema([
                 InfolistSection::make('Informations du participant')
@@ -66,7 +61,7 @@ class ViewEventRegistration extends ViewRecord
                                     ->label('Type d\'acteur'),
                             ]),
                     ]),
-                    
+
                 InfolistSection::make('Informations de l\'événement')
                     ->schema([
                         Grid::make(1)
@@ -74,32 +69,32 @@ class ViewEventRegistration extends ViewRecord
                                 TextEntry::make('event')
                                     ->label('Événement')
                                     ->formatStateUsing(function (EventRegistration $record) use ($currentLocale) {
-                                        if (!$record->event) {
+                                        if (! $record->event) {
                                             return 'Non spécifié';
                                         }
-                                        
+
                                         // Récupérer la traduction dans la langue actuelle
                                         $translation = $record->event->translations()
                                             ->where('locale', $currentLocale)
                                             ->first();
-                                            
+
                                         if ($translation && $translation->title) {
                                             return $translation->title;
                                         }
-                                        
+
                                         // Essayer avec la langue par défaut si aucune traduction n'est trouvée
                                         $defaultTranslation = $record->event->translations()
                                             ->where('locale', $record->event->default_locale)
                                             ->first();
-                                            
+
                                         if ($defaultTranslation && $defaultTranslation->title) {
                                             return $defaultTranslation->title;
                                         }
-                                        
+
                                         return '[Titre non traduit]';
                                     })
                                     ->icon('heroicon-o-calendar'),
-                                    
+
                                 Group::make([
                                     TextEntry::make('event.start_date')
                                         ->label('Date de début')
@@ -110,59 +105,59 @@ class ViewEventRegistration extends ViewRecord
                                         ->dateTime('d/m/Y H:i')
                                         ->icon('heroicon-o-clock'),
                                 ])->columns(2),
-                                
+
                                 TextEntry::make('event')
                                     ->label('Lieu')
                                     ->formatStateUsing(function (EventRegistration $record) use ($currentLocale) {
-                                        if (!$record->event) {
+                                        if (! $record->event) {
                                             return 'Non spécifié';
                                         }
-                                        
+
                                         // Récupérer la traduction dans la langue actuelle
                                         $translation = $record->event->translations()
                                             ->where('locale', $currentLocale)
                                             ->first();
-                                            
+
                                         if ($translation && $translation->location) {
                                             return $translation->location;
                                         }
-                                        
+
                                         // Essayer avec la langue par défaut si aucune traduction n'est trouvée
                                         $defaultTranslation = $record->event->translations()
                                             ->where('locale', $record->event->default_locale)
                                             ->first();
-                                            
+
                                         if ($defaultTranslation && $defaultTranslation->location) {
                                             return $defaultTranslation->location;
                                         }
-                                        
+
                                         return '[Lieu non traduit]';
                                     })
                                     ->icon('heroicon-o-map-pin'),
-                                    
+
                                 TextEntry::make('event.is_remote')
                                     ->label('Format')
                                     ->formatStateUsing(fn ($state) => $state ? 'En ligne' : 'Présentiel')
                                     ->icon(fn ($state) => $state ? 'heroicon-o-computer-desktop' : 'heroicon-o-building-office-2'),
-                                    
+
                                 TextEntry::make('event.is_paid')
                                     ->label('Tarification')
                                     ->formatStateUsing(function (EventRegistration $record) {
-                                        if (!$record->event) {
+                                        if (! $record->event) {
                                             return 'Non spécifié';
                                         }
-                                        
-                                        if (!$record->event->is_paid) {
+
+                                        if (! $record->event->is_paid) {
                                             return 'Gratuit';
                                         }
-                                        
-                                        return $record->event->price . ' ' . $record->event->currency;
+
+                                        return $record->event->price.' '.$record->event->currency;
                                     })
                                     ->icon('heroicon-o-currency-dollar'),
                             ]),
                     ])
                     ->collapsible(),
-                    
+
                 InfolistSection::make('Statut de l\'inscription')
                     ->schema([
                         Grid::make(2)
@@ -186,7 +181,7 @@ class ViewEventRegistration extends ViewRecord
                                     ->label('Référence de paiement'),
                             ]),
                     ]),
-                    
+
                 InfolistSection::make('Informations système')
                     ->schema([
                         Grid::make(2)

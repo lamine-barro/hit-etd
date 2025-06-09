@@ -12,7 +12,7 @@ enum LanguageEnum: string
      */
     public function label(): string
     {
-        return match($this) {
+        return match ($this) {
             self::FRENCH => 'Français',
             self::ENGLISH => 'Anglais',
         };
@@ -55,7 +55,7 @@ enum LanguageEnum: string
                 return $case;
             }
         }
-        
+
         return null;
     }
 }

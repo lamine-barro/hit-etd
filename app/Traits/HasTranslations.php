@@ -20,7 +20,6 @@ trait HasTranslations
     /**
      * Obtenir la traduction du modèle dans la langue spécifiée.
      *
-     * @param string|null|LanguageEnum $locale
      * @return mixed
      */
     public function translation(string|LanguageEnum|null $locale = null)
@@ -37,7 +36,6 @@ trait HasTranslations
     /**
      * Obtenir ou créer une traduction dans la langue spécifiée.
      *
-     * @param string|null|LanguageEnum $locale
      * @return mixed
      */
     public function getOrCreateTranslation(string|LanguageEnum|null $locale = null)
@@ -50,7 +48,7 @@ trait HasTranslations
 
         $translation = $this->translation($locale);
 
-        if (!$translation) {
+        if (! $translation) {
             // Créer une nouvelle traduction basée sur la langue par défaut
             $defaultTranslation = $this->translation($this->default_locale);
 
@@ -63,7 +61,7 @@ trait HasTranslations
 
                 // Cas spécial pour le slug, ajouter le code de langue
                 if ($attribute === 'slug') {
-                    $data[$attribute] = $data[$attribute] . '-' . $locale;
+                    $data[$attribute] = $data[$attribute].'-'.$locale;
                 }
             }
 
@@ -76,12 +74,11 @@ trait HasTranslations
     /**
      * Obtenir l'attribut traduit dans la langue actuelle.
      *
-     * @param string $key
      * @return mixed
      */
     public function getTranslatedAttribute(string $key)
     {
-        if (!in_array($key, $this->getTranslatableAttributes())) {
+        if (! in_array($key, $this->getTranslatableAttributes())) {
             return $this->$key;
         }
 
@@ -106,15 +103,14 @@ trait HasTranslations
     /**
      * Définir l'attribut traduit dans la langue actuelle.
      *
-     * @param string $key
-     * @param mixed $value
-     * @param string|null|LanguageEnum $locale
+     * @param  mixed  $value
      * @return void
      */
     public function setTranslatedAttribute(string $key, $value, string|LanguageEnum|null $locale = null)
     {
-        if (!in_array($key, $this->getTranslatableAttributes())) {
+        if (! in_array($key, $this->getTranslatableAttributes())) {
             $this->$key = $value;
+
             return;
         }
 
@@ -131,18 +127,14 @@ trait HasTranslations
 
     /**
      * Obtenir le nom du modèle de traduction.
-     *
-     * @return string
      */
     protected function getTranslationModelName(): string
     {
-        return static::class . 'Translation';
+        return static::class.'Translation';
     }
 
     /**
      * Obtenir les attributs traduisibles.
-     *
-     * @return array
      */
     public function getTranslatableAttributes(): array
     {
@@ -152,7 +144,7 @@ trait HasTranslations
     /**
      * Méthode magique pour accéder aux attributs traduits.
      *
-     * @param string $key
+     * @param  string  $key
      * @return mixed
      */
     public function __get($key)
@@ -167,14 +159,15 @@ trait HasTranslations
     /**
      * Méthode magique pour définir les attributs traduits.
      *
-     * @param string $key
-     * @param mixed $value
+     * @param  string  $key
+     * @param  mixed  $value
      * @return void
      */
     public function __set($key, $value)
     {
         if (in_array($key, $this->getTranslatableAttributes())) {
             $this->setTranslatedAttribute($key, $value);
+
             return;
         }
 

@@ -7,32 +7,31 @@ use App\Enums\EventStatus;
 use App\Enums\EventType;
 use App\Enums\LanguageEnum;
 use App\Filament\Resources\EventResource\Pages;
-use App\Filament\Resources\EventResource\RelationManagers;
-use App\Models\Administrator;
 use App\Models\Event;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
-use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\HtmlString;
-use Illuminate\Support\Str;
 
 class EventResource extends Resource
 {
     protected static ?string $model = Event::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-calendar';    
+    protected static ?string $navigationIcon = 'heroicon-o-calendar';
+
     protected static ?string $navigationLabel = 'Événements';
+
     protected static ?string $modelLabel = 'Événement';
+
     protected static ?string $pluralModelLabel = 'Événements';
 
     protected static ?string $navigationGroup = 'Événements';
+
     protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
@@ -40,7 +39,7 @@ class EventResource extends Resource
         // Langues disponibles
         $availableLocales = LanguageEnum::toArray();
         $currentLocale = App::getLocale();
-        
+
         return $form
             ->columns(1)
             ->schema([
@@ -58,12 +57,12 @@ class EventResource extends Resource
                                             ->default(LanguageEnum::FRENCH->value)
                                             ->required()
                                             ->reactive(),
-                                            
+
                                         Forms\Components\Select::make('type')
                                             ->label('Type d\'événement')
                                             ->options(array_combine(EventType::values(), array_map(fn ($type) => EventType::from($type)->label(), EventType::values())))
                                             ->required(),
-                                            
+
                                         // Le champ title a été supprimé car il est maintenant géré par les traductions
 
                                         Forms\Components\Select::make('status')
@@ -72,12 +71,12 @@ class EventResource extends Resource
                                             ->default(EventStatus::DRAFT->value)
                                             ->columnSpanFull()
                                             ->required(),
-                                            
+
                                         Forms\Components\Hidden::make('created_by')
-                                            ->default(fn () => auth()->id()) // Utilise automatiquement l'ID de l'utilisateur connecté
+                                            ->default(fn () => auth('admin')->id()) // Utilise automatiquement l'ID de l'utilisateur connecté
                                             ->dehydrated(true) // Assure que la valeur est envoyée au serveur
                                             ->required(),
-                                            
+
                                         Forms\Components\FileUpload::make('illustration')
                                             ->label('Image d\'illustration')
                                             ->helperText('Recommandé : 1200x630px pour un affichage optimal sur les réseaux sociaux')
@@ -91,26 +90,26 @@ class EventResource extends Resource
                                             ->columnSpanFull(),
                                     ]),
                             ]),
-                            
+
                         // Onglets pour chaque langue disponible
                         ...collect($availableLocales)->map(function ($label, $locale) {
                             return Forms\Components\Tabs\Tab::make($label)
                                 ->icon('heroicon-o-language')
                                 ->schema([
-                                        
-                                    Forms\Components\Section::make('Contenu en ' . $label)
+
+                                    Forms\Components\Section::make('Contenu en '.$label)
                                         ->schema([
-                                            Forms\Components\TextInput::make('translations.' . $locale . '.title')
+                                            Forms\Components\TextInput::make('translations.'.$locale.'.title')
                                                 ->label('Titre')
                                                 ->required(fn (callable $get) => $get('default_locale') === $locale)
                                                 ->maxLength(255),
-                                                
-                                            Forms\Components\TextInput::make('translations.' . $locale . '.location')
+
+                                            Forms\Components\TextInput::make('translations.'.$locale.'.location')
                                                 ->label('Lieu')
                                                 ->required(fn (callable $get) => $get('default_locale') === $locale)
                                                 ->maxLength(255),
-                                                
-                                            Forms\Components\RichEditor::make('translations.' . $locale . '.description')
+
+                                            Forms\Components\RichEditor::make('translations.'.$locale.'.description')
                                                 ->label('Description')
                                                 ->required(fn (callable $get) => $get('default_locale') === $locale)
                                                 ->fileAttachmentsDisk('public')
@@ -118,48 +117,48 @@ class EventResource extends Resource
                                                 ->fileAttachmentsVisibility('public')
                                                 ->helperText('Utilisez les outils de mise en forme pour structurer votre contenu')
                                                 ->columnSpanFull(),
-                                                
-                                            Forms\Components\Toggle::make('show_seo_' . $locale)
+
+                                            Forms\Components\Toggle::make('show_seo_'.$locale)
                                                 ->label('Afficher les options SEO')
                                                 ->default(false)
                                                 ->live()
                                                 ->helperText('Activez cette option pour configurer les paramètres SEO spécifiques'),
-                                                
+
                                             Forms\Components\Grid::make(2)
                                                 ->schema([
-                                                    Forms\Components\TextInput::make('translations.' . $locale . '.meta_title')
+                                                    Forms\Components\TextInput::make('translations.'.$locale.'.meta_title')
                                                         ->label('Titre SEO')
                                                         ->helperText('Laissez vide pour utiliser le titre de l\'événement'),
-                                                        
-                                                    Forms\Components\Textarea::make('translations.' . $locale . '.meta_description')
+
+                                                    Forms\Components\Textarea::make('translations.'.$locale.'.meta_description')
                                                         ->label('Description SEO')
                                                         ->helperText('Laissez vide pour utiliser la description de l\'événement')
                                                         ->rows(2),
-                                                    
-                                                    Forms\Components\TextInput::make('translations.' . $locale . '.meta_keywords')
+
+                                                    Forms\Components\TextInput::make('translations.'.$locale.'.meta_keywords')
                                                         ->label('Mots-clés SEO')
                                                         ->placeholder('mot-clé1, mot-clé2, mot-clé3')
                                                         ->helperText('Séparés par des virgules (important pour le référencement)'),
-                                                        
-                                                    Forms\Components\Select::make('translations.' . $locale . '.og_type')
+
+                                                    Forms\Components\Select::make('translations.'.$locale.'.og_type')
                                                         ->label('Type Open Graph')
                                                         ->options([
                                                             'event' => 'Événement',
                                                             'website' => 'Site web',
-                                                            'article' => 'Article'
+                                                            'article' => 'Article',
                                                         ])
                                                         ->default('event')
-                                                        ->helperText('Type de contenu pour les réseaux sociaux')
+                                                        ->helperText('Type de contenu pour les réseaux sociaux'),
                                                 ])
                                                 ->columns(2)
-                                                ->visible(fn (callable $get) => $get('show_seo_' . $locale))
-                                                ->columnSpanFull()
-                                        ])
+                                                ->visible(fn (callable $get) => $get('show_seo_'.$locale))
+                                                ->columnSpanFull(),
+                                        ]),
                                 ])
                                 ->visible(fn (callable $get) => $get('default_locale') === $locale || static::shouldShowTranslation($locale));
-                        })->toArray()
+                        })->toArray(),
                     ]),
-                    
+
                 Forms\Components\Section::make('Dates et lieu')
                     ->schema([
                         Forms\Components\DateTimePicker::make('start_date')
@@ -180,7 +179,7 @@ class EventResource extends Resource
                             ->visible(fn (Get $get): bool => $get('is_remote')),
                     ])
                     ->columns(2),
-                    
+
                 Forms\Components\Section::make('Inscriptions')
                     ->schema([
                         Forms\Components\TextInput::make('max_participants')
@@ -194,7 +193,7 @@ class EventResource extends Resource
                             ->before('start_date'),
                     ])
                     ->columns(2),
-                    
+
                 Forms\Components\Section::make('Tarification')
                     ->schema([
                         Forms\Components\Toggle::make('is_paid')
@@ -211,7 +210,7 @@ class EventResource extends Resource
                                     ->visible(fn (Get $get): bool => $get('is_paid')),
                                 Forms\Components\Select::make('currency')
                                     ->label('Devise')
-                                    ->options(array_combine(Currency::values(), array_map(fn ($currency) => Currency::from($currency)->label() . ' (' . Currency::from($currency)->symbol() . ')', Currency::values())))
+                                    ->options(array_combine(Currency::values(), array_map(fn ($currency) => Currency::from($currency)->label().' ('.Currency::from($currency)->symbol().')', Currency::values())))
                                     ->default(Currency::XOF->value)
                                     ->required()
                                     ->visible(fn (Get $get): bool => $get('is_paid')),
@@ -230,10 +229,10 @@ class EventResource extends Resource
                                     ->visible(fn (Get $get): bool => $get('is_paid') && $get('early_bird_price')),
                             ]),
                     ]),
-                    
+
                 Forms\Components\Hidden::make('created_by')
-                    ->dehydrateStateUsing(fn () => auth()->user()->id ?? null)
-                    ->default(fn () => auth()->user()->id ?? null)
+                    ->dehydrateStateUsing(fn () => auth('admin')->user()->id ?? null)
+                    ->default(fn () => auth('admin')->user()->id ?? null)
                     ->required()
                     ->visibleOn('create'),
             ]);
@@ -242,7 +241,7 @@ class EventResource extends Resource
     public static function table(Table $table): Table
     {
         $currentLocale = App::getLocale();
-        
+
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('illustration')
@@ -258,21 +257,21 @@ class EventResource extends Resource
                         $translationModel = $record->translations()
                             ->where('locale', $currentLocale)
                             ->first();
-                        
+
                         // Si on a une traduction, utiliser son titre
-                        if ($translationModel && !empty($translationModel->title)) {
+                        if ($translationModel && ! empty($translationModel->title)) {
                             return $translationModel->title;
                         }
-                        
+
                         // Sinon, essayer de récupérer la traduction dans la langue par défaut
                         $defaultTranslation = $record->translations()
                             ->where('locale', $record->default_locale)
                             ->first();
-                            
-                        if ($defaultTranslation && !empty($defaultTranslation->title)) {
+
+                        if ($defaultTranslation && ! empty($defaultTranslation->title)) {
                             return $defaultTranslation->title;
                         }
-                        
+
                         // Si aucune traduction n'est trouvée, retourner un message
                         return '[Titre manquant]';
                     })
@@ -283,7 +282,7 @@ class EventResource extends Resource
                     ->label('Type')
                     ->formatStateUsing(fn (string $state): string => EventType::from($state)->label())
                     ->badge()
-                    ->color(fn (string $state): string => match($state) {
+                    ->color(fn (string $state): string => match ($state) {
                         EventType::CONFERENCE->value => 'primary',
                         EventType::WORKSHOP->value => 'warning',
                         EventType::WEBINAR->value => 'info',
@@ -303,21 +302,21 @@ class EventResource extends Resource
                         $translationModel = $record->translations()
                             ->where('locale', $currentLocale)
                             ->first();
-                        
+
                         // Si on a une traduction, utiliser son lieu
-                        if ($translationModel && !empty($translationModel->location)) {
+                        if ($translationModel && ! empty($translationModel->location)) {
                             return $translationModel->location;
                         }
-                        
+
                         // Sinon, essayer de récupérer la traduction dans la langue par défaut
                         $defaultTranslation = $record->translations()
                             ->where('locale', $record->default_locale)
                             ->first();
-                            
-                        if ($defaultTranslation && !empty($defaultTranslation->location)) {
+
+                        if ($defaultTranslation && ! empty($defaultTranslation->location)) {
                             return $defaultTranslation->location;
                         }
-                        
+
                         // Si aucune traduction n'est trouvée, retourner un message
                         return '[Lieu manquant]';
                     })
@@ -336,9 +335,9 @@ class EventResource extends Resource
                     ->label('Prix')
                     ->getStateUsing(function (Event $record): string {
                         if ($record->is_paid) {
-                            return number_format((float)$record->price, 0, ',', ' ') . ' ' . Currency::from($record->currency)->symbol();
+                            return number_format((float) $record->price, 0, ',', ' ').' '.Currency::from($record->currency)->symbol();
                         }
-                        
+
                         return 'Gratuit';
                     })
                     ->badge()
@@ -349,7 +348,7 @@ class EventResource extends Resource
                     ->label('Statut')
                     ->formatStateUsing(fn (string $state): string => EventStatus::from($state)->label())
                     ->badge()
-                    ->color(fn (string $state): string => match($state) {
+                    ->color(fn (string $state): string => match ($state) {
                         EventStatus::PUBLISHED->value => 'success',
                         EventStatus::DRAFT->value => 'gray',
                         EventStatus::CANCELLED->value => 'danger',
@@ -357,7 +356,7 @@ class EventResource extends Resource
                     }),
                 Tables\Columns\TextColumn::make('createdBy.first_name')
                     ->label('Créé par')
-                    ->formatStateUsing(fn ($state, $record) => $record->createdBy ? $record->createdBy->first_name . ' ' . $record->createdBy->last_name : '-')
+                    ->formatStateUsing(fn ($state, $record) => $record->createdBy ? $record->createdBy->first_name.' '.$record->createdBy->last_name : '-')
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Créé le')
@@ -433,12 +432,11 @@ class EventResource extends Resource
                 SoftDeletingScope::class,
             ]);
     }
-    
+
     /**
      * Détermine si une traduction doit être affichée dans le formulaire.
-     * 
-     * @param string $locale Code de la langue
-     * @return bool
+     *
+     * @param  string  $locale  Code de la langue
      */
     public static function shouldShowTranslation(string $locale): bool
     {
@@ -446,11 +444,11 @@ class EventResource extends Resource
         if (in_array($locale, [LanguageEnum::FRENCH->value, LanguageEnum::ENGLISH->value])) {
             return true;
         }
-        
+
         // Pour les autres langues, on peut ajouter une logique spécifique si nécessaire
         return false;
     }
-    
+
     /**
      * Badge de navigation indiquant le nombre d'événements
      */

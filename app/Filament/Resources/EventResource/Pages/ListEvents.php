@@ -41,7 +41,7 @@ class ListEvents extends ListRecords
                 ->modifyQueryUsing(fn (Builder $query) => $query->where('status', EventStatus::DRAFT->value)),
         ];
     }
-    
+
     protected function getTableEmptyStateActions(): array
     {
         return [

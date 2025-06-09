@@ -56,8 +56,6 @@ class Partnership extends Model
 
     /**
      * Détermine si la demande de partenariat a été traitée.
-     *
-     * @return bool
      */
     public function isProcessed(): bool
     {
@@ -66,8 +64,6 @@ class Partnership extends Model
 
     /**
      * Détermine si la demande de partenariat est en attente.
-     *
-     * @return bool
      */
     public function isPending(): bool
     {
@@ -76,8 +72,6 @@ class Partnership extends Model
 
     /**
      * Détermine si la demande de partenariat a été approuvée.
-     *
-     * @return bool
      */
     public function isApproved(): bool
     {
@@ -86,8 +80,6 @@ class Partnership extends Model
 
     /**
      * Détermine si la demande de partenariat a été refusée.
-     *
-     * @return bool
      */
     public function isRejected(): bool
     {
@@ -96,8 +88,6 @@ class Partnership extends Model
 
     /**
      * Détermine si la demande de partenariat est en discussion.
-     *
-     * @return bool
      */
     public function isInDiscussion(): bool
     {

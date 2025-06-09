@@ -51,8 +51,8 @@ class ArticleTranslation extends Model
             if (empty($translation->slug)) {
                 $translation->slug = $translation->generateUniqueSlug($translation->title);
             }
-            
-            if (empty($translation->reading_time) && !empty($translation->content)) {
+
+            if (empty($translation->reading_time) && ! empty($translation->content)) {
                 $translation->reading_time = $translation->calculateReadingTime();
             }
         });
@@ -61,7 +61,7 @@ class ArticleTranslation extends Model
             if ($translation->isDirty('title') && empty($translation->slug)) {
                 $translation->slug = $translation->generateUniqueSlug($translation->title);
             }
-            
+
             if ($translation->isDirty('content')) {
                 $translation->reading_time = $translation->calculateReadingTime();
             }
@@ -71,7 +71,7 @@ class ArticleTranslation extends Model
     /**
      * Génère un slug unique basé sur le titre.
      *
-     * @param string $title
+     * @param  string  $title
      * @return string
      */
     protected function generateUniqueSlug($title)
@@ -92,7 +92,7 @@ class ArticleTranslation extends Model
         $wordCount = str_word_count(strip_tags($this->content));
         // Moyenne de 200 mots par minute pour la lecture
         $minutes = ceil($wordCount / 200);
-        
+
         return max(1, $minutes);
     }
 

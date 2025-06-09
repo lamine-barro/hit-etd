@@ -25,19 +25,19 @@ return new class extends Migration
             $table->string('meta_keywords')->nullable();
             $table->string('og_type')->default('article')->nullable();
             $table->integer('reading_time')->nullable();
-            
+
             // Clé unique pour éviter les doublons de traduction pour un même article
             $table->unique(['article_id', 'locale']);
-            
+
             $table->timestamps();
         });
-        
+
         // Modifier la table articles pour déplacer les champs traduits
         Schema::table('articles', function (Blueprint $table) {
             // Supprimer les colonnes qui seront déplacées vers la table de traductions
             // Nous gardons ces colonnes pour la langue par défaut
             // $table->dropColumn(['title', 'slug', 'excerpt', 'content', 'reading_time']);
-            
+
             // Ajouter une colonne pour la langue par défaut
             $table->string('default_locale')->default(LanguageEnum::FRENCH->value)->after('id');
         });
@@ -52,7 +52,7 @@ return new class extends Migration
         Schema::table('articles', function (Blueprint $table) {
             $table->dropColumn('default_locale');
         });
-        
+
         Schema::dropIfExists('article_translations');
     }
 };

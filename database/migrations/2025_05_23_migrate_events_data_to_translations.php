@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 return new class extends Migration
 {
@@ -13,17 +12,17 @@ return new class extends Migration
     {
         // Récupérer tous les événements existants
         $events = DB::table('events')->get();
-        
+
         foreach ($events as $event) {
             // Vérifier si une traduction existe déjà pour cet événement dans la langue par défaut
             $defaultLocale = $event->default_locale ?? 'fr';
-            
+
             $existingTranslation = DB::table('event_translations')
                 ->where('event_id', $event->id)
                 ->where('locale', $defaultLocale)
                 ->first();
-                
-            if (!$existingTranslation) {
+
+            if (! $existingTranslation) {
                 // Créer une traduction pour cet événement
                 DB::table('event_translations')->insert([
                     'event_id' => $event->id,
