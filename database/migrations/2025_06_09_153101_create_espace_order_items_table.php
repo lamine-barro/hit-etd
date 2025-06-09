@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('espace_order_items', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('espace_id')->constrained('espaces')->onDelete('restrict');
             $table->foreignId('espace_order_id')->constrained('espace_orders')->onDelete('cascade');
             $table->integer('quantity')->default(1);
             $table->decimal('price', 10, 2);

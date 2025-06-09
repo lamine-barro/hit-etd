@@ -8,13 +8,27 @@ class EspaceOrder extends Model
 {
     use \Illuminate\Database\Eloquent\Factories\HasFactory;
 
+    public const STATUSES = [
+        'pending' => 'En attente',
+        'processing' => 'En traitement',
+        'completed' => 'Terminé',
+        'cancelled' => 'Annulé',
+    ];
+
+    public const PAYMENT_METHODS = [
+        'credit_card' => 'Carte de crédit',
+        'paypal' => 'PayPal',
+        'bank_transfer' => 'Virement bancaire',
+        'mobile_money' => 'Mobile Money',
+        'cash_on_delivery' => 'Cash',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<string>
      */
     protected $fillable = [
-        'espace_id',
         'user_id',
         'reference',
         'quantity',

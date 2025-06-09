@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resident\Pages;
 
+use App\Filament\Resident\Widgets\CalendarWidget;
 use Filament\Pages\Dashboard as BaseDashboard;
 use Filament\Widgets\Widget;
 use Filament\Widgets\WidgetConfiguration;
@@ -20,6 +21,7 @@ class Dashboard extends BaseDashboard
     public function getWidgets(): array
     {
         return [
+            CalendarWidget::class,
         ];
     }
 }

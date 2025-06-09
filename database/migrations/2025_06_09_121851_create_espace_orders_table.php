@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('espace_orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('espace_id')->constrained('espaces')->onDelete('restrict');
             $table->foreignId('user_id')->constrained('users')->onDelete('restrict');
             $table->string('reference')->unique();
             $table->dateTime('order_date');

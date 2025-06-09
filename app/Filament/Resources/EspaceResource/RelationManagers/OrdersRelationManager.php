@@ -26,7 +26,7 @@ class OrdersRelationManager extends RelationManager
     {
         return $table
             ->recordTitleAttribute('id')
-            ->heading("")
+            ->heading('')
             ->columns([
                 Tables\Columns\TextColumn::make('reference')
                     ->label('Référence')

@@ -3,7 +3,9 @@
 namespace App\Filament\Resident\Resources;
 
 use App\Filament\Resident\Resources\EspaceOrderResource\Pages;
+use App\Models\Espace;
 use App\Models\EspaceOrder;
+use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -13,13 +15,73 @@ class EspaceOrderResource extends Resource
 {
     protected static ?string $model = EspaceOrder::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-ticket';
+
+    protected static ?int $navigationSort = 2;
+
+    protected static ?string $navigationLabel = 'Réservations d\'espaces';
+
+    protected static ?string $modelLabel = 'Réservation d\'espace';
+
+    protected static ?string $pluralModelLabel = 'Réservations d\'espaces';
+
+    protected static ?string $slug = 'espace-orders';
+
+    protected static ?string $recordTitleAttribute = 'reference';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                Forms\Components\Section::make('Informations de réservation')
+                    ->columns(2)
+                    ->schema([
+                        Forms\Components\DateTimePicker::make('started_at')
+                            ->helperText('Date et heure de début de la réservation')
+                            ->label('Début'),
+
+                        Forms\Components\DateTimePicker::make('ended_at')
+                            ->helperText('Date et heure de fin de la réservation')
+                            ->label('Fin'),
+
+                        Forms\Components\TextInput::make('notes')
+                            ->helperText('Notes ou instructions spéciales pour la réservation')
+                            ->label('Notes'),
+
+                        Forms\Components\Select::make('payment_method')
+                            ->options(EspaceOrder::PAYMENT_METHODS)
+                            ->helperText('Méthode de paiement utilisée pour cette réservation')
+                            ->label('Méthode de paiement'),
+                    ]),
+
+                Forms\Components\Section::make('Informations les espaces')
+                    ->description('Informations sur l\'espace réservé')
+                    ->schema([
+                        Forms\Components\Repeater::make('espaces')
+                            ->label('Espaces réservés')
+                            ->addActionLabel('Ajouter un espace')
+                            ->schema([
+                                Forms\Components\Select::make('type')
+                                    ->label('Type d\'espace')
+                                    ->options(Espace::FR_TYPES)
+                                    ->helperText('Type d\'espace réservé')
+                                    ->required(),
+
+                                Forms\Components\Select::make('espace_id')
+                                    ->label('Espace')
+                                    ->options(Espace::all()->pluck('name', 'id'))
+                                    ->searchable()
+                                    ->helperText('Sélectionnez l\'espace à réserver')
+                                    ->required(),
+
+                                Forms\Components\TextInput::make('quantity')
+                                    ->label('Quantité')
+                                    ->numeric()
+                                    ->minValue(1)
+                                    ->default(1)
+                                    ->required(),
+                            ])->columns(3),
+                    ])->columns(1),
             ]);
     }
 
@@ -27,7 +89,31 @@ class EspaceOrderResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('reference')
+                    ->label('Référence')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('espace.name')
+                    ->label('Espace'),
+                Tables\Columns\TextColumn::make('user.email')
+                    ->label('Utilisateur'),
+                Tables\Columns\TextColumn::make('order_date')
+                    ->label('Date de commande')
+                    ->dateTime('d/m/Y H:i'),
+                Tables\Columns\TextColumn::make('status')
+                    ->label('Statut'),
+                Tables\Columns\TextColumn::make('total_amount')
+                    ->label('Montant total'),
+                Tables\Columns\TextColumn::make('payment_method')
+                    ->label('Méthode de paiement'),
+                Tables\Columns\TextColumn::make('started_at')
+                    ->label('Début')
+                    ->dateTime('d/m/Y H:i'),
+                Tables\Columns\TextColumn::make('ended_at')
+                    ->label('Fin')
+                    ->dateTime('d/m/Y H:i'),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Créé le')
+                    ->dateTime('d/m/Y H:i'),
             ])
             ->filters([
                 //

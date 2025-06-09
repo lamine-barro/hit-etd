@@ -20,8 +20,9 @@
         "laravel/tinker": "^2.9",
         "maatwebsite/excel": "^3.1",
         "nuxtifyts/dash-stack-theme": "^1.2",
-        "spatie/laravel-sluggable": "^3.7",
         "openspout/openspout": "v4.28.5",
+        "saade/filament-fullcalendar": "^3.2",
+        "spatie/laravel-sluggable": "^3.7",
         "ysfkaya/filament-phone-input": "^3.1"
     },
     "require-dev": {
