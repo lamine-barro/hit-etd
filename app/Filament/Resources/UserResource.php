@@ -38,6 +38,14 @@ class UserResource extends Resource
                     ->schema([
                         Grid::make(2)
                             ->schema([
+                                Forms\Components\Select::make('type')
+                                    ->label('Type')
+                                    ->options([
+                                        'resident' => 'Résident',
+                                        'admin' => 'Administrateur',
+                                        'manager' => 'Gestionnaire',
+                                    ]),
+
                                 Forms\Components\TextInput::make('name')
                                     ->label('Nom complet')
                                     ->required()
@@ -54,18 +62,6 @@ class UserResource extends Resource
                                     ->tel()
                                     ->maxLength(255),
                             ]),
-                    ]),
-
-                Section::make('Sécurité')
-                    ->description('Paramètres de sécurité du compte')
-                    ->icon('heroicon-o-lock-closed')
-                    ->schema([
-                        Forms\Components\TextInput::make('password')
-                            ->label('Mot de passe')
-                            ->password()
-                            ->dehydrated(fn (?string $state): bool => filled($state))
-                            ->required(fn (string $operation): bool => $operation === 'create')
-                            ->maxLength(255),
                     ]),
             ]);
     }
@@ -129,7 +125,8 @@ class UserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageUsers::route('/'),
+            'index' => Pages\ListUsers::route('/'),
+            // 'create' => Pages\CreateUser::route('/create'),
         ];
     }
 }

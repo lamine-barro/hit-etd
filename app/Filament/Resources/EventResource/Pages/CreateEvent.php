@@ -48,7 +48,7 @@ class CreateEvent extends CreateRecord
 
         // Assurons-nous que created_by est défini
         if (! isset($data['created_by']) || empty($data['created_by'])) {
-            $data['created_by'] = auth()->user()->id ?? null;
+            $data['created_by'] = auth('admin')->user()->id ?? null;
         }
 
         // Si l'événement est gratuit, on force price à null mais on garde currency à XOF (valeur par défaut)

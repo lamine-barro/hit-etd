@@ -163,7 +163,6 @@ class ArticleResource extends Resource
 
                 Forms\Components\Section::make('Médias et métadonnées')
                     ->schema([
-
                         Forms\Components\FileUpload::make('illustration')
                             ->label('Image d\'illustration')
                             ->helperText('Recommandé : 1200x630px pour un affichage optimal sur les réseaux sociaux')
@@ -188,6 +187,7 @@ class ArticleResource extends Resource
                                 }
                             })
                             ->dehydrateStateUsing(fn (array $state) => json_encode($state)),
+
                         Forms\Components\Grid::make(2)
                             ->schema([
                                 Forms\Components\Toggle::make('featured')

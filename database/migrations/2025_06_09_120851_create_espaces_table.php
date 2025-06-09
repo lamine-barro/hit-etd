@@ -13,14 +13,18 @@ return new class extends Migration
     {
         Schema::create('espaces', function (Blueprint $table) {
             $table->id();
+            $table->string('illustration')->nullable();
+            $table->json('images')->nullable();
             $table->string('name');
             $table->string('code');
             $table->string('type');
             $table->integer('price');
+            $table->integer('minimum_duration')->default(1); // in hours
             $table->string('floor')->nullable();
             $table->string('location')->nullable();
             $table->string('number_of_rooms')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

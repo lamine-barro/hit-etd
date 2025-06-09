@@ -1,37 +1,32 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Resources\EspaceResource\RelationManagers;
 
-use App\Filament\Resources\EspaceOrderResource\Pages;
-use App\Models\EspaceOrder;
+use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
 
-class EspaceOrderResource extends Resource
+class OrdersRelationManager extends RelationManager
 {
-    protected static ?string $model = EspaceOrder::class;
+    protected static string $relationship = 'orders';
 
-    protected static ?string $navigationIcon = 'heroicon-s-ticket';
-
-    protected static ?string $navigationLabel = 'Commandes d\'espaces';
-
-    protected static ?string $modelLabel = 'Commande d\'espace';
-
-    protected static ?string $navigationGroup = 'Résidents';
-
-    protected static ?int $navigationSort = 3;
-
-    public static function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
-            ->schema([]);
+            ->schema([
+                Forms\Components\TextInput::make('id')
+                    ->required()
+                    ->maxLength(255),
+            ]);
     }
 
-    public static function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
+            ->recordTitleAttribute('id')
+            ->heading("")
             ->columns([
                 Tables\Columns\TextColumn::make('reference')
                     ->label('Référence')
@@ -60,29 +55,17 @@ class EspaceOrderResource extends Resource
             ->filters([
                 //
             ])
+            ->headerActions([
+                Tables\Actions\CreateAction::make(),
+            ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
-    public static function getPages(): array
-    {
-        return [
-            'index' => Pages\ListEspaceOrders::route('/'),
-            // 'create' => Pages\CreateEspaceOrder::route('/create'),
-            'edit' => Pages\EditEspaceOrder::route('/{record}/edit'),
-        ];
     }
 }

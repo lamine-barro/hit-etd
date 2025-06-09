@@ -11,18 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('espace_orders', function (Blueprint $table) {
+        Schema::create('espace_order_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('espace_id')->constrained('espaces')->onDelete('restrict');
-            $table->foreignId('user_id')->constrained('users')->onDelete('restrict');
-            $table->string('reference')->unique();
-            $table->dateTime('order_date');
+            $table->foreignId('espace_order_id')->constrained('espace_orders')->onDelete('cascade');
+            $table->integer('quantity')->default(1);
+            $table->decimal('price', 10, 2);
+            $table->decimal('total', 10, 2);
             $table->string('status')->default('pending');
-            $table->decimal('total_amount', 10, 2);
             $table->text('notes')->nullable();
-            $table->string('payment_method')->nullable();
             $table->dateTime('started_at')->nullable();
             $table->dateTime('ended_at')->nullable();
+            $table->string('payment_method')->nullable();
+            $table->string('reference')->unique()->nullable();
+            $table->string('type')->nullable(); // e.g., 'reservation', 'booking', etc.
             $table->timestamps();
             $table->softDeletes();
         });
@@ -33,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('espace_orders');
+        Schema::dropIfExists('espace_order_items');
     }
 };

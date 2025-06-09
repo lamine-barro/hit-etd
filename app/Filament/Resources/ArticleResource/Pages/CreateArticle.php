@@ -12,6 +12,11 @@ class CreateArticle extends CreateRecord
 {
     protected static string $resource = ArticleResource::class;
 
+    /**
+     * Propriété pour stocker temporairement les traductions
+     */
+    protected array $translations = [];
+
     protected function getRedirectUrl(): string
     {
         return $this->getResource()::getUrl('index');
@@ -78,9 +83,4 @@ class CreateArticle extends CreateRecord
             }
         }
     }
-
-    /**
-     * Propriété pour stocker temporairement les traductions
-     */
-    protected array $translations = [];
 }
