@@ -4,10 +4,10 @@
 Un nouveau membre vient de s'inscrire à la newsletter du Hub Ivoire Tech.
 
 ## Informations du membre
-**Nom :** {{ $name }}  
-**Email :** {{ $email }}  
+**Nom :** {{ $name }}
+**Email :** {{ $email }}
 @if($whatsapp)
-**WhatsApp :** {{ $whatsapp }}  
+**WhatsApp :** {{ $whatsapp }}
 @endif
 
 ## Préférences de communication
@@ -23,4 +23,4 @@ Un nouveau membre vient de s'inscrire à la newsletter du Hub Ivoire Tech.
 
 Cordialement,<br>
 {{ config('app.name') }}
-@endcomponent 
+@endcomponent
