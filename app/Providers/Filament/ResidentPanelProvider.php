@@ -29,6 +29,7 @@ class ResidentPanelProvider extends PanelProvider
             ->topNavigation(true)
             ->login()
             ->brandLogoHeight('50px')
+            ->maxContentWidth('full')
             ->colors([
                 'primary' => '#ea580c',
             ])
