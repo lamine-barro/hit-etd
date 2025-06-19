@@ -43,6 +43,7 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 StatsOverview::class,
             ])
+            ->maxContentWidth('full')
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -61,6 +62,7 @@ class AdminPanelProvider extends PanelProvider
             ->navigationGroups([
                 'Résidents',
                 'Événements',
+                'Demandes',
                 'Administration',
             ]);
     }

@@ -455,5 +455,8 @@
     "Atelier": "Workshop",
     "Conférence": "Conference",
     "Webinaire": "Webinar",
-    "Formation": "Training"
+    "Formation": "Training",
+    "Date souhaitée": "Desired date",
+    "Heure souhaitée": "Desired time",
+    "Objet de la visite": "Purpose of the visit"
 }

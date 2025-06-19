@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use Illuminate\Http\Request;
+use App\Mail\VisitBookingAdmin;
+use App\Mail\VisitBookingVisitor;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class CampusController extends Controller
 {
@@ -50,6 +53,8 @@ class CampusController extends Controller
                 'booking_id' => $booking->id,
                 'data' => $validated,
             ]);
+
+            Mail::queue('default')->send(new VisitBookingAdmin($booking));
 
             return response()->json([
                 'status' => 'success',

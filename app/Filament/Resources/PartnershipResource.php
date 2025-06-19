@@ -36,6 +36,8 @@ class PartnershipResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'organization_name';
 
+    protected static ?string $navigationGroup = 'Demandes';
+
     public static function getModelLabel(): string
     {
         return 'Partenariat';
@@ -48,7 +50,7 @@ class PartnershipResource extends Resource
 
     public static function getNavigationLabel(): string
     {
-        return 'Demandes de partenariat';
+        return 'Partenariats';
     }
 
     public static function form(Form $form): Form
