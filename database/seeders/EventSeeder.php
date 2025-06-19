@@ -2,15 +2,16 @@
 
 namespace Database\Seeders;
 
-use App\Enums\Currency;
-use App\Enums\EventStatus;
-use App\Enums\EventType;
-use App\Models\Administrator;
-use App\Models\Event;
 use Carbon\Carbon;
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Storage;
+use App\Models\Event;
+use App\Enums\Currency;
+use App\Enums\EventType;
+use App\Enums\EventStatus;
 use Illuminate\Support\Str;
+use App\Models\Administrator;
+use Illuminate\Database\Seeder;
+use App\Models\EventTranslation;
+use Illuminate\Support\Facades\Storage;
 
 class EventSeeder extends Seeder
 {
@@ -382,9 +383,37 @@ class EventSeeder extends Seeder
 
         foreach ($events as $event) {
             $slug = Str::slug($event['title']);
-            if (! Event::query()->whereSlug($slug)->exists()) {
+            if (! EventTranslation::query()->whereSlug($slug)->exists()) {
                 $event['illustration'] = null;
-                Event::updateOrCreate($event);
+
+                Event::create([
+                    'type' => $event['type'],
+                    'start_date' => $event['start_date'],
+                    'end_date' => $event['end_date'],
+                    'is_remote' => $event['is_remote'],
+                    'max_participants' => $event['max_participants'],
+                    'registration_end_date' => $event['registration_end_date'],
+                    'external_link' => $event['external_link'] ?? null,
+                    'is_paid' => $event['is_paid'],
+                    'price' => $event['price'] ?? null,
+                    'currency' => $event['currency'] ?? Currency::XOF->value,
+                    'early_bird_price' => $event['early_bird_price'] ?? null,
+                    'early_bird_end_date' => $event['early_bird_end_date'] ?? null,
+                    'status' => $event['status'],
+                    'illustration' => $event['illustration'],
+                    'created_by' => $admin->id,
+                    'default_locale' => config('app.locale'),
+                ])->translations()->create([
+                    'locale' => config('app.locale'),
+                    'title' => $event['title'],
+                    'slug' => $slug,
+                    'description' => $event['description'],
+                    'location' => $event['location'],
+                    'meta_title' => $event['title'],
+                    'meta_description' => Str::limit($event['description'], 160),
+                    'meta_keywords' => implode(',', explode(' ', $event['title'])),
+                    'og_type' => 'website',
+                ])->save();
             }
         }
     }

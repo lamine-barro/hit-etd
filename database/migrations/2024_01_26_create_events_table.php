@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
+            $table->string('default_locale', 10);
             $table->string('slug')->unique();
             $table->string('type');
             $table->string('title');
