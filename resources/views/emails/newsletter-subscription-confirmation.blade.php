@@ -24,4 +24,4 @@ Visiter notre site
 
 Merci de votre confiance,<br>
 {{ config('app.name') }}
-@endcomponent 
+@endcomponent
