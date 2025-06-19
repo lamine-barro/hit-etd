@@ -3,12 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Filament\Models\Contracts\HasName;
-use Filament\Models\Contracts\HasAvatar;
-use Illuminate\Notifications\Notifiable;
 use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasAvatar;
+use Filament\Models\Contracts\HasName;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
 {
@@ -22,8 +22,22 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
      */
     protected $fillable = [
         'email',
-        'otp',
-        'otp_expires_at',
+        'name',
+        'phone',
+        'phone_number',
+        'password',
+        'is_active',
+        'category',
+        'lock_raison',
+        'remember_token',
+        'is_verified',
+        'responsible_name',
+        'responsible_phone',
+        'documents',
+        'responsible_document_type',
+        'responsible_document_value',
+        'responsible_document_file',
+        'profile_picture',
     ];
 
     /**
@@ -33,7 +47,7 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
      */
     protected $hidden = [
         'remember_token',
-        'otp',
+        'password',
     ];
 
     /**
@@ -45,15 +59,20 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
     {
         return [
             'email_verified_at' => 'datetime',
-            'otp_expires_at' => 'datetime',
         ];
+    }
+
+    public function __construct()
+    {
+        User::creating(function ($user) {
+            $password = uniqid();
+            $user->password = bcrypt($password);
+            $user->is_active = true;
+        });
     }
 
     /**
      * Determine if the user can access the Filament panel.
-     *
-     * @param \Filament\Panel $panel
-     * @return bool
      */
     public function canAccessPanel(\Filament\Panel $panel): bool
     {
@@ -63,8 +82,6 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
 
     /**
      * Get the URL to the user's avatar for Filament.
-     *
-     * @return string|null
      */
     public function getFilamentAvatarUrl(): ?string
     {
@@ -74,12 +91,15 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
 
     /**
      * Get the display name for the user in Filament.
-     *
-     * @return string
      */
     public function getFilamentName(): string
     {
         // Return the user's email as their name, or customize as needed
         return $this->name;
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(EspaceOrder::class);
     }
 }

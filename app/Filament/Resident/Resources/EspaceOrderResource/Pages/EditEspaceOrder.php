@@ -13,7 +13,9 @@ class EditEspaceOrder extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Actions\DeleteAction::make()
+                ->requiresConfirmation()
+                ->visible(fn ($record) => $record->status !== 'completed'),
         ];
     }
 }

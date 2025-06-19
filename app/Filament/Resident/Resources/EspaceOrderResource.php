@@ -37,10 +37,14 @@ class EspaceOrderResource extends Resource
                     ->columns(2)
                     ->schema([
                         Forms\Components\DateTimePicker::make('started_at')
+                            ->prefix('Début : ')
+                            ->minDate(now())
                             ->helperText('Date et heure de début de la réservation')
                             ->label('Début'),
 
                         Forms\Components\DateTimePicker::make('ended_at')
+                            ->prefix('Fin : ')
+                            ->minDate(now())
                             ->helperText('Date et heure de fin de la réservation')
                             ->label('Fin'),
 
@@ -64,19 +68,27 @@ class EspaceOrderResource extends Resource
                                 Forms\Components\Select::make('type')
                                     ->label('Type d\'espace')
                                     ->options(Espace::FR_TYPES)
+                                    ->reactive()
                                     ->helperText('Type d\'espace réservé')
                                     ->required(),
 
                                 Forms\Components\Select::make('espace_id')
                                     ->label('Espace')
-                                    ->options(Espace::all()->pluck('name', 'id'))
+                                    ->reactive()
+                                    ->disabled(fn (Forms\Get $get) => ! $get('type'))
+                                    ->options(function (Forms\Get $get) {
+                                        return Espace::where('type', $get('type'))
+                                            ->pluck('name', 'id');
+                                    })
                                     ->searchable()
                                     ->helperText('Sélectionnez l\'espace à réserver')
                                     ->required(),
 
                                 Forms\Components\TextInput::make('quantity')
                                     ->label('Quantité')
+                                    ->disabled(fn (Forms\Get $get) => ! $get('espace_id'))
                                     ->numeric()
+                                    ->reactive()
                                     ->minValue(1)
                                     ->default(1)
                                     ->required(),
@@ -92,9 +104,8 @@ class EspaceOrderResource extends Resource
                 Tables\Columns\TextColumn::make('reference')
                     ->label('Référence')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('espace.name')
-                    ->label('Espace'),
-                Tables\Columns\TextColumn::make('user.email')
+                Tables\Columns\TextColumn::make('user.name')
+                    ->description(fn (EspaceOrder $record) => $record->user->email)
                     ->label('Utilisateur'),
                 Tables\Columns\TextColumn::make('order_date')
                     ->label('Date de commande')
@@ -119,11 +130,12 @@ class EspaceOrderResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->visible(fn (EspaceOrder $record) => $record->status === 'pending' || $record->status === 'confirmed'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    // Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

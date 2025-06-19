@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
+use App\Filament\Resources\UserResource\RelationManagers\OrdersRelationManager;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\Grid;
@@ -36,30 +37,52 @@ class UserResource extends Resource
                     ->description('Informations de base de l\'utilisateur')
                     ->icon('heroicon-o-user')
                     ->schema([
-                        Grid::make(2)
+                        Grid::make()
                             ->schema([
-                                Forms\Components\Select::make('type')
-                                    ->label('Type')
+                                Forms\Components\Select::make('category')
+                                    ->label('Categorie')
+                                    ->required()
                                     ->options([
-                                        'resident' => 'Résident',
-                                        'admin' => 'Administrateur',
-                                        'manager' => 'Gestionnaire',
+                                        'startup' => 'Startup',
+                                        'person' => 'Individu',
+                                        'entreprise' => 'Gestionnaire',
                                     ]),
 
                                 Forms\Components\TextInput::make('name')
-                                    ->label('Nom complet')
+                                    ->label('Nom Startup')
                                     ->required()
                                     ->maxLength(255),
 
                                 Forms\Components\TextInput::make('email')
+                                    ->unique(ignoreRecord: true)
                                     ->label('Adresse email')
                                     ->email()
                                     ->required()
                                     ->maxLength(255),
 
                                 Forms\Components\TextInput::make('phone')
+                                    ->required()
                                     ->label('Téléphone')
                                     ->tel()
+                                    ->maxLength(255),
+
+                                Forms\Components\Checkbox::make('with_responsible')
+                                    ->columnSpan(2)
+                                    ->reactive()
+                                    ->label('Informations du responsable'),
+
+                                Forms\Components\TextInput::make('responsible_name')
+                                    ->reactive()
+                                    ->disabled(fn (Forms\Get $get) => ! $get('with_responsible'))
+                                    ->label('Nom et prénom du responsable')
+                                    ->required()
+                                    ->maxLength(255),
+
+                                Forms\Components\TextInput::make('responsible_phone')
+                                    ->reactive()
+                                    ->disabled(fn (Forms\Get $get) => ! $get('with_responsible'))
+                                    ->label('Numéro de téléphone du responsable')
+                                    ->required()
                                     ->maxLength(255),
                             ]),
                     ]),
@@ -116,8 +139,8 @@ class UserResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make()
-                        ->label('Supprimer la sélection'),
+                    // Tables\Actions\DeleteBulkAction::make()
+                    //     ->label('Supprimer la sélection'),
                 ]),
             ]);
     }
@@ -126,7 +149,15 @@ class UserResource extends Resource
     {
         return [
             'index' => Pages\ListUsers::route('/'),
-            // 'create' => Pages\CreateUser::route('/create'),
+            'edit' => Pages\EditUser::route('/{record}/edit'),
+            'create' => Pages\CreateUser::route('/create'),
+        ];
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            // OrdersRelationManager::class,
         ];
     }
 }
