@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('espace_order_items', function (Blueprint $table) {
-            $table->foreignId('espace_id')->constrained('espaces')->onDelete('restrict');
             $table->dropColumn('reference');
             $table->dropColumn('status')->default('pending');
             $table->renameColumn('total', 'total_amount');
