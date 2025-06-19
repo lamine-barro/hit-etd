@@ -181,6 +181,7 @@
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     @foreach($featuredArticles as $article)
+                        @continue(!$article->getTranslatedAttribute('slug'))
                         <a href="{{ route('actualites.show', ['slug' => $article->getTranslatedAttribute('slug')]) }}" class="block relative">
                             <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group border border-gray-100 h-full">
                                 <div class="relative">
@@ -285,6 +286,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="articles-list">
             @forelse($articles as $article)
+                @continue(!$article->getTranslatedAttribute('slug'))
                 <a href="{{ route('actualites.show', ['slug' => $article->getTranslatedAttribute('slug')]) }}" class="block relative">
                     <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group border border-gray-100 h-full">
                         <div class="relative">
