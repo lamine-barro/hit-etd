@@ -45,6 +45,7 @@ class UserResource extends Resource
                                     ->options([
                                         'startup' => 'Startup',
                                         'person' => 'Individu',
+                                        'expert' => 'Expert',
                                         'entreprise' => 'Gestionnaire',
                                     ]),
 
