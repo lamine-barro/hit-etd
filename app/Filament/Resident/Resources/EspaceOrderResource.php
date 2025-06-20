@@ -3,6 +3,7 @@
 namespace App\Filament\Resident\Resources;
 
 use App\Filament\Resident\Resources\EspaceOrderResource\Pages;
+use App\Filament\Resources\EspaceOrderResource\RelationManagers\OrderItemRelationManager;
 use App\Models\Espace;
 use App\Models\EspaceOrder;
 use Filament\Forms;
@@ -143,7 +144,7 @@ class EspaceOrderResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            OrderItemRelationManager::class,
         ];
     }
 
@@ -153,6 +154,7 @@ class EspaceOrderResource extends Resource
             'index' => Pages\ListEspaceOrders::route('/'),
             'create' => Pages\CreateEspaceOrder::route('/create'),
             'edit' => Pages\EditEspaceOrder::route('/{record}/edit'),
+            'view' => Pages\ViewEspaceOrder::route('/{record}'),
         ];
     }
 }

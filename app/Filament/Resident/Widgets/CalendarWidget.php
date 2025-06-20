@@ -25,20 +25,27 @@ class CalendarWidget extends FullCalendarWidget
     public function fetchEvents(array $fetchInfo): array
     {
         return EspaceOrder::query()
-            ->where('created_at', '>=', $fetchInfo['start'])
-            ->where('updated_at', '<=', $fetchInfo['end'])
+            ->where('started_at', '>=', $fetchInfo['start'])
+            ->where('ended_at', '<=', $fetchInfo['end'])
             ->get()
             ->map(
                 function (EspaceOrder $event) {
                     $data = [
-                        'title' => $event->label ?? $event->type,
-                        'start' => $event->starts_at,
-                        'end' => $event->ends_at,
+                        'title' => "{$event->reference}/{$event->notes}/{$event->status}",
+                        'start' => $event->started_at,
+                        'end' => $event->ended_at,
                     ];
-                    if ($event->driver_id) {
-                        $data['shouldOpenUrlInNewTab'] = true;
-                        $data['url'] = EspaceOrderResource::getUrl(name: 'view', parameters: ['record' => $event]);
-                    }
+
+                    $data['color'] = match ($event->status) {
+                        'pending' => 'yellow',
+                        'processing' => 'blue',
+                        'completed' => 'green',
+                        'cancelled' => 'red',
+                        default => 'gray',
+                    };
+
+                    $data['shouldOpenUrlInNewTab'] = true;
+                    $data['url'] = EspaceOrderResource::getUrl(name: 'view', parameters: ['record' => $event]);
 
                     return $data;
                 }
