@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\EspaceOrderResource\Pages;
+use App\Filament\Resources\EspaceOrderResource\RelationManagers\OrderItemRelationManager;
 use App\Models\EspaceOrder;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -15,9 +16,9 @@ class EspaceOrderResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-s-ticket';
 
-    protected static ?string $navigationLabel = 'Commandes d\'espaces';
+    protected static ?string $navigationLabel = 'Reservation d\'espaces';
 
-    protected static ?string $modelLabel = 'Commande d\'espace';
+    protected static ?string $modelLabel = 'Reservation';
 
     protected static ?string $navigationGroup = 'Résidents';
 
@@ -73,7 +74,7 @@ class EspaceOrderResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            OrderItemRelationManager::class,
         ];
     }
 
@@ -82,7 +83,8 @@ class EspaceOrderResource extends Resource
         return [
             'index' => Pages\ListEspaceOrders::route('/'),
             // 'create' => Pages\CreateEspaceOrder::route('/create'),
-            'edit' => Pages\EditEspaceOrder::route('/{record}/edit'),
+            // 'edit' => Pages\EditEspaceOrder::route('/{record}/edit'),
+            'view' => Pages\ViewEspaceOrder::route('/{record}'),
         ];
     }
 }

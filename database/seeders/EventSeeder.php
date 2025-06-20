@@ -2,16 +2,16 @@
 
 namespace Database\Seeders;
 
-use Carbon\Carbon;
-use App\Models\Event;
 use App\Enums\Currency;
-use App\Enums\EventType;
 use App\Enums\EventStatus;
-use Illuminate\Support\Str;
+use App\Enums\EventType;
 use App\Models\Administrator;
-use Illuminate\Database\Seeder;
+use App\Models\Event;
 use App\Models\EventTranslation;
+use Carbon\Carbon;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class EventSeeder extends Seeder
 {

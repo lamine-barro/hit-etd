@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\VisitBookingAdmin;
 use App\Models\Booking;
 use Illuminate\Http\Request;
-use App\Mail\VisitBookingAdmin;
-use App\Mail\VisitBookingVisitor;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 

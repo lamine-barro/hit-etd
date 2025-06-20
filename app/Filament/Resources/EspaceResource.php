@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\EspaceResource\Pages;
-use App\Filament\Resources\EspaceResource\RelationManagers\OrdersRelationManager;
 use App\Models\Espace;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -167,7 +166,6 @@ class EspaceResource extends Resource
     public static function getRelations(): array
     {
         return [
-            OrdersRelationManager::class,
         ];
     }
 
