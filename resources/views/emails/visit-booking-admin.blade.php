@@ -29,4 +29,4 @@
 
 {{ __("Cordialement,") }}<br>
 {{ config('app.name') }}
-@endcomponent 
+@endcomponent

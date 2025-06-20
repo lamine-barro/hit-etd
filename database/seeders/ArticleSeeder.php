@@ -108,7 +108,9 @@ class ArticleSeeder extends Seeder
             // Ajouter les traductions
             foreach ($translations as $locale => $translationData) {
                 $slug = Str::slug($translationData['title']);
-
+                if (ArticleTranslation::where('slug', $slug)->where('locale', $locale)->exists()) {
+                    continue;
+                }
                 ArticleTranslation::create([
                     'article_id' => $article->id,
                     'locale' => $locale,

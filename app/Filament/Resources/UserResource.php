@@ -58,8 +58,7 @@ class UserResource extends Resource
                                     ->unique(ignoreRecord: true)
                                     ->label('Adresse email')
                                     ->email()
-                                    ->required()
-                                    ->maxLength(255),
+                                    ->required(),
 
                                 Forms\Components\TextInput::make('phone')
                                     ->required()
