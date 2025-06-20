@@ -221,7 +221,8 @@
 
                 <!-- Bouton de soumission -->
                 <div class="mt-8 flex justify-center">
-                <button type="submit" class="px-6 py-3 bg-primary-500 text-white font-semibold rounded-xl hover:bg-primary-600 transition duration-200 shadow-md hover:shadow-lg">{{ __("S'abonner") }}</button>
+                    <button type="submit" class="px-6 py-3 bg-primary-500 text-white font-semibold rounded-xl hover:bg-primary-600 transition duration-200 shadow-md hover:shadow-lg">{{ __("S'abonner") }}</button>
+                </div>
             </form>
         </div>
 

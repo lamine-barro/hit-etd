@@ -1,15 +1,16 @@
 <?php
 
-use App\Http\Controllers\ArticleListController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CampusController;
+use App\Http\Controllers\JoinHubController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\EventListController;
+use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\ArticleListController;
+use App\Http\Controllers\PartnershipController;
 use App\Http\Controllers\EventPaymentController;
 use App\Http\Controllers\EventRegistrationController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\LanguageController;
-use App\Http\Controllers\NewsletterController;
-use App\Http\Controllers\PartnershipController;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 // Pages principales
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/visitez-le-campus', [CampusController::class, 'index'])->name('visitez-le-campus');
+Route::get('/join-hub', [JoinHubController::class, 'index'])->name('join-hub');
 
 // Événements
 Route::prefix('evenements')->group(function () {
