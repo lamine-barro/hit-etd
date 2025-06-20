@@ -8,7 +8,7 @@
         <!-- En-tête -->
         <div class="text-center mb-12">
             <h1 class="text-4xl font-bold text-gray-900 mb-4">{{ __("Visitez notre campus !") }}</h1>
-            <p class="text-lg text-gray-600">{{ __("Réservez dès maintenant votre visite guidée et plongez dans l'univers stimulant du") }} {{ config('hit.name') }}</p>
+            <p class="text-lg text-gray-600">{{ __("Planifiez une visite de notre campus (sur rendez-vous uniquement)") }} {{ config('hit.name') }}</p>
         </div>
 
         <div class="lg:grid lg:grid-cols-2 lg:gap-12">
@@ -92,11 +92,14 @@
                             <label for="purpose" class="block text-sm font-medium text-gray-700 mb-2">{{ __("Objet de la visite") }}</label>
                             <select name="purpose" id="purpose" class="block w-full px-4 py-3.5 rounded-xl border-gray-300 bg-gray-50 focus:bg-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none transition duration-200">
                                 <option value="">{{ __("Sélectionnez l'objet de votre visite") }}</option>
+                                <option value="incubation">{{ __("Candidature à l'incubation") }}</option>
+                                <option value="partenariat">{{ __("Visite en vue d'un partenariat") }}</option>
+                                <option value="presse">{{ __("Presse / Média") }}</option>
+                                <option value="etudiant">{{ __("Étudiant.e / Curiosité") }}</option>
                                 <option value="decouverte">{{ __("Découverte du Hub") }}</option>
-                                <option value="incubation">{{ __("Programme d'incubation") }}</option>
                                 <option value="coworking">{{ __("Espace de coworking") }}</option>
                                 <option value="evenement">{{ __("Organisation d'événement") }}</option>
-                                <option value="partenariat">{{ __("Partenariat") }}</option>
+                                <option value="other">{{ __("Autre") }}</option>
                             </select>
                             <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 mt-6">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -156,7 +159,14 @@
                         <!-- Message -->
                         <div class="relative">
                             <label for="message" class="block text-sm font-medium text-gray-700 mb-2">{{ __("Message (optionnel)") }}</label>
-                            <textarea name="message" id="message" rows="3" class="block w-full px-4 py-3.5 rounded-xl border-gray-300 bg-gray-50 focus:bg-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none transition duration-200 placeholder-gray-400" placeholder="{{ __("Informations complémentaires...") }}"></textarea>
+                            <textarea name="message" id="message" rows="3" maxlength="200" class="block w-full px-4 py-3.5 rounded-xl border-gray-300 bg-gray-50 focus:bg-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none transition duration-200 placeholder-gray-400" placeholder="{{ __("Informations complémentaires...") }}"></textarea>
+                        </div>
+
+                        <div class="relative">
+                            <input type="checkbox" name="confirmation" value="confirmation" id="confirmation" class="peer" required>
+                            <label for="confirmation">
+                                <span class="mt-1 text-sm text-gray-500"> {{ __("Je comprends que cette demande n'est pas une réservation automatique, et qu'elle sera confirmée par l'équipe du Hub Ivoire Tech dans un délai de 3 jours ouvrés.") }}</span>
+                            </label>
                         </div>
 
                         <!-- Bouton de soumission -->
@@ -167,6 +177,16 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                                 </svg>
                             </button>
+                        </div>
+
+                        <div class="mt-4 text-sm text-gray-500">
+                            <div class="font-medium text-gray-900">Merci de noter :</div>
+                            <ol class="list-disc pl-5 mt-2 space-y-1">
+                                <li class="mr-2">Les visites se font uniquement sur rendez-vous.</li>
+                                <li class="mr-2">Les créneaux proposés dans ce formulaire sont soumis à confirmation par notre équipe.</li>
+                                <li class="mr-2">Un préavis de 72 heures minimum est requis entre la date de soumission et la date souhaitée.</li>
+                                <li class="mr-2">Vous recevrez une réponse dans un délai de 3 jours ouvrés.</li>
+                            </ol>
                         </div>
                     </form>
                 </div>

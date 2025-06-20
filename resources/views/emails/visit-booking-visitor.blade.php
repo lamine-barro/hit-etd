@@ -1,31 +1,15 @@
 @component('mail::message')
-# {{ __("Confirmation de votre demande de visite") }}
+Bonjour {{ $name }},
 
-{{ __("Cher·e") }} {{ $name }},
+Merci pour votre intérêt à visiter le Hub Ivoire Tech.
+Votre demande a bien été reçue et sera examinée par notre équipe.
+Nous vous recontacterons dans un délai de 3 jour ouvré pour vous confirmer la date proposée ou vous suggérer une alternative, en fonction de nos disponibilités.
 
-{{ __("Nous avons bien reçu votre demande de visite du Hub Ivoire Tech. Voici un récapitulatif de votre réservation :") }}
+📌 Pour rappel, les visites sont possibles sur rendez-vous uniquement, et nécessitent un préavis minimum de 72 heures.
 
-**{{ __("Date de la visite :") }}** {{ \Carbon\Carbon::parse($date)->format('d/m/Y') }}
-**{{ __("Heure :") }}** {{ $time }}
-**{{ __("Objet :") }}** {{ ucfirst($purpose) }}
+À très bientôt,
+L'équipe du Hub Ivoire Tech
+📧 hello@hubivoiretech.ci
+📞 +225 0704853848
 
-**{{ __("Espaces que vous souhaitez visiter :") }}**
-@foreach($spaces as $space)
-- {{ ucfirst($space) }}
-@endforeach
-
-{{ __("Notre équipe examinera votre demande et vous contactera dans les plus brefs délais pour confirmer votre visite.") }}
-
-@component('mail::panel')
-{{ __("Important : Si vous devez modifier ou annuler votre visite, veuillez nous contacter au +225 XX XX XX XX ou par email à contact@hubivoiretech.ci") }}
-@endcomponent
-
-@component('mail::button', ['url' => route('home')])
-{{ __("Visiter notre site") }}
-@endcomponent
-
-{{ __("Merci de votre intérêt pour Hub Ivoire Tech !") }}
-
-{{ __("Cordialement,") }}<br>
-{{ __("L'équipe Hub Ivoire Tech") }}
 @endcomponent
