@@ -38,6 +38,7 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
         'responsible_document_value',
         'responsible_document_file',
         'profile_picture',
+        'with_responsible',
     ];
 
     /**
@@ -62,8 +63,10 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
         ];
     }
 
-    public function __construct()
+    public function __construct(array $attributes = [])
     {
+        parent::__construct($attributes);
+
         User::creating(function ($user) {
             $password = uniqid();
             $user->password = bcrypt($password);
