@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\EspaceOrderResource\RelationManagers;
 
+use App\Models\EspaceOrderItem;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -29,7 +30,7 @@ class OrderItemRelationManager extends RelationManager
             ->heading('')
             ->columns([
                 Tables\Columns\TextColumn::make('espace.code')
-                    ->label('Référence de l\'espace')
+                    ->label('#Référence')
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('espace.name')
@@ -41,6 +42,29 @@ class OrderItemRelationManager extends RelationManager
 
                 Tables\Columns\TextColumn::make('quantity')
                     ->label('Quantité'),
+
+                Tables\Columns\TextColumn::make('status')
+                    ->label(__('Statut'))
+                    ->color(fn (EspaceOrderItem $record) => match ($record->status) {
+                        'pending' => 'warning',
+                        'confirmed' => 'success',
+                        'cancelled' => 'danger',
+                        default => 'secondary',
+                    })
+                    ->icon(fn (EspaceOrderItem $record) => match ($record->status) {
+                        'pending' => 'heroicon-o-clock',
+                        'confirmed' => 'heroicon-o-check-circle',
+                        'rejected' => 'heroicon-o-x-circle',
+                        default => 'heroicon-o-question-mark-circle',
+                    }),
+
+                Tables\Columns\TextColumn::make('started_at')
+                    ->label('Début')
+                    ->dateTime('d/m/Y H:i'),
+
+                Tables\Columns\TextColumn::make('ended_at')
+                    ->label('Fin')
+                    ->dateTime('d/m/Y H:i'),
 
                 Tables\Columns\TextColumn::make('total_amount')
                     ->formatStateUsing(fn ($state) => number_format($state, 2, ',', ' '))

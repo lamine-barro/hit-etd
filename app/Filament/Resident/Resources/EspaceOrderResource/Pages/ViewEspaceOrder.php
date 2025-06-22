@@ -28,25 +28,19 @@ class ViewEspaceOrder extends ViewRecord
                             ->dateTime('d/m/Y H:i'),
 
                         Infolists\Components\TextEntry::make('status')
-                            ->label(__('Statut')),
+                            ->label(__('Statut'))
+                            ->color(fn ($record) => match ($record->status) {
+                                'pending' => 'warning',
+                                'confirmed' => 'success',
+                                'cancelled' => 'danger',
+                                default => 'secondary',
+                            }),
 
                         Infolists\Components\TextEntry::make('total_amount')
                             ->label(__('Montant total')),
 
                         Infolists\Components\TextEntry::make('payment_method')
                             ->label(__('Méthode de paiement')),
-
-                        Infolists\Components\TextEntry::make('started_at')
-                            ->label(__('Début'))
-                            ->dateTime('d/m/Y H:i'),
-
-                        Infolists\Components\TextEntry::make('ended_at')
-                            ->label(__('Fin'))
-                            ->dateTime('d/m/Y H:i'),
-
-                        Infolists\Components\TextEntry::make('created_at')
-                            ->label(__('Créé le'))
-                            ->dateTime('d/m/Y H:i'),
                     ])->columns(3),
             ]);
     }

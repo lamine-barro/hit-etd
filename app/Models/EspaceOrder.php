@@ -59,7 +59,7 @@ class EspaceOrder extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function items()
+    public function espaces()
     {
         return $this->hasMany(EspaceOrderItem::class);
     }

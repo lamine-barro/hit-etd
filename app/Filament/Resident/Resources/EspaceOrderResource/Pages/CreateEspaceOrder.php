@@ -29,8 +29,6 @@ class CreateEspaceOrder extends CreateRecord
             'total_amount' => collect($espaces)->sum('price'),
             'notes' => $data['notes'] ?? '',
             'payment_method' => $data['payment_method'] ?? 'cash',
-            'started_at' => $data['started_at'] ?? now(),
-            'ended_at' => $data['started_at'],
         ];
 
         $order = EspaceOrder::create($order_data);
@@ -40,12 +38,15 @@ class CreateEspaceOrder extends CreateRecord
                 continue;
             }
             $espace = Espace::find($item['espace_id']);
-            $order->items()->create([
+            $order->espaces()->create([
                 'espace_id' => $espace->id,
                 'espace_order_id' => $order->id,
                 'price' => $espace->price,
                 'total_amount' => $item['quantity'] ?? 0,
                 'quantity' => $item['quantity'] ?? 1,
+                'started_at' => $item['started_at'] ?? now(),
+                'ended_at' => $item['started_at'],
+                'notes' => $item['notes'] ?? '',
             ]);
         }
 

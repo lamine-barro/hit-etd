@@ -51,18 +51,6 @@ class EspaceOrderResource extends Resource
                 Forms\Components\Section::make(__('Informations de réservation'))
                     ->columns(2)
                     ->schema([
-                        Forms\Components\DateTimePicker::make('started_at')
-                            ->prefix(__('Début : '))
-                            ->minDate(now())
-                            ->helperText(__('Date et heure de début de la réservation'))
-                            ->label(__('Début')),
-
-                        Forms\Components\DateTimePicker::make('ended_at')
-                            ->prefix(__('Fin : '))
-                            ->minDate(now())
-                            ->helperText(__('Date et heure de fin de la réservation'))
-                            ->label(__('Fin')),
-
                         Forms\Components\TextInput::make('notes')
                             ->helperText(__('Notes ou instructions spéciales pour la réservation'))
                             ->label(__('Notes')),
@@ -80,6 +68,18 @@ class EspaceOrderResource extends Resource
                             ->label(__('Espaces réservés'))
                             ->addActionLabel(__('Ajouter un espace'))
                             ->schema([
+                                Forms\Components\DateTimePicker::make('started_at')
+                                    ->prefix(__('Début : '))
+                                    ->minDate(now())
+                                    ->helperText(__('Date et heure de début de la réservation'))
+                                    ->label(__('Début')),
+
+                                Forms\Components\DateTimePicker::make('ended_at')
+                                    ->prefix(__('Fin : '))
+                                    ->minDate(now())
+                                    ->helperText(__('Date et heure de fin de la réservation'))
+                                    ->label(__('Fin')),
+
                                 Forms\Components\Select::make('type')
                                     ->label(__("Type d'espace"))
                                     ->options(Espace::FR_TYPES)
@@ -116,6 +116,10 @@ class EspaceOrderResource extends Resource
                                     ->minValue(1)
                                     ->default(1)
                                     ->required(),
+
+                                Forms\Components\TextInput::make('notes')
+                                    ->helperText(__('Notes ou instructions spéciales pour la réservation'))
+                                    ->label(__('Notes')),
                             ])->columns(3),
                     ])->columns(1),
             ]);
@@ -157,14 +161,6 @@ class EspaceOrderResource extends Resource
 
                 Tables\Columns\TextColumn::make('payment_method')
                     ->label(__('Méthode de paiement')),
-
-                Tables\Columns\TextColumn::make('started_at')
-                    ->label(__('Début'))
-                    ->dateTime('d/m/Y H:i'),
-
-                Tables\Columns\TextColumn::make('ended_at')
-                    ->label(__('Fin'))
-                    ->dateTime('d/m/Y H:i'),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__('Créé le'))
