@@ -63,16 +63,16 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
         ];
     }
 
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
+    // public function __construct(array $attributes = [])
+    // {
+    //     parent::__construct($attributes);
 
-        User::creating(function ($user) {
-            $password = uniqid();
-            $user->password = bcrypt($password);
-            $user->is_active = true;
-        });
-    }
+    //     User::creating(function ($user) {
+    //         $password = uniqid();
+    //         $user->password = bcrypt($password);
+    //         $user->is_active = true;
+    //     });
+    // }
 
     /**
      * Determine if the user can access the Filament panel.
@@ -104,5 +104,35 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
     public function orders()
     {
         return $this->hasMany(EspaceOrder::class);
+    }
+
+    public function isStartup(): bool
+    {
+        return $this->category === 'startup';
+    }
+
+    public function isPerson(): bool
+    {
+        return $this->category === 'person';
+    }
+
+    public function isExpert(): bool
+    {
+        return $this->category === 'expert';
+    }
+
+    public function isEntreprise(): bool
+    {
+        return $this->category === 'entreprise';
+    }
+
+    public function isActive(): bool
+    {
+        return $this->is_active;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->is_verified;
     }
 }

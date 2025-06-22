@@ -27,7 +27,7 @@ class VisitBookingAdmin extends Mailable
                 'email' => $this->booking->email,
                 'phone' => $this->booking->phone,
                 'date' => $this->booking->date->format('d/m/Y'),
-                'time' => $this->booking->time->format('H:i'),
+                'time' => $this->booking->time?->format('H:i'),
                 'spaces' => $this->booking->spaces,
                 'purpose' => $this->booking->purpose,
                 'message' => $this->booking->message,
