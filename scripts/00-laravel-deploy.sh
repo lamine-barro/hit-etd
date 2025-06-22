@@ -29,4 +29,11 @@ chown -R www-data:nginx /var/www/html
 
 php artisan storage:link
 
+echo "Cron job added for Laravel scheduler"
+
+crontab -l > laravel_cron
+echo "* * * * * php /var/www/html/artisan schedule:run >> /dev/null 2>&1" >> laravel_cron
+crontab laravel_cron
+rm laravel_cron
+
 echo "Laravel deploy completed"

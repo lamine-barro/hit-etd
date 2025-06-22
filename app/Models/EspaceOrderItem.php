@@ -18,6 +18,14 @@ class EspaceOrderItem extends Model
         'notes',
     ];
 
+    public const STATUS_PENDING = 'pending';
+
+    public const STATUS_CONFIRMED = 'confirmed';
+
+    public const STATUS_CANCELLED = 'cancelled';
+
+    public const STATUS_REJECTED = 'rejected';
+
     protected $casts = [
         'started_at' => 'datetime',
         'ended_at' => 'datetime',

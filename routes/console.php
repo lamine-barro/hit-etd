@@ -1,8 +1,11 @@
 <?php
 
-use Illuminate\Foundation\Inspiring;
-use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schedule;
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-})->purpose('Display an inspiring quote')->hourly();
+Schedule::job(new \App\Jobs\UpdateEspaceStatusJob())
+    ->daily()
+    ->when(function () {
+        return now()->minute % 5 === 0; // Run every 5 minutes
+    })
+    ->name('update-espace-status')
+    ->withoutOverlapping();

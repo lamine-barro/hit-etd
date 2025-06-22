@@ -24,6 +24,12 @@ class Espace extends Model
         5 => 'Cinquième étage',
     ];
 
+    public const STATUS_AVAILABLE = 'available';
+
+    public const STATUS_UNAVAILABLE = 'unavailable';
+
+    public const STATUS_RESERVED = 'reserved';
+
     protected $fillable = [
         'name',
         'code',
@@ -35,6 +41,10 @@ class Espace extends Model
         'minimum_duration',
         'illustration',
         'images',
+        'started_at',
+        'ended_at',
+        'status',
+        'is_active',
     ];
 
     protected $casts = [

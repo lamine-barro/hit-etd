@@ -11,7 +11,7 @@ use Filament\Tables\Table;
 
 class OrderItemRelationManager extends RelationManager
 {
-    protected static string $relationship = 'items';
+    protected static string $relationship = 'espaces';
 
     public function form(Form $form): Form
     {

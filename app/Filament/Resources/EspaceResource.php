@@ -130,7 +130,12 @@ class EspaceResource extends Resource
                     ->label('Prix'),
 
                 Tables\Columns\TextColumn::make('minimum_duration')
+                    ->suffix(' heure(s)')
                     ->label('Durée minimale'),
+
+                Tables\Columns\ToggleColumn::make('is_active')
+                    ->label('Publier')
+                    ->searchable(),
 
                 Tables\Columns\TextColumn::make('floor')
                     ->label('Étage'),
@@ -153,8 +158,17 @@ class EspaceResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->label('Modifier')
+                    ->icon('heroicon-o-pencil'),
+
+                Tables\Actions\ViewAction::make()
+                    ->label('Voir')
+                    ->icon('heroicon-o-eye'),
+
+                Tables\Actions\DeleteAction::make()
+                    ->label('Archiver')
+                    ->icon('heroicon-o-trash'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

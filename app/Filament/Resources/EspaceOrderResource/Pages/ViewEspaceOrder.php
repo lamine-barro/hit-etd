@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\EspaceOrderResource\Pages;
 
 use App\Filament\Resources\EspaceOrderResource;
+use App\Models\Espace;
 use Filament\Actions;
 use Filament\Infolists;
 use Filament\Infolists\Infolist;
@@ -19,8 +20,22 @@ class ViewEspaceOrder extends ViewRecord
             Actions\Action::make('edit')
                 ->label('Valider la commande')
                 ->icon('heroicon-o-check')
-                ->disabled(fn () => $this->record->status !== 'pending')
-                ->action(fn () => $this->record->update(['status' => 'confirmed']))
+                ->disabled(fn () => ! $this->record->isPending())
+                ->action(function ($data) {
+                    $this->record->update($data);
+                    $this->record->espaces->each(function ($item) use ($data) {
+                        $item->update($data);
+                        if ($data['status'] === 'confirmed') {
+                            $item->espace->update([
+                                'status' => Espace::STATUS_RESERVED,
+                                'started_at' => $item->started_at,
+                                'ended_at' => $item->ended_at,
+                            ]);
+                        } elseif ($data['status'] === 'cancelled') {
+                            $item->espace->update(['status' => Espace::STATUS_AVAILABLE]);
+                        }
+                    });
+                })
                 ->requiresConfirmation()
                 ->modalWidth(MaxWidth::Small)
                 ->modalHeading('Modifier le statut de la commande')
@@ -60,21 +75,22 @@ class ViewEspaceOrder extends ViewRecord
                             ->dateTime('d/m/Y H:i'),
 
                         Infolists\Components\TextEntry::make('status')
-                            ->label('Statut'),
-
-                        Infolists\Components\TextEntry::make('total_amount')
-                            ->label('Montant total'),
+                            ->label('Statut')
+                            ->color(fn ($record) => match ($record->status) {
+                                'pending' => 'warning',
+                                'confirmed' => 'success',
+                                'cancelled' => 'danger',
+                                default => 'secondary',
+                            })
+                            ->icon(fn ($record) => match ($record->status) {
+                                'pending' => 'heroicon-o-clock',
+                                'confirmed' => 'heroicon-o-check-circle',
+                                'cancelled' => 'heroicon-o-x-circle',
+                                default => 'heroicon-o-question-mark-circle',
+                            }),
 
                         Infolists\Components\TextEntry::make('payment_method')
                             ->label('Méthode de paiement'),
-
-                        Infolists\Components\TextEntry::make('started_at')
-                            ->label('Début')
-                            ->dateTime('d/m/Y H:i'),
-
-                        Infolists\Components\TextEntry::make('ended_at')
-                            ->label('Fin')
-                            ->dateTime('d/m/Y H:i'),
 
                         Infolists\Components\TextEntry::make('created_at')
                             ->label('Créé le')
