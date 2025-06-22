@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\VisitBookingAdmin;
+use App\Mail\VisitBookingVisitor;
 use App\Models\Booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -55,6 +56,7 @@ class CampusController extends Controller
             ]);
 
             Mail::queue(new VisitBookingAdmin($booking));
+            Mail::queue(new VisitBookingVisitor($booking));
 
             return response()->json([
                 'status' => 'success',
