@@ -20,61 +20,75 @@ class EspaceOrderResource extends Resource
 
     protected static ?int $navigationSort = 2;
 
-    protected static ?string $navigationLabel = 'Réservations d\'espaces';
-
-    protected static ?string $modelLabel = 'Réservation d\'espace';
-
-    protected static ?string $pluralModelLabel = 'Réservations d\'espaces';
-
     protected static ?string $slug = 'espace-orders';
 
     protected static ?string $recordTitleAttribute = 'reference';
+
+    public function getTitle(): string
+    {
+        return __('Mise à jour du profil');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __("Réservations d'espaces");
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __("Réservations d'espaces");
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __("Réservations d'espaces");
+    }
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Informations de réservation')
+                Forms\Components\Section::make(__('Informations de réservation'))
                     ->columns(2)
                     ->schema([
                         Forms\Components\DateTimePicker::make('started_at')
-                            ->prefix('Début : ')
+                            ->prefix(__('Début : '))
                             ->minDate(now())
-                            ->helperText('Date et heure de début de la réservation')
-                            ->label('Début'),
+                            ->helperText(__('Date et heure de début de la réservation'))
+                            ->label(__('Début')),
 
                         Forms\Components\DateTimePicker::make('ended_at')
-                            ->prefix('Fin : ')
+                            ->prefix(__('Fin : '))
                             ->minDate(now())
-                            ->helperText('Date et heure de fin de la réservation')
-                            ->label('Fin'),
+                            ->helperText(__('Date et heure de fin de la réservation'))
+                            ->label(__('Fin')),
 
                         Forms\Components\TextInput::make('notes')
-                            ->helperText('Notes ou instructions spéciales pour la réservation')
-                            ->label('Notes'),
+                            ->helperText(__('Notes ou instructions spéciales pour la réservation'))
+                            ->label(__('Notes')),
 
                         Forms\Components\Select::make('payment_method')
                             ->options(EspaceOrder::PAYMENT_METHODS)
-                            ->helperText('Méthode de paiement utilisée pour cette réservation')
-                            ->label('Méthode de paiement'),
+                            ->helperText(__('Méthode de paiement utilisée pour cette réservation'))
+                            ->label(__('Méthode de paiement')),
                     ]),
 
-                Forms\Components\Section::make('Informations les espaces')
-                    ->description('Informations sur l\'espace réservé')
+                Forms\Components\Section::make(__('Informations les espaces'))
+                    ->description(__('Informations sur l\'espace réservé'))
                     ->schema([
                         Forms\Components\Repeater::make('espaces')
-                            ->label('Espaces réservés')
-                            ->addActionLabel('Ajouter un espace')
+                            ->label(__('Espaces réservés'))
+                            ->addActionLabel(__('Ajouter un espace'))
                             ->schema([
                                 Forms\Components\Select::make('type')
-                                    ->label('Type d\'espace')
+                                    ->label(__("Type d'espace"))
                                     ->options(Espace::FR_TYPES)
                                     ->reactive()
-                                    ->helperText('Type d\'espace réservé')
+                                    ->helperText(__("Type d'espace réservé"))
                                     ->required(),
 
                                 Forms\Components\Select::make('espace_id')
-                                    ->label('Espace')
+                                    ->label(__('Espace'))
                                     ->reactive()
                                     ->disabled(fn (Forms\Get $get) => ! $get('type'))
                                     ->options(function (Forms\Get $get) {
@@ -82,20 +96,20 @@ class EspaceOrderResource extends Resource
                                             ->leftJoin('espace_order_items', 'espace_order_items.espace_id', '=', 'espaces.id')
                                             ->leftJoin('espace_orders', 'espace_orders.id', '=', 'espace_order_items.espace_order_id')
                                             ->where(function ($query) {
-                                                $query->whereNull('espace_orders.id') // never ordered
+                                                $query->whereNull('espace_orders.id')
                                                     ->orWhere(function ($query) {
                                                         $query->where('espace_orders.ended_at', '<', now())
-                                                              ->where('espace_orders.status', 'confirmed');
+                                                            ->where('espace_orders.status', 'confirmed');
                                                     });
                                             })
                                             ->pluck('espaces.name', 'espaces.id');
                                     })
                                     ->searchable()
-                                    ->helperText('Sélectionnez l\'espace à réserver')
+                                    ->helperText(__("Sélectionnez l'espace à réserver"))
                                     ->required(),
 
                                 Forms\Components\TextInput::make('quantity')
-                                    ->label('Quantité')
+                                    ->label(__('Quantité'))
                                     ->disabled(fn (Forms\Get $get) => ! $get('espace_id'))
                                     ->numeric()
                                     ->reactive()
@@ -112,19 +126,19 @@ class EspaceOrderResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('reference')
-                    ->label('Référence')
+                    ->label(__('Référence'))
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('user.name')
                     ->description(fn (EspaceOrder $record) => $record->user->email)
-                    ->label('Utilisateur'),
+                    ->label(__('Utilisateur')),
 
                 Tables\Columns\TextColumn::make('order_date')
-                    ->label('Date de commande')
+                    ->label(__('Date de commande'))
                     ->dateTime('d/m/Y H:i'),
 
                 Tables\Columns\TextColumn::make('status')
-                    ->label('Statut')
+                    ->label(__('Statut'))
                     ->color(fn (EspaceOrder $record) => match ($record->status) {
                         'pending' => 'warning',
                         'confirmed' => 'success',
@@ -139,36 +153,34 @@ class EspaceOrderResource extends Resource
                     }),
 
                 Tables\Columns\TextColumn::make('total_amount')
-                    ->label('Montant total'),
+                    ->label(__('Montant total')),
 
                 Tables\Columns\TextColumn::make('payment_method')
-                    ->label('Méthode de paiement'),
+                    ->label(__('Méthode de paiement')),
 
                 Tables\Columns\TextColumn::make('started_at')
-                    ->label('Début')
+                    ->label(__('Début'))
                     ->dateTime('d/m/Y H:i'),
 
                 Tables\Columns\TextColumn::make('ended_at')
-                    ->label('Fin')
+                    ->label(__('Fin'))
                     ->dateTime('d/m/Y H:i'),
 
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('Créé le')
+                    ->label(__('Créé le'))
                     ->dateTime('d/m/Y H:i'),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make()
-                    ->label('Voir'),
+                Tables\Actions\ViewAction::make(),
 
                 Tables\Actions\EditAction::make()
-                    ->label('Modifier')
                     ->disabled(fn (EspaceOrder $record) => ! $record->isPending()),
 
                 Tables\Actions\DeleteAction::make()
-                    ->label('Annuler')
+                    ->label(__('Annuler'))
                     ->disabled(fn (EspaceOrder $record) => ! $record->isPending()),
             ])
             ->bulkActions([

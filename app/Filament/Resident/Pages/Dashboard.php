@@ -13,8 +13,6 @@ class Dashboard extends BaseDashboard
 
     protected static ?int $navigationSort = -2;
 
-    protected static ?string $navigationLabel = 'Tableau de bord';
-
     /**
      * @return array<class-string<Widget> | WidgetConfiguration>
      */
@@ -23,5 +21,10 @@ class Dashboard extends BaseDashboard
         return [
             CalendarWidget::class,
         ];
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Tableau de bord');
     }
 }

@@ -24,11 +24,19 @@ class EditProfile extends Page implements HasForms
 
     protected static ?string $navigationLabel = 'Profil';
 
-    protected static ?string $title = 'Mise à jour du profil';
-
     public ?array $data = [];
 
     public User|Authenticatable $user;
+
+    public function getTitle(): string
+    {
+        return __('Mise à jour du profil');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Profil');
+    }
 
     public static function shouldRegisterNavigation(): bool
     {

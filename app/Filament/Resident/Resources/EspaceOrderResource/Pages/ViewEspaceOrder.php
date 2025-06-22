@@ -15,37 +15,37 @@ class ViewEspaceOrder extends ViewRecord
     {
         return $infolist
             ->schema([
-                Infolists\Components\Section::make('Détails de la commande')
+                Infolists\Components\Section::make(__('Détails de la commande'))
                     ->schema([
                         Infolists\Components\TextEntry::make('reference')
                             ->label('Référence'),
 
                         Infolists\Components\TextEntry::make('user.email')
-                            ->label('Utilisateur'),
+                            ->label(__('Utilisateur')),
 
                         Infolists\Components\TextEntry::make('order_date')
-                            ->label('Date de commande')
+                            ->label(__('Date de la commande'))
                             ->dateTime('d/m/Y H:i'),
 
                         Infolists\Components\TextEntry::make('status')
-                            ->label('Statut'),
+                            ->label(__('Statut')),
 
                         Infolists\Components\TextEntry::make('total_amount')
-                            ->label('Montant total'),
+                            ->label(__('Montant total')),
 
                         Infolists\Components\TextEntry::make('payment_method')
-                            ->label('Méthode de paiement'),
+                            ->label(__('Méthode de paiement')),
 
                         Infolists\Components\TextEntry::make('started_at')
-                            ->label('Début')
+                            ->label(__('Début'))
                             ->dateTime('d/m/Y H:i'),
 
                         Infolists\Components\TextEntry::make('ended_at')
-                            ->label('Fin')
+                            ->label(__('Fin'))
                             ->dateTime('d/m/Y H:i'),
 
                         Infolists\Components\TextEntry::make('created_at')
-                            ->label('Créé le')
+                            ->label(__('Créé le'))
                             ->dateTime('d/m/Y H:i'),
                     ])->columns(3),
             ]);

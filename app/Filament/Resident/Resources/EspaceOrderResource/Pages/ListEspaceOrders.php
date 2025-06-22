@@ -10,10 +10,6 @@ class ListEspaceOrders extends ListRecords
 {
     protected static string $resource = EspaceOrderResource::class;
 
-    protected static ?string $title = 'Réservations d\'espaces';
-
-    protected static ?string $navigationLabel = 'Réservations d\'espaces';
-
     protected static ?string $navigationGroup = 'Espace';
 
     protected static ?int $navigationSort = 2;
