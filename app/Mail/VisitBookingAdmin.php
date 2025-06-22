@@ -28,6 +28,7 @@ class VisitBookingAdmin extends Mailable
         return new Envelope(
             subject: __('Nouvelle demande de visite - Hub Ivoire Tech'),
             to: env('HIT_SUPPORT_EMAIL'),
+            from: env('HIT_SUPPORT_EMAIL'),
         );
     }
 

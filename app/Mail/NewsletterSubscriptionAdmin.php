@@ -2,32 +2,46 @@
 
 namespace App\Mail;
 
+use App\Models\Audience;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Content;
+use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
 class NewsletterSubscriptionAdmin extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $subscriber;
+    public function __construct(private Audience $audience) {}
 
-    public function __construct($subscriber)
+    /**
+     * Get the message envelope.
+     */
+    public function envelope(): Envelope
     {
-        $this->subscriber = $subscriber;
+        return new Envelope(
+            subject: __('Nouvel abonné à la newsletter - Hub Ivoire Tech'),
+            to: env('HIT_SUPPORT_EMAIL'),
+            from: env('MAIL_FROM_ADDRESS'),
+        );
     }
 
-    public function build()
+    /**
+     * Get the message content definition.
+     */
+    public function content(): Content
     {
-        return $this->subject(__('Nouvel abonné à la newsletter - Hub Ivoire Tech'))
-            ->markdown('emails.newsletter-subscription-admin')
-            ->with([
-                'name' => $this->subscriber['name'],
-                'email' => $this->subscriber['email'],
-                'whatsapp' => $this->subscriber['whatsapp'] ?? null,
-                'newsletter_email' => $this->subscriber['newsletter_email'],
-                'newsletter_whatsapp' => $this->subscriber['newsletter_whatsapp'],
-                'interests' => $this->subscriber['interests'] ?? [],
-            ]);
+        return new Content(
+            markdown: 'emails.newsletter-subscription-admin',
+            with: [
+                'name' => $this->audience->name,
+                'email' => $this->audience->email,
+                'whatsapp' => $this->audience->whatsapp ?? null,
+                'newsletter_email' => $this->audience->newsletter_email,
+                'newsletter_whatsapp' => $this->audience->newsletter_whatsapp,
+                'interests' => $this->audience->interests ?? [],
+            ]
+        );
     }
 }

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NewsletterSubscriptionAdmin;
+use App\Mail\NewsletterSubscriptionConfirmation;
 use App\Models\Audience;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class NewsletterController extends Controller
 {
@@ -67,7 +70,8 @@ class NewsletterController extends Controller
                 'validated_data' => $validated,
             ]);
 
-            DB::transaction(function () use ($validated) {
+            $audience = null;
+            DB::transaction(function () use ($validated, $audience) {
                 $audience = Audience::create([
                     'name' => $validated['newsletter_name'],
                     'email' => $validated['newsletter_email_input'],
@@ -82,6 +86,12 @@ class NewsletterController extends Controller
                     'subscriber_data' => $audience->toArray(),
                 ]);
             });
+
+            // Send notification emails
+            if ($audience) {
+                Mail::queue(new NewsletterSubscriptionConfirmation($audience));
+                Mail::queue(new NewsletterSubscriptionAdmin($audience));
+            }
 
             if ($request->ajax()) {
                 return response()->json([

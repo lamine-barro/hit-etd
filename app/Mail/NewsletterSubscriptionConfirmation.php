@@ -2,30 +2,45 @@
 
 namespace App\Mail;
 
+use App\Models\Audience;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Content;
+use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
 class NewsletterSubscriptionConfirmation extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $subscriber;
+    public function __construct(private Audience $audience) {}
 
-    public function __construct($subscriber)
+    /**
+     * Get the message envelope.
+     */
+    public function envelope(): Envelope
     {
-        $this->subscriber = $subscriber;
+        return new Envelope(
+            subject: __('Confirmation d\'inscription à la newsletter - Hub Ivoire Tech'),
+            to: $this->audience->email,
+            from: env('HIT_SUPPORT_EMAIL'),
+        );
     }
 
-    public function build()
+    /**
+     * Get the message content definition.
+     */
+    public function content(): Content
     {
-        return $this->subject(__('Confirmation d\'inscription à la newsletter - Hub Ivoire Tech'))
-            ->markdown('emails.newsletter-subscription-confirmation')
-            ->with([
-                'name' => $this->subscriber['name'],
-                'newsletter_email' => $this->subscriber['newsletter_email'],
-                'newsletter_whatsapp' => $this->subscriber['newsletter_whatsapp'],
-                'interests' => $this->subscriber['interests'] ?? [],
-            ]);
+        return new Content(
+            markdown: 'emails.newsletter-subscription-confirmation',
+            with: [
+                'name' => $this->audience->name,
+                'email' => $this->audience->email,
+                'newsletter_email' => $this->audience->newsletter_email,
+                'newsletter_whatsapp' => $this->audience->newsletter_whatsapp,
+                'interests' => $this->audience->interests ?? [],
+            ]
+        );
     }
 }
