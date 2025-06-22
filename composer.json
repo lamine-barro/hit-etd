@@ -28,6 +28,9 @@
         "solution-forest/filament-simplelightbox": "^0.0.11",
         "spatie/laravel-activitylog": "^4.10",
         "spatie/laravel-sluggable": "^3.7",
+        "symfony/http-client": "^7.3",
+        "symfony/mailgun-mailer": "^7.3",
+        "symfony/postmark-mailer": "^7.3",
         "ysfkaya/filament-phone-input": "^3.1"
     },
     "require-dev": {
