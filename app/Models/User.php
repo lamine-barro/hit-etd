@@ -3,12 +3,13 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Filament\Models\Contracts\FilamentUser;
-use Filament\Models\Contracts\HasAvatar;
 use Filament\Models\Contracts\HasName;
+use Illuminate\Support\Facades\Storage;
+use Filament\Models\Contracts\HasAvatar;
+use Illuminate\Notifications\Notifiable;
+use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
 {
@@ -88,8 +89,11 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
      */
     public function getFilamentAvatarUrl(): ?string
     {
-        // Return null or a default avatar URL
-        return null;
+        if (! $this->profile_picture) {
+            return null; // Return null if no profile picture is set
+        }
+
+        return Storage::url($this->profile_picture);
     }
 
     /**

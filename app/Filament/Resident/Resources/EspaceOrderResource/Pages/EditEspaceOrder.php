@@ -2,13 +2,13 @@
 
 namespace App\Filament\Resident\Resources\EspaceOrderResource\Pages;
 
-use Filament\Forms;
-use Filament\Actions;
-use App\Models\Espace;
-use Filament\Forms\Form;
-use App\Models\EspaceOrder;
-use Filament\Resources\Pages\EditRecord;
 use App\Filament\Resident\Resources\EspaceOrderResource;
+use App\Models\Espace;
+use App\Models\EspaceOrder;
+use Filament\Actions;
+use Filament\Forms;
+use Filament\Forms\Form;
+use Filament\Resources\Pages\EditRecord;
 
 class EditEspaceOrder extends EditRecord
 {
@@ -16,10 +16,12 @@ class EditEspaceOrder extends EditRecord
 
     protected function getHeaderActions(): array
     {
+        $record = $this->getRecord();
+
         return [
             Actions\DeleteAction::make()
                 ->requiresConfirmation()
-                ->visible(fn ($record) => $record->status !== 'completed'),
+                ->disabled(fn () => !$record->isPending()),
         ];
     }
 
@@ -62,7 +64,7 @@ class EditEspaceOrder extends EditRecord
                             ->schema([
                                 Forms\Components\Select::make('type')
                                     ->label('Type d\'espace')
-                                    ->default(fn($record) => $record->espace?->type ?? null)
+                                    ->default(fn ($record) => $record->espace?->type ?? null)
                                     ->options(Espace::FR_TYPES)
                                     ->reactive()
                                     ->helperText('Type d\'espace réservé')
@@ -70,9 +72,9 @@ class EditEspaceOrder extends EditRecord
 
                                 Forms\Components\Select::make('espace_id')
                                     ->label('Espace')
-                                    ->default(fn($record) => $record->espace?->id ?? null)
+                                    ->default(fn ($record) => $record->espace?->id ?? null)
                                     ->reactive()
-                                    ->disabled(fn(Forms\Get $get) => ! $get('type'))
+                                    ->disabled(fn (Forms\Get $get) => ! $get('type'))
                                     ->options(function (Forms\Get $get) {
                                         return Espace::where('type', $get('type'))
                                             ->pluck('name', 'id');
@@ -83,7 +85,7 @@ class EditEspaceOrder extends EditRecord
 
                                 Forms\Components\TextInput::make('quantity')
                                     ->label('Quantité')
-                                    ->disabled(fn(Forms\Get $get) => ! $get('espace_id'))
+                                    ->disabled(fn (Forms\Get $get) => ! $get('espace_id'))
                                     ->numeric()
                                     ->reactive()
                                     ->minValue(1)

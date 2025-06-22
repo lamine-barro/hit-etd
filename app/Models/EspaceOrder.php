@@ -63,4 +63,19 @@ class EspaceOrder extends Model
     {
         return $this->hasMany(EspaceOrderItem::class);
     }
+
+    public function isConfirmed()
+    {
+        return $this->status == 'confirmed';
+    }
+
+    public function isCancelled()
+    {
+        return $this->status == 'cancelled';
+    }
+
+    public function isPending()
+    {
+        return $this->status == 'pending';
+    }
 }

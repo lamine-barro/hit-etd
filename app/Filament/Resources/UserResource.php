@@ -107,6 +107,9 @@ class UserResource extends Resource
                     ->label('Téléphone')
                     ->searchable(),
 
+                Tables\Columns\ToggleColumn::make('is_active')
+                    ->label('Actif'),
+
                 Tables\Columns\IconColumn::make('email_verified_at')
                     ->label('Email vérifié')
                     ->boolean()
@@ -135,7 +138,7 @@ class UserResource extends Resource
                 Tables\Actions\EditAction::make()
                     ->label('Modifier'),
                 Tables\Actions\DeleteAction::make()
-                    ->label('Supprimer'),
+                    ->label('Archiver'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

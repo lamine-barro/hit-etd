@@ -105,24 +105,44 @@ class EspaceOrderResource extends Resource
                 Tables\Columns\TextColumn::make('reference')
                     ->label('Référence')
                     ->searchable(),
+
                 Tables\Columns\TextColumn::make('user.name')
                     ->description(fn (EspaceOrder $record) => $record->user->email)
                     ->label('Utilisateur'),
+
                 Tables\Columns\TextColumn::make('order_date')
                     ->label('Date de commande')
                     ->dateTime('d/m/Y H:i'),
+
                 Tables\Columns\TextColumn::make('status')
-                    ->label('Statut'),
+                    ->label('Statut')
+                    ->color(fn (EspaceOrder $record) => match ($record->status) {
+                        'pending' => 'warning',
+                        'confirmed' => 'success',
+                        'cancelled' => 'danger',
+                        default => 'secondary',
+                    })
+                    ->icon(fn (EspaceOrder $record) => match ($record->status) {
+                        'pending' => 'heroicon-o-clock',
+                        'confirmed' => 'heroicon-o-check-circle',
+                        'rejected' => 'heroicon-o-x-circle',
+                        default => 'heroicon-o-question-mark-circle',
+                    }),
+
                 Tables\Columns\TextColumn::make('total_amount')
                     ->label('Montant total'),
+
                 Tables\Columns\TextColumn::make('payment_method')
                     ->label('Méthode de paiement'),
+
                 Tables\Columns\TextColumn::make('started_at')
                     ->label('Début')
                     ->dateTime('d/m/Y H:i'),
+
                 Tables\Columns\TextColumn::make('ended_at')
                     ->label('Fin')
                     ->dateTime('d/m/Y H:i'),
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Créé le')
                     ->dateTime('d/m/Y H:i'),
@@ -131,8 +151,16 @@ class EspaceOrderResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make()
+                    ->label('Voir'),
+
                 Tables\Actions\EditAction::make()
-                    ->visible(fn (EspaceOrder $record) => $record->status === 'pending' || $record->status === 'confirmed'),
+                    ->label('Modifier')
+                    ->disabled(fn (EspaceOrder $record) => !$record->isPending()),
+
+                Tables\Actions\DeleteAction::make()
+                    ->label('Annuler')
+                    ->disabled(fn (EspaceOrder $record) => !$record->isPending()),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

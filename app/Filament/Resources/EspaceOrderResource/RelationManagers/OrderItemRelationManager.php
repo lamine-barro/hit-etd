@@ -58,8 +58,14 @@ class OrderItemRelationManager extends RelationManager
                 Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->label('Modifier')
+                    ->disabled(fn ($record) => $record->espace->isPending()),
+
+                Tables\Actions\DeleteAction::make()
+                    ->label('Supprimer')
+                    ->disabled(fn ($record) => $record->espace->isPending())
+                    ->requiresConfirmation(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
