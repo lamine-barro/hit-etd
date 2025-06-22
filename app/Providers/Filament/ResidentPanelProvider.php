@@ -5,7 +5,7 @@ namespace App\Providers\Filament;
 use App\Filament\Resident\Pages\Dashboard;
 use App\Filament\Resident\Pages\EditProfile;
 // use Filament\Http\Middleware\Authenticate;
-// use Filament\Http\Middleware\AuthenticateSession;
+use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Navigation\MenuItem;
@@ -52,7 +52,7 @@ class ResidentPanelProvider extends PanelProvider
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
                 StartSession::class,
-                // AuthenticateSession::class,
+                AuthenticateSession::class,
                 ShareErrorsFromSession::class,
                 VerifyCsrfToken::class,
                 SubstituteBindings::class,
@@ -65,8 +65,7 @@ class ResidentPanelProvider extends PanelProvider
                 FilamentFullCalendarPlugin::make()
                     ->selectable()
                     ->editable()
-                    ->timezone(date_default_timezone_get())
-                    ->locale('fr'),
+                    ->timezone(date_default_timezone_get()),
             ]);
     }
 }

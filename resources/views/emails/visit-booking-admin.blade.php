@@ -10,7 +10,7 @@
 
 **{{ __("Détails de la visite") }} :**
 - {{ __("Date") }} : {{ \Carbon\Carbon::parse($date)->format('d/m/Y') }}
-- {{ __("Heure") }} : {{ $time }}
+- {{ __("Heure") }} : {{ $time ?? '-' }}
 - {{ __("Objet") }} : {{ $purpose }}
 
 **{{ __("Espaces à visiter") }} :**
@@ -23,7 +23,7 @@
 {{ $message }}
 @endif
 
-@component('mail::button', ['url' => route('admin.bookings')])
+@component('mail::button', ['url' => route('filament.admin.resources.bookings.index')])
 {{ __("Voir toutes les réservations") }}
 @endcomponent
 

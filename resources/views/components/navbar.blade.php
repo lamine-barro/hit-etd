@@ -140,8 +140,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Fermeture du menu mobile lors du redimensionnement de la fenêtre
     window.addEventListener('resize', function() {
-        if (window.innerWidth >= 768) { // md breakpoint
-            const mobileMenu = document.querySelector('[x-data]').__x.$data;
+        if (window.innerWidth >= 768) {
+            const selected = document.querySelector('[x-data]');
+            if (seleted.__x && selected.__x.$data) {
+                return;
+            }
             if (mobileMenu && mobileMenu.open) {
                 mobileMenu.open = false;
             }

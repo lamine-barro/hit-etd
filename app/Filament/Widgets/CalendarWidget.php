@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resident\Widgets;
+namespace App\Filament\Widgets;
 
 use App\Filament\Resident\Resources\EspaceOrderResource;
 use App\Models\EspaceOrder;

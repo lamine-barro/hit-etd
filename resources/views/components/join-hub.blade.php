@@ -289,7 +289,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         console.log('🚀 Initialisation du formulaire de réservation...');
 
-        document.getElementById('booking-form').addEventListener('submit', function·e {
+        document.getElementById('booking-form').addEventListener('submit', function (e) {
             e.preventDefault();
             console.log('📝 Soumission du formulaire détectée');
 

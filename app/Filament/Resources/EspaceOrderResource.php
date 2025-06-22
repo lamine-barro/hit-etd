@@ -83,7 +83,7 @@ class EspaceOrderResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make()
-                    ->disabled(fn ($record) => !$record->isPending())
+                    ->disabled(fn ($record) => ! $record->isPending())
                     ->label('Modifier'),
 
                 Tables\Actions\DeleteAction::make()

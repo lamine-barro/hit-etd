@@ -14,7 +14,7 @@ class EditEspaceOrder extends EditRecord
     {
         return [
             Actions\DeleteAction::make()
-                ->disabled(fn ($record) => !$record->isPending()),
+                ->disabled(fn ($record) => ! $record->isPending()),
         ];
     }
 }

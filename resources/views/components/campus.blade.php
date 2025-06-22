@@ -66,7 +66,7 @@
                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                             <div class="relative">
                                 <label for="date" class="block text-sm font-medium text-gray-700 mb-2">{{ __("Date souhaitée") }}</label>
-                                <input type="date" name="date" id="date" class="block w-full px-4 py-3.5 rounded-xl border-gray-300 bg-gray-50 focus:bg-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none transition duration-200">
+                                <input type="date" name="date" min="{{ date('Y-m-d', strtotime('+1 day')) }}" id="date" class="block w-full px-4 py-3.5 rounded-xl border-gray-300 bg-gray-50 focus:bg-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none transition duration-200">
                             </div>
                             <div class="relative">
                                 <label for="time" class="block text-sm font-medium text-gray-700 mb-2">{{ __("Heure souhaitée") }}</label>
@@ -179,14 +179,22 @@
                             </button>
                         </div>
 
-                        <div class="mt-4 text-sm text-gray-500">
-                            <div class="font-medium text-gray-900">Merci de noter :</div>
-                            <ol class="list-disc pl-5 mt-2 space-y-1">
-                                <li class="mr-2">Les visites se font uniquement sur rendez-vous.</li>
-                                <li class="mr-2">Les créneaux proposés dans ce formulaire sont soumis à confirmation par notre équipe.</li>
-                                <li class="mr-2">Un préavis de 72 heures minimum est requis entre la date de soumission et la date souhaitée.</li>
-                                <li class="mr-2">Vous recevrez une réponse dans un délai de 3 jours ouvrés.</li>
-                            </ol>
+                        <!-- Infolist espace (conforme au design Filament/EspaceOrderResource) -->
+                        <div class="mt-8">
+                            <div class="bg-primary-50 border border-primary-100 rounded-xl p-6">
+                                <h3 class="text-base font-semibold text-primary-700 mb-4 flex items-center">
+                                    <svg class="w-5 h-5 mr-2 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    {{ __("À savoir avant de réserver") }}
+                                </h3>
+                                <ul class="list-disc pl-5 text-sm text-primary-900 space-y-2">
+                                    <li class="mr-2">Les visites se font uniquement sur rendez-vous.</li>
+                                    <li class="mr-2">Les créneaux proposés dans ce formulaire sont soumis à confirmation par notre équipe.</li>
+                                    <li class="mr-2">Un préavis de 72 heures minimum est requis entre la date de soumission et la date souhaitée.</li>
+                                    <li class="mr-2">Vous recevrez une réponse dans un délai de 3 jours ouvrés.</li>
+                                </ul>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -266,7 +274,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         console.log('🚀 Initialisation du formulaire de réservation...');
 
-        document.getElementById('booking-form').addEventListener('submit', function·e {
+        document.getElementById('booking-form').addEventListener('submit', function (e) {
             e.preventDefault();
             console.log('📝 Soumission du formulaire détectée');
 

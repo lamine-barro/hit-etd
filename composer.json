@@ -8,7 +8,9 @@
     "require": {
         "php": "^8.2",
         "andreia/filament-nord-theme": "^1.0",
+        "bezhansalleh/filament-language-switch": "^3.1",
         "doctrine/dbal": "^4.2",
+        "eightynine/filament-excel-import": "^3.1",
         "filament/actions": "^3.3",
         "filament/filament": "^3.3",
         "filament/forms": "^3.3",
@@ -21,7 +23,10 @@
         "maatwebsite/excel": "^3.1",
         "nuxtifyts/dash-stack-theme": "^1.2",
         "openspout/openspout": "v4.28.5",
+        "pxlrbt/filament-activity-log": "^1.1",
         "saade/filament-fullcalendar": "^3.2",
+        "solution-forest/filament-simplelightbox": "^0.0.11",
+        "spatie/laravel-activitylog": "^4.10",
         "spatie/laravel-sluggable": "^3.7",
         "ysfkaya/filament-phone-input": "^3.1"
     },

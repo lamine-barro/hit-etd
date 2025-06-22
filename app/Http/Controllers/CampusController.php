@@ -31,12 +31,13 @@ class CampusController extends Controller
                 'phone' => 'required|string|max:255',
                 'date' => 'required|date|after:today',
                 'time' => 'required|string',
-                'purpose' => 'required|string|in:coworking,incubation,formation,evenement',
+                'purpose' => 'required|string|in:partenariat,coworking,incubation,formation,evenement,presse,decouverte,other,etudiant',
                 'spaces' => 'required|array',
                 'spaces.*' => 'string|in:coworking,meeting,event,studio,auditorium',
             ]);
 
             $booking = Booking::create([
+                'status' => 'pending',
                 'firstname' => $validated['firstname'],
                 'lastname' => $validated['lastname'],
                 'email' => $validated['email'],
@@ -53,7 +54,7 @@ class CampusController extends Controller
                 'data' => $validated,
             ]);
 
-            Mail::queue('default')->send(new VisitBookingAdmin($booking));
+            Mail::queue(new VisitBookingAdmin($booking));
 
             return response()->json([
                 'status' => 'success',
@@ -67,7 +68,7 @@ class CampusController extends Controller
 
             return response()->json([
                 'status' => 'error',
-                'message' => __('Une erreur est survenue lors de la réservation de votre visite. Veuillez réessayer plus tard.'),
+                'message' => $e->getMessage() ?? __('Une erreur est survenue lors de la réservation de votre visite. Veuillez réessayer plus tard.'),
             ], 500);
         }
     }

@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Filament\Resident\Pages;
+namespace App\Filament\Pages;
 
 use App\Filament\Widgets\CalendarWidget;
+use App\Filament\Widgets\StatsOverview;
 use Filament\Pages\Dashboard as BaseDashboard;
-use Filament\Widgets\Widget;
-use Filament\Widgets\WidgetConfiguration;
 
 class Dashboard extends BaseDashboard
 {
-    protected static string $routePath = '/';
+    protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
-    protected static ?int $navigationSort = -2;
+    protected static string $routePath = '/dashboard';
 
     protected static ?string $navigationLabel = 'Tableau de bord';
 
@@ -21,6 +20,7 @@ class Dashboard extends BaseDashboard
     public function getWidgets(): array
     {
         return [
+            StatsOverview::class,
             CalendarWidget::class,
         ];
     }

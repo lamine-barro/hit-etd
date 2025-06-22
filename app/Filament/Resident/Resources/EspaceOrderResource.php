@@ -156,11 +156,11 @@ class EspaceOrderResource extends Resource
 
                 Tables\Actions\EditAction::make()
                     ->label('Modifier')
-                    ->disabled(fn (EspaceOrder $record) => !$record->isPending()),
+                    ->disabled(fn (EspaceOrder $record) => ! $record->isPending()),
 
                 Tables\Actions\DeleteAction::make()
                     ->label('Annuler')
-                    ->disabled(fn (EspaceOrder $record) => !$record->isPending()),
+                    ->disabled(fn (EspaceOrder $record) => ! $record->isPending()),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

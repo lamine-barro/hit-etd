@@ -137,8 +137,14 @@ class UserResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make()
                     ->label('Modifier'),
+
                 Tables\Actions\DeleteAction::make()
-                    ->label('Archiver'),
+                    ->requireConfirmation()
+                    ->label('Archiver')
+                    ->action(function ($record) {
+                        $record->delete();
+                        $record->notify(new \App\Notifications\ResidentAccountArchiveNotification);
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

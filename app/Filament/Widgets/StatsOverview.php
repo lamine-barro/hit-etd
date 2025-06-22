@@ -3,6 +3,7 @@
 namespace App\Filament\Widgets;
 
 use App\Models\Audience;
+use App\Models\Booking;
 use App\Models\Event;
 use App\Models\EventRegistration;
 use App\Models\Partnership;
@@ -73,6 +74,18 @@ class StatsOverview extends BaseWidget
                     Partnership::whereMonth('created_at', now()->subMonths(2)->month)->count(),
                     Partnership::whereMonth('created_at', now()->subMonths(1)->month)->count(),
                     Partnership::whereMonth('created_at', now()->month)->count(),
+                ]),
+
+            Stat::make('Visite', Booking::count())
+                ->description(Booking::where('status', 'approved')->count().' demande de visite actifs')
+                ->descriptionIcon('heroicon-m-heart')
+                ->color('danger')
+                ->url(route('filament.admin.resources.partnerships.index'))
+                ->chart([
+                    Booking::whereMonth('created_at', now()->subMonths(3)->month)->count(),
+                    Booking::whereMonth('created_at', now()->subMonths(2)->month)->count(),
+                    Booking::whereMonth('created_at', now()->subMonths(1)->month)->count(),
+                    Booking::whereMonth('created_at', now()->month)->count(),
                 ]),
         ];
     }

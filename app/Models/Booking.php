@@ -43,4 +43,9 @@ class Booking extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getFullNameAttribute(): string
+    {
+        return trim("{$this->firstname} {$this->lastname}");
+    }
 }

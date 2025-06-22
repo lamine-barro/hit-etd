@@ -4,8 +4,10 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\BookingResource\Pages;
 use App\Models\Booking;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Support\Enums\MaxWidth;
 use Filament\Tables;
 use Filament\Tables\Table;
 
@@ -48,12 +50,24 @@ class BookingResource extends Resource
                     ->label('ID')
                     ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('firstname')
-                    ->label('Prénom')
+                Tables\Columns\TextColumn::make('full_name')
+                    ->label('Nom et Prénom')
                     ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('lastname')
-                    ->label('Nom')
+                Tables\Columns\TextColumn::make('status')
+                    ->label('Statut')
+                    ->color(fn ($record) => match ($record->status) {
+                        'pending' => 'warning',
+                        'confirmed' => 'success',
+                        'cancelled' => 'danger',
+                        default => 'secondary',
+                    })
+                    ->icon(fn ($record) => match ($record->status) {
+                        'pending' => 'heroicon-o-clock',
+                        'confirmed' => 'heroicon-o-check',
+                        'cancelled' => 'heroicon-o-x',
+                        default => 'heroicon-o-question-mark-circle',
+                    })
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
@@ -79,7 +93,7 @@ class BookingResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('spaces')
                     ->label('Espaces')
-                    ->formatStateUsing(fn ($state) => implode(', ', $state))
+                    // ->formatStateUsing(fn ($state) => implode(', ', $state))
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
@@ -96,7 +110,35 @@ class BookingResource extends Resource
                 //
             ])
             ->actions([
-                // Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->label('Valider')
+                    ->icon('heroicon-o-check')
+                    ->form([
+                        Select::make('status')
+                            ->label('Statut')
+                            ->options([
+                                'confirmed' => 'Confirmée',
+                                'cancelled' => 'Annulée',
+                            ])
+                            ->default('pending')
+                            ->required(),
+                    ])
+                    ->modalHeading('Valider la demande de visite')
+                    ->modalSubmitActionLabel('Valider')
+                    ->modalWidth(MaxWidth::Small)
+                    ->action(function ($record, array $data) {
+                        $record->update(['status' => $data['status']]);
+                    })->color('success'),
+
+                Tables\Actions\DeleteAction::make()
+                    ->label('Archiver')
+                    ->icon('heroicon-o-trash')
+                    ->requiresConfirmation()
+                    ->color('danger')
+                    ->disabled(fn ($record) => $record->status === 'confirmed')
+                    ->action(function ($record) {
+                        $record->delete();
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -117,7 +159,7 @@ class BookingResource extends Resource
         return [
             'index' => Pages\ListBookings::route('/'),
             'create' => Pages\CreateBooking::route('/create'),
-            'edit' => Pages\EditBooking::route('/{record}/edit'),
+            // 'edit' => Pages\EditBooking::route('/{record}/edit'),
         ];
     }
 }
