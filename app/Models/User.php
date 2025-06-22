@@ -64,24 +64,12 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
         ];
     }
 
-    // public function __construct(array $attributes = [])
-    // {
-    //     parent::__construct($attributes);
-
-    //     User::creating(function ($user) {
-    //         $password = uniqid();
-    //         $user->password = bcrypt($password);
-    //         $user->is_active = true;
-    //     });
-    // }
-
     /**
      * Determine if the user can access the Filament panel.
      */
     public function canAccessPanel(\Filament\Panel $panel): bool
     {
-        // Allow all users to access the panel by default
-        return true;
+        return $this->isActive();
     }
 
     /**
