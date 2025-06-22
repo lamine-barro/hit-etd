@@ -139,7 +139,7 @@ class UserResource extends Resource
                     ->label('Modifier'),
 
                 Tables\Actions\DeleteAction::make()
-                    ->requireConfirmation()
+                    ->requiresConfirmation()
                     ->label('Archiver')
                     ->action(function ($record) {
                         $record->delete();
