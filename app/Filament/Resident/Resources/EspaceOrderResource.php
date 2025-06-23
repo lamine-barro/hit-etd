@@ -116,8 +116,7 @@ class EspaceOrderResource extends Resource
                                     ->minValue(1)
                                     ->default(1)
                                     ->label(__('Nombre de personnes'))
-                                    ->helperText(__('Nombre de personnes pouvant utiliser cet espace'))
-                                    ->label(__('Notes')),
+                                    ->helperText(__('Nombre de personnes pouvant utiliser cet espace')),
                             ])->columns(3),
                     ])->columns(1),
             ]);
