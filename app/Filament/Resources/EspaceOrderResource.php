@@ -62,6 +62,7 @@ class EspaceOrderResource extends Resource
                     }),
 
                 Tables\Columns\TextColumn::make('total_amount')
+                    ->money('XOF')
                     ->label('Montant total'),
 
                 Tables\Columns\TextColumn::make('payment_method')
