@@ -16,6 +16,7 @@ class EspaceOrderItem extends Model
         'ended_at',
         'status',
         'notes',
+        'number_of_people',
     ];
 
     public const STATUS_PENDING = 'pending';

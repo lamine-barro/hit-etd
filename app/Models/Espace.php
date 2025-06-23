@@ -11,17 +11,27 @@ class Espace extends Model
         'meeting_room' => 'Salle de réunion',
         'conference_room' => 'Salle de conférence',
         'lounge' => 'Salon',
+        'reste_room' => 'Salle de détente',
         'kitchen' => 'Cuisine',
         'storage' => 'Stockage',
+        'fab_lab' => 'Fab-lab',
+        'workshop' => 'Atelier',
+        'event_space' => 'Espace événementiel',
+        'open_space' => 'Open space',
+        'private_office' => 'Bureau privé',
+        'coworking_space' => 'Espace de coworking',
+        'technical_room' => 'Locaux technique',
+        'other' => 'Autre',
     ];
 
     public const FR_FLOORS = [
-        0 => 'Rez-de-chaussée',
-        1 => 'Premier étage',
-        2 => 'Deuxième étage',
+        // 0 => 'Rez-de-chaussée',
+        // 1 => 'Premier étage',
+        // 2 => 'Deuxième étage',
         3 => 'Troisième étage',
-        4 => 'Quatrième étage',
-        5 => 'Cinquième étage',
+        // 4 => 'Quatrième étage',
+        // 5 => 'Cinquième étage',
+        6 => 'Mezzanine',
     ];
 
     public const STATUS_AVAILABLE = 'available';
@@ -45,6 +55,7 @@ class Espace extends Model
         'ended_at',
         'status',
         'is_active',
+        'number_of_people',
     ];
 
     protected $casts = [

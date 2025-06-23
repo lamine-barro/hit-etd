@@ -500,5 +500,7 @@
     "Référence": "Reference",
     "Date de commande": "Order date",
     "Vous n'avez aucune réservation en cours. Réservez un espace en cliquant sur le bouton ci-dessus \"créer une réservation\"": "You have no ongoing reservations. Reserve a space by clicking the \"create a reservation\" button above",
-    "Créer une réservation": "Create a reservation"
+    "Créer une réservation": "Create a reservation",
+    "Nombre de personnes": "Number of people",
+    "Nombre de personnes pouvant utiliser cet espace": "Number of people who can use this space"
 }

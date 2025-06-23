@@ -111,8 +111,12 @@ class EspaceOrderResource extends Resource
                                     ->default(1)
                                     ->required(),
 
-                                Forms\Components\TextInput::make('notes')
-                                    ->helperText(__('Notes ou instructions spéciales pour la réservation'))
+                                Forms\Components\TextInput::make('number_of_people')
+                                    ->numeric()
+                                    ->minValue(1)
+                                    ->default(1)
+                                    ->label(__('Nombre de personnes'))
+                                    ->helperText(__('Nombre de personnes pouvant utiliser cet espace'))
                                     ->label(__('Notes')),
                             ])->columns(3),
                     ])->columns(1),
