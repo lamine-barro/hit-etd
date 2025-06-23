@@ -2,16 +2,16 @@
 
 namespace App\Filament\Resident\Resources;
 
-use Filament\Forms;
-use Filament\Tables;
-use App\Models\Espace;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use App\Models\EspaceOrder;
-use Filament\Resources\Resource;
-use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resident\Resources\EspaceOrderResource\Pages;
 use App\Filament\Resources\EspaceOrderResource\RelationManagers\OrderItemRelationManager;
+use App\Models\Espace;
+use App\Models\EspaceOrder;
+use Filament\Forms;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class EspaceOrderResource extends Resource
 {
@@ -131,6 +131,7 @@ class EspaceOrderResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->emptyStateDescription(__('Vous n\'avez aucune réservation en cours. Réservez un espace en cliquant sur le bouton ci-dessus "créer une réservation"'))
             ->columns([
                 Tables\Columns\TextColumn::make('reference')
                     ->label(__('Référence'))

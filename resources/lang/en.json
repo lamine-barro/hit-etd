@@ -498,5 +498,7 @@
     "Sélectionnez l'espace à réserver": "Select the space to reserve",
     "Quantité": "Quantity",
     "Référence": "Reference",
-    "Date de commande": "Order date"
+    "Date de commande": "Order date",
+    "Vous n'avez aucune réservation en cours. Réservez un espace en cliquant sur le bouton ci-dessus \"créer une réservation\"": "You have no ongoing reservations. Reserve a space by clicking the \"create a reservation\" button above",
+    "Créer une réservation": "Create a reservation"
 }

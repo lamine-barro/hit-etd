@@ -18,7 +18,7 @@ class ListEspaceOrders extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-                ->label('Créer une réservation')
+                ->label(__('Créer une réservation'))
                 ->icon('heroicon-o-plus')
                 ->color('primary'),
         ];

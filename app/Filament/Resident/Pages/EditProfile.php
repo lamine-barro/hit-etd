@@ -45,11 +45,10 @@ class EditProfile extends Page implements HasForms
 
     public function mount(): void
     {
-        $this->user = auth('web')->user();
-
-        if (! $this->user) {
+        if (! auth('web')->check()) {
             $this->redirect(route('filament.resident.auth.login'));
         } else {
+            $this->user = auth('web')->user();
             $this->form->fill($this->user->toArray());
         }
     }
