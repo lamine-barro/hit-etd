@@ -3,9 +3,11 @@
 namespace App\Filament\Resident\Resources\EspaceOrderResource\Pages;
 
 use App\Filament\Resident\Resources\EspaceOrderResource;
+use App\Models\Administrator;
 use App\Models\Espace;
 use App\Models\EspaceOrder;
 use App\Services\UtilityService;
+use Filament\Notifications\Notification;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Database\Eloquent\Model;
 
@@ -52,6 +54,13 @@ class CreateEspaceOrder extends CreateRecord
         // Update the total amount of the order for avoiding recomputing it later
         $order->total_amount = $payroll_amount;
         $order->save();
+
+        Administrator::all()->each(function ($admin) use ($order) {
+            Notification::make()
+                ->title(__('Nouvelle commande de l\'espace'))
+                ->body(__('Une nouvelle commande a été créée par :user', ['user' => auth('web')->user()->name]))
+                ->sendToDatabase($admin);
+        });
 
         return $order;
     }

@@ -32,6 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->font('Poppins')
             ->brandLogo('/logo_hit.png')
             ->brandLogoHeight('50px')
+            ->databaseNotifications(true)
             ->colors([
                 'primary' => '#ea580c',
             ])
