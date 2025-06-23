@@ -69,18 +69,6 @@ class EspaceOrderResource extends Resource
                             ->label(__('Espaces réservés'))
                             ->addActionLabel(__('Ajouter un espace'))
                             ->schema([
-                                Forms\Components\DateTimePicker::make('started_at')
-                                    ->prefix(__('Début : '))
-                                    ->minDate(now())
-                                    ->helperText(__('Date et heure de début de la réservation'))
-                                    ->label(__('Début')),
-
-                                Forms\Components\DateTimePicker::make('ended_at')
-                                    ->prefix(__('Fin : '))
-                                    ->minDate(now())
-                                    ->helperText(__('Date et heure de fin de la réservation'))
-                                    ->label(__('Fin')),
-
                                 Forms\Components\Select::make('type')
                                     ->label(__("Type d'espace"))
                                     ->options(Espace::FR_TYPES)
@@ -94,7 +82,6 @@ class EspaceOrderResource extends Resource
                                     ->disabled(fn (Forms\Get $get) => ! $get('type'))
                                     ->options(function (Forms\Get $get) {
                                         return Espace::where('type', $get('type'))
-                                            ->where('status', Espace::STATUS_AVAILABLE)
                                             ->where('is_active', true)
                                             ->pluck('name', 'id');
                                     })
@@ -113,10 +100,44 @@ class EspaceOrderResource extends Resource
 
                                 Forms\Components\TextInput::make('number_of_people')
                                     ->numeric()
+                                    ->disabled(fn (Forms\Get $get) => ! $get('type'))
                                     ->minValue(1)
                                     ->default(1)
                                     ->label(__('Nombre de personnes'))
                                     ->helperText(__('Nombre de personnes pouvant utiliser cet espace')),
+
+                                Forms\Components\DateTimePicker::make('started_at')
+                                    ->prefix(__('Début : '))
+                                    ->reactive()
+                                    ->required()
+                                    ->disabled(fn (Forms\Get $get) => ! $get('type'))
+                                    ->minDate(function (Forms\Get $get) {
+                                        $espace = Espace::find($get('espace_id'));
+                                        if ($espace && $espace->ended_at && $espace->ended_at->isFuture()) {
+                                            return $espace->ended_at->addMonths(3);
+                                        }
+
+                                        return now();
+                                    })
+                                    ->helperText(__('Date et heure de début de la réservation'))
+                                    ->label(__('Début')),
+
+                                Forms\Components\DateTimePicker::make('ended_at')
+                                    ->disabled(fn (Forms\Get $get) => ! $get('type'))
+                                    ->reactive()
+                                    ->required()
+                                    ->prefix(__('Fin : '))
+                                    ->minDate(function (Forms\Get $get) {
+                                        $espace = Espace::find($get('espace_id'));
+                                        if ($espace && $espace->ended_at && $espace->ended_at->isFuture()) {
+                                            return $espace->ended_at->addMonths(3);
+                                        }
+
+                                        return now();
+                                    })
+                                    ->minDate(now())
+                                    ->helperText(__('Date et heure de fin de la réservation'))
+                                    ->label(__('Fin')),
                             ])->columns(3),
                     ])->columns(1),
             ]);

@@ -16,10 +16,7 @@ class CreateEspaceOrder extends CreateRecord
     protected function handleRecordCreation(array $data): Model
     {
         $data = $this->mutateFormDataBeforeCreate($data);
-
         $items = $data['espaces'] ?? [];
-        $espaces = [];
-        $payroll_amount = 0;
 
         $order_data = [
             'user_id' => auth('web')->id(),
@@ -32,14 +29,14 @@ class CreateEspaceOrder extends CreateRecord
         ];
 
         $order = EspaceOrder::create($order_data);
-        $price = 0;
+        $payroll_amount = 0;
 
         foreach ($items as $item) {
             if (! isset($item['espace_id'])) {
                 continue;
             }
             $espace = Espace::find($item['espace_id']);
-            $price += $espace->price ?? 0;
+            $payroll_amount += $espace->price ?? 0;
             $order->espaces()->create([
                 'espace_id' => $espace->id,
                 'espace_order_id' => $order->id,
@@ -47,13 +44,13 @@ class CreateEspaceOrder extends CreateRecord
                 'total_amount' => $item['quantity'] ?? 0,
                 'quantity' => $item['quantity'] ?? 1,
                 'started_at' => $item['started_at'] ?? now(),
-                'ended_at' => $item['started_at'],
+                'ended_at' => $item['ended_at'],
                 'notes' => $item['notes'] ?? '',
             ]);
         }
 
         // Update the total amount of the order for avoiding recomputing it later
-        $order->total_amount = $price;
+        $order->total_amount = $payroll_amount;
         $order->save();
 
         return $order;
