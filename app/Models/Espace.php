@@ -32,6 +32,7 @@ class Espace extends Model
         // 4 => 'Quatrième étage',
         // 5 => 'Cinquième étage',
         6 => 'Mezzanine',
+        7 => 'Autre',
     ];
 
     public const STATUS_AVAILABLE = 'available';
