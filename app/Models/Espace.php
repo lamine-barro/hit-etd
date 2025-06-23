@@ -53,6 +53,8 @@ class Espace extends Model
         'price' => 'float',
         'minimum_duration' => 'integer',
         'floor' => 'integer',
+        'ended_at' => 'datetime',
+        'started_at' => 'datetime',
     ];
 
     public function orders()

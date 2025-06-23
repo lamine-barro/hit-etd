@@ -117,7 +117,7 @@ class EspaceResource extends Resource
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('name')
-                    ->label("Nom de l'espace")
+                    ->label('Libellé')
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('type')
@@ -126,7 +126,37 @@ class EspaceResource extends Resource
                     })
                     ->label('Type'),
 
+                Tables\Columns\TextColumn::make('status')
+                    ->label('Statut')
+                    ->color(fn (Espace $record) => match ($record->status) {
+                        Espace::STATUS_AVAILABLE => 'success',
+                        Espace::STATUS_UNAVAILABLE => 'danger',
+                        Espace::STATUS_RESERVED => 'warning',
+                        default => 'secondary',
+                    })
+                    ->icon(fn (Espace $record) => match ($record->status) {
+                        Espace::STATUS_AVAILABLE => 'heroicon-o-check-circle',
+                        Espace::STATUS_UNAVAILABLE => 'heroicon-o-x-circle',
+                        Espace::STATUS_RESERVED => 'heroicon-o-clock',
+                        default => 'heroicon-o-question-mark-circle',
+                    })
+                    ->searchable(),
+
+                Tables\Columns\TextColumn::make('ended_at')
+                    ->state(function (Espace $record) {
+                        if (! $record->ended_at) {
+                            return '-';
+                        }
+                        if ($record->ended_at->isPast()) {
+                            return 'Réservation terminée';
+                        }
+
+                        return $record->ended_at->diffForHumans(['syntax' => 'short']);
+                    })
+                    ->label('Disponibilité'),
+
                 Tables\Columns\TextColumn::make('price')
+                    ->money('XOF')
                     ->label('Prix'),
 
                 Tables\Columns\TextColumn::make('minimum_duration')
@@ -140,15 +170,8 @@ class EspaceResource extends Resource
                 Tables\Columns\TextColumn::make('floor')
                     ->label('Étage'),
 
-                Tables\Columns\TextColumn::make('location')
-                    ->label('Emplacement'),
-
                 Tables\Columns\TextColumn::make('number_of_rooms')
                     ->label('Nombre de pièces'),
-
-                Tables\Columns\ImageColumn::make('illustration')
-                    ->label('Illustration')
-                    ->height(40),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Créé le')
