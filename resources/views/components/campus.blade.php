@@ -1,3 +1,4 @@
+
 <section class="relative py-20 bg-gradient-to-b from-gray-50/50 to-white overflow-hidden" id="campus">
     <!-- Décoration de fond -->
     <div class="absolute inset-0 pointer-events-none">
@@ -65,8 +66,8 @@
                         <!-- Date et Heure -->
                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                             <div class="relative">
-                                <label for="date" class="block text-sm font-medium text-gray-700 mb-2">{{ __("Date souhaitée") }}</label>
-                                <input type="date" name="date" min="{{ date('Y-m-d', strtotime('+1 day')) }}" id="date" class="block w-full px-4 py-3.5 rounded-xl border-gray-300 bg-gray-50 focus:bg-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none transition duration-200">
+                                <label for="datePicker" class="block text-sm font-medium text-gray-700 mb-2">{{ __("Date souhaitée") }}</label>
+                                <input type="datePicker" name="date" min="{{ date('Y-m-d', strtotime('+1 day')) }}" id="datePicker" class="block w-full px-4 py-3.5 rounded-xl border-gray-300 bg-gray-50 focus:bg-white focus:ring-primary-500 focus:border-primary-500 focus:outline-none transition duration-200">
                             </div>
                             <div class="relative">
                                 <label for="time" class="block text-sm font-medium text-gray-700 mb-2">{{ __("Heure souhaitée") }}</label>
@@ -271,6 +272,14 @@
 
     @push('scripts')
     <script>
+    flatpickr("#datePicker", {
+        dateFormat: "Y-m-d",
+        disable: [
+            function(date) {
+                return !(date.getDay() === 2 || date.getDay() === 4);
+            }
+        ]
+    });
     document.addEventListener('DOMContentLoaded', function() {
         console.log('🚀 Initialisation du formulaire de réservation...');
 
