@@ -37,11 +37,16 @@ class OrderItemRelationManager extends RelationManager
                     ->label('Nom de l\'espace'),
 
                 Tables\Columns\TextColumn::make('price')
-                    ->formatStateUsing(fn ($state) => number_format($state, 2, ',', ' '))
+                    ->money('XOF')
                     ->label('Prix'),
 
                 Tables\Columns\TextColumn::make('quantity')
                     ->label('Quantité'),
+
+                Tables\Columns\TextColumn::make('total_amount')
+                    ->money('XOF')
+                    ->state(fn ($record) => $record->price * $record->quantity)
+                    ->label('Montant total'),
 
                 Tables\Columns\TextColumn::make('status')
                     ->label(__('Statut'))
@@ -65,11 +70,6 @@ class OrderItemRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('ended_at')
                     ->label('Fin')
                     ->dateTime('d/m/Y H:i'),
-
-                Tables\Columns\TextColumn::make('total_amount')
-                    ->formatStateUsing(fn ($state) => number_format($state, 2, ',', ' '))
-                    ->state(fn ($record) => $record->price * $record->quantity)
-                    ->label('Montant total'),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Créé le')

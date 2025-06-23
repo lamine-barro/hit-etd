@@ -90,16 +90,12 @@ class ViewEspaceOrder extends ViewRecord
                                 default => 'heroicon-o-question-mark-circle',
                             }),
 
-                        Infolists\Components\TextEntry::make('payment_method')
-                            ->label('Méthode de paiement'),
-
                         Infolists\Components\TextEntry::make('total_amount')
                             ->money('XOF')
                             ->label(__('Montant total')),
 
-                        Infolists\Components\TextEntry::make('created_at')
-                            ->label('Créé le')
-                            ->dateTime('d/m/Y H:i'),
+                        Infolists\Components\TextEntry::make('payment_method')
+                            ->label('Méthode de paiement'),
                     ])->columns(3),
             ]);
     }
