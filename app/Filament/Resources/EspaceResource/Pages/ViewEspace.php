@@ -66,6 +66,7 @@ class ViewEspace extends ViewRecord
                             ->label('Durée minimale'),
 
                         Infolists\Components\TextEntry::make('ended_at')
+                            ->label('Disponibilité')
                             ->state(function (Espace $record) {
                                 if (! $record->ended_at) {
                                     return 'Oui';
@@ -75,8 +76,7 @@ class ViewEspace extends ViewRecord
                                 }
 
                                 return $record->ended_at->diffForHumans(['syntax' => 'short']);
-                            })
-                            ->label('Disponibilité'),
+                            }),
 
                         Infolists\Components\TextEntry::make('created_at')
                             ->label('Créé le')
