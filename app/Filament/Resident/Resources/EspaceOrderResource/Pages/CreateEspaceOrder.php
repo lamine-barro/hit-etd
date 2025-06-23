@@ -55,7 +55,7 @@ class CreateEspaceOrder extends CreateRecord
         $order->total_amount = $payroll_amount;
         $order->save();
 
-        Administrator::all()->each(function ($admin) use ($order) {
+        Administrator::all()->each(function ($admin) {
             Notification::make()
                 ->title(__('Nouvelle commande de l\'espace'))
                 ->body(__('Une nouvelle commande a été créée par :user', ['user' => auth('web')->user()->name]))

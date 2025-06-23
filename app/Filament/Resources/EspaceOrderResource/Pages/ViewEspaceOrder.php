@@ -8,6 +8,7 @@ use App\Models\EspaceOrder;
 use Filament\Actions;
 use Filament\Infolists;
 use Filament\Infolists\Infolist;
+use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ViewRecord;
 use Filament\Support\Enums\MaxWidth;
 
@@ -32,8 +33,21 @@ class ViewEspaceOrder extends ViewRecord
                                 'started_at' => $item->started_at,
                                 'ended_at' => $item->ended_at,
                             ]);
+                            $this->record->user->notify(new \App\Notifications\EspaceOrderConfirmedNotification($this->record));
+                            Notification::make()
+                                ->title(__('Commande confirmée'))
+                                ->success()
+                                ->body(__('La commande a été confirmée avec succès.'))
+                                ->sendToDatabase($this->record->user);
+                        } elseif ($data['status'] === EspaceOrder::STATUS_PENDING) {
+                            $item->espace->update(['status' => Espace::STATUS_AVAILABLE]);
                         } elseif ($data['status'] === EspaceOrder::STATUS_CANCELLED) {
                             $item->espace->update(['status' => Espace::STATUS_AVAILABLE]);
+                            Notification::make()
+                                ->title(__('Commande annulée'))
+                                ->success()
+                                ->body(__('La commande a été annulée, Veillez fait une autre commande.'))
+                                ->sendToDatabase($this->record->user);
                         }
                     });
                 })
