@@ -94,18 +94,9 @@ class EspaceOrderResource extends Resource
                                     ->disabled(fn (Forms\Get $get) => ! $get('type'))
                                     ->options(function (Forms\Get $get) {
                                         return Espace::where('type', $get('type'))
-                                            ->leftJoin('espace_order_items', 'espace_order_items.espace_id', 'espaces.id')
-                                            ->leftJoin('espace_orders', 'espace_orders.id', 'espace_order_items.espace_order_id')
-                                            ->where('espaces.status', Espace::STATUS_AVAILABLE)
-                                            ->where('espaces.is_active', true)
-                                            ->where(function ($query) {
-                                                $query->whereNull('espace_orders.id')
-                                                    ->orWhere(function ($query) {
-                                                        $query->where('espace_orders.ended_at', '<', now())
-                                                            ->where('espace_orders.status', 'confirmed');
-                                                    });
-                                            })
-                                            ->pluck('espaces.name', 'espaces.id');
+                                            ->where('status', Espace::STATUS_AVAILABLE)
+                                            ->where('is_active', true)
+                                            ->pluck('name', 'id');
                                     })
                                     ->searchable()
                                     ->helperText(__("Sélectionnez l'espace à réserver"))
