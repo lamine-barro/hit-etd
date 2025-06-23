@@ -4,6 +4,7 @@ namespace App\Filament\Resources\EspaceOrderResource\Pages;
 
 use App\Filament\Resources\EspaceOrderResource;
 use App\Models\Espace;
+use App\Models\EspaceOrder;
 use Filament\Actions;
 use Filament\Infolists;
 use Filament\Infolists\Infolist;
@@ -25,13 +26,13 @@ class ViewEspaceOrder extends ViewRecord
                     $this->record->update($data);
                     $this->record->espaces->each(function ($item) use ($data) {
                         $item->update($data);
-                        if ($data['status'] === 'confirmed') {
+                        if ($data['status'] === EspaceOrder::STATUS_CONFIRMED) {
                             $item->espace->update([
                                 'status' => Espace::STATUS_RESERVED,
                                 'started_at' => $item->started_at,
                                 'ended_at' => $item->ended_at,
                             ]);
-                        } elseif ($data['status'] === 'cancelled') {
+                        } elseif ($data['status'] === EspaceOrder::STATUS_CANCELLED) {
                             $item->espace->update(['status' => Espace::STATUS_AVAILABLE]);
                         }
                     });

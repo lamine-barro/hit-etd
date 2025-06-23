@@ -8,12 +8,13 @@ class EspaceOrder extends Model
 {
     use \Illuminate\Database\Eloquent\Factories\HasFactory;
 
-    public const STATUSES = [
-        'pending' => 'En attente',
-        'processing' => 'En traitement',
-        'completed' => 'Terminé',
-        'cancelled' => 'Annulé',
-    ];
+    public const STATUS_PENDING = 'pending';
+
+    public const STATUS_CONFIRMED = 'confirmed';
+
+    public const STATUS_CANCELLED = 'cancelled';
+
+    public const STATUS_REJECTED = 'rejected';
 
     public const PAYMENT_METHODS = [
         'credit_card' => 'Carte de crédit',

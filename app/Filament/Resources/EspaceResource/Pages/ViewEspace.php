@@ -12,6 +12,11 @@ class ViewEspace extends ViewRecord
 {
     protected static string $resource = EspaceResource::class;
 
+    public function getTitle(): string
+    {
+        return $this->record->code.' - '.$this->record->name.' - ('.$this->record->status.')';
+    }
+
     public function infolist(Infolist $infolist): Infolist
     {
         return $infolist
@@ -31,18 +36,47 @@ class ViewEspace extends ViewRecord
                         Infolists\Components\TextEntry::make('code')
                             ->label('Code'),
 
+                        Infolists\Components\TextEntry::make('status')
+                            ->color(fn (Espace $record) => match ($record->status) {
+                                Espace::STATUS_AVAILABLE => 'success',
+                                Espace::STATUS_RESERVED => 'warning',
+                                Espace::STATUS_UNAVAILABLE => 'danger',
+                                default => 'secondary',
+                            })
+                            ->icon(fn (Espace $record) => match ($record->status) {
+                                Espace::STATUS_AVAILABLE => 'heroicon-o-check-circle',
+                                Espace::STATUS_RESERVED => 'heroicon-o-clock',
+                                Espace::STATUS_UNAVAILABLE => 'heroicon-o-x-circle',
+                                default => 'heroicon-o-question-mark-circle',
+                            })
+                            ->label('Statut'),
+
                         Infolists\Components\TextEntry::make('location')
                             ->label('Emplacement'),
 
                         Infolists\Components\TextEntry::make('price')
+                            ->money('XOF')
                             ->label('Prix de location'),
 
                         Infolists\Components\TextEntry::make('floor')
                             ->label('Étage'),
 
                         Infolists\Components\TextEntry::make('minimum_duration')
-                            ->label('Durée minimale')
-                            ->helperText('Durée minimale de location en heures'),
+                            ->suffix('h')
+                            ->label('Durée minimale'),
+
+                        Infolists\Components\TextEntry::make('ended_at')
+                            ->state(function (Espace $record) {
+                                if (! $record->ended_at) {
+                                    return 'Oui';
+                                }
+                                if ($record->ended_at->isPast()) {
+                                    return 'Réservation terminée';
+                                }
+
+                                return $record->ended_at->diffForHumans(['syntax' => 'short']);
+                            })
+                            ->label('Disponibilité'),
 
                         Infolists\Components\TextEntry::make('created_at')
                             ->label('Créé le')
