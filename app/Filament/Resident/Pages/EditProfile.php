@@ -47,7 +47,11 @@ class EditProfile extends Page implements HasForms
     {
         $this->user = auth('web')->user();
 
-        $this->form->fill($this->user->toArray());
+        if (! $this->user) {
+            $this->redirect(route('filament.resident.auth.login'));
+        } else {
+            $this->form->fill($this->user->toArray());
+        }
     }
 
     public function form(Form $form): Form
