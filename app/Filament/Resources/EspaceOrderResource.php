@@ -39,6 +39,7 @@ class EspaceOrderResource extends Resource
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('user.email')
+                    ->description(fn ($record) => $record->user->full_name)
                     ->label('Utilisateur'),
 
                 Tables\Columns\TextColumn::make('order_date')
@@ -65,14 +66,6 @@ class EspaceOrderResource extends Resource
 
                 Tables\Columns\TextColumn::make('payment_method')
                     ->label('Méthode de paiement'),
-
-                Tables\Columns\TextColumn::make('started_at')
-                    ->label('Début')
-                    ->dateTime('d/m/Y H:i'),
-
-                Tables\Columns\TextColumn::make('ended_at')
-                    ->label('Fin')
-                    ->dateTime('d/m/Y H:i'),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Créé le')

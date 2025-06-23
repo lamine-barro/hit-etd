@@ -20,8 +20,8 @@ class ViewEspaceOrder extends ViewRecord
                         Infolists\Components\TextEntry::make('reference')
                             ->label('Référence'),
 
-                        Infolists\Components\TextEntry::make('user.email')
-                            ->label(__('Utilisateur')),
+                        Infolists\Components\TextEntry::make('user.name')
+                            ->label('Résident'),
 
                         Infolists\Components\TextEntry::make('order_date')
                             ->label(__('Date de la commande'))
