@@ -143,17 +143,17 @@ class EspaceResource extends Resource
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('ended_at')
+                    ->label('Disponibilité')
                     ->state(function (Espace $record) {
                         if (! $record->ended_at) {
                             return '-';
                         }
                         if ($record->ended_at->isPast()) {
-                            return 'Réservation terminée';
+                            return 'Précédente réservation terminée';
                         }
 
                         return $record->ended_at->diffForHumans(['syntax' => 'short']);
-                    })
-                    ->label('Disponibilité'),
+                    }),
 
                 Tables\Columns\TextColumn::make('price')
                     ->money('XOF')
