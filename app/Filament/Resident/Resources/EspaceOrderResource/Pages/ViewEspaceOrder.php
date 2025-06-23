@@ -37,6 +37,7 @@ class ViewEspaceOrder extends ViewRecord
                             }),
 
                         Infolists\Components\TextEntry::make('total_amount')
+                            ->money('XOF')
                             ->label(__('Montant total')),
 
                         Infolists\Components\TextEntry::make('payment_method')
