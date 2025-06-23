@@ -2,15 +2,16 @@
 
 namespace App\Filament\Resident\Resources;
 
+use Filament\Forms;
+use Filament\Tables;
+use App\Models\Espace;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
+use App\Models\EspaceOrder;
+use Filament\Resources\Resource;
+use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resident\Resources\EspaceOrderResource\Pages;
 use App\Filament\Resources\EspaceOrderResource\RelationManagers\OrderItemRelationManager;
-use App\Models\Espace;
-use App\Models\EspaceOrder;
-use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Table;
 
 class EspaceOrderResource extends Resource
 {
@@ -159,6 +160,7 @@ class EspaceOrderResource extends Resource
                     }),
 
                 Tables\Columns\TextColumn::make('total_amount')
+                    ->state(fn (EspaceOrder $record) => number_format($record->total_amount, 2, ',', ' '))
                     ->label(__('Montant total')),
 
                 Tables\Columns\TextColumn::make('payment_method')
@@ -193,6 +195,13 @@ class EspaceOrderResource extends Resource
         return [
             OrderItemRelationManager::class,
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->where('user_id', auth('web')->id())
+            ->orderBy('created_at', 'desc');
     }
 
     public static function getPages(): array

@@ -26,18 +26,20 @@ class CreateEspaceOrder extends CreateRecord
             'reference' => UtilityService::generateReference('O', 5),
             'order_date' => now(),
             'status' => 'pending',
-            'total_amount' => collect($espaces)->sum('price'),
+            'total_amount' => 0,
             'notes' => $data['notes'] ?? '',
             'payment_method' => $data['payment_method'] ?? 'cash',
         ];
 
         $order = EspaceOrder::create($order_data);
+        $price = 0;
 
         foreach ($items as $item) {
             if (! isset($item['espace_id'])) {
                 continue;
             }
             $espace = Espace::find($item['espace_id']);
+            $price += $espace->price ?? 0;
             $order->espaces()->create([
                 'espace_id' => $espace->id,
                 'espace_order_id' => $order->id,
@@ -49,6 +51,10 @@ class CreateEspaceOrder extends CreateRecord
                 'notes' => $item['notes'] ?? '',
             ]);
         }
+
+        // Update the total amount of the order for avoiding recomputing it later
+        $order->total_amount = $price;
+        $order->save();
 
         return $order;
     }
