@@ -17,6 +17,7 @@
         </div>
     </div>
 @endif
+
 <form action="{{ route('join-hub.export') }}" method="POST" enctype="multipart/form-data" class="space-y-8 bg-white rounded-xl shadow-md p-8 border border-gray-100 backdrop-blur-sm bg-white/90" id="expert-form">
     @csrf
     <!-- 1. Informations personnelles -->
