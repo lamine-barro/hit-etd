@@ -13,7 +13,7 @@ class NewsController extends Controller
         $news = [
             [
                 'title' => __('Lancement de la nouvelle promotion'),
-                'excerpt' => __('Le Hub Ivoire Tech accueille sa nouvelle promotion de startups innovantes.'),
+                'excerpt' => __('Hub Ivoire Tech accueille sa nouvelle promotion de startups innovantes.'),
                 'date' => '2024-03-15',
                 'image' => 'news/promotion-2024.jpg',
             ],

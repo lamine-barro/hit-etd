@@ -211,19 +211,3 @@
         </button>
     </div>
 </form>
-
-<!-- Styles pour corriger la couleur bleue sur les inputs -->
-<style>
-    #expert-form input:focus,
-    #expert-form textarea:focus,
-    #expert-form select:focus {
-        outline: none !important;
-        border-color: #f97316 !important; /* orange-500 */
-        box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.2) !important; /* orange-500 avec opacité */
-    }
-    #expert-form input,
-    #expert-form textarea,
-    #expert-form select {
-        outline: none !important;
-    }
-</style>

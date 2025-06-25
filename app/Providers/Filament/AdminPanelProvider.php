@@ -69,7 +69,7 @@ class AdminPanelProvider extends PanelProvider
                 SimpleLightBoxPlugin::make(),
             ])
             ->navigationGroups([
-                'Résidents',
+                'Hub',
                 'Événements',
                 'Demandes',
                 'Administration',

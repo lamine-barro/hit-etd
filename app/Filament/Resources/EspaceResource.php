@@ -22,7 +22,7 @@ class EspaceResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Espaces';
 
-    protected static ?string $navigationGroup = 'Résidents';
+    protected static ?string $navigationGroup = 'Hub';
 
     protected static ?int $navigationSort = 2;
 

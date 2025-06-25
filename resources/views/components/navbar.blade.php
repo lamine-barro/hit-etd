@@ -24,7 +24,7 @@
                 <a href="{{ route('partnership') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __("Devenir Partenaire") }}</a>
                 <div class="relative group" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
                     <button type="button" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1 flex items-center gap-1" @click="open = !open">
-                        {{ __("Rejoindre le Hub") }}
+                        {{ __("Rejoindre Hub") }}
                         <svg class="w-4 h-4 ml-1 transition-transform duration-200" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>

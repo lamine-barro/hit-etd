@@ -2,15 +2,16 @@
 
 namespace App\Filament\Resources;
 
-use App\Enums\AudienceType;
-use App\Filament\Resources\AudienceResource\Pages;
-use App\Models\Audience;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Audience;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Enums\AudienceType;
+use Filament\Resources\Resource;
+use Illuminate\Database\Eloquent\Builder;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
+use App\Filament\Resources\AudienceResource\Pages;
 use Ysfkaya\FilamentPhoneInput\Tables\PhoneColumn;
 
 class AudienceResource extends Resource
@@ -137,6 +138,12 @@ class AudienceResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->orderBy('created_at', 'desc');
     }
 
     public static function getPages(): array

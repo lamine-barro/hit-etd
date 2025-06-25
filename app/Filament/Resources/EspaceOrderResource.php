@@ -20,7 +20,7 @@ class EspaceOrderResource extends Resource
 
     protected static ?string $modelLabel = 'Reservation';
 
-    protected static ?string $navigationGroup = 'Résidents';
+    protected static ?string $navigationGroup = 'Hub';
 
     protected static ?int $navigationSort = 3;
 

@@ -40,6 +40,8 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
         'responsible_document_file',
         'profile_picture',
         'with_responsible',
+        'is_request',
+        'needs',
     ];
 
     /**
@@ -50,6 +52,13 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
     protected $hidden = [
         'remember_token',
         'password',
+    ];
+
+    public const CATEGORIES = [
+        'startup' => 'Startup',
+        'person' => 'Individu',
+        'expert' => 'Expert',
+        'entreprise' => 'Gestionnaire',
     ];
 
     /**

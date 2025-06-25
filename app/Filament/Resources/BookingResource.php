@@ -2,14 +2,15 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\BookingResource\Pages;
+use Filament\Tables;
 use App\Models\Booking;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
+use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Support\Enums\MaxWidth;
-use Filament\Tables;
-use Filament\Tables\Table;
+use Filament\Forms\Components\Select;
+use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\BookingResource\Pages;
 
 class BookingResource extends Resource
 {
@@ -152,6 +153,12 @@ class BookingResource extends Resource
         return [
             //
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->orderBy('created_at', 'desc');
     }
 
     public static function getPages(): array

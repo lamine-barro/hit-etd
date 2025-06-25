@@ -10,16 +10,15 @@ class JoinHubController extends Controller
     {
         // Render the join hub view for unauthenticated users
         return view('pages.join-hub', [
-            'pageTitle' => __('Rejoignez le Hub Ivoire Tech'),
-            'metaDescription' => __("Rejoignez le Hub Ivoire Tech, le plus grand campus de startups en Afrique. Inscrivez-vous pour bénéficier de nos services d'incubation, de coworking et d'événements."),
+            'pageTitle' => __('Rejoignez Hub Ivoire Tech'),
+            'metaDescription' => __("Rejoignez Hub Ivoire Tech, le plus grand campus de startups en Afrique. Inscrivez-vous pour bénéficier de nos services d'incubation, de coworking et d'événements."),
         ]);
     }
 
     public function storeExpert(Request $request)
     {
         $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
+            'full_name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:20',
             'organization' => 'nullable|string|max:255',
@@ -37,8 +36,7 @@ class JoinHubController extends Controller
 
         // Create the expert record
         $expert = new \App\Models\Expert;
-        $expert->first_name = $request->input('first_name');
-        $expert->last_name = $request->input('last_name');
+        $expert->full_name = $request->input('full_name');
         $expert->email = $request->input('email');
         $expert->phone = $request->input('phone');
         $expert->organization = $request->input('organization');
@@ -52,15 +50,56 @@ class JoinHubController extends Controller
         $expert->preferred_days = $request->input('preferred_days', []);
         $expert->preferred_times = $request->input('preferred_times', []);
         $expert->remarks = $request->input('remarks');
-        $expert->cv_path = $request->file('cv') ? $request->file('cv')->store('cvs', 'public') : null;
+        // $expert->cv_path = $request->file('cv') ? $request->file('cv')->store('cvs', 'public') : null;
         $expert->save();
 
         // Redirect or return a response
-        return redirect()->route('home')->with('success', 'You have successfully joined the hub!');
+        return response()->json([
+            'status' => 'success', 'message' => 'You have successfully joined the hub!',
+        ]);
     }
 
     public function storeResident(Request $request)
     {
-        return response()->json(['message' => 'Startup registration not implemented yet.'], 501);
+        $request->validate([
+            'resident_category' => 'required|string|max:255',
+            'resident_full_name' => 'required|string|max:255',
+            'resident_email' => 'required|email|max:255',
+            'resident_phone' => 'nullable|string|max:20',
+            'with_responsible' => 'nullable|boolean',
+            'responsible_name' => 'nullable|string|max:255',
+            'responsible_phone' => 'nullable|string|max:20',
+            'resident_needs' => 'nullable|string|max:500',
+        ]);
+
+        // Check email uniqueness
+        $existingResident = \App\Models\User::where('email', $request->input('resident_email'))->first();
+
+        if ($existingResident) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Cette adresse e-mail est déjà utilisée. Veuillez en choisir une autre.',
+            ], 422);
+        }
+
+        // Example: Save to Resident model (adjust as needed)
+        $resident = new \App\Models\User;
+        $resident->category = $request->input('resident_category');
+        $resident->name = $request->input('resident_full_name');
+        $resident->email = $request->input('resident_email');
+        $resident->phone = $request->input('resident_phone');
+        $resident->with_responsible = $request->boolean('with_responsible');
+        $resident->responsible_name = $request->input('responsible_name');
+        $resident->responsible_phone = $request->input('responsible_phone');
+        $resident->needs = $request->input('resident_needs');
+        $resident->is_verified = false;
+        $resident->is_active = false;
+        $resident->is_request = true;
+        $resident->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Vous avez rejoint le hub avec succès !',
+        ]);
     }
 }

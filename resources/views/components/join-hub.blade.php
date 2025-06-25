@@ -1,7 +1,7 @@
 <section class="relative py-24 bg-gradient-to-b from-gray-50/50 to-white overflow-hidden" id="campus">
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
-            <h1 class="text-5xl sm:text-6xl font-extrabold text-gray-900 mb-6 tracking-tight drop-shadow-lg">{{ __("Rejoindre le Hub") }}</h1>
+            <h1 class="text-5xl sm:text-6xl font-extrabold text-gray-900 mb-6 tracking-tight drop-shadow-lg">{{ __("Rejoindre Hub") }}</h1>
             <p class="text-xl sm:text-2xl text-gray-600 max-w-3xl mx-auto">{{ __("Planifiez une visite de notre campus (sur rendez-vous uniquement)") }} {{ config('hit.name') }}</p>
         </div>
     </div>
@@ -11,7 +11,7 @@
             <template x-for="(item, idx) in [{label: 'Devenir Expert', icon: 'user-plus', value: 'expert'}, {label: 'Devenir Résident', icon: 'users', value: 'resident'}]" :key="item.value">
                 <button type="button"
                     @click="tab = item.value; window.location.hash = item.value === 'expert' ? '#export-join' : '#resident-join'"
-                    :class="tab === item.value ? 'bg-gradient-to-r from-orange-500 to-primary-500 text-white shadow-lg scale-105 z-10' : 'bg-white text-gray-700 hover:bg-gray-50 focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:outline-none'"
+                    :class="tab === item.value ? 'bg-gradient-to-r from-orange-500 to-primary-500 text-white shadow-sm scale-105 z-10' : 'bg-white text-gray-700 hover:bg-gray-50 focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:outline-none'"
                     class="relative px-8 py-4 font-semibold transition-all duration-300 flex items-center justify-center gap-2 text-lg sm:text-xl min-w-[160px]">
                     <template x-if="item.icon === 'user-plus'">
                         <svg x-show="item.icon === 'user-plus'" class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 21v-2a4 4 0 00-3-3.87M12 7a4 4 0 110-8 4 4 0 010 8zm6 8v-2a4 4 0 00-3-3.87M6 21v-2a4 4 0 013-3.87" /></svg>

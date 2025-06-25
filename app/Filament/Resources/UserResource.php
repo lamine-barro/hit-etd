@@ -2,16 +2,17 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers\OrdersRelationManager;
-use App\Models\User;
 use Filament\Forms;
+use App\Models\User;
+use Filament\Tables;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
+use Filament\Resources\Resource;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\UserResource\Pages;
+use App\Filament\Resources\UserResource\RelationManagers\OrdersRelationManager;
 
 class UserResource extends Resource
 {
@@ -27,7 +28,7 @@ class UserResource extends Resource
 
     protected static ?int $navigationSort = 1;
 
-    protected static ?string $navigationGroup = 'Résidents';
+    protected static ?string $navigationGroup = 'Hub';
 
     public static function form(Form $form): Form
     {
@@ -42,12 +43,7 @@ class UserResource extends Resource
                                 Forms\Components\Select::make('category')
                                     ->label('Categorie')
                                     ->required()
-                                    ->options([
-                                        'startup' => 'Startup',
-                                        'person' => 'Individu',
-                                        'expert' => 'Expert',
-                                        'entreprise' => 'Gestionnaire',
-                                    ]),
+                                    ->options(User::CATEGORIES),
 
                                 Forms\Components\TextInput::make('name')
                                     ->label('Nom Startup')
@@ -108,7 +104,15 @@ class UserResource extends Resource
                     ->searchable(),
 
                 Tables\Columns\ToggleColumn::make('is_active')
-                    ->label('Actif'),
+                    ->label('Actif')
+                    ->afterStateUpdated(function ($record, $state) {
+                        if ($record->is_active && $record->is_request && !$record->password) {
+                            $password = uniqid();
+                            $record->password = bcrypt($password);
+                            $record->save();
+                            $record->notify(new \App\Notifications\WelcomeResidentNotification($password));
+                        }
+                    }),
 
                 Tables\Columns\IconColumn::make('email_verified_at')
                     ->label('Email vérifié')
@@ -161,6 +165,12 @@ class UserResource extends Resource
             'edit' => Pages\EditUser::route('/{record}/edit'),
             'create' => Pages\CreateUser::route('/create'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->orderBy('created_at', 'desc');
     }
 
     public static function getRelations(): array

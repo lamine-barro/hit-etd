@@ -16,7 +16,7 @@ class HomeController extends Controller
 
         return view('pages.home', [
             'pageTitle' => __('Accueil - Hub Ivoire Tech'),
-            'metaDescription' => __('Le Hub Ivoire Tech a pour vocation d\'être le plus grand Campus de Startups en Afrique. Découvrez nos services d\'accompagnement pour les entrepreneurs et innovateurs.'),
+            'metaDescription' => __('Hub Ivoire Tech a pour vocation d\'être le plus grand Campus de Startups en Afrique. Découvrez nos services d\'accompagnement pour les entrepreneurs et innovateurs.'),
         ]);
     }
 }

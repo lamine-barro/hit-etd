@@ -3,7 +3,7 @@
         <!-- En-tête de section -->
         <div class="text-center mb-12 sm:mb-16">
             <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                {{ __("Pourquoi le Hub Ivoire Tech ?") }}
+                {{ __("Pourquoi Hub Ivoire Tech ?") }}
             </h2>
             <p class="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4">
                 {{ __("Des ressources et une localisation idéale pour faciliter votre parcours entrepreneurial") }}
