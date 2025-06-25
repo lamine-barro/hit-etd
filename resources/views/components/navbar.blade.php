@@ -22,7 +22,18 @@
                 <a href="{{ route('events') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __("Événements") }}</a>
                 <a href="{{ route('actualites') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __("Actualités") }}</a>
                 <a href="{{ route('partnership') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __("Devenir Partenaire") }}</a>
-                {{-- <a href="{{ route('join-hub') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __("Rejoindre le Hub") }}</a> --}}
+                <div class="relative group" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
+                    <button type="button" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1 flex items-center gap-1" @click="open = !open">
+                        {{ __("Rejoindre le Hub") }}
+                        <svg class="w-4 h-4 ml-1 transition-transform duration-200" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div x-show="open" x-transition class="absolute left-0 mt-2 w-56 bg-white border border-gray-100 rounded-lg shadow-lg z-50 py-2">
+                        <a href="{{ route('join-hub') }}#resident-join" class="block px-4 py-2 text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition">{{ __("Devenir Résident") }}</a>
+                        <a href="{{ route('join-hub') }}#expert-join" class="block px-4 py-2 text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition">{{ __("Devenir Expert") }}</a>
+                    </div>
+                </div>
             </div>
 
             <!-- Sélecteur de langue et Logo à droite -->
