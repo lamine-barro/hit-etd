@@ -22,8 +22,8 @@
                 <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(0,0,0,0.02)_0%,rgba(0,0,0,0)_100%)]"></div>
             </div>
 
-            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-12">
+            <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-sm border overflow-hidden border border-gray-100 mt-16">
+                <div class="text-center">
                     <h1 class="text-4xl font-bold text-gray-900 mb-4">Devenir Expert</h1>
                     <p class="text-lg text-gray-600">Rejoignez notre communauté de résidents et accédez à nos espaces, services et opportunités.</p>
                 </div>
@@ -37,7 +37,7 @@
             <div class="absolute inset-0 pointer-events-none">
                 <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(0,0,0,0.02)_0%,rgba(0,0,0,0)_100%)]"></div>
             </div>
-            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-sm border overflow-hidden border border-gray-100 mt-16">
                 <div class="text-center mb-12">
                     <h1 class="text-4xl font-bold text-gray-900 mb-4">Devenir Résident</h1>
                     <p class="text-lg text-gray-600">Rejoignez notre communauté de résidents et accédez à nos espaces, services et opportunités.</p>

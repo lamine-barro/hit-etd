@@ -36,7 +36,7 @@ class JoinHubController extends Controller
         ]);
 
         // Create the expert record
-        $expert = new \App\Models\Expert();
+        $expert = new \App\Models\Expert;
         $expert->first_name = $request->input('first_name');
         $expert->last_name = $request->input('last_name');
         $expert->email = $request->input('email');
