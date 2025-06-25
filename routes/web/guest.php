@@ -21,7 +21,10 @@ use Illuminate\Support\Facades\Route;
 // Pages principales
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/visitez-le-campus', [CampusController::class, 'index'])->name('visitez-le-campus');
+
 Route::get('/join-hub', [JoinHubController::class, 'index'])->name('join-hub');
+Route::post('/join-hub/experts', [JoinHubController::class, 'storeExpert'])->name('join-hub.export');
+Route::post('/join-hub/residents', [JoinHubController::class, 'storeResident'])->name('join-hub.resident');
 
 // Événements
 Route::prefix('evenements')->group(function () {
