@@ -3,13 +3,13 @@
     
     <!-- Informations personnelles -->
     <div class="bg-gray-50 rounded-lg p-6">
-        <h3 class="text-lg font-semibold text-gray-800 mb-4">Informations personnelles</h3>
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">{{ __("Informations personnelles") }}</h3>
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- Nom et Prénom -->
             <div>
                 <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
-                    Nom et Prénom(s) du Représentant <span class="text-red-500">*</span>
+                    {{ __("Nom et Prénom(s) du Représentant") }} <span class="text-red-500">*</span>
                 </label>
                 <input type="text" name="name" id="name" value="{{ old('name') }}" required
                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors">
@@ -18,7 +18,7 @@
             <!-- Email -->
             <div>
                 <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
-                    Adresse Email <span class="text-red-500">*</span>
+                    {{ __("Adresse Email") }} <span class="text-red-500">*</span>
                 </label>
                 <input type="email" name="email" id="email" value="{{ old('email') }}" required
                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors">
@@ -27,7 +27,7 @@
             <!-- Téléphone -->
             <div>
                 <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
-                    Numéro de Téléphone <span class="text-red-500">*</span>
+                    {{ __("Numéro de Téléphone") }} <span class="text-red-500">*</span>
                 </label>
                 <input type="tel" name="phone" id="phone" value="{{ old('phone') }}" required
                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors">
@@ -36,7 +36,7 @@
             <!-- Organisation -->
             <div>
                 <label for="organization" class="block text-sm font-medium text-gray-700 mb-2">
-                    Organisation/Affiliation
+                    {{ __("Organisation/Entreprise") }}
                 </label>
                 <input type="text" name="organization" id="organization" value="{{ old('organization') }}"
                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors">
@@ -45,7 +45,7 @@
             <!-- Poste -->
             <div>
                 <label for="position" class="block text-sm font-medium text-gray-700 mb-2">
-                    Poste
+                    {{ __("Poste/Fonction") }}
                 </label>
                 <input type="text" name="position" id="position" value="{{ old('position') }}"
                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors">
@@ -54,7 +54,7 @@
             <!-- LinkedIn -->
             <div>
                 <label for="linkedin" class="block text-sm font-medium text-gray-700 mb-2">
-                    LinkedIn
+                    {{ __("LinkedIn") }}
                 </label>
                 <input type="url" name="linkedin" id="linkedin" value="{{ old('linkedin') }}"
                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
@@ -64,18 +64,18 @@
             <!-- CV -->
             <div class="md:col-span-2">
                 <label for="cv" class="block text-sm font-medium text-gray-700 mb-2">
-                    CV
+                    {{ __("CV") }}
                 </label>
                 <input type="file" name="cv" id="cv" accept=".pdf,.doc,.docx"
                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors">
-                <p class="text-sm text-gray-500 mt-1">Formats acceptés : PDF, DOC, DOCX (max 5MB)</p>
+                <p class="text-sm text-gray-500 mt-1">{{ __("Formats acceptés : PDF, DOC, DOCX (max 5MB)") }}</p>
             </div>
         </div>
     </div>
 
     <!-- Spécialités -->
     <div class="bg-gray-50 rounded-lg p-6">
-        <h3 class="text-lg font-semibold text-gray-800 mb-4">Spécialités <span class="text-red-500">*</span></h3>
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">{{ __("Spécialités") }} <span class="text-red-500">*</span></h3>
         
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             @foreach(\App\Models\Expert::SPECIALTIES as $key => $label)
@@ -99,7 +99,7 @@
 
     <!-- Types de formation/masterclass -->
     <div class="bg-gray-50 rounded-lg p-6">
-        <h3 class="text-lg font-semibold text-gray-800 mb-4">Types de formation/masterclass préférés <span class="text-red-500">*</span></h3>
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">{{ __("Types de formation/masterclass préférés") }} <span class="text-red-500">*</span></h3>
         
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             @foreach(\App\Models\Expert::TRAINING_TYPES as $key => $label)
@@ -123,7 +123,7 @@
 
     <!-- Méthode pédagogique -->
     <div class="bg-gray-50 rounded-lg p-6">
-        <h3 class="text-lg font-semibold text-gray-800 mb-4">Méthode pédagogique <span class="text-red-500">*</span></h3>
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">{{ __("Méthode pédagogique") }} <span class="text-red-500">*</span></h3>
         
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             @foreach(\App\Models\Expert::PEDAGOGICAL_METHODS as $key => $label)
@@ -141,7 +141,7 @@
 
     <!-- Publics cibles -->
     <div class="bg-gray-50 rounded-lg p-6">
-        <h3 class="text-lg font-semibold text-gray-800 mb-4">Public cible <span class="text-red-500">*</span></h3>
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">{{ __("Public cible") }} <span class="text-red-500">*</span></h3>
         
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             @foreach(\App\Models\Expert::TARGET_AUDIENCES as $key => $label)
@@ -159,7 +159,7 @@
 
     <!-- Fréquence d'intervention -->
     <div class="bg-gray-50 rounded-lg p-6">
-        <h3 class="text-lg font-semibold text-gray-800 mb-4">Fréquence d'intervention préférée <span class="text-red-500">*</span></h3>
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">{{ __("Fréquence d'intervention préférée") }} <span class="text-red-500">*</span></h3>
         
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             @foreach(\App\Models\Expert::INTERVENTION_FREQUENCIES as $key => $label)
@@ -177,7 +177,7 @@
 
     <!-- Jours préférés -->
     <div class="bg-gray-50 rounded-lg p-6">
-        <h3 class="text-lg font-semibold text-gray-800 mb-4">Jours préférés <span class="text-red-500">*</span></h3>
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">{{ __("Jours préférés") }} <span class="text-red-500">*</span></h3>
         
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
             @foreach(\App\Models\Expert::PREFERRED_DAYS as $key => $label)
@@ -195,7 +195,7 @@
 
     <!-- Plages horaires -->
     <div class="bg-gray-50 rounded-lg p-6">
-        <h3 class="text-lg font-semibold text-gray-800 mb-4">Plages horaires <span class="text-red-500">*</span></h3>
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">{{ __("Plages horaires") }} <span class="text-red-500">*</span></h3>
         
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
             @foreach(\App\Models\Expert::TIME_SLOTS as $key => $label)
@@ -215,7 +215,7 @@
     <div class="flex justify-end pt-6">
         <button type="submit"
                 class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-3 px-8 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2">
-            Soumettre ma candidature
+            {{ __("Soumettre ma candidature") }}
         </button>
     </div>
 </form>

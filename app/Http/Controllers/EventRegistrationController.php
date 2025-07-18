@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\EventRegistration;
 use App\Notifications\NewEventRegistration;
+use App\Notifications\EventRegistrationConfirmation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
@@ -69,30 +70,35 @@ class EventRegistrationController extends Controller
             $eventRegistration->status = \App\Enums\RegistrationStatus::CONFIRMED;
             $eventRegistration->save();
 
-            // Envoyer une notification par email pour les événements gratuits
+            // Envoyer les notifications par email
             try {
+                // Notification au candidat
+                Notification::route('mail', $eventRegistration->email)
+                    ->notify(new EventRegistrationConfirmation($eventRegistration));
+
+                // Notification à l'équipe administrative
                 $supportEmail = env('HIT_SUPPORT_EMAIL');
+                if ($supportEmail) {
+                    Notification::route('mail', $supportEmail)
+                        ->notify(new NewEventRegistration($eventRegistration));
+                }
 
-                Log::info('Tentative d\'envoi d\'email pour événement gratuit', ['email' => $supportEmail]);
-
-                Notification::route('mail', $supportEmail)
-                    ->notify(new NewEventRegistration($eventRegistration));
-
-                Log::info('Notification d\'inscription envoyée avec succès', [
+                Log::info('Notifications d\'inscription envoyées avec succès', [
                     'event_id' => $event->id,
                     'event_title' => $event->title,
                     'registration_id' => $eventRegistration->id,
+                    'candidate_email' => $eventRegistration->email,
                     'support_email' => $supportEmail,
                 ]);
             } catch (\Exception $e) {
-                Log::error('Erreur lors de l\'envoi de la notification d\'inscription', [
+                Log::error('Erreur lors de l\'envoi des notifications d\'inscription', [
                     'error' => $e->getMessage(),
                     'event_id' => $event->id,
                     'registration_id' => $eventRegistration->id,
                 ]);
             }
 
-            return back()->with('success', __('Votre inscription a été confirmée avec succès.'));
+            return back()->with('success', __('Votre inscription a été confirmée avec succès. Vous allez recevoir un email de confirmation.'));
 
         } catch (\Illuminate\Validation\ValidationException $e) {
             // Gestion spécifique des erreurs de validation

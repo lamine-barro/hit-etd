@@ -40,7 +40,7 @@
 
         <!-- Premium -->
         <div class="mb-16">
-            <h3 class="text-2xl font-semibold text-center mb-8 text-primary">Premium</h3>
+            <h3 class="text-2xl font-semibold text-center mb-8 text-primary">{{ __("Premium") }}</h3>
             <div class="flex justify-center">
                 <div class="group relative bg-white rounded-xl p-8 w-full max-w-[280px] sm:max-w-[320px] aspect-square flex items-center justify-center shadow-sm hover:shadow-lg transition-all duration-300">
                     <img src="{{ asset('partenaires/ansut.png') }}" 
@@ -52,7 +52,7 @@
 
         <!-- Platinum -->
         <div class="mb-16">
-            <h3 class="text-xl font-semibold text-center mb-8 text-primary">Platinum</h3>
+            <h3 class="text-xl font-semibold text-center mb-8 text-primary">{{ __("Platinum") }}</h3>
             <div class="grid grid-cols-2 gap-6 sm:gap-8 max-w-3xl mx-auto place-items-center">
                 @foreach(['ARTCI', 'PETROCI'] as $partner)
                     <div class="group relative bg-white rounded-xl p-6 w-full max-w-[220px] sm:max-w-[260px] aspect-square flex items-center justify-center shadow-sm hover:shadow-lg transition-all duration-300">
@@ -66,7 +66,7 @@
 
         <!-- Gold -->
         <div class="mb-16">
-            <h3 class="text-xl font-semibold text-center mb-8 text-primary">Gold</h3>
+            <h3 class="text-xl font-semibold text-center mb-8 text-primary">{{ __("Gold") }}</h3>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-4xl mx-auto place-items-center">
                 @foreach(['PAA', 'ci-energies', 'ccc', 'SIR'] as $partner)
                     <div class="group relative bg-white rounded-xl p-4 w-full max-w-[160px] sm:max-w-[180px] aspect-square flex items-center justify-center shadow-sm hover:shadow-lg transition-all duration-300">
@@ -80,7 +80,7 @@
 
         <!-- Silver -->
         <div class="mb-16">
-            <h3 class="text-xl font-semibold text-center mb-8 text-primary">Silver</h3>
+            <h3 class="text-xl font-semibold text-center mb-8 text-primary">{{ __("Silver") }}</h3>
             <div class="grid grid-cols-2 gap-6 max-w-2xl mx-auto place-items-center">
                 @foreach(['LONACI', 'VITIB'] as $partner)
                     <div class="group relative bg-white rounded-xl p-3 w-full max-w-[140px] sm:max-w-[160px] aspect-square flex items-center justify-center shadow-sm hover:shadow-lg transition-all duration-300">

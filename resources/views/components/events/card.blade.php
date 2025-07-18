@@ -4,7 +4,7 @@
     <div class="relative">
         @if($event->illustration)
             <div class="aspect-w-16 aspect-h-9 overflow-hidden">
-                <img src="{{ Storage::url($event->illustration) }}"
+                <img src="{{ Illuminate\Support\Str::startsWith($event->illustration, 'http') ? $event->illustration : Storage::url($event->illustration) }}"
                     alt="{{ $event->title }}"
                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
             </div>
@@ -71,9 +71,11 @@
         </div>
 
         <!-- Titre -->
-        <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary-600 transition-colors duration-300 line-clamp-2">
-            {{ $event->title }}
-        </h3>
+        <a href="{{ route('events.show', ['slug' => $event->getSlug()]) }}">
+            <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary-600 transition-colors duration-300 line-clamp-2">
+                {{ $event->getTranslatedAttribute('title') }}
+            </h3>
+        </a>
 
         <!-- Description -->
         <p class="text-gray-600 text-sm leading-relaxed mb-4 flex-grow line-clamp-3">
@@ -93,12 +95,12 @@
                             $registrations = $event->registrations()->where('status', 'confirmed')->count();
                             $remaining = $event->max_participants - $registrations;
                         @endphp
-                        {{ $remaining > 0 ? $remaining . ' places' : 'Complet' }}
+                        {{ $remaining > 0 ? $remaining . ' ' . __("places") : __("Complet") }}
                     </span>
                 </div>
             @endif
 
-            <a href="{{ route('events.show', $event) }}" 
+            <a href="{{ route('events.show', ['slug' => $event->getSlug()]) }}" 
                class="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium text-sm transition-colors duration-300">
                 {{ __("Voir détails") }}
                 <svg class="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">

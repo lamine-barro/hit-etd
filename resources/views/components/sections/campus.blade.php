@@ -1,16 +1,38 @@
-<section class="relative py-20 bg-gradient-to-b from-gray-50/50 to-white overflow-hidden" id="campus">
+<!-- Header Section -->
+<div class="relative bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-600 py-16 sm:py-20 lg:py-32 overflow-hidden">
+    <!-- Gradient Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-white/5"></div>
+    
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.03"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
+    
+    <!-- Decorative Elements -->
+    <div class="absolute top-20 left-10 w-24 h-24 bg-white/5 rounded-full blur-xl"></div>
+    <div class="absolute bottom-20 right-10 w-32 h-32 bg-teal-400/10 rounded-full blur-2xl"></div>
+    <div class="absolute top-40 right-20 w-16 h-16 bg-cyan-300/10 rounded-full blur-lg"></div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <!-- Title -->
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 drop-shadow-sm">
+                {{ __("Visitez notre campus !") }}
+            </h1>
+            
+            <!-- Subtitle -->
+            <p class="text-xl sm:text-2xl text-emerald-100 max-w-3xl mx-auto opacity-90">
+                {{ __("Planifiez une visite de notre campus ") }} {{ config('hit.name') }}
+            </p>
+        </div>
+    </div>
+</div>
+
+<section class="relative py-20 bg-white overflow-hidden" id="campus">
     <!-- Décoration de fond -->
     <div class="absolute inset-0 pointer-events-none">
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(0,0,0,0.02)_0%,rgba(0,0,0,0)_100%)]"></div>
     </div>
 
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- En-tête -->
-        <div class="text-center mb-12">
-            <h1 class="text-4xl font-bold text-gray-900 mb-4">{{ __("Visitez notre campus !") }}</h1>
-            <p class="text-lg text-gray-600">{{ __("Planifiez une visite de notre campus ") }} {{ config('hit.name') }}</p>
-        </div>
-
         <div class="lg:grid lg:grid-cols-2 lg:gap-12">
             <!-- Formulaire de réservation -->
             <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
@@ -43,7 +65,7 @@
 
                         <!-- Informations personnelles -->
                         <div class="bg-gray-50 rounded-lg p-6">
-                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Informations personnelles</h3>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">{{ __("Informations personnelles") }}</h3>
                             
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <!-- Prénom -->
@@ -260,13 +282,13 @@
 
                         <!-- Message optionnel -->
                         <div class="bg-gray-50 rounded-lg p-6">
-                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Message complémentaire</h3>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">{{ __("Message complémentaire") }}</h3>
                             
                             <div>
                                 <textarea name="message" id="message" rows="4" maxlength="200"
                                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors resize-none @error('message') border-red-500 @enderror"
                                           placeholder="{{ __("Informations complémentaires...") }}">{{ old('message') }}</textarea>
-                                <p class="text-sm text-gray-500 mt-1">Maximum 200 caractères</p>
+                                <p class="text-sm text-gray-500 mt-1">{{ __("Maximum 200 caractères") }}</p>
                                 @error('message')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror

@@ -1,0 +1,186 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Enums\BookingStatus;
+use App\Models\Booking;
+use Illuminate\Database\Seeder;
+use Carbon\Carbon;
+
+class BookingSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        $bookings = [
+            [
+                'user_id' => null,
+                'facility' => 'Hub complet',
+                'date' => Carbon::now()->addDays(5),
+                'start_time' => '09:00',
+                'end_time' => '11:00',
+                'purpose' => 'Visite découverte et évaluation pour potentiel partenariat corporate',
+                'status' => BookingStatus::UNTREATED->value,
+                'firstname' => 'Marie-Josée',
+                'lastname' => 'KOFFI',
+                'email' => 'marie-josee.koffi@mtn.ci',
+                'phone' => '+2250701234567',
+                'time' => '2 heures',
+                'spaces' => json_encode(['Espace coworking', 'Fab-lab', 'Salles de réunion']),
+                'message' => 'MTN Côte d\'Ivoire souhaite visiter le Hub pour évaluer les opportunités de partenariat dans l\'innovation tech. Nous sommes particulièrement intéressés par l\'écosystème startup et les solutions fintech développées au Hub.',
+            ],
+            [
+                'user_id' => null,
+                'facility' => 'Fab-lab et espaces techniques',
+                'date' => Carbon::now()->addDays(8),
+                'start_time' => '14:00',
+                'end_time' => '17:00',
+                'purpose' => 'Mission d\'étude pour création d\'un hub similaire au Burkina Faso',
+                'status' => BookingStatus::TREATED->value,
+                'firstname' => 'Abdoulaye',
+                'lastname' => 'OUEDRAOGO',
+                'email' => 'abdoulaye.ouedraogo@gov.bf',
+                'phone' => '+2267012345678',
+                'time' => '3 heures',
+                'spaces' => json_encode(['Fab-lab principal', 'Espaces prototypage', 'Bureaux privés']),
+                'message' => 'Délégation du Ministère de l\'Économie Numérique du Burkina Faso. Nous étudions la création d\'un hub tech à Ouagadougou et souhaitons nous inspirer du modèle Hub Ivoire Tech.',
+            ],
+            [
+                'user_id' => null,
+                'facility' => 'Salle de conférence et espaces événements',
+                'date' => Carbon::now()->addDays(12),
+                'start_time' => '10:00',
+                'end_time' => '12:00',
+                'purpose' => 'Évaluation pour organisation d\'un hackathon fintech régional',
+                'status' => BookingStatus::UNTREATED->value,
+                'firstname' => 'Rama',
+                'lastname' => 'SALL',
+                'email' => 'rama.sall@bceao.int',
+                'phone' => '+2213391234567',
+                'time' => '2 heures',
+                'spaces' => json_encode(['Grande salle de conférence', 'Espaces networking', 'Équipements tech']),
+                'message' => 'BCEAO organise un hackathon fintech régional pour les pays de l\'UEMOA. Nous évaluons le Hub Ivoire Tech comme lieu d\'accueil pour cet événement de 3 jours avec 200 participants.',
+            ],
+            [
+                'user_id' => null,
+                'facility' => 'Espaces coworking',
+                'date' => Carbon::now()->addDays(3),
+                'start_time' => '09:00',
+                'end_time' => '10:30',
+                'purpose' => 'Visite en tant qu\'étudiant pour stage possible',
+                'status' => BookingStatus::TREATED->value,
+                'firstname' => 'Aïcha',
+                'lastname' => 'DIABY',
+                'email' => 'aicha.diaby@uvci.edu.ci',
+                'phone' => '+2250709876543',
+                'time' => '1h30',
+                'spaces' => json_encode(['Open spaces', 'Espaces collaboration']),
+                'message' => 'Étudiante en Master Management Innovation à l\'UVCI. Je recherche un stage dans l\'accompagnement de startups tech et souhaiterais découvrir les opportunités au Hub Ivoire Tech.',
+            ],
+            [
+                'user_id' => null,
+                'facility' => 'Hub complet',
+                'date' => Carbon::now()->addDays(15),
+                'start_time' => '15:00',
+                'end_time' => '18:00',
+                'purpose' => 'Visite de délégation d\'investisseurs européens',
+                'status' => BookingStatus::UNTREATED->value,
+                'firstname' => 'Jean-Philippe',
+                'lastname' => 'DUBOIS',
+                'email' => 'jp.dubois@partech.africa',
+                'phone' => '+33142567890',
+                'time' => '3 heures',
+                'spaces' => json_encode(['Tous les espaces', 'Rencontre avec startups']),
+                'message' => 'Partech Africa accompagne une délégation d\'investisseurs européens en mission en Afrique de l\'Ouest. Nous souhaitons visiter le Hub, rencontrer les startups incubées et comprendre l\'écosystème tech ivoirien.',
+            ],
+            [
+                'user_id' => null,
+                'facility' => 'Espaces formation',
+                'date' => Carbon::now()->addDays(7),
+                'start_time' => '09:00',
+                'end_time' => '11:00',
+                'purpose' => 'Évaluation pour formations corporate en digital',
+                'status' => BookingStatus::TREATED->value,
+                'firstname' => 'Konan',
+                'lastname' => 'YAO',
+                'email' => 'konan.yao@aircotedivoire.com',
+                'phone' => '+2250202345678',
+                'time' => '2 heures',
+                'spaces' => json_encode(['Salles de formation', 'Équipements audiovisuels']),
+                'message' => 'Air Côte d\'Ivoire souhaite développer les compétences digitales de ses équipes. Nous évaluons le Hub pour organiser des formations en transformation digitale pour nos 500 employés.',
+            ],
+            [
+                'user_id' => null,
+                'facility' => 'Lab innovation',
+                'date' => Carbon::now()->addDays(20),
+                'start_time' => '14:00',
+                'end_time' => '16:00',
+                'purpose' => 'Tournage documentaire sur l\'innovation en Afrique',
+                'status' => BookingStatus::UNTREATED->value,
+                'firstname' => 'Sarah',
+                'lastname' => 'JOHNSON',
+                'email' => 'sarah.johnson@bbc.co.uk',
+                'phone' => '+441234567890',
+                'time' => '2 heures',
+                'spaces' => json_encode(['Fab-lab', 'Espaces startup', 'Zones interview']),
+                'message' => 'Équipe BBC produisant un documentaire sur l\'innovation technologique en Afrique. Nous souhaitons filmer au Hub Ivoire Tech et interviewer des entrepreneurs pour illustrer la dynamique tech africaine.',
+            ],
+            [
+                'user_id' => null,
+                'facility' => 'Salle de réunion',
+                'date' => Carbon::now()->addDays(10),
+                'start_time' => '10:00',
+                'end_time' => '12:00',
+                'purpose' => 'Réunion réseau des femmes entrepreneures tech',
+                'status' => BookingStatus::TREATED->value,
+                'firstname' => 'Awa',
+                'lastname' => 'THIAW',
+                'email' => 'awa.thiaw@womenintechci.org',
+                'phone' => '+2250708765432',
+                'time' => '2 heures',
+                'spaces' => json_encode(['Salle réunion 20 personnes', 'Espace networking']),
+                'message' => 'Women in Tech CI organise sa réunion mensuelle. Nous rassemblons les femmes entrepreneures et professionnelles tech de Côte d\'Ivoire pour partager expériences et opportunités de collaboration.',
+            ],
+            [
+                'user_id' => null,
+                'facility' => 'Espace événements',
+                'date' => Carbon::now()->addDays(25),
+                'start_time' => '18:00',
+                'end_time' => '21:00',
+                'purpose' => 'Lancement produit startup locale',
+                'status' => BookingStatus::UNTREATED->value,
+                'firstname' => 'Moussa',
+                'lastname' => 'SANGARE',
+                'email' => 'moussa.sangare@agripay.ci',
+                'phone' => '+2250707123789',
+                'time' => '3 heures',
+                'spaces' => json_encode(['Espace événements', 'Zone démonstration', 'Networking']),
+                'message' => 'AgriPay lance sa plateforme de paiement mobile pour agriculteurs. Nous souhaitons organiser notre événement de lancement au Hub avec 100 invités : agriculteurs, investisseurs, partenaires et média.',
+            ],
+            [
+                'user_id' => null,
+                'facility' => 'Bureaux privés',
+                'date' => Carbon::now()->addDays(6),
+                'start_time' => '09:00',
+                'end_time' => '17:00',
+                'purpose' => 'Journée de travail en mode coworking',
+                'status' => BookingStatus::TREATED->value,
+                'firstname' => 'Sandra',
+                'lastname' => 'BEUGRE',
+                'email' => 'sandra.beugre@freelance.ci',
+                'phone' => '+2250706543210',
+                'time' => '8 heures',
+                'spaces' => json_encode(['Bureau privé', 'Accès wifi', 'Zone détente']),
+                'message' => 'Consultante freelance en stratégie digitale. Je souhaite tester l\'environnement de travail du Hub pour une journée avant de considérer un abonnement mensuel. J\'ai plusieurs clients dans la tech.',
+            ],
+        ];
+
+        foreach ($bookings as $bookingData) {
+            if (!Booking::where('email', $bookingData['email'])->exists()) {
+                Booking::create($bookingData);
+            }
+        }
+    }
+} 

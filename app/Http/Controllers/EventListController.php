@@ -25,10 +25,7 @@ class EventListController extends Controller
             $query->where('is_remote', $request->input('format') === 'remote');
         }
 
-        // Ne montrer que les événements à venir
-        $query->where('start_date', '>=', now());
-
-        // Trier par date de début croissante
+        // Trier par date de début décroissante (plus récents en premier)
         $query->orderBy('start_date', 'desc');
         $query->orderBy('created_at', 'desc');
 
@@ -45,15 +42,33 @@ class EventListController extends Controller
         // Recherche par slug dans les traductions
         $event = Event::whereHas('translations', function ($query) use ($slug) {
             $query->where('slug', $slug);
-        })->first();
+        })->firstOrFail();
 
         // Vérifier si l'événement existe et est publié
-        if (! $event || $event->status !== 'published') {
+        if ($event->status->value !== 'published') {
             abort(404);
         }
 
         $event->loadCount('registrations');
 
         return view('pages.events.show', compact('event'));
+    }
+
+    /**
+     * Display the registration form for the specified event.
+     */
+    public function registerForm($slug)
+    {
+        // Recherche par slug dans les traductions
+        $event = Event::whereHas('translations', function ($query) use ($slug) {
+            $query->where('slug', $slug);
+        })->firstOrFail();
+
+        // Vérifier si l'événement existe et est publié
+        if ($event->status->value !== 'published') {
+            abort(404);
+        }
+
+        return view('pages.events.register', compact('event'));
     }
 }

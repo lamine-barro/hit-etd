@@ -12,14 +12,17 @@ class ExpertObserver
      */
     public function saved(Expert $expert): void
     {
-        Audience::updateOrCreate(
-            ['email' => $expert->email],
-            [
-                'name' => $expert->full_name,
-                'whatsapp' => $expert->phone,
-                'type' => 'expert',
-            ]
-        );
+        // Ne créer une audience que si l'email existe
+        if ($expert->email) {
+            Audience::updateOrCreate(
+                ['email' => $expert->email],
+                [
+                    'name' => $expert->full_name,
+                    'whatsapp' => $expert->phone,
+                    'type' => 'expert',
+                ]
+            );
+        }
     }
 
     /**

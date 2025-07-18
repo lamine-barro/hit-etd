@@ -12,14 +12,17 @@ class UserObserver
      */
     public function saved(User $user): void
     {
-        Audience::updateOrCreate(
-            ['email' => $user->email],
-            [
-                'name' => $user->name,
-                'whatsapp' => $user->phone,
-                'type' => 'resident',
-            ]
-        );
+        // Ne créer une audience que si l'email existe
+        if ($user->email) {
+            Audience::updateOrCreate(
+                ['email' => $user->email],
+                [
+                    'name' => $user->name,
+                    'whatsapp' => $user->phone,
+                    'type' => 'resident',
+                ]
+            );
+        }
     }
 
     /**

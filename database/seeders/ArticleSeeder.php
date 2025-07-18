@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Enums\ArticleCategory;
 use App\Enums\ArticleStatus;
 use App\Enums\LanguageEnum;
-use App\Models\Administrator;
 use App\Models\Article;
 use App\Models\ArticleTranslation;
 use Carbon\Carbon;
@@ -19,102 +18,100 @@ class ArticleSeeder extends Seeder
      */
     public function run(): void
     {
-        // Générer un UUID pour le champ author_id
-        $authorId = Str::uuid();
+        $authorId = 1;
+        $newIllustration = 'https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=1000&auto=format&fit=crop';
 
         $articles = [
             [
-                'category' => ArticleCategory::TECH_ECOSYSTEM,
-                'illustration' => 'https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1000&auto=format&fit=crop',
-                'tags' => ['Côte d\'Ivoire', 'Startups', 'Innovation', 'Développement'],
+                'category' => ArticleCategory::FINTECH,
+                'illustration' => $newIllustration,
+                'tags' => ['Fintech', 'Mobile Money', 'UEMOA', 'Inclusion financière'],
                 'featured' => true,
                 'status' => ArticleStatus::PUBLISHED,
-                'published_at' => Carbon::now()->subDays(5),
-                'author_id' => $authorId,
-                'translations' => [
-                    'fr' => [
-                        'title' => 'L\'écosystème tech ivoirien en pleine expansion',
-                        'excerpt' => 'Découvrez comment la Côte d\'Ivoire est en train de devenir un hub technologique majeur en Afrique de l\'Ouest.',
-                        'content' => "<p>L'écosystème technologique ivoirien connaît une croissance remarquable ces dernières années. Avec l'émergence de nombreuses startups innovantes, d'espaces de coworking dynamiques et le soutien croissant des investisseurs, Abidjan s'impose progressivement comme un hub tech incontournable en Afrique de l'Ouest.</p>\n\n<p>Plusieurs facteurs expliquent cette montée en puissance :</p>\n\n<ul>\n<li>Une population jeune et de plus en plus connectée</li>\n<li>Des infrastructures de télécommunication en amélioration constante</li>\n<li>L'implantation de grands groupes technologiques internationaux</li>\n<li>Le développement de formations spécialisées dans le numérique</li>\n<li>Un cadre réglementaire de plus en plus favorable à l'innovation</li>\n</ul>\n\n<p>Des initiatives comme le Village des Technologies de l'Information et de la Biotechnologie (VITIB) à Grand-Bassam ou encore Orange Digital Center à Abidjan témoignent de cette dynamique positive.</p>",
-                    ],
-                    'en' => [
-                        'title' => 'The Ivorian Tech Ecosystem in Full Expansion',
-                        'excerpt' => 'Discover how Ivory Coast is becoming a major technology hub in West Africa.',
-                        'content' => "<p><em>This is an automatically translated version of the original French content.</em></p>\n<p>The Ivorian technological ecosystem has experienced remarkable growth in recent years. With the emergence of numerous innovative startups, dynamic coworking spaces, and increasing investor support, Abidjan is gradually establishing itself as an essential tech hub in West Africa.</p>\n\n<p>Several factors explain this rise in power:</p>\n\n<ul>\n<li>A young and increasingly connected population</li>\n<li>Telecommunication infrastructure in constant improvement</li>\n<li>The establishment of major international technology groups</li>\n<li>The development of specialized digital training</li>\n<li>A regulatory framework increasingly favorable to innovation</li>\n</ul>\n\n<p>Initiatives such as the Information Technology and Biotechnology Village (VITIB) in Grand-Bassam or Orange Digital Center in Abidjan demonstrate this positive dynamic.</p>",
-                    ],
-                ],
+                'published_at' => Carbon::now()->subDays(2),
+                'title' => 'La révolution FinTech en zone UEMOA : Orange Money et Wave en première ligne',
+                'excerpt' => 'Comment les solutions de paiement mobile transforment l\'économie ouest-africaine et favorisent l\'inclusion financière.',
+                'content' => "<p>L'Afrique de l'Ouest connaît une véritable révolution dans les services financiers grâce à l'essor des technologies FinTech. La Côte d'Ivoire, en tant que locomotive économique de la région, joue un rôle central dans cette transformation.</p><h3>Orange Money : le pionnier</h3><p>Lancé en 2012 en Côte d'Ivoire, Orange Money compte aujourd'hui plus de 50 millions d'utilisateurs en Afrique. Le service a révolutionné les transferts d'argent et les paiements quotidiens, permettant à des millions d'Ivoiriens d'accéder aux services financiers.</p><h3>Wave : la nouvelle génération</h3><p>Arrivée plus récemment, Wave propose des transferts d'argent sans frais et défie les acteurs traditionnels. La startup sénégalaise s'implante progressivement en Côte d'Ivoire avec une approche technologique innovante.</p><h3>Impact sur l'économie</h3><p>Ces services facilitent :</p><ul><li>Les transferts de fonds des diaspora</li><li>Les paiements des commerçants</li><li>L'accès au crédit pour les micro-entrepreneurs</li><li>La bancarisation des populations rurales</li></ul>",
             ],
             [
-                'category' => ArticleCategory::DIGITAL_TRANSFORMATION,
-                'illustration' => 'https://images.unsplash.com/photo-1484807352052-23338990c6c6?q=80&w=1000&auto=format&fit=crop',
-                'tags' => ['Afrique', 'Digital', 'Développement', 'Inclusion numérique'],
+                'category' => ArticleCategory::CYBERSECURITY,
+                'illustration' => $newIllustration,
+                'tags' => ['Cybersécurité', 'Afrique', 'Fraude', 'Sécurité mobile'],
                 'featured' => false,
                 'status' => ArticleStatus::PUBLISHED,
-                'published_at' => Carbon::now()->subDays(10),
-                'author_id' => $authorId,
-                'translations' => [
-                    'fr' => [
-                        'title' => 'Les défis de la transformation numérique en Afrique',
-                        'excerpt' => 'Analyse des obstacles et opportunités dans le processus de digitalisation des économies africaines.',
-                        'content' => "<p>La transformation numérique représente une opportunité sans précédent pour le développement économique et social de l'Afrique. Cependant, plusieurs défis majeurs doivent être relevés pour que cette révolution numérique soit inclusive et durable.</p>\n\n<h3>Infrastructures et connectivité</h3>\n<p>Malgré des progrès significatifs, l'accès à Internet reste inégal sur le continent. Les zones rurales sont particulièrement touchées par la fracture numérique. Les coûts d'accès demeurent élevés par rapport au pouvoir d'achat moyen.</p>\n\n<h3>Formation et compétences</h3>\n<p>Le manque de compétences numériques constitue un frein important. Les systèmes éducatifs doivent s'adapter pour former les talents nécessaires à l'économie numérique.</p>\n\n<h3>Cadre réglementaire</h3>\n<p>L'absence d'un cadre juridique adapté dans certains pays limite le développement de services numériques innovants et la protection des consommateurs.</p>",
-                    ],
-                    'en' => [
-                        'title' => 'Challenges of Digital Transformation in Africa',
-                        'excerpt' => 'Analysis of obstacles and opportunities in the digitalization process of African economies.',
-                        'content' => "<p><em>This is an automatically translated version of the original French content.</em></p>\n<p>Digital transformation represents an unprecedented opportunity for Africa's economic and social development. However, several major challenges must be addressed for this digital revolution to be inclusive and sustainable.</p>\n\n<h3>Infrastructure and connectivity</h3>\n<p>Despite significant progress, internet access remains unequal across the continent. Rural areas are particularly affected by the digital divide. Access costs remain high compared to average purchasing power.</p>\n\n<h3>Training and skills</h3>\n<p>The lack of digital skills is a significant barrier. Educational systems must adapt to train the talent needed for the digital economy.</p>\n\n<h3>Regulatory framework</h3>\n<p>The absence of an adapted legal framework in certain countries limits the development of innovative digital services and consumer protection.</p>",
-                    ],
-                ],
+                'published_at' => Carbon::now()->subDays(7),
+                'title' => 'Cybersécurité en Afrique : les défis spécifiques du continent',
+                'excerpt' => 'Analyse des menaces cybersécuritaires en Afrique et des solutions adaptées au contexte local.',
+                'content' => "<p>L'Afrique fait face à des défis uniques en matière de cybersécurité, liés à la fois à la croissance rapide du numérique et aux spécificités socio-économiques du continent.</p><h3>Menaces spécifiques</h3><p>Les cybercriminels exploitent particulièrement :</p><ul><li>La faible sensibilisation des utilisateurs</li><li>Les infrastructures réseau encore fragiles</li><li>Le développement rapide du mobile money</li><li>Les fraudes liées aux transferts internationaux</li></ul><h3>Cas de la Côte d'Ivoire</h3><p>En Côte d'Ivoire, l'ARTCI (Autorité de Régulation des Télécommunications) a mis en place plusieurs initiatives :</p><ul><li>Centre de veille cybersécurité</li><li>Campagnes de sensibilisation</li><li>Réglementation des services numériques</li><li>Coopération régionale</li></ul><h3>Solutions innovantes</h3><p>Des startups africaines développent des solutions de sécurité adaptées, comme des systèmes de détection de fraude pour mobile money ou des outils d'authentification biométrique.</p>",
             ],
             [
-                'category' => ArticleCategory::ARTIFICIAL_INTELLIGENCE,
-                'illustration' => 'https://images.unsplash.com/photo-1677442135133-4be2e3a0faab?q=80&w=1000&auto=format&fit=crop',
-                'tags' => ['IA', 'Innovation', 'Entreprises', 'Technologie'],
+                'category' => ArticleCategory::ENTREPRENEURSHIP,
+                'illustration' => $newIllustration,
+                'tags' => ['Entrepreneuriat', 'Startups', 'Abidjan', 'Écosystème'],
                 'featured' => true,
                 'status' => ArticleStatus::PUBLISHED,
-                'published_at' => Carbon::now()->subDays(3),
-                'author_id' => $authorId,
-                'translations' => [
-                    'fr' => [
-                        'title' => 'Intelligence artificielle : applications concrètes pour les entreprises africaines',
-                        'excerpt' => 'Comment les entreprises africaines peuvent tirer parti de l\'IA pour améliorer leurs opérations et services.',
-                        'content' => "<p>L'intelligence artificielle (IA) n'est plus une technologie du futur, mais une réalité qui transforme déjà de nombreux secteurs économiques. En Afrique, malgré certaines contraintes, des entreprises innovantes commencent à exploiter le potentiel de l'IA pour résoudre des problèmes locaux et améliorer leur compétitivité.</p>\n\n<h3>Agriculture</h3>\n<p>Des startups comme Hello Tractor au Nigeria ou Aerobotics en Afrique du Sud utilisent l'IA pour optimiser les rendements agricoles, prédire les maladies des cultures et faciliter l'accès aux équipements.</p>\n\n<h3>Santé</h3>\n<p>Dans le domaine médical, l'IA permet d'améliorer le diagnostic de maladies comme le paludisme ou la tuberculose, particulièrement dans les zones où les spécialistes sont rares.</p>\n\n<h3>Services financiers</h3>\n<p>Les institutions financières utilisent l'IA pour évaluer les risques de crédit, détecter les fraudes et proposer des services financiers personnalisés aux populations non bancarisées.</p>",
-                    ],
-                    'en' => [
-                        'title' => 'Artificial Intelligence: Practical Applications for African Businesses',
-                        'excerpt' => 'How African businesses can leverage AI to improve their operations and services.',
-                        'content' => "<p><em>This is an automatically translated version of the original French content.</em></p>\n<p>Artificial intelligence (AI) is no longer a technology of the future, but a reality that is already transforming many economic sectors. In Africa, despite certain constraints, innovative companies are beginning to harness the potential of AI to solve local problems and improve their competitiveness.</p>\n\n<h3>Agriculture</h3>\n<p>Startups like Hello Tractor in Nigeria or Aerobotics in South Africa use AI to optimize agricultural yields, predict crop diseases, and facilitate access to equipment.</p>\n\n<h3>Health</h3>\n<p>In the medical field, AI improves the diagnosis of diseases such as malaria or tuberculosis, particularly in areas where specialists are scarce.</p>\n\n<h3>Financial services</h3>\n<p>Financial institutions use AI to assess credit risks, detect fraud, and offer personalized financial services to unbanked populations.</p>",
-                    ],
-                ],
+                'published_at' => Carbon::now()->subDays(4),
+                'title' => 'Portrait de l\'écosystème startup d\'Abidjan : succès et défis',
+                'excerpt' => 'Découvrez les success stories, les acteurs clés et les défis de l\'écosystème entrepreneurial d\'Abidjan.',
+                'content' => "<p>Abidjan s'impose progressivement comme un hub entrepreneurial majeur en Afrique de l'Ouest. La capitale économique ivoirienne attire de plus en plus d'entrepreneurs, d'investisseurs et d'incubateurs.</p><h3>Les success stories</h3><p>Plusieurs startups ivoiriennes ont marqué l'écosystème :</p><ul><li><strong>PayDunya (maintenant DunyaPay)</strong> : plateforme de paiement en ligne</li><li><strong>Julaya</strong> : marketplace pour l'artisanat africain</li><li><strong>CinetPay</strong> : solution de paiement mobile</li><li><strong>SudPay</strong> : services financiers numériques</li></ul><h3>Acteurs de l'écosystème</h3><p>L'écosystème s'appuie sur plusieurs piliers :</p><ul><li><strong>Incubateurs</strong> : Orange Digital Center, CIPME, Impact Hub</li><li><strong>Espaces de coworking</strong> : Hub Ivoire Tech, Oasis500, La Factory</li><li><strong>Investisseurs</strong> : Société Générale Capital, Teranga Capital</li><li><strong>Institutions</strong> : CEPICI, CGECI, ministère du Numérique</li></ul><h3>Défis à relever</h3><p>Malgré les progrès, plusieurs défis persistent :</p><ul><li>Accès au financement pour les early-stage startups</li><li>Formation des talents techniques</li><li>Réglementation parfois complexe</li><li>Marché local encore limité</li></ul>",
+            ],
+            [
+                'category' => ArticleCategory::BLOCKCHAIN,
+                'illustration' => $newIllustration,
+                'tags' => ['Blockchain', 'Agriculture', 'Traçabilité', 'Cacao'],
+                'featured' => false,
+                'status' => ArticleStatus::PUBLISHED,
+                'published_at' => Carbon::now()->subDays(12),
+                'title' => 'Blockchain et agriculture : traçabilité du cacao ivoirien',
+                'excerpt' => 'Comment la blockchain révolutionne la traçabilité des produits agricoles, avec l\'exemple du cacao en Côte d\'Ivoire.',
+                'content' => "<p>La Côte d'Ivoire, premier producteur mondial de cacao, explore l'utilisation de la blockchain pour améliorer la traçabilité de sa filière cacaoyère.</p><h3>Enjeux de la traçabilité</h3><p>La filière cacao fait face à plusieurs défis :</p><ul><li>Lutte contre le travail des enfants</li><li>Déforestation et durabilité environnementale</li><li>Juste rémunération des producteurs</li><li>Certification et qualité des fèves</li></ul><h3>Solutions blockchain</h3><p>La technologie blockchain offre plusieurs avantages :</p><ul><li><strong>Transparence</strong> : suivi complet de la chaîne d'approvisionnement</li><li><strong>Immutabilité</strong> : données non falsifiables</li><li><strong>Smart contracts</strong> : paiements automatisés aux producteurs</li><li><strong>Certification</strong> : preuves numériques de durabilité</li></ul><h3>Initiatives en cours</h3><p>Plusieurs projets pilotes sont en développement :</p><ul><li>Collaboration avec des multinationales du chocolat</li><li>Partenariats avec des coopératives locales</li><li>Support du Conseil Café-Cacao</li><li>Formation des producteurs aux outils numériques</li></ul><h3>Impact attendu</h3><p>Cette transformation pourrait permettre :</p><ul><li>Amélioration des revenus des producteurs</li><li>Renforcement de la marque \"Cacao de Côte d'Ivoire\"</li><li>Accès privilégié aux marchés premium</li><li>Développement d'une industrie tech agricole</li></ul>",
+            ],
+            [
+                'category' => ArticleCategory::DIVERSITY_INCLUSION,
+                'illustration' => $newIllustration,
+                'tags' => ['Femmes', 'Tech', 'Leadership', 'Inclusion'],
+                'featured' => true,
+                'status' => ArticleStatus::PUBLISHED,
+                'published_at' => Carbon::now()->subDays(1),
+                'title' => 'Femmes leaders dans la tech africaine : portraits inspirants',
+                'excerpt' => 'Rencontre avec des femmes qui façonnent l\'avenir technologique de l\'Afrique et brisent les barrières.',
+                'content' => "<p>L'Afrique compte de nombreuses femmes leaders qui transforment le paysage technologique du continent. Leurs parcours inspirants montrent la voie vers plus de diversité et d'inclusion dans la tech.</p><h3>Rebecca Enonchong - Cameroun</h3><p>Fondatrice d'AppsTech et figure emblématique de la tech africaine, Rebecca Enonchong milite pour l'entrepreneuriat féminin et a inspiré une génération d'entrepreneures.</p><h3>Judith Owigar - Kenya</h3><p>Co-fondatrice d'Akirachix, elle forme des femmes développeuses et designers au Kenya. Son organisation a déjà formé plus de 2000 femmes aux technologies.</p><h3>Initiatives en Côte d'Ivoire</h3><p>La Côte d'Ivoire voit émerger plusieurs initiatives :</p><ul><li><strong>Women in Tech CI</strong> : communauté des femmes tech ivoiriennes</li><li><strong>Empow'Her</strong> : programmes de formation et mentorat</li><li><strong>Girls in ICT</strong> : sensibilisation des jeunes filles</li><li><strong>Tech Sisters</strong> : réseau de networking et support</li></ul><h3>Défis et opportunités</h3><p>Les femmes dans la tech africaine font face à :</p><ul><li><strong>Défis</strong> : accès limité au financement, stéréotypes, manque de modèles</li><li><strong>Opportunités</strong> : marché en croissance, programmes de soutien, demande croissante</li></ul><h3>Impact et perspectives</h3><p>La participation accrue des femmes dans la tech permet :</p><ul><li>Innovation plus inclusive</li><li>Solutions adaptées aux besoins féminins</li><li>Croissance économique renforcée</li><li>Modèles inspirants pour les nouvelles générations</li></ul>",
+            ],
+            [
+                'category' => ArticleCategory::MOBILE,
+                'illustration' => $newIllustration,
+                'tags' => ['Mobile', 'Applications', 'Afrique', 'Innovation'],
+                'featured' => false,
+                'status' => ArticleStatus::PUBLISHED,
+                'published_at' => Carbon::now()->subDays(8),
+                'title' => 'Le boom des applications mobiles \"Made in Africa\"',
+                'excerpt' => 'Découvrez comment les développeurs africains créent des applications innovantes adaptées aux besoins locaux.',
+                'content' => "<p>L'Afrique connaît une explosion du développement d'applications mobiles avec des solutions innovantes conçues par et pour les Africains.</p><h3>Applications phares du continent</h3><p>Plusieurs apps africaines ont conquis les marchés :</p><ul><li><strong>M-Pesa (Kenya)</strong> : paiement mobile pionnier</li><li><strong>Jumia (Nigeria)</strong> : e-commerce panafricain</li><li><strong>Flutterwave (Nigeria)</strong> : infrastructure de paiement</li><li><strong>Andela (Nigeria)</strong> : plateforme de développeurs</li></ul><h3>Innovation ivoirienne</h3><p>La Côte d'Ivoire développe ses propres solutions :</p><ul><li><strong>Sama Money</strong> : transferts d'argent simplifiés</li><li><strong>Qelasy</strong> : marketplace locale</li><li><strong>MyToli</strong> : plateforme de services</li><li><strong>Paydunya</strong> : solutions de paiement</li></ul><h3>Spécificités du marché africain</h3><p>Les développeurs africains s'adaptent aux contraintes locales :</p><ul><li>Optimisation pour réseaux 2G/3G</li><li>Applications légères et efficaces</li><li>Support des langues locales</li><li>Adaptation aux modes de paiement locaux</li><li>Fonctionnement offline</li></ul><h3>Défis techniques</h3><p>Le développement mobile en Afrique présente des défis :</p><ul><li>Fragmentation des OS et devices</li><li>Connectivité limitée dans certaines zones</li><li>Coût des données mobiles</li><li>Diversité des langues et cultures</li></ul><h3>Opportunités futures</h3><p>Le secteur mobile africain offre des perspectives prometteuses :</p><ul><li>Croissance rapide de la pénétration smartphone</li><li>Amélioration des infrastructures réseau</li><li>Émergence de la 5G</li><li>Investissements croissants dans la tech</li></ul>",
             ],
         ];
 
         foreach ($articles as $articleData) {
-            // Extraire les traductions
-            $translations = $articleData['translations'];
-            unset($articleData['translations']);
+            $article = Article::create([
+                'category' => $articleData['category'],
+                'illustration' => $articleData['illustration'],
+                'tags' => $articleData['tags'],
+                'featured' => $articleData['featured'],
+                'status' => $articleData['status'],
+                'published_at' => $articleData['published_at'],
+                'author_id' => $authorId,
+                'default_locale' => LanguageEnum::FRENCH->value,
+            ]);
 
-            // Définir la langue par défaut
-            $articleData['default_locale'] = LanguageEnum::FRENCH->value;
-
-            // Créer l'article
-            $article = Article::create($articleData);
-
-            // Ajouter les traductions
-            foreach ($translations as $locale => $translationData) {
-                $slug = Str::slug($translationData['title']);
-                if (ArticleTranslation::where('slug', $slug)->where('locale', $locale)->exists()) {
-                    continue;
-                }
+            $slug = Str::slug($articleData['title']);
+            if (!ArticleTranslation::where('slug', $slug)->where('locale', 'fr')->exists()) {
                 ArticleTranslation::create([
                     'article_id' => $article->id,
-                    'locale' => $locale,
-                    'title' => $translationData['title'],
+                    'locale' => LanguageEnum::FRENCH->value,
+                    'title' => $articleData['title'],
                     'slug' => $slug,
-                    'excerpt' => $translationData['excerpt'] ?? null,
-                    'content' => $translationData['content'] ?? null,
-                    'meta_title' => $translationData['meta_title'] ?? $translationData['title'],
-                    'meta_description' => $translationData['meta_description'] ?? $translationData['excerpt'] ?? null,
-                    'reading_time' => $translationData['reading_time'] ?? $this->calculateReadingTime($translationData['content'] ?? ''),
+                    'excerpt' => $articleData['excerpt'],
+                    'content' => $articleData['content'],
+                    'reading_time' => $this->calculateReadingTime($articleData['content']),
                 ]);
             }
         }

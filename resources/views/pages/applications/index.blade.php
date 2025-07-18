@@ -4,19 +4,27 @@
 
     <div class="bg-white">
         <!-- Header Section -->
-        <div class="relative bg-gradient-to-br from-emerald-800 via-teal-700 to-cyan-800 py-16 sm:py-20 lg:py-32 overflow-hidden">
+        <div class="relative bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-600 py-16 sm:py-20 lg:py-32 overflow-hidden">
+            <!-- Gradient Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-white/5"></div>
+            
             <!-- Background Pattern -->
-            <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.05"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
+            <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.03"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
+            
+            <!-- Decorative Elements -->
+            <div class="absolute top-20 left-10 w-24 h-24 bg-white/5 rounded-full blur-xl"></div>
+            <div class="absolute bottom-20 right-10 w-32 h-32 bg-teal-400/10 rounded-full blur-2xl"></div>
+            <div class="absolute top-40 right-20 w-16 h-16 bg-cyan-300/10 rounded-full blur-lg"></div>
             
             <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center">
                     <!-- Title -->
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 drop-shadow-sm">
                         {{ __("Candidatures") }}
                     </h1>
                     
                     <!-- Subtitle -->
-                    <p class="text-xl sm:text-2xl text-emerald-100 max-w-3xl mx-auto">
+                    <p class="text-xl sm:text-2xl text-emerald-100 max-w-3xl mx-auto opacity-90">
                         {{ __("Rejoignez notre écosystème d'innovation et contribuez au développement entrepreneurial") }}
                     </p>
                 </div>
@@ -87,8 +95,8 @@
                          x-transition:enter-start="opacity-0 transform translate-y-4" 
                          x-transition:enter-end="opacity-100 transform translate-y-0">
                         <div class="text-center mb-8">
-                            <h2 class="text-2xl font-bold text-gray-900 mb-2">Devenir Partenaire</h2>
-                            <p class="text-gray-600">Rejoignez notre écosystème et contribuez au développement de l'innovation entrepreneuriale.</p>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-2">{{ __("Devenir Partenaire") }}</h2>
+                            <p class="text-gray-600">{{ __("Rejoignez notre écosystème et contribuez au développement de l'innovation entrepreneuriale.") }}</p>
                         </div>
                         <x-forms.partnership-application-form />
                     </div>
@@ -99,8 +107,8 @@
                          x-transition:enter-start="opacity-0 transform translate-y-4" 
                          x-transition:enter-end="opacity-100 transform translate-y-0">
                         <div class="text-center mb-8">
-                            <h2 class="text-2xl font-bold text-gray-900 mb-2">Devenir Expert</h2>
-                            <p class="text-gray-600">Partagez votre expertise et accompagnez la prochaine génération d'entrepreneurs.</p>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-2">{{ __("Devenir Expert") }}</h2>
+                            <p class="text-gray-600">{{ __("Partagez votre expertise et accompagnez la prochaine génération d'entrepreneurs.") }}</p>
                         </div>
                         <x-forms.expert-application-form />
                     </div>

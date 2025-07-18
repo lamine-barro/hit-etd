@@ -74,6 +74,14 @@ class Event extends Model
         'og_type',
     ];
 
+    /**
+     * Récupère le slug de l'événement dans la langue actuelle ou par défaut
+     */
+    public function getSlug(): ?string
+    {
+        return $this->getTranslatedAttribute('slug');
+    }
+
     // Les méthodes boot() et generateUniqueSlug() ont été supprimées car le slug est maintenant géré par les traductions
 
     /**
@@ -189,5 +197,19 @@ class Event extends Model
     protected function getTranslationModelName(): string
     {
         return EventTranslation::class;
+    }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        if (request()->is('admin/*')) {
+            return 'id';
+        }
+
+        return 'slug';
     }
 }

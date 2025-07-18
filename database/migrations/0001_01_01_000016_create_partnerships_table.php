@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('phone')->nullable();
             $table->text('message');
-            $table->decimal('amount', 10, 2)->nullable();
+            $table->decimal('amount', 15, 2)->nullable();
             $table->string('status')->default('untreated');
             $table->text('internal_notes')->nullable();
             $table->timestamp('processed_at')->nullable();

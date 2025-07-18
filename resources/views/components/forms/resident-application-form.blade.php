@@ -9,11 +9,11 @@
             </label>
             <select name="category" id="category" required
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors">
-                <option value="">Sélectionnez une catégorie</option>
-                <option value="startup" {{ old('category') === 'startup' ? 'selected' : '' }}>Startup</option>
-                <option value="structure_accompagnement" {{ old('category') === 'structure_accompagnement' ? 'selected' : '' }}>Structure d'accompagnement</option>
-                <option value="professionnel" {{ old('category') === 'professionnel' ? 'selected' : '' }}>Professionnel⸱le</option>
-                <option value="gestionnaire" {{ old('category') === 'gestionnaire' ? 'selected' : '' }}>Gestionnaire</option>
+                <option value="">{{ __("Sélectionnez une catégorie") }}</option>
+                <option value="startup" {{ old('category') === 'startup' ? 'selected' : '' }}>{{ __("Startup") }}</option>
+                <option value="structure_accompagnement" {{ old('category') === 'structure_accompagnement' ? 'selected' : '' }}>{{ __("Structure d'accompagnement") }}</option>
+                <option value="professionnel" {{ old('category') === 'professionnel' ? 'selected' : '' }}>{{ __("Professionnel⸱le") }}</option>
+                <option value="gestionnaire" {{ old('category') === 'gestionnaire' ? 'selected' : '' }}>{{ __("Gestionnaire") }}</option>
             </select>
         </div>
 

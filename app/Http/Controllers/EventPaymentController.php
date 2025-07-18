@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\EventPayment;
 use App\Models\EventRegistration;
 use App\Services\PaystackService;
+use App\Notifications\EventRegistrationConfirmation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
@@ -76,33 +77,36 @@ class EventPaymentController extends Controller
                 // Récupérer l'événement pour son slug
                 $event = $payment->registration->event;
 
-                // Envoyer une notification par email après paiement réussi
+                // Envoyer les notifications par email après paiement réussi
                 try {
+                    // Notification au candidat
+                    Notification::route('mail', $payment->registration->email)
+                        ->notify(new EventRegistrationConfirmation($payment->registration));
+
+                    // Notification à l'équipe administrative
                     $supportEmail = env('HIT_SUPPORT_EMAIL');
+                    if ($supportEmail) {
+                        Notification::route('mail', $supportEmail)
+                            ->notify(new \App\Notifications\NewEventRegistration($payment->registration));
+                    }
 
-                    Log::info('Tentative d\'envoi d\'email après paiement réussi', ['email' => $supportEmail]);
-
-                    Notification::route('mail', $supportEmail)
-                        ->notify(new \App\Notifications\NewEventRegistration($payment->registration));
-
-                    Log::info('Notification d\'inscription envoyée avec succès après paiement', [
+                    Log::info('Notifications d\'inscription envoyées avec succès après paiement', [
                         'event_id' => $event->id,
-                        'event_title' => $event->title,
+                        'event_title' => $event->getTranslatedAttribute('title'),
                         'registration_id' => $payment->registration->id,
+                        'candidate_email' => $payment->registration->email,
                         'support_email' => $supportEmail,
                     ]);
                 } catch (\Exception $e) {
-                    Log::error('Erreur lors de l\'envoi de la notification d\'inscription après paiement', [
+                    Log::error('Erreur lors de l\'envoi des notifications d\'inscription après paiement', [
                         'error' => $e->getMessage(),
                         'event_id' => $event->id,
                         'registration_id' => $payment->registration->id,
                     ]);
                 }
 
-                return redirect()->route('events.registration.success', [
-                    'event' => $event->slug,
-                    'registration' => $payment->registration->uuid,
-                ])->with('success', __('Paiement réussi ! Votre inscription est confirmée.'));
+                return redirect()->route('events.show', ['slug' => $event->getSlug()])
+                    ->with('success', __('Paiement réussi ! Votre inscription est confirmée. Vous allez recevoir un email de confirmation.'));
             }
 
             $payment->markAsFailed($paymentData);

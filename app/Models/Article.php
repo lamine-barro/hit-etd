@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Article extends Model
 {
@@ -84,7 +85,7 @@ class Article extends Model
     /**
      * Récupère le slug de l'article dans la langue actuelle ou par défaut
      */
-    public function getSlug(): string
+    public function getSlug(): ?string
     {
         return $this->getTranslatedAttribute('slug');
     }

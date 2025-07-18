@@ -12,9 +12,21 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            UserSeeder::class,
-            EventSeeder::class,
+            // Core seeders (basic setup)
+            AdministratorSeeder::class,
+            ResidentSeeder::class,
+            
+            // Content seeders
             ArticleSeeder::class,
+            EventSeeder::class,
+            
+            // Space and facility seeders
+            EspaceSeeder::class,
+            
+            // Expert and partnership seeders
+            ExpertSeeder::class,
+            PartnershipSeeder::class,
+            BookingSeeder::class,
         ]);
     }
 }

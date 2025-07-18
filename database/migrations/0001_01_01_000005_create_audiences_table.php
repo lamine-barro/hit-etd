@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('email')->unique();
             $table->string('whatsapp')->nullable();
+            $table->string('type')->nullable(); // Type d'audience : resident, expert, etc.
             $table->boolean('newsletter_email')->default(true);
             $table->boolean('newsletter_whatsapp')->default(false);
             $table->json('interests')->nullable();

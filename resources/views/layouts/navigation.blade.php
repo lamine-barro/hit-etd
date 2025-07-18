@@ -1,20 +1,20 @@
 <!-- Navigation Links -->
 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-    <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
+    <x-ui.nav-link :href="route('home')" :active="request()->routeIs('home')">
         {{ __('Home') }}
-    </x-nav-link>
+    </x-ui.nav-link>
 
-    <x-nav-link :href="route('events')" :active="request()->routeIs('events*')">
+    <x-ui.nav-link :href="route('events')" :active="request()->routeIs('events*')">
         {{ __('Events') }}
-    </x-nav-link>
+    </x-ui.nav-link>
 
-    <x-nav-link :href="route('actualites')" :active="request()->routeIs('actualites*')">
+    <x-ui.nav-link :href="route('actualites')" :active="request()->routeIs('actualites*')">
         {{ __('News') }}
-    </x-nav-link>
+    </x-ui.nav-link>
 
-   {{--  <x-nav-link :href="route('visitez-le-campus')" :active="request()->routeIs('visitez-le-campus')">
+   {{--  <x-ui.nav-link :href="route('visitez-le-campus')" :active="request()->routeIs('visitez-le-campus')">
         {{ __('Visit Campus') }}
-    </x-nav-link> --}}
+    </x-ui.nav-link> --}}
 </div>
 
 <!-- Mobile menu -->
@@ -30,20 +30,20 @@
 <!-- Responsive Navigation Menu -->
 <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
     <div class="pt-2 pb-3 space-y-1">
-        <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
+        <x-ui.responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
             {{ __('Home') }}
-        </x-responsive-nav-link>
+        </x-ui.responsive-nav-link>
 
-        <x-responsive-nav-link :href="route('events')" :active="request()->routeIs('events*')">
+        <x-ui.responsive-nav-link :href="route('events')" :active="request()->routeIs('events*')">
             {{ __('Events') }}
-        </x-responsive-nav-link>
+        </x-ui.responsive-nav-link>
 
-        <x-responsive-nav-link :href="route('actualites')" :active="request()->routeIs('actualites*')">
+        <x-ui.responsive-nav-link :href="route('actualites')" :active="request()->routeIs('actualites*')">
             {{ __('News') }}
-        </x-responsive-nav-link>
+        </x-ui.responsive-nav-link>
 
-        {{-- <x-responsive-nav-link :href="route('visitez-le-campus')" :active="request()->routeIs('visitez-le-campus')">
+        {{-- <x-ui.responsive-nav-link :href="route('visitez-le-campus')" :active="request()->routeIs('visitez-le-campus')">
             {{ __('Visit Campus') }}
-        </x-responsive-nav-link> --}}
+        </x-ui.responsive-nav-link> --}}
     </div>
 </div>

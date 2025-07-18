@@ -49,7 +49,7 @@ class Administrator extends Authenticatable implements FilamentUser, HasAvatar, 
     /**
      * Obtenir le nom complet de l'administrateur
      */
-    public function getFullNameAttribute(): string
+    public function getFullName(): string
     {
         return "{$this->first_name} {$this->last_name}";
     }

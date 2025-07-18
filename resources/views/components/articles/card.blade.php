@@ -4,7 +4,7 @@
     <div class="relative">
         @if($article->illustration)
             <div class="aspect-w-16 aspect-h-9 overflow-hidden">
-                <img src="{{ Storage::url($article->illustration) }}"
+                <img src="{{ Str::startsWith($article->illustration, 'http') ? $article->illustration : Storage::url($article->illustration) }}"
                     alt="{{ $article->getTranslatedAttribute('title') }}"
                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
             </div>
@@ -27,9 +27,11 @@
 
     <div class="p-6 flex flex-col h-full">
         <!-- Titre -->
-        <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary-600 transition-colors duration-300 line-clamp-2">
-            {{ $article->getTranslatedAttribute('title') }}
-        </h3>
+        <a href="{{ $article->getSlug() ? route('actualites.show', ['slug' => $article->getSlug()]) : '#' }}" class="block mb-3">
+            <h3 class="text-xl font-bold text-gray-900 group-hover:text-primary-600 transition-colors duration-300 line-clamp-2">
+                {{ $article->getTranslatedAttribute('title') }}
+            </h3>
+        </a>
 
         <!-- Excerpt -->
         <p class="text-gray-600 text-sm leading-relaxed mb-4 flex-grow line-clamp-3">
@@ -44,12 +46,12 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
                 </div>
-                <span class="text-sm text-gray-500">
-                    {{ $article->published_at->format('d/m/Y') }}
+                <span class="text-sm text-gray-500" title="{{ $article->published_at->format('d/m/Y H:i') }}">
+                    {{ $article->published_at->diffForHumans() }}
                 </span>
             </div>
 
-            <a href="{{ route('actualites.show', ['slug' => $article->getTranslatedAttribute('slug')]) }}" 
+            <a href="{{ $article->getSlug() ? route('actualites.show', ['slug' => $article->getSlug()]) : '#' }}"
                class="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium text-sm transition-colors duration-300">
                 {{ __("Lire plus") }}
                 <svg class="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">

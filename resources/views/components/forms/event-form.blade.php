@@ -86,13 +86,13 @@
             <div class="row g-4">
                 <!-- Type d'événement -->
                 <div class="col-md-6">
-                    <label class="form-label fw-bold">{{ __('Type d’événement') }}</label>
+                    <label class="form-label fw-bold">{{ __('Type d\'événement') }}</label>
                     <select name="type" class="form-select @error('type') is-invalid @enderror" required>
-                        <option value="">Sélectionner un type</option>
-                        <option value="conference" {{ old('type', $event?->type) === 'conference' ? 'selected' : '' }}>Conférence</option>
-                        <option value="workshop" {{ old('type', $event?->type) === 'workshop' ? 'selected' : '' }}>Atelier</option>
-                        <option value="webinar" {{ old('type', $event?->type) === 'webinar' ? 'selected' : '' }}>Webinaire</option>
-                        <option value="training" {{ old('type', $event?->type) === 'training' ? 'selected' : '' }}>Formation</option>
+                        <option value="">{{ __("Sélectionner un type") }}</option>
+                        <option value="conference" {{ old('type', $event?->type) === 'conference' ? 'selected' : '' }}>{{ __("Conférence") }}</option>
+                        <option value="workshop" {{ old('type', $event?->type) === 'workshop' ? 'selected' : '' }}>{{ __("Atelier") }}</option>
+                        <option value="webinar" {{ old('type', $event?->type) === 'webinar' ? 'selected' : '' }}>{{ __("Webinaire") }}</option>
+                        <option value="training" {{ old('type', $event?->type) === 'training' ? 'selected' : '' }}>{{ __("Formation") }}</option>
                     </select>
                     @error('type')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -333,7 +333,7 @@
                                     <select name="currency" class="form-select @error('currency') is-invalid @enderror"
                                             :required="isPaid === '1'"
                                             style="max-width: 100px;">
-                                        <option value="">Devise</option>
+                                        <option value="">{{ __("Devise") }}</option>
                                         <option value="XOF" {{ old('currency', $event?->currency) === 'XOF' ? 'selected' : '' }}>XOF</option>
                                         <option value="EUR" {{ old('currency', $event?->currency) === 'EUR' ? 'selected' : '' }}>EUR</option>
                                         <option value="USD" {{ old('currency', $event?->currency) === 'USD' ? 'selected' : '' }}>USD</option>

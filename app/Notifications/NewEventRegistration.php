@@ -38,30 +38,31 @@ class NewEventRegistration extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         $event = $this->eventRegistration->event;
+        $eventTitle = $event->getTranslatedAttribute('title') ?? $event->title ?? 'Événement';
 
         return (new MailMessage)
-            ->subject(__('Nouvelle inscription : ').$event->title)
-            ->greeting(__('Bonjour !'))
-            ->line(__('Une nouvelle inscription a été enregistrée pour l\'événement : ').$event->title)
-            ->line(__('Détails du participant :'))
-            ->line(__('Nom : ').$this->eventRegistration->name)
-            ->line(__('Email : ').$this->eventRegistration->email)
-            ->line(__('WhatsApp : ').($this->eventRegistration->whatsapp ?? __('Non renseigné')))
-            ->line(__('Fonction : ').$this->eventRegistration->position)
-            ->line(__('Organisation : ').$this->eventRegistration->organization)
-            ->line(__('Pays : ').$this->eventRegistration->country)
-            ->line(__('Type d\'acteur : ').$this->eventRegistration->actor_type)
-            ->line(__('Statut : ').$this->getStatusLabel())
-            ->line(__('Date d\'inscription : ').$this->eventRegistration->created_at->format('d/m/Y H:i'))
-            ->action(__('Voir les détails dans l\'administration'), url('/admin/event-registrations/'.$this->eventRegistration->id))
-            ->line(__('Merci d\'utiliser notre plateforme !'));
+            ->subject('✅ Nouvelle inscription - ' . $eventTitle)
+            ->greeting('Bonjour équipe Hub Ivoire Tech,')
+            ->line('Une nouvelle inscription vient d\'être enregistrée pour l\'événement **' . $eventTitle . '**')
+            ->line('**Détails du participant :**')
+            ->line('👤 **Nom :** ' . $this->eventRegistration->name)
+            ->line('📧 **Email :** ' . $this->eventRegistration->email)
+            ->line('📱 **WhatsApp :** ' . ($this->eventRegistration->whatsapp ?? 'Non renseigné'))
+            ->line('💼 **Fonction :** ' . $this->eventRegistration->position)
+            ->line('🏢 **Organisation :** ' . $this->eventRegistration->organization)
+            ->line('🌍 **Pays :** ' . $this->eventRegistration->country)
+            ->line('🎯 **Profil :** ' . $this->getActorTypeLabel())
+            ->line('📊 **Statut :** ' . $this->getStatusLabel())
+            ->line('⏰ **Date d\'inscription :** ' . $this->eventRegistration->created_at->format('d/m/Y à H:i'))
+            ->line('**Informations sur l\'événement :**')
+            ->line('📅 **Date :** ' . $event->start_date->format('d/m/Y à H:i'))
+            ->line('📍 **Lieu :** ' . ($event->location ?? ($event->is_remote ? 'En ligne' : 'À déterminer')))
+            ->line('💰 **Prix :** ' . ($event->is_paid ? number_format($event->getCurrentPrice(), 0, ',', ' ') . ' ' . $event->currency : 'Gratuit'))
+            ->action('Voir dans l\'administration', url('/admin/event-registrations/' . $this->eventRegistration->id))
+            ->line('Bonne continuation !')
+            ->salutation('L\'équipe Hub Ivoire Tech');
     }
 
-    /**
-     * Get the array representation of the notification.
-     *
-     * @return array<string, mixed>
-     */
     /**
      * Obtient le libellé du statut d'inscription de manière sécurisée
      */
@@ -69,30 +70,52 @@ class NewEventRegistration extends Notification implements ShouldQueue
     {
         $status = $this->eventRegistration->status;
 
-        // Si c'est un objet enum
-        if (is_object($status) && method_exists($status, 'label')) {
-            return $status->label();
-        }
+        $statusLabels = [
+            'pending' => '🟡 En attente',
+            'confirmed' => '🟢 Confirmé',
+            'cancelled' => '🔴 Annulé',
+        ];
 
-        // Si c'est un objet enum mais sans méthode label
+        // Si c'est un objet enum
         if (is_object($status) && property_exists($status, 'value')) {
-            return $status->value;
+            return $statusLabels[$status->value] ?? $status->value;
         }
 
         // Si c'est une chaîne
         if (is_string($status)) {
-            return __(''.$status);
+            return $statusLabels[$status] ?? $status;
         }
 
-        // Valeur par défaut
-        return __('non défini');
+        return 'Non défini';
+    }
+
+    /**
+     * Obtient le libellé du type d'acteur
+     */
+    private function getActorTypeLabel(): string
+    {
+        $actorType = $this->eventRegistration->actor_type;
+        
+        $actorTypeLabels = [
+            'startup' => 'Startup / Entrepreneur',
+            'etudiant' => 'Étudiant',
+            'chercheur' => 'Chercheur / Académique',
+            'investisseur' => 'Investisseur',
+            'media' => 'Média / Journaliste',
+            'corporate' => 'Corporate / Grande entreprise',
+            'service_public' => 'Service Public',
+            'structure_accompagnement' => 'Structure d\'accompagnement',
+            'autre' => 'Autre',
+        ];
+
+        return $actorTypeLabels[$actorType] ?? $actorType;
     }
 
     public function toArray(object $notifiable): array
     {
         return [
             'event_id' => $this->eventRegistration->event_id,
-            'event_title' => $this->eventRegistration->event->title,
+            'event_title' => $this->eventRegistration->event->getTranslatedAttribute('title'),
             'registration_id' => $this->eventRegistration->id,
             'participant_name' => $this->eventRegistration->name,
             'participant_email' => $this->eventRegistration->email,

@@ -16,6 +16,7 @@ class Audience extends Model
         'description',
         'email',
         'whatsapp',
+        'type',
         'newsletter_email',
         'newsletter_whatsapp',
         'interests',

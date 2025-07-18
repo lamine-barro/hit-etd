@@ -30,6 +30,8 @@ Route::prefix('evenements')->group(function () {
     Route::get('/', [EventListController::class, 'index'])->name('events');
     Route::get('{slug}', [EventListController::class, 'show'])
         ->name('events.show')->where('slug', '[a-z0-9\-]+');
+    Route::get('{slug}/inscription', [EventListController::class, 'registerForm'])
+        ->name('events.register.form')->where('slug', '[a-z0-9\-]+');
     Route::post('{slug}/register', [EventRegistrationController::class, 'store'])
         ->name('events.register')->where('slug', '[a-z0-9\-]+');
     Route::post('{registration}/payment', [EventPaymentController::class, 'initiate'])
