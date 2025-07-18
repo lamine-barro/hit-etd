@@ -2,8 +2,9 @@
 
 namespace App\Filament\Widgets;
 
-use App\Filament\Resident\Resources\EspaceOrderResource;
-use App\Models\EspaceOrder;
+use App\Filament\Resources\EventResource;
+use App\Models\Event;
+use App\Enums\EventStatus;
 use Filament\Actions;
 use Filament\Forms;
 use Saade\FilamentFullCalendar\Widgets\FullCalendarWidget;
@@ -24,28 +25,36 @@ class CalendarWidget extends FullCalendarWidget
 
     public function fetchEvents(array $fetchInfo): array
     {
-        return EspaceOrder::query()
-            ->where('started_at', '>=', $fetchInfo['start'])
-            ->where('ended_at', '<=', $fetchInfo['end'])
+        return Event::query()
+            ->where('start_date', '>=', $fetchInfo['start'])
+            ->where('start_date', '<=', $fetchInfo['end'])
+            ->with('translations')
             ->get()
             ->map(
-                function (EspaceOrder $event) {
+                function (Event $event) {
+                    // Récupérer le titre de l'événement dans la langue actuelle
+                    $currentLocale = app()->getLocale();
+                    $translation = $event->translations()
+                        ->where('locale', $currentLocale)
+                        ->first();
+                    
+                    $title = $translation ? $translation->title : $event->slug;
+                    
                     $data = [
-                        'title' => "{$event->reference}/{$event->notes}/{$event->status}",
-                        'start' => $event->started_at,
-                        'end' => $event->ended_at,
+                        'title' => $title,
+                        'start' => $event->start_date,
+                        'end' => $event->end_date,
                     ];
 
                     $data['color'] = match ($event->status) {
-                        'pending' => 'yellow',
-                        'processing' => 'blue',
-                        'completed' => 'green',
-                        'cancelled' => 'red',
+                        EventStatus::PUBLISHED => 'green',
+                        EventStatus::DRAFT => 'orange',
+                        EventStatus::CANCELLED => 'red',
                         default => 'gray',
                     };
 
                     $data['shouldOpenUrlInNewTab'] = true;
-                    $data['url'] = EspaceOrderResource::getUrl(name: 'view', parameters: ['record' => $event]);
+                    $data['url'] = EventResource::getUrl(name: 'view', parameters: ['record' => $event], panel: 'admin');
 
                     return $data;
                 }

@@ -13,10 +13,15 @@ class EditUser extends EditRecord
 {
     protected static string $resource = UserResource::class;
 
+    public function getTitle(): string
+    {
+        return 'Modifier le résident';
+    }
+
     public function form(Form $form): Form
     {
         $record = $this->record;
-        $with_responsible = $record->responsible_name || $record->responsible_phone;
+
 
         return $form
             ->schema([
@@ -34,6 +39,13 @@ class EditUser extends EditRecord
                                         'person' => 'Individu',
                                         'entreprise' => 'Gestionnaire',
                                     ]),
+
+                                Forms\Components\FileUpload::make('profile_picture')
+                                    ->label('Photo de profil')
+                                    ->image()
+                                    ->directory('avatars/residents')
+                                    ->visibility('public')
+                                    ->columnSpanFull(),
 
                                 Forms\Components\TextInput::make('name')
                                     ->label('Nom Startup')
@@ -53,26 +65,12 @@ class EditUser extends EditRecord
                                     ->tel()
                                     ->maxLength(255),
 
-                                Forms\Components\Checkbox::make('with_responsible')
-                                    ->label('Informations du responsable')
-                                    ->helperText('Cochez cette case si vous souhaitez ajouter les informations du responsable')
-                                    ->default($with_responsible)
-                                    ->columnSpan(2)
-                                    ->reactive(),
+                                Forms\Components\Textarea::make('needs')
+                                    ->label('Besoins spécifiques')
+                                    ->columnSpanFull()
+                                    ->rows(3)
+                                    ->placeholder('Décrivez les besoins spécifiques du résident...'),
 
-                                Forms\Components\TextInput::make('responsible_name')
-                                    ->label('Nom et prénom du responsable')
-                                    ->disabled(fn (Forms\Get $get) => ! $get('with_responsible'))
-                                    ->reactive()
-                                    ->required()
-                                    ->maxLength(255),
-
-                                Forms\Components\TextInput::make('responsible_phone')
-                                    ->label('Numéro de téléphone du responsable')
-                                    ->disabled(fn (Forms\Get $get) => ! $get('with_responsible'))
-                                    ->reactive()
-                                    ->required()
-                                    ->maxLength(255),
                             ]),
                     ]),
             ]);

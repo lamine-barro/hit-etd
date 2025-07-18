@@ -25,9 +25,14 @@ class AdministratorResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Administrateurs';
 
-    protected static ?string $navigationGroup = 'Administration';
+    protected static ?string $navigationGroup = 'Personnes';
 
-    protected static ?int $navigationSort = 1;
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
+    protected static ?int $navigationSort = 13;
 
     public static function form(Form $form): Form
     {
@@ -53,31 +58,41 @@ class AdministratorResource extends Resource
                             ->label('Numéro de téléphone')
                             ->tel()
                             ->maxLength(255),
+                        Forms\Components\FileUpload::make('avatar_url')
+                            ->label('Photo de profil')
+                            ->image()
+                            ->directory('avatars/administrators')
+                            ->visibility('public'),
                     ])->columns(2),
 
-                Forms\Components\Section::make('Authentification')
+                Forms\Components\Section::make('Informations système')
                     ->schema([
-                        Forms\Components\TextInput::make('password')
-                            ->label('Mot de passe')
-                            ->password()
-                            ->dehydrateStateUsing(fn (string $state): string => Hash::make($state))
-                            ->dehydrated(fn (?string $state): bool => filled($state))
-                            ->required(fn (string $operation): bool => $operation === 'create')
-                            ->maxLength(255),
                         Forms\Components\DateTimePicker::make('email_verified_at')
                             ->label('Email vérifié le')
                             ->hidden(fn (string $operation): bool => $operation === 'create'),
-                    ])->columns(2),
+                        Forms\Components\DateTimePicker::make('last_login_at')
+                            ->label('Dernière connexion')
+                            ->disabled()
+                            ->hidden(fn (string $operation): bool => $operation === 'create'),
+                        Forms\Components\TextInput::make('login_ip')
+                            ->label('Dernière IP de connexion')
+                            ->disabled()
+                            ->hidden(fn (string $operation): bool => $operation === 'create'),
+                    ])->columns(3)
+                    ->collapsible(),
 
-                Forms\Components\Section::make('Avatar')
+                Forms\Components\Section::make('Métadonnées')
                     ->schema([
-                        Forms\Components\FileUpload::make('avatar_url')
-                            ->label('Avatar')
-                            ->image()
-                            ->directory('avatars')
-                            ->visibility('public')
-                            ->imageEditor(),
-                    ])->collapsible(),
+                        Forms\Components\Select::make('created_by')
+                            ->label('Créé par')
+                            ->relationship('author', 'first_name')
+                            ->disabled()
+                            ->hidden(fn (string $operation): bool => $operation === 'create'),
+                    ])
+                    ->hidden(fn (string $operation): bool => $operation === 'create')
+                    ->collapsible(),
+
+
             ]);
     }
 
@@ -86,63 +101,100 @@ class AdministratorResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('avatar_url')
-                    ->label('Avatar')
-                    ->circular(),
-                Tables\Columns\TextColumn::make('first_name')
-                    ->label('Prénom')
-                    ->searchable()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('last_name')
-                    ->label('Nom')
-                    ->searchable()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('email')
-                    ->label('Email')
-                    ->searchable()
-                    ->sortable(),
+                    ->label('Photo')
+                    ->circular()
+                    ->defaultImageUrl(fn () => 'https://ui-avatars.com/api/?name=Admin&color=ea580c&background=fed7aa'),
+
+                Tables\Columns\TextColumn::make('full_name')
+                    ->label('Admin')
+                    ->description(fn ($record) => $record ? $record->email : '')
+                    ->searchable(['first_name', 'last_name', 'email'])
+                    ->sortable()
+                    ->weight('medium'),
+
                 Tables\Columns\TextColumn::make('phone_number')
                     ->label('Téléphone')
-                    ->searchable(),
-                Tables\Columns\IconColumn::make('email_verified_at')
-                    ->label('Email vérifié')
-                    ->boolean()
-                    ->trueIcon('heroicon-o-check-circle')
-                    ->falseIcon('heroicon-o-x-circle')
-                    ->trueColor('success')
-                    ->falseColor('danger'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->label('Créé le')
-                    ->dateTime('d/m/Y H:i')
+                    ->icon('heroicon-o-phone')
+                    ->searchable()
+                    ->copyable()
+                    ->copyMessage('Téléphone copié')
+                    ->placeholder('Non renseigné'),
+
+                Tables\Columns\TextColumn::make('last_login_at')
+                    ->label('Connexion')
+                    ->dateTime('d/m/Y')
+                    ->description(fn ($record) => $record && $record->last_login_at ? $record->last_login_at->diffForHumans() : 'Jamais connecté')
+                    ->placeholder('Jamais connecté')
                     ->sortable(),
+
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Création')
+                    ->dateTime('d/m/Y')
+                    ->description(fn ($record) => $record ? $record->created_at->diffForHumans() : '')
+                    ->sortable()
+                    ->toggleable(),
+
+                Tables\Columns\TextColumn::make('created_by')
+                    ->label('Créé par')
+                    ->formatStateUsing(function ($state, $record) {
+                        if (!$record || !$record->author) {
+                            return 'Système';
+                        }
+                        return $record->author->first_name . ' ' . $record->author->last_name;
+                    })
+                    ->placeholder('Système')
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                Tables\Filters\TrashedFilter::make()
-                    ->label('Corbeille')
-                    ->trueLabel('Afficher uniquement les administrateurs supprimés')
-                    ->falseLabel('Masquer les administrateurs supprimés'),
+                Tables\Filters\TrashedFilter::make(),
+                
+                Tables\Filters\TernaryFilter::make('email_verified_at')
+                    ->label('Email vérifié')
+                    ->placeholder('Tous')
+                    ->trueLabel('✅ Emails vérifiés')
+                    ->falseLabel('❌ Emails non vérifiés')
+                    ->nullable(),
+
+                Tables\Filters\Filter::make('recent_login')
+                    ->label('Connecté récemment (30 jours)')
+                    ->query(fn ($query) => $query->where('last_login_at', '>=', now()->subDays(30)))
+                    ->toggle(),
+
+                Tables\Filters\Filter::make('never_logged_in')
+                    ->label('Jamais connecté')
+                    ->query(fn ($query) => $query->whereNull('last_login_at'))
+                    ->toggle(),
             ])
+            ->defaultSort('last_login_at', 'desc')
             ->actions([
-                Tables\Actions\ViewAction::make()
-                    ->label('Voir'),
-                Tables\Actions\EditAction::make()
-                    ->label('Modifier'),
-                Tables\Actions\DeleteAction::make()
-                    ->label('Supprimer'),
-                Tables\Actions\ForceDeleteAction::make()
-                    ->label('Supprimer définitivement'),
-                Tables\Actions\RestoreAction::make()
-                    ->label('Restaurer'),
+                Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make()
-                        ->label('Supprimer la sélection'),
-                    Tables\Actions\ForceDeleteBulkAction::make()
-                        ->label('Supprimer définitivement la sélection'),
-                    Tables\Actions\RestoreBulkAction::make()
-                        ->label('Restaurer la sélection'),
+                    Tables\Actions\BulkAction::make('verify_emails')
+                        ->label('Marquer emails comme vérifiés')
+                        ->icon('heroicon-o-check-circle')
+                        ->color('success')
+                        ->requiresConfirmation()
+                        ->action(function ($records) {
+                            foreach ($records as $record) {
+                                if ($record && !$record->email_verified_at) {
+                                    $record->update(['email_verified_at' => now()]);
+                                }
+                            }
+                        })
+                        ->visible(fn ($records) => $records && $records->contains(fn ($r) => !$r->email_verified_at))
+                        ->deselectRecordsAfterCompletion(),
+
+                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\RestoreBulkAction::make(),
+                    Tables\Actions\ForceDeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->striped()
+            ->paginated([10, 25, 50]);
     }
 
     public static function getPages(): array
@@ -150,16 +202,6 @@ class AdministratorResource extends Resource
         return [
             'index' => Pages\ManageAdministrators::route('/'),
         ];
-    }
-
-    public static function getModelLabel(): string
-    {
-        return __('Administrateur');
-    }
-
-    public static function getPluralModelLabel(): string
-    {
-        return __('Administrateurs');
     }
 
     public static function getEloquentQuery(): Builder

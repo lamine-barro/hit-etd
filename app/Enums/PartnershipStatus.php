@@ -6,10 +6,9 @@ use App\Traits\HasEnumTranslations;
 
 enum PartnershipStatus: string
 {
-    case PENDING = 'pending';
-    case APPROVED = 'approved';
-    case REJECTED = 'rejected';
-    case IN_DISCUSSION = 'in_discussion';
+    case UNTREATED = 'untreated';
+    case TREATED = 'treated';
+    case ARCHIVED = 'archived';
 
     use HasEnumTranslations;
 
@@ -19,10 +18,9 @@ enum PartnershipStatus: string
     public function label(): string
     {
         return match ($this) {
-            self::PENDING => 'En attente',
-            self::APPROVED => 'Approuvé',
-            self::REJECTED => 'Refusé',
-            self::IN_DISCUSSION => 'En discussion',
+            self::UNTREATED => 'Non traité',
+            self::TREATED => 'Traité',
+            self::ARCHIVED => 'Archivé',
         };
     }
 
@@ -32,21 +30,17 @@ enum PartnershipStatus: string
     public function translations(): array
     {
         return match ($this) {
-            self::PENDING => [
-                'fr' => 'En attente',
-                'en' => 'Pending',
+            self::UNTREATED => [
+                'fr' => 'Non traité',
+                'en' => 'Untreated',
             ],
-            self::APPROVED => [
-                'fr' => 'Approuvé',
-                'en' => 'Approved',
+            self::TREATED => [
+                'fr' => 'Traité',
+                'en' => 'Treated',
             ],
-            self::REJECTED => [
-                'fr' => 'Refusé',
-                'en' => 'Rejected',
-            ],
-            self::IN_DISCUSSION => [
-                'fr' => 'En discussion',
-                'en' => 'In Discussion',
+            self::ARCHIVED => [
+                'fr' => 'Archivé',
+                'en' => 'Archived',
             ],
         };
     }
@@ -57,10 +51,9 @@ enum PartnershipStatus: string
     public function color(): string
     {
         return match ($this) {
-            self::PENDING => 'warning',
-            self::APPROVED => 'success',
-            self::REJECTED => 'danger',
-            self::IN_DISCUSSION => 'info',
+            self::UNTREATED => 'warning',
+            self::TREATED => 'success',
+            self::ARCHIVED => 'gray',
         };
     }
 
@@ -70,10 +63,9 @@ enum PartnershipStatus: string
     public function icon(): string
     {
         return match ($this) {
-            self::PENDING => 'heroicon-o-clock',
-            self::APPROVED => 'heroicon-o-check-circle',
-            self::REJECTED => 'heroicon-o-x-circle',
-            self::IN_DISCUSSION => 'heroicon-o-chat-bubble-left-right',
+            self::UNTREATED => 'heroicon-o-clock',
+            self::TREATED => 'heroicon-o-check-circle',
+            self::ARCHIVED => 'heroicon-o-archive-box',
         };
     }
 
@@ -83,10 +75,9 @@ enum PartnershipStatus: string
     public static function options(): array
     {
         return [
-            self::PENDING->value => self::PENDING->label(),
-            self::APPROVED->value => self::APPROVED->label(),
-            self::REJECTED->value => self::REJECTED->label(),
-            self::IN_DISCUSSION->value => self::IN_DISCUSSION->label(),
+            self::UNTREATED->value => self::UNTREATED->label(),
+            self::TREATED->value => self::TREATED->label(),
+            self::ARCHIVED->value => self::ARCHIVED->label(),
         ];
     }
 

@@ -17,6 +17,8 @@ class Calendar extends Page
 
     protected static ?string $slug = 'calendar';
 
+    protected static ?int $navigationSort = 2;
+
     /**
      * @return int | string | array<string, int | string | null>
      */

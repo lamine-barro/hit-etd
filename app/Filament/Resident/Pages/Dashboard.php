@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resident\Pages;
 
-use App\Filament\Widgets\CalendarWidget;
+use App\Filament\Resident\Widgets\ResidentCalendarWidget;
 use Filament\Pages\Dashboard as BaseDashboard;
 use Filament\Widgets\Widget;
 use Filament\Widgets\WidgetConfiguration;
@@ -19,12 +19,12 @@ class Dashboard extends BaseDashboard
     public function getWidgets(): array
     {
         return [
-            CalendarWidget::class,
+            ResidentCalendarWidget::class,
         ];
     }
 
     public static function getNavigationLabel(): string
     {
-        return __('Tableau de bord');
+        return __('Calendrier');
     }
 }

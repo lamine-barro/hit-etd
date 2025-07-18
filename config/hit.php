@@ -7,13 +7,14 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'name' => 'Hub Ivoire Tech',
+    'name' => env('HIT_NAME', 'Hub Ivoire Tech'),
     'description' => 'A pour vocation d\'être le plus grand Campus de Startups en Afrique',
 
     // Contact Information
-    'address' => 'Tour POSTEL 2001, Mezzanine et 13e étage, Plateau - Abidjan, Côte d\'Ivoire',
-    'phone' => '+225 0704853848',
-    'email' => 'hello@hubivoiretech.ci',
+    'address' => env('HIT_ADDRESS', 'Tour POSTEL 2001, Mezzanine et 13e étage, Plateau - Abidjan, Côte d\'Ivoire'),
+    'phone' => env('HIT_PHONE', '+225 0704853848'),
+    'email' => env('HIT_EMAIL', 'hello@hubivoiretech.ci'),
+    'support_email' => env('HIT_SUPPORT_EMAIL', 'hello@hubivoiretech.ci'),
 
     // Social Media Links
     'social' => [

@@ -14,15 +14,22 @@ class EspaceOrderResource extends Resource
 {
     protected static ?string $model = EspaceOrder::class;
 
-    protected static ?string $navigationIcon = 'heroicon-s-ticket';
+    protected static ?string $navigationIcon = 'heroicon-o-shopping-cart';
 
-    protected static ?string $navigationLabel = 'Reservation d\'espaces';
+    protected static ?string $navigationLabel = 'Réservations';
 
-    protected static ?string $modelLabel = 'Reservation';
+    protected static ?string $modelLabel = 'Réservation';
 
-    protected static ?string $navigationGroup = 'Hub';
+    protected static ?string $pluralModelLabel = 'Réservations';
 
-    protected static ?int $navigationSort = 3;
+    protected static ?string $navigationGroup = 'Espaces';
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::where('status', 'pending')->count();
+    }
+
+    protected static ?int $navigationSort = 7;
 
     public static function form(Form $form): Form
     {
@@ -81,11 +88,12 @@ class EspaceOrderResource extends Resource
                     ->label('Modifier'),
 
                 Tables\Actions\DeleteAction::make()
-                    ->label('Archiver'),
+                    ->label('Supprimer'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                    ->label('Supprimer la sélection'),
                 ]),
             ]);
     }

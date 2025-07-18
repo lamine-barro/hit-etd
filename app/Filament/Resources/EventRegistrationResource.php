@@ -19,7 +19,7 @@ class EventRegistrationResource extends Resource
 {
     protected static ?string $model = EventRegistration::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-ticket';
+    protected static ?string $navigationIcon = 'heroicon-o-user-plus';
 
     protected static ?string $navigationLabel = 'Inscriptions';
 
@@ -29,7 +29,12 @@ class EventRegistrationResource extends Resource
 
     protected static ?string $navigationGroup = 'Événements';
 
-    protected static ?int $navigationSort = 2;
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
+    protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
     {
@@ -157,7 +162,8 @@ class EventRegistrationResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->label('Supprimer la sélection'),
                     Tables\Actions\BulkAction::make('updateStatus')
                         ->label('Mettre à jour le statut')
                         ->icon('heroicon-o-check-circle')

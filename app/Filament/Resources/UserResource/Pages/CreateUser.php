@@ -9,21 +9,23 @@ class CreateUser extends CreateRecord
 {
     protected static string $resource = UserResource::class;
 
-    protected $password;
+    public function getTitle(): string
+    {
+        return 'Créer un résident';
+    }
 
     public function mutateFormDataBeforeCreate(array $data): array
     {
-        $this->password = uniqid();
-
-        $data['password'] = bcrypt($this->password);
         $data['is_active'] = true;
+        $data['is_request'] = false;
+        $data['is_verified'] = true;
 
         return $data;
     }
 
     public function afterCreate(): void
     {
-        $this->record->notify(new \App\Notifications\WelcomeResidentNotification($this->password));
+        $this->record->notify(new \App\Notifications\WelcomeResidentNotification());
 
         $this->redirect(UserResource::getUrl('index'));
     }

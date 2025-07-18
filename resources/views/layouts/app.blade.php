@@ -14,7 +14,7 @@
     <link rel="manifest" href="{{ asset('favicon/site.webmanifest') }}">
 
     <!-- Apple Touch Icon -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="{{ config('app.name', 'Hub Ivoire Tech') }}">
 
@@ -49,11 +49,114 @@
         html {
             scroll-behavior: smooth;
         }
+        
+        /* HIT Toast Notifications - Système Unifié */
+        .hit-toast {
+            border-radius: 12px !important;
+            font-family: 'Poppins', sans-serif !important;
+            font-weight: 500 !important;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+            padding: 16px 20px !important;
+            font-size: 14px !important;
+            line-height: 1.5 !important;
+            max-width: 400px !important;
+            min-width: 300px !important;
+            z-index: 9999 !important;
+            color: white !important;
+            border: none !important;
+            backdrop-filter: blur(10px) !important;
+        }
+        
+        .hit-toast-success {
+            border-left: 4px solid #10B981 !important;
+            background: linear-gradient(135deg, #059669 0%, #10B981 100%) !important;
+        }
+        
+        .hit-toast-error {
+            border-left: 4px solid #EF4444 !important;
+            background: linear-gradient(135deg, #DC2626 0%, #EF4444 100%) !important;
+        }
+        
+        .hit-toast-warning {
+            border-left: 4px solid #F59E0B !important;
+            background: linear-gradient(135deg, #D97706 0%, #F59E0B 100%) !important;
+        }
+        
+        .hit-toast-info {
+            border-left: 4px solid #3B82F6 !important;
+            background: linear-gradient(135deg, #2563EB 0%, #3B82F6 100%) !important;
+        }
+        
+        .toastify-right {
+            right: 20px !important;
+        }
+        
+        .toastify-bottom {
+            bottom: 20px !important;
+        }
+        
+        .toastify-close {
+            opacity: 0.9 !important;
+            font-size: 18px !important;
+            font-weight: bold !important;
+            color: white !important;
+            background: rgba(255, 255, 255, 0.2) !important;
+            border-radius: 50% !important;
+            width: 24px !important;
+            height: 24px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+        
+        .toastify-close:hover {
+            opacity: 1 !important;
+            background: rgba(255, 255, 255, 0.3) !important;
+            transform: scale(1.1) !important;
+            transition: all 0.2s ease !important;
+        }
+        
+        /* Animation d'entrée améliorée */
+        @keyframes hit-toast-in {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .hit-toast {
+            animation: hit-toast-in 0.3s ease-out !important;
+        }
     </style>
 </head>
 <body class="font-sans antialiased bg-white text-gray-900">
     <!-- Navbar -->
     @include('components.navbar')
+
+    <!-- HIT Toast Notification System -->
+    @if (session('toast'))
+        <div x-data="{}" x-init="showToast('{{ addslashes(session('toast')['message']) }}', '{{ session('toast')['type'] }}')"></div>
+    @endif
+
+    @if (session('success'))
+        <div x-data="{}" x-init="showToast('{{ addslashes(session('success')) }}', 'success')"></div>
+    @endif
+
+    @if (session('error'))
+        <div x-data="{}" x-init="showToast('{{ addslashes(session('error')) }}', 'error')"></div>
+    @endif
+
+    @if (session('warning'))
+        <div x-data="{}" x-init="showToast('{{ addslashes(session('warning')) }}', 'warning')"></div>
+    @endif
+
+    @if (session('info'))
+        <div x-data="{}" x-init="showToast('{{ addslashes(session('info')) }}', 'info')"></div>
+    @endif
 
     <main>
         @yield('content')
@@ -84,5 +187,8 @@
             });
         });
     </script>
+
+    <!-- Page Scripts -->
+    @stack('scripts')
 </body>
 </html>

@@ -18,6 +18,11 @@ class ListEventRegistrations extends ListRecords
         return [];
     }
 
+    public function getTitle(): string
+    {
+        return 'Inscriptions';
+    }
+
     public function getTabs(): array
     {
         return [

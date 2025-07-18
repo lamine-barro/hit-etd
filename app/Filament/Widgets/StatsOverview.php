@@ -2,10 +2,10 @@
 
 namespace App\Filament\Widgets;
 
-use App\Models\Audience;
 use App\Models\Booking;
+use App\Models\Espace;
 use App\Models\Event;
-use App\Models\EventRegistration;
+use App\Models\Expert;
 use App\Models\Partnership;
 use App\Models\User;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
@@ -16,21 +16,21 @@ class StatsOverview extends BaseWidget
     protected function getStats(): array
     {
         return [
-            Stat::make('Résidents', User::count())
-                ->description('Nombre total de résidents')
-                ->descriptionIcon('heroicon-m-user')
+            Stat::make('Espaces', Espace::count())
+                ->description(Espace::where('status', 'available')->count().' espaces disponibles')
+                ->descriptionIcon('heroicon-m-building-office')
                 ->color('primary')
-                ->url(route('filament.admin.resources.users.index'))
+                ->url(route('filament.admin.resources.espaces.index'))
                 ->chart([
-                    User::whereMonth('created_at', now()->subMonths(3)->month)->count(),
-                    User::whereMonth('created_at', now()->subMonths(2)->month)->count(),
-                    User::whereMonth('created_at', now()->subMonths(1)->month)->count(),
-                    User::whereMonth('created_at', now()->month)->count(),
+                    Espace::whereMonth('created_at', now()->subMonths(3)->month)->count(),
+                    Espace::whereMonth('created_at', now()->subMonths(2)->month)->count(),
+                    Espace::whereMonth('created_at', now()->subMonths(1)->month)->count(),
+                    Espace::whereMonth('created_at', now()->month)->count(),
                 ]),
 
             Stat::make('Événements', Event::count())
                 ->description(Event::where('start_date', '>=', now())->count().' événements à venir')
-                ->descriptionIcon('heroicon-m-calendar')
+                ->descriptionIcon('heroicon-m-calendar-days')
                 ->color('success')
                 ->url(route('filament.admin.resources.events.index'))
                 ->chart([
@@ -40,34 +40,34 @@ class StatsOverview extends BaseWidget
                     Event::whereMonth('created_at', now()->month)->count(),
                 ]),
 
-            Stat::make('Inscriptions', EventRegistration::count())
-                ->description(EventRegistration::where('created_at', '>=', now()->subDays(30))->count().' dans les 30 derniers jours')
-                ->descriptionIcon('heroicon-m-ticket')
+            Stat::make('Demandes de visite', Booking::count())
+                ->description(Booking::where('status', 'pending')->count().' demandes en attente')
+                ->descriptionIcon('heroicon-m-eye')
                 ->color('warning')
-                ->url(route('filament.admin.resources.event-registrations.index'))
+                ->url(route('filament.admin.resources.bookings.index'))
                 ->chart([
-                    EventRegistration::whereMonth('created_at', now()->subMonths(3)->month)->count(),
-                    EventRegistration::whereMonth('created_at', now()->subMonths(2)->month)->count(),
-                    EventRegistration::whereMonth('created_at', now()->subMonths(1)->month)->count(),
-                    EventRegistration::whereMonth('created_at', now()->month)->count(),
+                    Booking::whereMonth('created_at', now()->subMonths(3)->month)->count(),
+                    Booking::whereMonth('created_at', now()->subMonths(2)->month)->count(),
+                    Booking::whereMonth('created_at', now()->subMonths(1)->month)->count(),
+                    Booking::whereMonth('created_at', now()->month)->count(),
                 ]),
 
-            Stat::make('Audience', Audience::count())
-                ->description(Audience::where('newsletter_email', true)->count().' abonnés à la newsletter')
-                ->descriptionIcon('heroicon-m-envelope')
+            Stat::make('Résidents', User::count())
+                ->description(User::where('is_active', true)->count().' résidents actifs')
+                ->descriptionIcon('heroicon-m-users')
                 ->color('info')
-                ->url(route('filament.admin.resources.audiences.index'))
+                ->url(route('filament.admin.resources.users.index'))
                 ->chart([
-                    Audience::whereMonth('created_at', now()->subMonths(3)->month)->count(),
-                    Audience::whereMonth('created_at', now()->subMonths(2)->month)->count(),
-                    Audience::whereMonth('created_at', now()->subMonths(1)->month)->count(),
-                    Audience::whereMonth('created_at', now()->month)->count(),
+                    User::whereMonth('created_at', now()->subMonths(3)->month)->count(),
+                    User::whereMonth('created_at', now()->subMonths(2)->month)->count(),
+                    User::whereMonth('created_at', now()->subMonths(1)->month)->count(),
+                    User::whereMonth('created_at', now()->month)->count(),
                 ]),
 
             Stat::make('Partenariats', Partnership::count())
-                ->description(Partnership::where('status', 'approved')->count().' partenariats actifs')
-                ->descriptionIcon('heroicon-m-heart')
-                ->color('danger')
+                ->description(Partnership::where('status', 'approved')->count().' partenariats approuvés')
+                ->descriptionIcon('heroicon-m-user-group')
+                ->color('rose')
                 ->url(route('filament.admin.resources.partnerships.index'))
                 ->chart([
                     Partnership::whereMonth('created_at', now()->subMonths(3)->month)->count(),
@@ -76,16 +76,16 @@ class StatsOverview extends BaseWidget
                     Partnership::whereMonth('created_at', now()->month)->count(),
                 ]),
 
-            Stat::make('Visite', Booking::count())
-                ->description(Booking::where('status', 'approved')->count().' demande de visite actifs')
-                ->descriptionIcon('heroicon-m-heart')
-                ->color('danger')
-                ->url(route('filament.admin.resources.partnerships.index'))
+            Stat::make('Experts', Expert::count())
+                ->description(Expert::where('status', 'approved')->count().' experts approuvés')
+                ->descriptionIcon('heroicon-m-academic-cap')
+                ->color('amber')
+                ->url(route('filament.admin.resources.experts.index'))
                 ->chart([
-                    Booking::whereMonth('created_at', now()->subMonths(3)->month)->count(),
-                    Booking::whereMonth('created_at', now()->subMonths(2)->month)->count(),
-                    Booking::whereMonth('created_at', now()->subMonths(1)->month)->count(),
-                    Booking::whereMonth('created_at', now()->month)->count(),
+                    Expert::whereMonth('created_at', now()->subMonths(3)->month)->count(),
+                    Expert::whereMonth('created_at', now()->subMonths(2)->month)->count(),
+                    Expert::whereMonth('created_at', now()->subMonths(1)->month)->count(),
+                    Expert::whereMonth('created_at', now()->month)->count(),
                 ]),
         ];
     }

@@ -14,7 +14,7 @@ class WelcomeResidentNotification extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      */
-    public function __construct(private string $password)
+    public function __construct()
     {
         //
     }
@@ -35,7 +35,7 @@ class WelcomeResidentNotification extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->markdown('emails.resident-welcome', ['resident' => $notifiable, 'password' => $this->password])
+            ->markdown('emails.resident-welcome', ['resident' => $notifiable])
             ->subject(__('Bienvenue sur Hub Ivoire Tech'));
     }
 

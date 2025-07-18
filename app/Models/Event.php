@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\EventStatus;
 use App\Enums\LanguageEnum;
 use App\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -53,6 +54,7 @@ class Event extends Model
         'price' => 'decimal:2',
         'early_bird_price' => 'decimal:2',
         'max_participants' => 'integer',
+        'status' => EventStatus::class,
         'default_locale' => LanguageEnum::class,
     ];
 

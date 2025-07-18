@@ -8,4 +8,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateBooking extends CreateRecord
 {
     protected static string $resource = BookingResource::class;
+
+    public function getTitle(): string
+    {
+        return 'Créer une visite';
+    }
 }

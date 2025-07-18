@@ -13,7 +13,13 @@ class EditEspace extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Actions\DeleteAction::make()
+            ->label('Supprimer'),
         ];
+    }
+
+    public function getTitle(): string
+    {
+        return 'Modifier l\'espace';
     }
 }

@@ -29,7 +29,14 @@ class ArticleResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Articles';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?string $navigationGroup = 'Contenu';
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
+    protected static ?int $navigationSort = 5;
 
     public static function form(Form $form): Form
     {

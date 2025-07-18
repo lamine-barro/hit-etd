@@ -13,7 +13,13 @@ class ManageAdministrators extends ManageRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+                ->label('Nouvel administrateur'),
         ];
+    }
+
+    public function getTitle(): string
+    {
+        return 'Administrateurs';
     }
 }

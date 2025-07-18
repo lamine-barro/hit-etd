@@ -15,6 +15,11 @@ class EditEvent extends EditRecord
 {
     protected static string $resource = EventResource::class;
 
+    public function getTitle(): string
+    {
+        return 'Modifier l\'événement';
+    }
+
     /**
      * Propriété pour stocker temporairement les traductions
      */
@@ -190,9 +195,12 @@ class EditEvent extends EditRecord
     {
         return [
             Actions\ViewAction::make(),
-            Actions\DeleteAction::make(),
-            Actions\ForceDeleteAction::make(),
-            Actions\RestoreAction::make(),
+            Actions\DeleteAction::make()
+                ->label('Supprimer'),
+            Actions\ForceDeleteAction::make()
+                ->label('Supprimer définitivement'),
+            Actions\RestoreAction::make()
+                ->label('Restaurer'),
         ];
     }
 }

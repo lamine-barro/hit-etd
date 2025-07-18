@@ -32,26 +32,17 @@ class PartnershipResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-heart';
 
-    protected static ?int $navigationSort = 1;
+    protected static ?string $navigationLabel = 'Partenariats';
+
+    protected static ?string $modelLabel = 'Partenariat';
+
+    protected static ?string $pluralModelLabel = 'Partenariats';
+
+    protected static ?int $navigationSort = 8;
 
     protected static ?string $recordTitleAttribute = 'organization_name';
 
     protected static ?string $navigationGroup = 'Demandes';
-
-    public static function getModelLabel(): string
-    {
-        return 'Partenariat';
-    }
-
-    public static function getPluralModelLabel(): string
-    {
-        return 'Partenariats';
-    }
-
-    public static function getNavigationLabel(): string
-    {
-        return 'Partenariats';
-    }
 
     public static function form(Form $form): Form
     {
@@ -100,7 +91,7 @@ class PartnershipResource extends Resource
                             Select::make('status')
                                 ->label('Statut')
                                 ->options(PartnershipStatus::options())
-                                ->default(PartnershipStatus::PENDING->value)
+                                ->default(PartnershipStatus::UNTREATED->value)
                                 ->required()
                                 ->native(false),
 
@@ -187,9 +178,9 @@ class PartnershipResource extends Resource
                     ->icon('heroicon-o-check-circle')
                     ->color('success')
                     ->requiresConfirmation()
-                    ->visible(fn (Partnership $record): bool => $record->isPending() || $record->isInDiscussion())
+                    ->visible(fn (Partnership $record): bool => $record->isUntreated())
                     ->action(function (Partnership $record) {
-                        $record->status = PartnershipStatus::APPROVED;
+                        $record->status = PartnershipStatus::TREATED;
                         $record->processed_at = Carbon::now();
                         $record->save();
 
@@ -204,9 +195,9 @@ class PartnershipResource extends Resource
                     ->icon('heroicon-o-x-circle')
                     ->color('danger')
                     ->requiresConfirmation()
-                    ->visible(fn (Partnership $record): bool => $record->isPending() || $record->isInDiscussion())
+                    ->visible(fn (Partnership $record): bool => $record->isUntreated())
                     ->action(function (Partnership $record) {
-                        $record->status = PartnershipStatus::REJECTED;
+                        $record->status = PartnershipStatus::ARCHIVED;
                         $record->processed_at = Carbon::now();
                         $record->save();
 
@@ -216,32 +207,21 @@ class PartnershipResource extends Resource
                             ->send();
                     }),
 
-                Action::make('in_discussion')
-                    ->label('En discussion')
-                    ->icon('heroicon-o-chat-bubble-left-right')
-                    ->color('info')
-                    ->requiresConfirmation()
-                    ->visible(fn (Partnership $record): bool => $record->isPending())
-                    ->action(function (Partnership $record) {
-                        $record->status = PartnershipStatus::IN_DISCUSSION;
-                        $record->save();
-
-                        Notification::make()
-                            ->title('Partenariat en discussion')
-                            ->info()
-                            ->send();
-                    }),
-
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
-                Tables\Actions\RestoreAction::make(),
+                Tables\Actions\DeleteAction::make()
+                    ->label('Supprimer'),
+                Tables\Actions\RestoreAction::make()
+                    ->label('Restaurer'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                    Tables\Actions\RestoreBulkAction::make(),
-                    Tables\Actions\ForceDeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->label('Supprimer la sélection'),
+                    Tables\Actions\RestoreBulkAction::make()
+                        ->label('Restaurer la sélection'),
+                    Tables\Actions\ForceDeleteBulkAction::make()
+                        ->label('Supprimer définitivement la sélection'),
                 ]),
             ]);
     }
@@ -268,5 +248,15 @@ class PartnershipResource extends Resource
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::where('status', 'untreated')->count() ?: null;
+    }
+
+    public static function getNavigationBadgeColor(): string|array|null
+    {
+        return 'warning';
     }
 }

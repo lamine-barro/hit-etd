@@ -16,24 +16,17 @@ class BookingResource extends Resource
 {
     protected static ?string $model = Booking::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
+
+    protected static ?string $navigationLabel = 'Visites';
+
+    protected static ?string $modelLabel = 'Visite';
+
+    protected static ?string $pluralModelLabel = 'Visites';
 
     protected static ?string $navigationGroup = 'Demandes';
 
-    public static function getModelLabel(): string
-    {
-        return 'Visite';
-    }
-
-    public static function getPluralModelLabel(): string
-    {
-        return 'Demandes de visite';
-    }
-
-    public static function getNavigationLabel(): string
-    {
-        return 'Visites';
-    }
+    protected static ?int $navigationSort = 9;
 
     public static function form(Form $form): Form
     {
@@ -112,7 +105,7 @@ class BookingResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make()
-                    ->label('Valider')
+                    ->label('Traiter')
                     ->icon('heroicon-o-check')
                     ->form([
                         Select::make('status')
@@ -124,7 +117,7 @@ class BookingResource extends Resource
                             ->default('pending')
                             ->required(),
                     ])
-                    ->modalHeading('Valider la demande de visite')
+                    ->modalHeading('Traiter la demande de visite')
                     ->modalSubmitActionLabel('Valider')
                     ->modalWidth(MaxWidth::Small)
                     ->action(function ($record, array $data) {
@@ -132,7 +125,7 @@ class BookingResource extends Resource
                     })->color('success'),
 
                 Tables\Actions\DeleteAction::make()
-                    ->label('Archiver')
+                    ->label('Supprimer')
                     ->icon('heroicon-o-trash')
                     ->requiresConfirmation()
                     ->color('danger')
@@ -143,7 +136,8 @@ class BookingResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->label('Supprimer la sélection'),
                 ]),
             ]);
     }
@@ -168,5 +162,15 @@ class BookingResource extends Resource
             'create' => Pages\CreateBooking::route('/create'),
             // 'edit' => Pages\EditBooking::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::where('status', 'pending')->count() ?: null;
+    }
+
+    public static function getNavigationBadgeColor(): string|array|null
+    {
+        return 'info';
     }
 }

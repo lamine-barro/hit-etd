@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Expert;
+use App\Models\User;
+use App\Observers\ExpertObserver;
+use App\Observers\UserObserver;
 use BezhanSalleh\FilamentLanguageSwitch\LanguageSwitch;
 use Filament\Support\Assets\Css;
 use Filament\Support\Facades\FilamentAsset;
@@ -23,6 +27,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Expert::observe(ExpertObserver::class);
+        User::observe(UserObserver::class);
+
         FilamentAsset::register([
             Css::make('example-local-stylesheet', asset('css/styles.css')),
         ]);

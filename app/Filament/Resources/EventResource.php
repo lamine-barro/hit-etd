@@ -32,7 +32,7 @@ class EventResource extends Resource
 
     protected static ?string $navigationGroup = 'Événements';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
     {
@@ -346,12 +346,12 @@ class EventResource extends Resource
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('status')
                     ->label('Statut')
-                    ->formatStateUsing(fn (string $state): string => EventStatus::from($state)->label())
+                    ->formatStateUsing(fn (EventStatus $state): string => $state->label())
                     ->badge()
-                    ->color(fn (string $state): string => match ($state) {
-                        EventStatus::PUBLISHED->value => 'success',
-                        EventStatus::DRAFT->value => 'gray',
-                        EventStatus::CANCELLED->value => 'danger',
+                    ->color(fn (EventStatus $state): string => match ($state) {
+                        EventStatus::PUBLISHED => 'success',
+                        EventStatus::DRAFT => 'gray',
+                        EventStatus::CANCELLED => 'danger',
                         default => 'gray',
                     }),
                 Tables\Columns\TextColumn::make('createdBy.first_name')
@@ -396,14 +396,22 @@ class EventResource extends Resource
                     ->query(fn (Builder $query): Builder => $query->where('start_date', '<', now())),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make()
+                    ->label('Supprimer'),
+                Tables\Actions\ForceDeleteAction::make()
+                    ->label('Supprimer définitivement'),
+                Tables\Actions\RestoreAction::make()
+                    ->label('Restaurer'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                    Tables\Actions\ForceDeleteBulkAction::make(),
-                    Tables\Actions\RestoreBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->label('Supprimer la sélection'),
+                    Tables\Actions\ForceDeleteBulkAction::make()
+                        ->label('Supprimer définitivement la sélection'),
+                    Tables\Actions\RestoreBulkAction::make()
+                        ->label('Restaurer la sélection'),
                 ]),
             ]);
     }

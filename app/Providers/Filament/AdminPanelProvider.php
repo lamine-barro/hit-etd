@@ -3,11 +3,13 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Pages\Dashboard;
+use App\Filament\Pages\Auth\Login;
 use App\Filament\Widgets\StatsOverview;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationGroup;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -27,7 +29,8 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->login()
+            ->login(Login::class)
+            ->loginRouteSlug('auth/login')
             ->authGuard('admin')
             ->font('Poppins')
             ->brandLogo('/logo_hit.png')
@@ -51,7 +54,7 @@ class AdminPanelProvider extends PanelProvider
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
                 StartSession::class,
-                // AuthenticateSession::class,
+                AuthenticateSession::class,
                 ShareErrorsFromSession::class,
                 VerifyCsrfToken::class,
                 SubstituteBindings::class,
@@ -59,7 +62,7 @@ class AdminPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             ->authMiddleware([
-                // Authenticate::class,
+                Authenticate::class,
             ])->plugins([
                 FilamentFullCalendarPlugin::make()
                     ->selectable()
@@ -69,10 +72,21 @@ class AdminPanelProvider extends PanelProvider
                 SimpleLightBoxPlugin::make(),
             ])
             ->navigationGroups([
-                'Hub',
-                'Événements',
-                'Demandes',
-                'Administration',
+                NavigationGroup::make('Demandes')
+                    ->icon('heroicon-o-inbox')
+                    ->collapsed(false),
+                NavigationGroup::make('Utilisateurs')
+                    ->icon('heroicon-o-users')
+                    ->collapsed(false),
+                NavigationGroup::make('Espaces & Réservations')  
+                    ->icon('heroicon-o-building-office')
+                    ->collapsed(false),
+                NavigationGroup::make('Événements')
+                    ->icon('heroicon-o-calendar')
+                    ->collapsed(false),
+                NavigationGroup::make('Contenu')
+                    ->icon('heroicon-o-document-text')
+                    ->collapsed(true),
             ]);
     }
 }

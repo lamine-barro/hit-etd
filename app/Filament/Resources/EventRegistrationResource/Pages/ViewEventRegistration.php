@@ -30,6 +30,11 @@ class ViewEventRegistration extends ViewRecord
         ];
     }
 
+    public function getTitle(): string
+    {
+        return 'Détails de l\'inscription';
+    }
+
     public function infolist(Infolist $infolist): Infolist
     {
         $currentLocale = App::getLocale();

@@ -1,12 +1,13 @@
 <?php
 
+use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\ArticleListController;
 use App\Http\Controllers\CampusController;
 use App\Http\Controllers\EventListController;
 use App\Http\Controllers\EventPaymentController;
 use App\Http\Controllers\EventRegistrationController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\JoinHubController;
+
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PartnershipController;
@@ -22,9 +23,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/visitez-le-campus', [CampusController::class, 'index'])->name('visitez-le-campus');
 
-Route::get('/join-hub', [JoinHubController::class, 'index'])->name('join-hub');
-Route::post('/join-hub/experts', [JoinHubController::class, 'storeExpert'])->name('join-hub.export');
-Route::post('/join-hub/residents', [JoinHubController::class, 'storeResident'])->name('join-hub.resident');
+
 
 // Événements
 Route::prefix('evenements')->group(function () {
@@ -62,7 +61,15 @@ Route::post('/campus/book-visit', [CampusController::class, 'bookVisit'])->name(
 // Language Switch
 Route::get('language/{lang}', [LanguageController::class, 'switchLang'])->name('language.switch');
 
-// Partenariat
+// Applications (Unified System)
+Route::prefix('candidatures')->group(function () {
+    Route::get('/', [ApplicationController::class, 'index'])->name('applications');
+    Route::post('/resident', [ApplicationController::class, 'storeResident'])->name('applications.resident');
+    Route::post('/partenaire', [ApplicationController::class, 'storePartnership'])->name('applications.partnership');
+    Route::post('/expert', [ApplicationController::class, 'storeExpert'])->name('applications.expert');
+});
+
+// Partenariat (Legacy - keep for backward compatibility)
 Route::prefix('partenariat')->group(function () {
     Route::get('/', [PartnershipController::class, 'index'])->name('partnership');
     Route::post('/soumettre', [PartnershipController::class, 'store'])->name('partnership.store');
@@ -70,12 +77,12 @@ Route::prefix('partenariat')->group(function () {
 });
 
 // Pages statiques
-Route::view('/devenir-donateur', 'pages.become-donor')->name('devenir-donateur');
-Route::view('/mentions-legales', 'pages.legal')->name('mentions-legales');
-Route::view('/politique-de-confidentialite', 'pages.privacy')->name('privacy');
-Route::view('/faq', 'pages.faq')->name('faq');
-Route::view('/conditions-utilisation', 'pages.terms')->name('terms');
-Route::view('/espace-membre', 'pages.member-space')->name('member-space');
+Route::view('/devenir-donateur', 'pages.static.become-donor')->name('devenir-donateur');
+Route::view('/mentions-legales', 'pages.static.legal')->name('mentions-legales');
+Route::view('/politique-de-confidentialite', 'pages.static.privacy')->name('privacy');
+Route::view('/faq', 'pages.static.faq')->name('faq');
+Route::view('/conditions-utilisation', 'pages.static.terms')->name('terms');
+Route::view('/espace-membre', 'pages.members.dashboard')->name('member-space');
 
 Route::get('/payment/{registration}', [EventPaymentController::class, 'show'])->name('payment.show');
 Route::post('/payment/{registration}/initiate', [EventPaymentController::class, 'initiate'])

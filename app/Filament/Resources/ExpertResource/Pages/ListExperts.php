@@ -13,7 +13,13 @@ class ListExperts extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+                ->label('Nouvel expert'),
         ];
+    }
+
+    public function getTitle(): string
+    {
+        return 'Experts';
     }
 }

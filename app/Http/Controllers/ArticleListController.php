@@ -37,9 +37,11 @@ class ArticleListController extends Controller
         $articles->load('translations');
         $featuredArticles->load('translations');
 
-        return view('pages.articles-list', [
-            'articles' => $articles,
+        return view('pages.articles.index', [
+            'news' => $articles,
             'featuredArticles' => $featuredArticles,
+            'pageTitle' => __("Actualités") . ' | ' . config('app.name'),
+            'metaDescription' => __("Restez informé des dernières nouvelles et événements du Hub Ivoire Tech"),
         ]);
     }
 
@@ -85,7 +87,7 @@ class ArticleListController extends Controller
             ->limit(3)
             ->get();
 
-        return view('pages.article-detail', [
+        return view('pages.articles.show', [
             'article' => $article,
             'relatedArticles' => $relatedArticles,
         ]);

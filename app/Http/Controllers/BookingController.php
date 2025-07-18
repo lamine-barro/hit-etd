@@ -12,7 +12,7 @@ class BookingController extends Controller
     {
         $bookings = Booking::query()->latest()->get();
 
-        return view('pages.resident-booking', compact('bookings'));
+        return view('pages.members.bookings', compact('bookings'));
     }
 
     public function store(Request $request)

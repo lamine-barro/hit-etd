@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\NewsletterSubscriptionAdmin;
-use App\Mail\NewsletterSubscriptionConfirmation;
+use App\Jobs\SendNewsletterNotificationsJob;
 use App\Models\Audience;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 
 class NewsletterController extends Controller
 {
@@ -42,6 +40,9 @@ class NewsletterController extends Controller
                     'subscriber_data' => $existingSubscriber->toArray(),
                 ]);
 
+                // Envoyer les notifications de mise à jour
+                SendNewsletterNotificationsJob::dispatch($existingSubscriber, false);
+
                 if ($request->ajax()) {
                     return response()->json([
                         'status' => 'success',
@@ -70,8 +71,7 @@ class NewsletterController extends Controller
                 'validated_data' => $validated,
             ]);
 
-            $audience = null;
-            DB::transaction(function () use ($validated, $audience) {
+            $audience = DB::transaction(function () use ($validated) {
                 $audience = Audience::create([
                     'name' => $validated['newsletter_name'],
                     'email' => $validated['newsletter_email_input'],
@@ -85,13 +85,12 @@ class NewsletterController extends Controller
                     'subscriber_id' => $audience->id,
                     'subscriber_data' => $audience->toArray(),
                 ]);
+
+                return $audience;
             });
 
-            // Send notification emails
-            if ($audience) {
-                Mail::queue(new NewsletterSubscriptionConfirmation($audience));
-                Mail::queue(new NewsletterSubscriptionAdmin($audience));
-            }
+            // Envoyer les notifications de manière asynchrone
+            SendNewsletterNotificationsJob::dispatch($audience, true);
 
             if ($request->ajax()) {
                 return response()->json([

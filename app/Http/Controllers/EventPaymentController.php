@@ -158,6 +158,6 @@ class EventPaymentController extends Controller
                 ->with('error', __('Cette inscription a déjà été traitée.'));
         }
 
-        return view('pages.event-payment', compact('eventRegistration'));
+        return view('pages.events.payment', compact('eventRegistration'));
     }
 }

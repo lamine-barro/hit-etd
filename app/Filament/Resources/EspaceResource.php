@@ -14,7 +14,7 @@ class EspaceResource extends Resource
 {
     protected static ?string $model = Espace::class;
 
-    protected static ?string $navigationIcon = 'heroicon-c-arrows-pointing-in';
+    protected static ?string $navigationIcon = 'heroicon-o-building-office';
 
     protected static ?string $navigationLabel = 'Espaces';
 
@@ -22,22 +22,35 @@ class EspaceResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Espaces';
 
-    protected static ?string $navigationGroup = 'Hub';
+    protected static ?string $navigationGroup = 'Espaces';
 
-    protected static ?int $navigationSort = 2;
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
+    protected static ?int $navigationSort = 6;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Infos espace')
-                    ->description('Informations générales sur l\'espace')
+                Forms\Components\Section::make('Informations générales')
+                    ->description('Informations de base sur l\'espace')
                     ->columns(2)
                     ->schema([
                         Forms\Components\TextInput::make('name')
-                            ->label("Nom de l'espace")
+                            ->label('Nom de l\'espace')
                             ->required()
-                            ->maxLength(255),
+                            ->maxLength(255)
+                            ->columnSpanFull(),
+
+                        Forms\Components\Textarea::make('location')
+                            ->label('Description')
+                            ->helperText('Description détaillée de l\'espace')
+                            ->maxLength(500)
+                            ->rows(3)
+                            ->columnSpanFull(),
 
                         Forms\Components\TextInput::make('code')
                             ->label('Code (unique)')
@@ -52,16 +65,20 @@ class EspaceResource extends Resource
                             ->options(Espace::FR_TYPES)
                             ->required(),
 
-                        Forms\Components\TextInput::make('price')
-                            ->label('Prix de location')
-                            ->helperText('Prix par heure')
+                        Forms\Components\TextInput::make('price_per_hour')
+                            ->label('Prix par heure (FCFA)')
                             ->numeric()
-                            ->required(),
+                            ->minValue(1)
+                            ->maxValue(1000000)
+                            ->required()
+                            ->step(1000)
+                            ->placeholder('Ex: 5000'),
 
                         Forms\Components\TextInput::make('minimum_duration')
                             ->label('Durée minimale de location (en heures)')
-                            ->helperText('Durée minimale requise pour la location de cet espace')
                             ->numeric()
+                            ->minValue(1)
+                            ->maxValue(100)
                             ->default(1)
                             ->required(),
 
@@ -69,39 +86,37 @@ class EspaceResource extends Resource
                             ->options(Espace::FR_FLOORS)
                             ->label('Étage'),
 
-                        Forms\Components\TextInput::make('location')
-                            ->helperText('Emplacement de l\'espace dans le bâtiment')
-                            ->label('Emplacement'),
-
-                        Forms\Components\TextInput::make('number_of_rooms')
+                        Forms\Components\TextInput::make('room_count')
                             ->label('Nombre de pièces')
                             ->numeric()
-                            ->default(0),
+                            ->minValue(1)
+                            ->maxValue(100)
+                            ->default(1),
                     ]),
 
                 Forms\Components\Section::make('Médias et métadonnées')
                     ->schema([
                         Forms\Components\FileUpload::make('illustration')
                             ->label('Image d\'illustration')
-                            ->helperText('Recommandé : 1200x630px pour un affichage optimal sur les réseaux sociaux')
                             ->image()
-                            ->imagePreviewHeight('250')
-                            ->panelAspectRatio('16:9')
-                            ->imageEditor()
-                            ->panelLayout('integrated')
-                            ->imageEditorAspectRatios([
-                                '16:9',
-                            ]),
-
+                            ->directory('espaces')
+                            ->visibility('public')
+                            ->columnSpanFull(),
                         Forms\Components\FileUpload::make('images')
-                            ->label('Images supplémentaires')
+                            ->label('Images de l\'espace')
+                            ->helperText('Uploadez jusqu\'à 5 images. Glissez-déposez pour réorganiser l\'ordre d\'affichage.')
                             ->multiple()
                             ->image()
-                            ->imagePreviewHeight('120')
+                            ->maxFiles(5)
+                            ->reorderable()
+                            ->imagePreviewHeight('100')
                             ->panelAspectRatio('16:9')
-                            ->panelLayout('integrated')
                             ->imageEditor()
+                            ->directory('espaces')
+                            ->visibility('public')
+                            ->columnSpanFull()
                             ->imageEditorAspectRatios([
+                                '4:3',
                                 '16:9',
                             ]),
                     ]),
@@ -114,17 +129,39 @@ class EspaceResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('code')
                     ->label('Code')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
 
                 Tables\Columns\TextColumn::make('name')
-                    ->label('Libellé')
-                    ->searchable(),
+                    ->label('Nom de l\'espace')
+                    ->searchable()
+                    ->sortable(),
 
                 Tables\Columns\TextColumn::make('type')
                     ->state(function (Espace $record) {
                         return Espace::FR_TYPES[$record->type] ?? $record->type;
                     })
-                    ->label('Type'),
+                    ->label('Type')
+                    ->badge()
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('price_per_hour')
+                    ->label('Prix/h')
+                    ->money('XOF')
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('floor')
+                    ->label('Étage')
+                    ->formatStateUsing(function ($state) {
+                        return Espace::FR_FLOORS[$state] ?? $state;
+                    })
+                    ->badge()
+                    ->color('info'),
+
+                Tables\Columns\TextColumn::make('room_count')
+                    ->label('Pièces')
+                    ->alignCenter()
+                    ->sortable(),
 
                 Tables\Columns\TextColumn::make('status')
                     ->label('Statut')
@@ -155,10 +192,6 @@ class EspaceResource extends Resource
                         return $record->ended_at->diffForHumans(['syntax' => 'short']);
                     }),
 
-                Tables\Columns\TextColumn::make('price')
-                    ->money('XOF')
-                    ->label('Prix'),
-
                 Tables\Columns\TextColumn::make('minimum_duration')
                     ->suffix(' heure(s)')
                     ->label('Durée minimale'),
@@ -166,12 +199,6 @@ class EspaceResource extends Resource
                 Tables\Columns\ToggleColumn::make('is_active')
                     ->label('Publier')
                     ->searchable(),
-
-                Tables\Columns\TextColumn::make('floor')
-                    ->label('Étage'),
-
-                Tables\Columns\TextColumn::make('number_of_rooms')
-                    ->label('Nombre de pièces'),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Créé le')
@@ -190,7 +217,7 @@ class EspaceResource extends Resource
                     ->icon('heroicon-o-eye'),
 
                 Tables\Actions\DeleteAction::make()
-                    ->label('Archiver')
+                    ->label('Supprimer')
                     ->icon('heroicon-o-trash'),
             ])
             ->bulkActions([

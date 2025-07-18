@@ -8,11 +8,13 @@ use Filament\Pages\Dashboard as BaseDashboard;
 
 class Dashboard extends BaseDashboard
 {
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static ?string $navigationIcon = 'heroicon-o-home';
 
     protected static string $routePath = '/dashboard';
 
     protected static ?string $navigationLabel = 'Tableau de bord';
+
+    protected static ?int $navigationSort = 1;
 
     /**
      * @return array<class-string<Widget> | WidgetConfiguration>
@@ -21,7 +23,6 @@ class Dashboard extends BaseDashboard
     {
         return [
             StatsOverview::class,
-            CalendarWidget::class,
         ];
     }
 }

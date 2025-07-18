@@ -20,14 +20,8 @@ class EventSeeder extends Seeder
      */
     public function run(): void
     {
-        // Récupérer un administrateur pour le champ created_by
-        $admin = Administrator::first();
-
-        if (! $admin) {
-            $this->command->error('Aucun administrateur trouvé. Veuillez d\'abord créer un administrateur.');
-
-            return;
-        }
+        // Générer un UUID pour le champ created_by
+        $createdBy = Str::uuid();
 
         $events = [
             [
@@ -47,7 +41,7 @@ class EventSeeder extends Seeder
                 'early_bird_end_date' => Carbon::now()->addDays(15),
                 'illustration' => 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=1000&auto=format&fit=crop',
                 'status' => EventStatus::PUBLISHED->value,
-                'created_by' => $admin->id,
+                'created_by' => $createdBy,
             ],
             [
                 'title' => 'Atelier de Programmation Python',
@@ -66,7 +60,7 @@ class EventSeeder extends Seeder
                 'early_bird_end_date' => Carbon::now()->addDays(5),
                 'illustration' => 'https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=1000&auto=format&fit=crop',
                 'status' => EventStatus::PUBLISHED->value,
-                'created_by' => $admin->id,
+                'created_by' => $createdBy,
             ],
             [
                 'title' => 'Webinaire sur le Marketing Digital',
@@ -81,7 +75,7 @@ class EventSeeder extends Seeder
                 'is_paid' => false,
                 'illustration' => 'https://images.unsplash.com/photo-1557838923-2985c318be48?q=80&w=1000&auto=format&fit=crop',
                 'status' => EventStatus::PUBLISHED->value,
-                'created_by' => $admin->id,
+                'created_by' => $createdBy,
             ],
             [
                 'title' => 'Hackathon Innovation Tech',
@@ -98,7 +92,7 @@ class EventSeeder extends Seeder
                 'currency' => Currency::XOF->value,
                 'illustration' => 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1000&auto=format&fit=crop',
                 'status' => EventStatus::DRAFT->value,
-                'created_by' => $admin->id,
+                'created_by' => $createdBy,
             ],
             [
                 'title' => 'Formation en Développement Web',
@@ -117,7 +111,7 @@ class EventSeeder extends Seeder
                 'early_bird_end_date' => Carbon::now()->addDays(40),
                 'illustration' => 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1000&auto=format&fit=crop',
                 'status' => EventStatus::PUBLISHED->value,
-                'created_by' => $admin->id,
+                'created_by' => $createdBy,
             ],
             [
                 'title' => 'Meetup Entrepreneurs Tech',
@@ -132,7 +126,7 @@ class EventSeeder extends Seeder
                 'is_paid' => false,
                 'illustration' => 'https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=1000&auto=format&fit=crop',
                 'status' => EventStatus::PUBLISHED->value,
-                'created_by' => $admin->id,
+                'created_by' => $createdBy,
             ],
             [
                 'title' => 'Conférence sur la Cybersecurité',
@@ -151,7 +145,7 @@ class EventSeeder extends Seeder
                 'early_bird_end_date' => Carbon::now()->addDays(10),
                 'illustration' => 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1000&auto=format&fit=crop',
                 'status' => EventStatus::PUBLISHED->value,
-                'created_by' => $admin->id,
+                'created_by' => $createdBy,
             ],
             [
                 'title' => 'Atelier Design Thinking',
@@ -168,7 +162,7 @@ class EventSeeder extends Seeder
                 'currency' => Currency::XOF->value,
                 'illustration' => 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=1000&auto=format&fit=crop',
                 'status' => EventStatus::PUBLISHED->value,
-                'created_by' => $admin->id,
+                'created_by' => $createdBy,
             ],
             [
                 'title' => 'Webinaire sur l\'E-commerce',
@@ -183,7 +177,7 @@ class EventSeeder extends Seeder
                 'is_paid' => false,
                 'illustration' => 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1000&auto=format&fit=crop',
                 'status' => EventStatus::PUBLISHED->value,
-                'created_by' => $admin->id,
+                'created_by' => $createdBy,
             ],
             [
                 'title' => 'Formation en Marketing Digital',
@@ -202,7 +196,7 @@ class EventSeeder extends Seeder
                 'early_bird_end_date' => Carbon::now()->addDays(25),
                 'illustration' => 'https://images.unsplash.com/photo-1432888622747-4eb9a8f5f01a?q=80&w=1000&auto=format&fit=crop',
                 'status' => EventStatus::PUBLISHED->value,
-                'created_by' => $admin->id,
+                'created_by' => $createdBy,
             ],
             [
                 'title' => 'Hackathon FinTech',
@@ -219,7 +213,7 @@ class EventSeeder extends Seeder
                 'currency' => Currency::XOF->value,
                 'illustration' => 'https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1000&auto=format&fit=crop',
                 'status' => EventStatus::DRAFT->value,
-                'created_by' => $admin->id,
+                'created_by' => $createdBy,
             ],
             [
                 'title' => 'Conférence sur l\'IA et l\'Afrique',
@@ -238,7 +232,7 @@ class EventSeeder extends Seeder
                 'early_bird_end_date' => Carbon::now()->addDays(50),
                 'illustration' => 'https://images.unsplash.com/photo-1558021212-51b6ecfa0db9?q=80&w=1000&auto=format&fit=crop',
                 'status' => EventStatus::PUBLISHED->value,
-                'created_by' => $admin->id,
+                'created_by' => $createdBy,
             ],
             [
                 'title' => 'Meetup Développeurs Mobile',
@@ -253,7 +247,7 @@ class EventSeeder extends Seeder
                 'is_paid' => false,
                 'illustration' => 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1000&auto=format&fit=crop',
                 'status' => EventStatus::PUBLISHED->value,
-                'created_by' => $admin->id,
+                'created_by' => $createdBy,
             ],
             [
                 'title' => 'Formation Data Science',
@@ -272,7 +266,7 @@ class EventSeeder extends Seeder
                 'early_bird_end_date' => Carbon::now()->addDays(20),
                 'illustration' => 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop',
                 'status' => EventStatus::PUBLISHED->value,
-                'created_by' => $admin->id,
+                'created_by' => $createdBy,
             ],
             [
                 'title' => 'Webinaire sur la Blockchain',
@@ -287,7 +281,7 @@ class EventSeeder extends Seeder
                 'is_paid' => false,
                 'illustration' => 'https://images.unsplash.com/photo-1639762681057-408e52192e55?q=80&w=1000&auto=format&fit=crop',
                 'status' => EventStatus::PUBLISHED->value,
-                'created_by' => $admin->id,
+                'created_by' => $createdBy,
             ],
             [
                 'title' => 'Atelier UX/UI Design',
@@ -304,7 +298,7 @@ class EventSeeder extends Seeder
                 'currency' => Currency::XOF->value,
                 'illustration' => 'https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?q=80&w=1000&auto=format&fit=crop',
                 'status' => EventStatus::PUBLISHED->value,
-                'created_by' => $admin->id,
+                'created_by' => $createdBy,
             ],
             [
                 'title' => 'Conférence sur l\'Entrepreneuriat Social',
@@ -323,7 +317,7 @@ class EventSeeder extends Seeder
                 'early_bird_end_date' => Carbon::now()->addDays(40),
                 'illustration' => 'https://images.unsplash.com/photo-1591115765373-5207764f72e4?q=80&w=1000&auto=format&fit=crop',
                 'status' => EventStatus::PUBLISHED->value,
-                'created_by' => $admin->id,
+                'created_by' => $createdBy,
             ],
             [
                 'title' => 'Webinaire sur l\'Intelligence Artificielle Générative',
@@ -338,7 +332,7 @@ class EventSeeder extends Seeder
                 'is_paid' => false,
                 'illustration' => 'https://images.unsplash.com/photo-1677442135968-6db3b0025e95?q=80&w=1000&auto=format&fit=crop',
                 'status' => EventStatus::PUBLISHED->value,
-                'created_by' => $admin->id,
+                'created_by' => $createdBy,
             ],
             [
                 'title' => 'Meetup Femmes Tech Leaders',
@@ -353,7 +347,7 @@ class EventSeeder extends Seeder
                 'is_paid' => false,
                 'illustration' => 'https://images.unsplash.com/photo-1573164574572-cb89e39749b4?q=80&w=1000&auto=format&fit=crop',
                 'status' => EventStatus::PUBLISHED->value,
-                'created_by' => $admin->id,
+                'created_by' => $createdBy,
             ],
             [
                 'title' => 'Formation Gestion de Projet Agile',
@@ -372,7 +366,7 @@ class EventSeeder extends Seeder
                 'early_bird_end_date' => Carbon::now()->addDays(15),
                 'illustration' => 'https://images.unsplash.com/photo-1572177812156-58036aae439c?q=80&w=1000&auto=format&fit=crop',
                 'status' => EventStatus::PUBLISHED->value,
-                'created_by' => $admin->id,
+                'created_by' => $createdBy,
             ],
         ];
 
@@ -401,7 +395,7 @@ class EventSeeder extends Seeder
                     'early_bird_end_date' => $event['early_bird_end_date'] ?? null,
                     'status' => $event['status'],
                     'illustration' => $event['illustration'],
-                    'created_by' => $admin->id,
+                    'created_by' => $createdBy,
                     'default_locale' => config('app.locale'),
                 ])->translations()->create([
                     'locale' => config('app.locale'),

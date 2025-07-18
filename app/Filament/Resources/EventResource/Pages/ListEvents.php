@@ -17,8 +17,14 @@ class ListEvents extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+                ->label('Nouvel événement'),
         ];
+    }
+
+    public function getTitle(): string
+    {
+        return 'Événements';
     }
 
     public function getTabs(): array
@@ -46,7 +52,7 @@ class ListEvents extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-                ->label('Créer votre premier événement'),
+                ->label('Créer un événement'),
         ];
     }
 }

@@ -4,6 +4,7 @@ namespace App\Providers\Filament;
 
 use App\Filament\Resident\Pages\Dashboard;
 use App\Filament\Resident\Pages\EditProfile;
+use App\Filament\Resident\Pages\Auth\Login;
 // use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -29,7 +30,7 @@ class ResidentPanelProvider extends PanelProvider
             ->font('Poppins')
             ->brandLogo('/logo_hit.png')
             ->topNavigation(true)
-            ->login()
+            ->login(Login::class)
             ->brandLogoHeight('50px')
             // ->maxContentWidth('full')
             ->colors([

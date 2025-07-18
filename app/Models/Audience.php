@@ -13,6 +13,7 @@ class Audience extends Model
 
     protected $fillable = [
         'name',
+        'description',
         'email',
         'whatsapp',
         'newsletter_email',

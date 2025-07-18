@@ -31,7 +31,7 @@ class Partnership extends Model
     ];
 
     /**
-     * Les attributs qui doivent être convertis.
+     * Les attributs qui doivent être castés.
      *
      * @var array<string, string>
      */
@@ -65,32 +65,24 @@ class Partnership extends Model
     /**
      * Détermine si la demande de partenariat est en attente.
      */
-    public function isPending(): bool
+    public function isUntreated(): bool
     {
-        return $this->status === PartnershipStatus::PENDING;
+        return $this->status === PartnershipStatus::UNTREATED;
     }
 
     /**
      * Détermine si la demande de partenariat a été approuvée.
      */
-    public function isApproved(): bool
+    public function isTreated(): bool
     {
-        return $this->status === PartnershipStatus::APPROVED;
+        return $this->status === PartnershipStatus::TREATED;
     }
 
     /**
-     * Détermine si la demande de partenariat a été refusée.
+     * Détermine si la demande de partenariat est archivée.
      */
-    public function isRejected(): bool
+    public function isArchived(): bool
     {
-        return $this->status === PartnershipStatus::REJECTED;
-    }
-
-    /**
-     * Détermine si la demande de partenariat est en discussion.
-     */
-    public function isInDiscussion(): bool
-    {
-        return $this->status === PartnershipStatus::IN_DISCUSSION;
+        return $this->status === PartnershipStatus::ARCHIVED;
     }
 }

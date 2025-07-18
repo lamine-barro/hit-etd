@@ -5,6 +5,9 @@ namespace App\Filament\Resources\AudienceResource\Pages;
 use App\Filament\Resources\AudienceResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ManageRecords;
+use App\Exports\SubscribersExport;
+use Filament\Actions\ExportAction;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ManageAudiences extends ManageRecords
 {
@@ -13,7 +16,17 @@ class ManageAudiences extends ManageRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            ExportAction::make()
+                ->label('Exporter les abonnés')
+                ->exporter(SubscribersExport::class)
+                ->color('primary')
+                ->icon('heroicon-o-arrow-down-tray'),
+
         ];
+    }
+
+    public function getTitle(): string
+    {
+        return 'Audiences';
     }
 }

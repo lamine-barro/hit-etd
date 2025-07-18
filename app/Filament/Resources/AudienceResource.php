@@ -20,6 +20,21 @@ class AudienceResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
 
+    protected static ?string $navigationLabel = 'Audiences';
+
+    protected static ?string $modelLabel = 'Audience';
+
+    protected static ?string $pluralModelLabel = 'Audiences';
+
+    protected static ?string $navigationGroup = 'Personnes';
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
+    protected static ?int $navigationSort = 10;
+
     public static function canCreate(): bool
     {
         return false;

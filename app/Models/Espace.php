@@ -7,32 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 class Espace extends Model
 {
     public const FR_TYPES = [
-        'office' => 'Bureau',
-        'meeting_room' => 'Salle de réunion',
-        'conference_room' => 'Salle de conférence',
-        'lounge' => 'Salon',
-        'reste_room' => 'Salle de détente',
-        'kitchen' => 'Cuisine',
-        'storage' => 'Stockage',
-        'fab_lab' => 'Fab-lab',
-        'workshop' => 'Atelier',
-        'event_space' => 'Espace événementiel',
         'open_space' => 'Open space',
         'private_office' => 'Bureau privé',
-        'coworking_space' => 'Espace de coworking',
-        'technical_room' => 'Locaux technique',
+        'dedicated_office' => 'Bureau dédié',
+        'meeting_room' => 'Salle de réunion',
+        'conference_room' => 'Salle de conférence',
+        'event_space' => 'Espace événementiel',
+        'lounge' => 'Salle de détente',
+        'fab_lab' => 'Fab-lab / Atelier',
         'other' => 'Autre',
     ];
 
     public const FR_FLOORS = [
-        // 0 => 'Rez-de-chaussée',
-        // 1 => 'Premier étage',
-        // 2 => 'Deuxième étage',
-        3 => 'Troisième étage',
-        // 4 => 'Quatrième étage',
-        // 5 => 'Cinquième étage',
-        6 => 'Mezzanine',
-        7 => 'Autre',
+        '13th_floor' => '13ème étage',
+        'mezzanine' => 'Mezzanine',
+        'other' => 'Autre',
     ];
 
     public const STATUS_AVAILABLE = 'available';
@@ -45,26 +34,27 @@ class Espace extends Model
         'name',
         'code',
         'type',
-        'price',
+        'price_per_hour',
+        'minimum_duration',
         'floor',
         'location',
-        'number_of_rooms',
-        'minimum_duration',
+        'room_count',
+        'number_of_people',
         'illustration',
         'images',
         'started_at',
         'ended_at',
         'status',
         'is_active',
-        'number_of_people',
     ];
 
     protected $casts = [
         'images' => 'array',
-        'illustration' => 'string',
-        'price' => 'float',
+        'price_per_hour' => 'float',
         'minimum_duration' => 'integer',
-        'floor' => 'integer',
+        'room_count' => 'integer',
+        'number_of_people' => 'integer',
+        'floor' => 'string',
         'ended_at' => 'datetime',
         'started_at' => 'datetime',
     ];

@@ -20,7 +20,7 @@ class ViewEspaceOrder extends ViewRecord
     {
         return [
             Actions\Action::make('edit')
-                ->label('Valider la commande')
+                ->label('Traiter la commande')
                 ->icon('heroicon-o-check')
                 ->disabled(fn () => ! $this->record->isPending())
                 ->action(function ($data) {
@@ -71,6 +71,11 @@ class ViewEspaceOrder extends ViewRecord
                 ->requiresConfirmation()
                 ->action(fn () => $this->record->delete()),
         ];
+    }
+
+    public function getTitle(): string
+    {
+        return 'Détails de la réservation';
     }
 
     public function infolist(Infolist $infolist): Infolist

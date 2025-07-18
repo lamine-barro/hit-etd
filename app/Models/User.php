@@ -25,23 +25,18 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
         'email',
         'name',
         'phone',
-        'phone_number',
         'password',
         'is_active',
         'category',
         'lock_raison',
         'remember_token',
         'is_verified',
-        'responsible_name',
-        'responsible_phone',
         'documents',
-        'responsible_document_type',
-        'responsible_document_value',
-        'responsible_document_file',
         'profile_picture',
-        'with_responsible',
         'is_request',
         'needs',
+        'otp',
+        'otp_expires_at',
     ];
 
     /**
@@ -52,6 +47,7 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
     protected $hidden = [
         'remember_token',
         'password',
+        'otp',
     ];
 
     public const CATEGORIES = [
@@ -70,6 +66,7 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
     {
         return [
             'email_verified_at' => 'datetime',
+            'otp_expires_at' => 'datetime',
         ];
     }
 

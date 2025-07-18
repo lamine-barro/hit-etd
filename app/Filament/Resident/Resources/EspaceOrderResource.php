@@ -49,21 +49,8 @@ class EspaceOrderResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make(__('Informations de réservation'))
-                    ->columns(2)
-                    ->schema([
-                        Forms\Components\TextInput::make('notes')
-                            ->helperText(__('Notes ou instructions spéciales pour la réservation'))
-                            ->label(__('Notes')),
-
-                        Forms\Components\Select::make('payment_method')
-                            ->options(EspaceOrder::PAYMENT_METHODS)
-                            ->helperText(__('Méthode de paiement utilisée pour cette réservation'))
-                            ->label(__('Méthode de paiement')),
-                    ]),
-
                 Forms\Components\Section::make(__('Informations les espaces'))
-                    ->description(__('Informations sur l\'espace réservé'))
+                    ->description(__('Sélection des espaces à réserver'))
                     ->schema([
                         Forms\Components\Repeater::make('espaces')
                             ->label(__('Espaces réservés'))
@@ -140,6 +127,56 @@ class EspaceOrderResource extends Resource
                                     ->label(__('Fin')),
                             ])->columns(3),
                     ])->columns(1),
+
+                Forms\Components\Section::make(__('Informations sur l\'espace réservé'))
+                    ->description(__('Détails et caractéristiques de l\'espace sélectionné'))
+                    ->schema([
+                        Forms\Components\Placeholder::make('espace_details')
+                            ->label(__('Détails de l\'espace'))
+                            ->content(function (Forms\Get $get) {
+                                $espaces = $get('espaces') ?? [];
+                                if (empty($espaces)) {
+                                    return __('Veuillez d\'abord sélectionner un espace dans la section ci-dessus.');
+                                }
+                                
+                                $content = '';
+                                foreach ($espaces as $index => $item) {
+                                    if (isset($item['espace_id'])) {
+                                        $espace = Espace::find($item['espace_id']);
+                                        if ($espace) {
+                                            $content .= "<div class='mb-4 p-4 bg-gray-50 rounded-lg'>";
+                                            $content .= "<h4 class='font-semibold text-lg mb-2'>" . $espace->name . "</h4>";
+                                            $content .= "<p><strong>Type:</strong> " . (Espace::FR_TYPES[$espace->type] ?? $espace->type) . "</p>";
+                                            $content .= "<p><strong>Localisation:</strong> " . ($espace->location ?? 'Non spécifiée') . "</p>";
+                                            $content .= "<p><strong>Étage:</strong> " . (Espace::FR_FLOORS[$espace->floor] ?? $espace->floor) . "</p>";
+                                            $content .= "<p><strong>Capacité:</strong> " . $espace->number_of_people . " personne(s)</p>";
+                                            $content .= "<p><strong>Prix par heure:</strong> " . number_format($espace->price_per_hour, 0, ',', ' ') . " FCFA</p>";
+                                            $content .= "<p><strong>Durée minimum:</strong> " . $espace->minimum_duration . " heure(s)</p>";
+                                            $content .= "</div>";
+                                        }
+                                    }
+                                }
+                                return new \Illuminate\Support\HtmlString($content ?: __('Aucun espace sélectionné.'));
+                            })
+                            ->columnSpanFull(),
+                    ])->columns(1),
+
+                Forms\Components\Section::make(__('Informations de réservation'))
+                    ->description(__('Notes et méthode de paiement pour votre réservation'))
+                    ->columns(2)
+                    ->schema([
+                        Forms\Components\Textarea::make('notes')
+                            ->rows(4)
+                            ->helperText(__('Notes ou instructions spéciales pour la réservation'))
+                            ->label(__('Notes ou instructions spéciales pour la réservation'))
+                            ->columnSpanFull(),
+
+                        Forms\Components\Select::make('payment_method')
+                            ->options(EspaceOrder::PAYMENT_METHODS)
+                            ->helperText(__('Méthode de paiement utilisée pour cette réservation'))
+                            ->label(__('Méthode de paiement'))
+                            ->required(),
+                    ]),
             ]);
     }
 

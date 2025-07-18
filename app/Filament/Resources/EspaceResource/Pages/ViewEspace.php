@@ -14,7 +14,7 @@ class ViewEspace extends ViewRecord
 
     public function getTitle(): string
     {
-        return $this->record->code.' - '.$this->record->name.' - ('.$this->record->status.')';
+        return 'Détails de l\'espace';
     }
 
     public function infolist(Infolist $infolist): Infolist

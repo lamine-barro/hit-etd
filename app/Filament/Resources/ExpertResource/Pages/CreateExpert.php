@@ -8,4 +8,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateExpert extends CreateRecord
 {
     protected static string $resource = ExpertResource::class;
+
+    public function getTitle(): string
+    {
+        return 'Créer un expert';
+    }
 }

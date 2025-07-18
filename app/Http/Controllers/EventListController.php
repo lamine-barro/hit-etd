@@ -34,7 +34,7 @@ class EventListController extends Controller
 
         $events = $query->paginate(9)->withQueryString();
 
-        return view('pages.events-list', compact('events'));
+        return view('pages.events.index', compact('events'));
     }
 
     /**
@@ -54,6 +54,6 @@ class EventListController extends Controller
 
         $event->loadCount('registrations');
 
-        return view('pages.event-detail', compact('event'));
+        return view('pages.events.show', compact('event'));
     }
 }

@@ -19,14 +19,8 @@ class ArticleSeeder extends Seeder
      */
     public function run(): void
     {
-        // Récupérer un administrateur pour le champ author_id
-        $admin = Administrator::first();
-
-        if (! $admin) {
-            $this->command->error('Aucun administrateur trouvé. Veuillez d\'abord créer un administrateur.');
-
-            return;
-        }
+        // Générer un UUID pour le champ author_id
+        $authorId = Str::uuid();
 
         $articles = [
             [
@@ -36,7 +30,7 @@ class ArticleSeeder extends Seeder
                 'featured' => true,
                 'status' => ArticleStatus::PUBLISHED,
                 'published_at' => Carbon::now()->subDays(5),
-                'author_id' => $admin->id,
+                'author_id' => $authorId,
                 'translations' => [
                     'fr' => [
                         'title' => 'L\'écosystème tech ivoirien en pleine expansion',
@@ -57,7 +51,7 @@ class ArticleSeeder extends Seeder
                 'featured' => false,
                 'status' => ArticleStatus::PUBLISHED,
                 'published_at' => Carbon::now()->subDays(10),
-                'author_id' => $admin->id,
+                'author_id' => $authorId,
                 'translations' => [
                     'fr' => [
                         'title' => 'Les défis de la transformation numérique en Afrique',
@@ -78,7 +72,7 @@ class ArticleSeeder extends Seeder
                 'featured' => true,
                 'status' => ArticleStatus::PUBLISHED,
                 'published_at' => Carbon::now()->subDays(3),
-                'author_id' => $admin->id,
+                'author_id' => $authorId,
                 'translations' => [
                     'fr' => [
                         'title' => 'Intelligence artificielle : applications concrètes pour les entreprises africaines',

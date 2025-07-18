@@ -16,7 +16,7 @@ class CampusController extends Controller
      */
     public function index()
     {
-        return view('pages.visitez-le-campus', [
+        return view('pages.campus.index', [
             'pageTitle' => __('Visitez notre Campus - Hub Ivoire Tech'),
             'metaDescription' => __("Planifiez votre visite du Hub Ivoire Tech, qui a pour vocation d'être le plus grand campus de startups en Afrique. Découvrez nos installations et réservez une visite guidée."),
         ]);
@@ -30,11 +30,37 @@ class CampusController extends Controller
                 'lastname' => 'required|string|max:255',
                 'email' => 'required|email|max:255',
                 'phone' => 'required|string|max:255',
-                'date' => 'required|date|after:today',
+                'date' => [
+                    'required',
+                    'date',
+                    'after:+3 days',
+                    function ($attribute, $value, $fail) {
+                        $date = \Carbon\Carbon::parse($value);
+                        // Vérifier que c'est un mardi (2) ou jeudi (4)
+                        if (!in_array($date->dayOfWeek, [2, 4])) {
+                            $fail(__('Les visites ne sont possibles que les mardis et jeudis.'));
+                        }
+                    },
+                ],
                 'time' => 'required|string',
                 'purpose' => 'required|string|in:partenariat,coworking,incubation,formation,evenement,presse,decouverte,other,etudiant',
-                'spaces' => 'required|array',
+                'spaces' => 'required|array|min:1',
                 'spaces.*' => 'string|in:coworking,meeting,event,studio,auditorium',
+                'message' => 'nullable|string|max:200',
+                'confirmation' => 'required|accepted',
+            ], [
+                'firstname.required' => __('Le prénom est obligatoire.'),
+                'lastname.required' => __('Le nom est obligatoire.'),
+                'email.required' => __('L\'email est obligatoire.'),
+                'email.email' => __('L\'email doit être valide.'),
+                'phone.required' => __('Le téléphone est obligatoire.'),
+                'date.required' => __('La date est obligatoire.'),
+                'date.after' => __('La date doit être d\'au moins 3 jours à l\'avance.'),
+                'time.required' => __('L\'heure est obligatoire.'),
+                'purpose.required' => __('L\'objet de la visite est obligatoire.'),
+                'spaces.required' => __('Veuillez sélectionner au moins un espace à visiter.'),
+                'spaces.min' => __('Veuillez sélectionner au moins un espace à visiter.'),
+                'confirmation.accepted' => __('Vous devez accepter les conditions de réservation.'),
             ]);
 
             $booking = Booking::create([
@@ -55,23 +81,28 @@ class CampusController extends Controller
                 'data' => $validated,
             ]);
 
-            Mail::queue(new VisitBookingAdmin($booking));
-            Mail::queue(new VisitBookingVisitor($booking));
+            // Envoi des emails de notification
+            Mail::send(new VisitBookingAdmin($booking));
+            Mail::send(new VisitBookingVisitor($booking));
 
-            return response()->json([
-                'status' => 'success',
-                'message' => __('Votre demande de visite a été enregistrée avec succès. Nous vous contacterons bientôt pour confirmer le rendez-vous.'),
-            ]);
+            // Redirection vers la page d'accueil avec message de succès
+            return redirect()->route('home')->with('success', __('Votre demande de visite a été enregistrée avec succès. Nous vous contacterons bientôt pour confirmer le rendez-vous.'));
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Retour au formulaire avec les erreurs de validation
+            return redirect()->back()
+                ->withErrors($e->validator)
+                ->withInput();
 
         } catch (\Exception $e) {
             Log::error('Erreur lors de la réservation de visite: '.$e->getMessage(), [
                 'data' => $request->all(),
             ]);
 
-            return response()->json([
-                'status' => 'error',
-                'message' => $e->getMessage() ?? __('Une erreur est survenue lors de la réservation de votre visite. Veuillez réessayer plus tard.'),
-            ], 500);
+            // Redirection avec message d'erreur
+            return redirect()->back()
+                ->with('error', __('Une erreur est survenue lors de la réservation de votre visite. Veuillez réessayer plus tard.'))
+                ->withInput();
         }
     }
 }

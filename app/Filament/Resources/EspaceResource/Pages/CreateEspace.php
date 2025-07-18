@@ -16,4 +16,9 @@ class CreateEspace extends CreateRecord
 
         return $data;
     }
+
+    public function getTitle(): string
+    {
+        return 'Créer un espace';
+    }
 }

@@ -13,6 +13,11 @@ class CreateEvent extends CreateRecord
 {
     protected static string $resource = EventResource::class;
 
+    public function getTitle(): string
+    {
+        return 'Créer un événement';
+    }
+
     /**
      * Propriété pour stocker temporairement les traductions
      */

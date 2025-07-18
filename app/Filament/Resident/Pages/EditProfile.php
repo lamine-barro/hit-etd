@@ -63,6 +63,13 @@ class EditProfile extends Page implements HasForms
                             ->description('Information générale de l\'entreprise')
                             ->schema([
 
+                                Forms\Components\FileUpload::make('profile_picture')
+                                    ->label('Photo de profil')
+                                    ->image()
+                                    ->directory('avatars/residents')
+                                    ->visibility('public')
+                                    ->columnSpanFull(),
+
                                 Forms\Components\TextInput::make('name')
                                     ->label('Nom Startup')
                                     ->required()
@@ -80,24 +87,7 @@ class EditProfile extends Page implements HasForms
                                     ->tel()
                                     ->maxLength(255),
 
-                                Forms\Components\Checkbox::make('with_responsible')
-                                    ->columnSpan(2)
-                                    ->reactive()
-                                    ->label('Informations du responsable'),
 
-                                Forms\Components\TextInput::make('responsible_name')
-                                    ->reactive()
-                                    ->disabled(fn (Forms\Get $get) => ! $get('with_responsible'))
-                                    ->label('Nom et prénom du responsable')
-                                    ->required()
-                                    ->maxLength(255),
-
-                                Forms\Components\TextInput::make('responsible_phone')
-                                    ->reactive()
-                                    ->disabled(fn (Forms\Get $get) => ! $get('with_responsible'))
-                                    ->label('Numéro de téléphone du responsable')
-                                    ->required()
-                                    ->maxLength(255),
                             ])
                             ->columns(2),
 
@@ -126,23 +116,11 @@ class EditProfile extends Page implements HasForms
                     ])
                     ->columnSpan(['lg' => 2]),
 
-                Forms\Components\Group::make()
-                    ->schema([
-                        Forms\Components\Section::make('')
-                            ->schema([
-                                FileUpload::make('profile_picture')
-                                    ->label('Photo de profil')
-                                    ->image()
-                                    ->avatar()
-                                    ->visibility('public')
-                                    ->directory('managers'),
-                            ]),
-                    ])
-                    ->columnSpan(['lg' => 1]),
+
             ])
             ->statePath('data')
             ->model($this->user)
-            ->columns(3);
+            ->columns(2);
     }
 
     public function save(): void

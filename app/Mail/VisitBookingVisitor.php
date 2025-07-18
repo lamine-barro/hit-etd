@@ -8,6 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Carbon\Carbon;
 
 class VisitBookingVisitor extends Mailable
 {
@@ -27,8 +28,7 @@ class VisitBookingVisitor extends Mailable
     {
         return new Envelope(
             subject: 'Confirmation de votre demande de visite - Hub Ivoire Tech',
-            to: $this->booking->email,
-            from: env('HIT_SUPPORT_EMAIL'),
+            to: [$this->booking->email],
         );
     }
 
@@ -41,7 +41,7 @@ class VisitBookingVisitor extends Mailable
             markdown: 'emails.visit-booking-visitor',
             with: [
                 'name' => $this->booking->full_name,
-                'date' => $this->booking->date->format('d/m/Y'),
+                'date' => Carbon::parse($this->booking->date)->format('d/m/Y'),
                 'time' => $this->booking->time,
                 'spaces' => $this->booking->spaces,
                 'purpose' => $this->booking->purpose,

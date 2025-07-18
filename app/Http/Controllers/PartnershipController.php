@@ -20,7 +20,7 @@ class PartnershipController extends Controller
     {
         $partnershipTypes = PartnershipType::options();
 
-        return view('pages.partnership', [
+        return view('pages.partnerships.index', [
             'partnershipTypes' => $partnershipTypes,
         ]);
     }
@@ -69,6 +69,6 @@ class PartnershipController extends Controller
      */
     public function thankYou()
     {
-        return view('pages.partnership-thank-you');
+        return view('pages.partnerships.thank-you');
     }
 }
