@@ -54,7 +54,7 @@ class CalendarWidget extends FullCalendarWidget
                     };
 
                     $data['shouldOpenUrlInNewTab'] = true;
-                    $data['url'] = EventResource::getUrl(name: 'view', parameters: ['record' => $event], panel: 'admin');
+                    $data['url'] = EventResource::getUrl(name: 'view', parameters: ['record' => $event->id], panel: 'admin');
 
                     return $data;
                 }

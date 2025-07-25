@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class NewEventRegistration extends Notification implements ShouldQueue
+class NewEventRegistration extends Notification
 {
     use Queueable;
 

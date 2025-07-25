@@ -68,11 +68,12 @@ class EspaceResource extends Resource
                         Forms\Components\TextInput::make('price_per_hour')
                             ->label('Prix par heure (FCFA)')
                             ->numeric()
-                            ->minValue(1)
+                            ->minValue(0)
                             ->maxValue(1000000)
                             ->required()
                             ->step(1000)
-                            ->placeholder('Ex: 5000'),
+                            ->placeholder('Ex: 5000 (0 pour gratuit)')
+                            ->helperText('Entrez 0 pour un espace gratuit'),
 
                         Forms\Components\TextInput::make('minimum_duration')
                             ->label('Durée minimale de location (en heures)')
@@ -98,9 +99,20 @@ class EspaceResource extends Resource
                     ->schema([
                         Forms\Components\FileUpload::make('illustration')
                             ->label('Image d\'illustration')
+                            ->helperText('Recommandé : 1200x630px pour un affichage optimal')
                             ->image()
+                            ->imagePreviewHeight('250')
+                            ->panelAspectRatio('16:9')
+                            ->imageEditor()
+                            ->panelLayout('integrated')
+                            ->imageEditorAspectRatios([
+                                '4:3',
+                                '16:9',
+                            ])
                             ->directory('espaces')
                             ->visibility('public')
+                            ->maxSize(5120)
+                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp'])
                             ->columnSpanFull(),
                         Forms\Components\FileUpload::make('images')
                             ->label('Images de l\'espace')
@@ -109,11 +121,14 @@ class EspaceResource extends Resource
                             ->image()
                             ->maxFiles(5)
                             ->reorderable()
-                            ->imagePreviewHeight('100')
+                            ->imagePreviewHeight('150')
                             ->panelAspectRatio('16:9')
                             ->imageEditor()
+                            ->panelLayout('integrated')
                             ->directory('espaces')
                             ->visibility('public')
+                            ->maxSize(5120)
+                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp'])
                             ->columnSpanFull()
                             ->imageEditorAspectRatios([
                                 '4:3',

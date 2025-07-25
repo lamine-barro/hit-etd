@@ -1,27 +1,28 @@
-@component('mail::message')
-# Bienvenue dans la communauté Hub Ivoire Tech !
+<x-layouts.email title="Bienvenue dans la communauté Hub Ivoire Tech !">
+    <p>Cher·e {{ $name }},</p>
+    <p>Nous sommes ravis de vous confirmer votre inscription à notre newsletter. Vous recevrez désormais nos actualités et informations importantes concernant nos activités, événements et opportunités.</p>
 
-Cher·e {{ $name }},
+    <h2>Vos préférences de communication</h2>
+    <ul>
+        <li>Newsletter par email : {{ $newsletter_email ? 'Activée' : 'Désactivée' }}</li>
+        <li>Newsletter par WhatsApp : {{ $newsletter_whatsapp ? 'Activée' : 'Désactivée' }}</li>
+    </ul>
 
-Nous sommes ravis de vous confirmer votre inscription à notre newsletter. Vous recevrez désormais nos actualités et informations importantes concernant nos activités, événements et opportunités.
+    @if(count($interests) > 0)
+    <h2>Vos centres d'intérêt</h2>
+    <ul>
+        @foreach($interests as $interest)
+        <li>{{ $interest }}</li>
+        @endforeach
+    </ul>
+    @endif
 
-## Vos préférences de communication
-- Newsletter par email : {{ $newsletter_email ? 'Activée' : 'Désactivée' }}
-- Newsletter par WhatsApp : {{ $newsletter_whatsapp ? 'Activée' : 'Désactivée' }}
+    <p>Vous pouvez à tout moment modifier vos préférences ou vous désinscrire en nous contactant.</p>
 
-@if(count($interests) > 0)
-## Vos centres d'intérêt
-@foreach($interests as $interest)
-- {{ $interest }}
-@endforeach
-@endif
+    <p style="text-align: center; margin: 30px 0;">
+        <a href="{{ config('app.url') }}" class="button">Visiter notre site</a>
+    </p>
 
-Vous pouvez à tout moment modifier vos préférences ou vous désinscrire en nous contactant.
-
-@component('mail::button', ['url' => config('app.url')])
-Visiter notre site
-@endcomponent
-
-Merci de votre confiance,<br>
-{{ config('app.name') }}
-@endcomponent
+    <p>Merci de votre confiance,<br>
+    <strong>{{ config('app.name') }}</strong></p>
+</x-layouts.email>

@@ -45,6 +45,8 @@
         @include('partials.meta')
     @endif
 
+    @include('partials.google-analytics')
+
     <style>
         html {
             scroll-behavior: smooth;

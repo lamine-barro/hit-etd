@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\BookingStatus;
 use App\Mail\VisitBookingAdmin;
 use App\Mail\VisitBookingVisitor;
 use App\Models\Booking;
@@ -64,7 +65,7 @@ class CampusController extends Controller
             ]);
 
             $booking = Booking::create([
-                'status' => 'pending',
+                'status' => BookingStatus::UNTREATED->value,
                 'firstname' => $validated['firstname'],
                 'lastname' => $validated['lastname'],
                 'email' => $validated['email'],
@@ -85,8 +86,8 @@ class CampusController extends Controller
             Mail::send(new VisitBookingAdmin($booking));
             Mail::send(new VisitBookingVisitor($booking));
 
-            // Redirection vers la page d'accueil avec message de succès
-            return redirect()->route('home')->with('success', __('Votre demande de visite a été enregistrée avec succès. Nous vous contacterons bientôt pour confirmer le rendez-vous.'));
+            // Redirection vers la même page avec message de succès
+            return redirect()->back()->with('success', __('Votre demande de visite a été enregistrée avec succès. Nous vous contacterons bientôt pour confirmer le rendez-vous.'));
 
         } catch (\Illuminate\Validation\ValidationException $e) {
             // Retour au formulaire avec les erreurs de validation

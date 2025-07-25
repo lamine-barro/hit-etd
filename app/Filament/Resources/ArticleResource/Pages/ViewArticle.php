@@ -13,6 +13,7 @@ use Filament\Infolists\Components\ImageEntry;
 use Filament\Infolists\Components\Section;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
+use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ViewRecord;
 use Illuminate\Support\HtmlString;
 
@@ -36,7 +37,10 @@ class ViewArticle extends ViewRecord
                     $this->record->published_at = $this->record->published_at ?? now();
                     $this->record->save();
                     $this->refreshFormData(['status', 'published_at']);
-                    $this->notify('success', 'L\'article a été publié avec succès.');
+                    Notification::make()
+                        ->success()
+                        ->title('L\'article a été publié avec succès.')
+                        ->send();
                 }),
             Actions\Action::make('unpublish')
                 ->label('Dépublier')
@@ -47,7 +51,10 @@ class ViewArticle extends ViewRecord
                     $this->record->status = ArticleStatus::DRAFT;
                     $this->record->save();
                     $this->refreshFormData(['status']);
-                    $this->notify('success', 'L\'article a été dépublié avec succès.');
+                    Notification::make()
+                        ->success()
+                        ->title('L\'article a été dépublié avec succès.')
+                        ->send();
                 }),
             Actions\Action::make('duplicate')
                 ->label('Dupliquer')

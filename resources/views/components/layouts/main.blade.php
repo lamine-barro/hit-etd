@@ -61,10 +61,11 @@
             line-height: 1.5 !important;
             max-width: 400px !important;
             min-width: 300px !important;
-            z-index: 9999 !important;
+            z-index: 99999 !important;
             color: white !important;
             border: none !important;
             backdrop-filter: blur(10px) !important;
+            position: fixed !important;
         }
         
         .hit-toast-success {
@@ -130,25 +131,7 @@
     <x-sections.navbar />
 
     <!-- HIT Toast Notification System -->
-    @if (session('toast'))
-        <div x-data="{}" x-init="showToast('{{ addslashes(session('toast')['message']) }}', '{{ session('toast')['type'] }}')"></div>
-    @endif
-
-    @if (session('success'))
-        <div x-data="{}" x-init="showToast('{{ addslashes(session('success')) }}', 'success')"></div>
-    @endif
-
-    @if (session('error'))
-        <div x-data="{}" x-init="showToast('{{ addslashes(session('error')) }}', 'error')"></div>
-    @endif
-
-    @if (session('warning'))
-        <div x-data="{}" x-init="showToast('{{ addslashes(session('warning')) }}', 'warning')"></div>
-    @endif
-
-    @if (session('info'))
-        <div x-data="{}" x-init="showToast('{{ addslashes(session('info')) }}', 'info')"></div>
-    @endif
+    <!-- Les notifications sont maintenant gérées par JavaScript dans le script ci-dessous -->
 
     <main>
         {{ $slot }}
@@ -161,6 +144,75 @@
 
     <!-- Alpine.js -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Toast Notification Function -->
+    <script>
+        // Fonction showToast globale pour les notifications
+        window.showToast = function(message, type = 'success', options = {}) {
+            // Configuration par défaut
+            const defaultOptions = {
+                duration: type === 'error' ? 5000 : 3000,
+                close: true,
+                gravity: 'bottom',
+                position: 'right',
+                stopOnFocus: true,
+                className: `hit-toast hit-toast-${type}`,
+                offset: {
+                    x: 20,
+                    y: 20
+                }
+            };
+
+            // Couleurs selon le type
+            const colors = {
+                success: '#059669',
+                error: '#DC2626', 
+                warning: '#D97706',
+                info: '#2563EB'
+            };
+
+            // Configuration finale
+            const config = {
+                ...defaultOptions,
+                ...options,
+                text: message,
+                backgroundColor: colors[type] || colors.success
+            };
+
+            // Vérifier que Toastify est disponible
+            if (typeof Toastify !== 'undefined') {
+                Toastify(config).showToast();
+                console.log('Toast affiché:', message, type);
+            } else {
+                console.error('Toastify not loaded');
+                // Fallback avec alert si Toastify n'est pas disponible
+                alert(message);
+            }
+        };
+
+        // Test de debug - vous pouvez supprimer ceci après vérification
+        console.log('showToast function loaded:', typeof window.showToast);
+        
+        // Auto-test quand la page se charge (pour debug)
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, Toastify available:', typeof Toastify);
+            
+            // Test automatique si il y a des messages en session
+            @if (session('success'))
+                setTimeout(() => {
+                    console.log('Tentative d\'affichage du toast de succès');
+                    window.showToast('{{ addslashes(session('success')) }}', 'success');
+                }, 100);
+            @endif
+            
+            @if (session('error'))
+                setTimeout(() => {
+                    console.log('Tentative d\'affichage du toast d\'erreur');
+                    window.showToast('{{ addslashes(session('error')) }}', 'error');
+                }, 100);
+            @endif
+        });
+    </script>
 
     <!-- Smooth Scroll -->
     <script>

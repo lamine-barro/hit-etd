@@ -9,7 +9,7 @@
         "php": "^8.2",
         "andreia/filament-nord-theme": "^1.0",
         "bezhansalleh/filament-language-switch": "^3.1",
-        "doctrine/dbal": "^4.2",
+        "doctrine/dbal": "^4.3",
         "eightynine/filament-excel-import": "^3.1",
         "filament/actions": "^3.3",
         "filament/filament": "^3.3",

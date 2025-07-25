@@ -331,11 +331,11 @@ class EventResource extends Resource
                     ->numeric()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('is_paid')
+                Tables\Columns\TextColumn::make('price')
                     ->label('Prix')
                     ->getStateUsing(function (Event $record): string {
                         if ($record->is_paid) {
-                            return number_format((float) $record->price, 0, ',', ' ').' '.Currency::from($record->currency)->symbol();
+                            return number_format($record->getCurrentPrice(), 0, ',', ' ').' '.Currency::from($record->currency)->symbol();
                         }
 
                         return 'Gratuit';

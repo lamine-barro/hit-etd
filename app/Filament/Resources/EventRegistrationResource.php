@@ -97,11 +97,13 @@ class EventRegistrationResource extends Resource
                     ->badge()
                     ->color(fn (PaymentStatus $state): string => $state->color())
                     ->formatStateUsing(fn (PaymentStatus $state): string => $state->label())
-                    ->icon(fn (PaymentStatus $state): string => $state->icon()),
+                    ->icon(fn (PaymentStatus $state): string => $state->icon())
+                    ->visible(fn (?EventRegistration $record) => $record && $record->event && $record->event->is_paid),
                 Tables\Columns\TextColumn::make('amount_paid')
                     ->label('Montant payé')
                     ->money('XOF')
-                    ->sortable(),
+                    ->sortable()
+                    ->visible(fn (?EventRegistration $record) => $record && $record->event && $record->event->is_paid),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Date d\'inscription')
                     ->dateTime('d/m/Y H:i')

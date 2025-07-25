@@ -14,7 +14,7 @@
             <!-- Incubation & Accélération -->
             <div class="bg-white rounded-2xl shadow-sm border transition-shadow duration-300 overflow-hidden group">
                 <div class="relative h-48 sm:h-56 overflow-hidden">
-                    <img src="{{ asset('images/incubation.jpg') }}" alt="Incubation & Accélération" 
+                    <img src="{{ asset('images/incubation.jpg') }}" alt="Des entrepreneurs participant à un atelier d'incubation et d'accélération au Hub Ivoire Tech." 
                          class="w-full h-full object-cover transform transition duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
                     <h3 class="absolute bottom-4 left-4 right-4 text-lg sm:text-xl font-semibold text-white transform transition duration-300 group-hover:translate-x-2">
@@ -58,7 +58,7 @@
             <!-- Espaces de travail -->
             <div class="bg-white rounded-2xl shadow-sm border transition-shadow duration-300 overflow-hidden group">
                 <div class="relative h-48 sm:h-56 overflow-hidden">
-                    <img src="{{ asset('images/coworking.jpg') }}" alt="Espaces de travail" 
+                    <img src="{{ asset('images/coworking.jpg') }}" alt="Espace de coworking moderne et lumineux avec des postes de travail individuels et collaboratifs." 
                          class="w-full h-full object-cover transform transition duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
                     <h3 class="absolute bottom-4 left-4 right-4 text-lg sm:text-xl font-semibold text-white transform transition duration-300 group-hover:translate-x-2">
@@ -102,7 +102,7 @@
             <!-- Espaces de détente -->
             <div class="bg-white rounded-2xl shadow-sm border transition-shadow duration-300 overflow-hidden group">
                 <div class="relative h-48 sm:h-56 overflow-hidden">
-                    <img src="{{ asset('images/detente.jpg') }}" alt="Espaces de détente" 
+                    <img src="{{ asset('images/detente.jpg') }}" alt="Espace de détente convivial avec des canapés et une table basse où des entrepreneurs discutent." 
                          class="w-full h-full object-cover transform transition duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
                     <h3 class="absolute bottom-4 left-4 right-4 text-lg sm:text-xl font-semibold text-white transform transition duration-300 group-hover:translate-x-2">
@@ -149,7 +149,7 @@
             <!-- Fablab & Innovation -->
             <div class="bg-white rounded-xl shadow-sm border transition-shadow duration-300 overflow-hidden group">
                 <div class="relative h-40 overflow-hidden">
-                    <img src="{{ asset('images/fablab.jpg') }}" alt="Fablab & Innovation" 
+                    <img src="{{ asset('images/fablab.jpg') }}" alt="Un technicien utilisant une imprimante 3D dans le Fablab du Hub Ivoire Tech." 
                          class="w-full h-full object-cover transform transition duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
                     <h4 class="absolute bottom-4 left-4 right-4 text-lg font-semibold text-white transform transition duration-300 group-hover:translate-x-2">
@@ -184,7 +184,7 @@
             <!-- Formation & Ateliers -->
             <div class="bg-white rounded-xl shadow-sm border transition-shadow duration-300 overflow-hidden group">
                 <div class="relative h-40 overflow-hidden">
-                    <img src="{{ asset('images/formation.jpg') }}" alt="Formation & Ateliers" 
+                    <img src="{{ asset('images/formation.jpg') }}" alt="Un formateur présentant devant une audience attentive lors d'un atelier au Hub Ivoire Tech." 
                          class="w-full h-full object-cover transform transition duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
                     <h4 class="absolute bottom-4 left-4 right-4 text-lg font-semibold text-white transform transition duration-300 group-hover:translate-x-2">
@@ -219,7 +219,7 @@
             <!-- Support Administratif -->
             <div class="bg-white rounded-xl shadow-sm border transition-shadow duration-300 overflow-hidden group">
                 <div class="relative h-40 overflow-hidden">
-                    <img src="{{ asset('images/admin.jpg') }}" alt="Support Administratif" 
+                    <img src="{{ asset('images/admin.jpg') }}" alt="Une personne recevant des conseils administratifs à un guichet de support." 
                          class="w-full h-full object-cover transform transition duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
                     <h4 class="absolute bottom-4 left-4 right-4 text-lg font-semibold text-white transform transition duration-300 group-hover:translate-x-2">

@@ -1,32 +1,32 @@
-@component('mail::message')
-# Vos préférences ont été mises à jour avec succès !
+<x-layouts.email title="Vos préférences ont été mises à jour !">
+    <p>Cher·e {{ $name }},</p>
+    <p>Nous vous confirmons que vos préférences de newsletter ont été mises à jour avec succès. Voici un récapitulatif de vos nouveaux paramètres :</p>
 
-Cher·e {{ $name }},
+    <h2>Vos nouvelles préférences de communication</h2>
+    <ul>
+        <li>Newsletter par email : <strong>{{ $newsletter_email ? 'Activée' : 'Désactivée' }}</strong></li>
+        <li>Newsletter par WhatsApp : <strong>{{ $newsletter_whatsapp ? 'Activée' : 'Désactivée' }}</strong></li>
+    </ul>
 
-Nous vous confirmons que vos préférences de newsletter ont été mises à jour avec succès. Voici un récapitulatif de vos nouveaux paramètres :
+    @if(count($interests) > 0)
+    <h2>Vos centres d'intérêt mis à jour</h2>
+    <ul>
+        @foreach($interests as $interest)
+        <li>{{ $interest }}</li>
+        @endforeach
+    </ul>
+    @endif
 
-## Vos nouvelles préférences de communication
-- Newsletter par email : {{ $newsletter_email ? 'Activée' : 'Désactivée' }}
-- Newsletter par WhatsApp : {{ $newsletter_whatsapp ? 'Activée' : 'Désactivée' }}
+    <p>Ces modifications prendront effet immédiatement. Vous recevrez désormais nos communications selon vos nouvelles préférences.</p>
+    <p>Si vous souhaitez modifier à nouveau vos préférences ou vous désinscrire, vous pouvez nous contacter à tout moment.</p>
+    
+    <p style="text-align: center; margin: 30px 0;">
+        <a href="{{ config('app.url') }}" class="button">Visiter notre site</a>
+    </p>
 
-@if(count($interests) > 0)
-## Vos centres d'intérêt mis à jour
-@foreach($interests as $interest)
-- {{ $interest }}
-@endforeach
-@endif
+    <p>Merci de votre fidélité et de votre confiance,<br>
+    <strong>{{ config('app.name') }}</strong></p>
 
-Ces modifications prendront effet immédiatement. Vous recevrez désormais nos communications selon vos nouvelles préférences.
-
-Si vous souhaitez modifier à nouveau vos préférences ou vous désinscrire, vous pouvez nous contacter à tout moment.
-
-@component('mail::button', ['url' => config('app.url')])
-Visiter notre site
-@endcomponent
-
-Merci de votre fidélité et de votre confiance,<br>
-{{ config('app.name') }}
-
----
-<small>Si vous n'avez pas effectué cette modification, veuillez nous contacter immédiatement.</small>
-@endcomponent 
+    <hr>
+    <p style="font-size: 12px; color: #777;"><em>Si vous n'avez pas effectué cette modification, veuillez nous contacter immédiatement.</em></p>
+</x-layouts.email> 

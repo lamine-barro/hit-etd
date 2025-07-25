@@ -17,9 +17,6 @@ class EditArticle extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\ViewAction::make()
-                ->url(fn () => route('filament.admin.resources.articles.view', $this->record->id))
-                ->label('Voir'),
             Actions\Action::make('publish')
                 ->label('Publier')
                 ->icon('heroicon-o-check-circle')

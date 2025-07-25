@@ -61,7 +61,7 @@
 
             <!-- Image avec overlay -->
             <div class="relative rounded-xl overflow-hidden group h-[300px] sm:h-[400px] lg:h-[600px]">
-                <img src="{{ asset('images/tour_postel.jpg') }}" alt="Tour Postel" class="w-full h-full object-cover">
+                <img src="{{ asset('images/tour_postel.jpg') }}" alt="Vue extérieure de la Tour Postel 2001 à Abidjan, siège du Hub Ivoire Tech." class="w-full h-full object-cover">
                 <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
         </div>

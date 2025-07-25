@@ -2,40 +2,118 @@
     <x-slot:title>{{ __("Inscription à") }} {{ $event->getTranslatedAttribute('title') }} - {{ config('app.name') }}</x-slot:title>
     <x-slot:metaDescription>{{ __("Inscrivez-vous à l'événement") }} {{ $event->getTranslatedAttribute('title') }}</x-slot:metaDescription>
 
-    <div class="min-h-screen bg-gray-50 py-12">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- En-tête -->
-            <div class="text-center mb-8">
-                <div class="mb-4">
-                    <a href="{{ route('events.show', ['slug' => $event->getSlug()]) }}" 
-                       class="inline-flex items-center text-primary-600 hover:text-primary-500 text-sm font-medium">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                        </svg>
-                        {{ __("Retour à l'événement") }}
-                    </a>
-                </div>
-                <h1 class="text-3xl font-bold text-gray-900 mb-2">{{ __("Rejoignez-nous !") }}</h1>
-                <p class="text-xl text-gray-600">{{ $event->getTranslatedAttribute('title') }}</p>
-                <div class="flex items-center justify-center space-x-4 mt-4 text-gray-500">
-                    <div class="flex items-center">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        {{ $event->start_date->format('d F Y à H:i') }}
-                    </div>
-                    @if($event->location)
-                        <div class="flex items-center">
-                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                            </svg>
-                            {{ $event->location }}
-                        </div>
+    <div class="bg-white">
+        <!-- Hero Section avec image -->
+        @if ($event->illustration)
+            <div class="relative h-96 overflow-hidden">
+                <img src="{{ Str::startsWith($event->illustration, 'http') ? $event->illustration : Storage::url($event->illustration) }}"
+                     alt="{{ $event->getTranslatedAttribute('title') }}"
+                     class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+
+                <!-- Badge de prix flottant -->
+                <div class="absolute top-6 right-6">
+                    @if ($event->is_paid)
+                        <span class="inline-flex items-center px-4 py-2 rounded-full text-lg font-bold bg-white text-gray-900 shadow-lg">
+                            {{ number_format($event->getCurrentPrice(), 0, ',', ' ') }} {{ $event->currency }}
+                        </span>
+                    @else
+                        <span class="inline-flex items-center px-4 py-2 rounded-full text-lg font-bold bg-green-500 text-white shadow-lg">
+                            {{ __("Gratuit") }}
+                        </span>
                     @endif
                 </div>
-            </div>
 
+                <!-- Contenu hero -->
+                <div class="absolute bottom-0 left-0 right-0 p-8">
+                    <div class="max-w-4xl mx-auto">
+                        <div class="mb-4">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary-600 text-white">
+                                {{ $event->type ?? __("Événement") }}
+                            </span>
+                        </div>
+                        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">{{ $event->getTranslatedAttribute('title') }}</h1>
+                        <div class="flex flex-wrap gap-6 text-white text-lg">
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                {{ $event->start_date->format('d F Y à H:i') }}
+                            </div>
+                            @if($event->location)
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                    {{ $event->location }}
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @else
+            <!-- Hero sans image -->
+            <div class="bg-gradient-to-r from-primary-600 to-primary-800 py-16">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <div class="mb-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white/20 text-white">
+                            {{ $event->type ?? __("Événement") }}
+                        </span>
+                    </div>
+                    <h1 class="text-4xl md:text-5xl font-bold text-white mb-6">{{ $event->getTranslatedAttribute('title') }}</h1>
+                    <div class="flex flex-wrap justify-center gap-6 text-white text-lg">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            {{ $event->start_date->format('d F Y à H:i') }}
+                        </div>
+                        @if($event->location)
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                {{ $event->location }}
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        @endif
+
+        <!-- Breadcrumb -->
+        <nav aria-label="Breadcrumb" class="bg-gray-50 border-b">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                <ol role="list" class="flex items-center space-x-2">
+                    <li>
+                        <div class="flex items-center">
+                            <a href="{{ route('events') }}" class="mr-2 text-sm font-medium text-gray-600 hover:text-primary-600">{{ __("Événements") }}</a>
+                            <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" aria-hidden="true" class="w-4 h-5 text-gray-300">
+                                <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
+                            </svg>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="flex items-center">
+                            <a href="{{ route('events.show', ['slug' => $event->getSlug()]) }}" class="mr-2 text-sm font-medium text-gray-600 hover:text-primary-600">{{ $event->getTranslatedAttribute('title') }}</a>
+                            <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" aria-hidden="true" class="w-4 h-5 text-gray-300">
+                                <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
+                            </svg>
+                        </div>
+                    </li>
+                    <li class="text-sm">
+                        <span aria-current="page" class="font-medium text-gray-500">{{ __("Inscription") }}</span>
+                    </li>
+                </ol>
+            </div>
+        </nav>
+    </div>
+
+    <div class="bg-gray-50 py-12">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Messages de feedback -->
             @if(session('success'))
                 <div class="mb-8 bg-green-50 border border-green-200 rounded-lg p-4">
@@ -88,7 +166,7 @@
                                     <input type="text" name="name" id="name" required 
                                            value="{{ old('name', auth()->check() ? auth()->user()->name : '') }}"
                                            class="block w-full border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm @error('name') border-red-300 @enderror"
-                                           placeholder="{{ __('Jean Dupont') }}">
+                                           placeholder="Adjoua Kouassi">
                                     @error('name')<p class="text-sm text-red-600 mt-1">{{ $message }}</p>@enderror
                                 </div>
                                 
@@ -99,7 +177,7 @@
                                     <input type="email" name="email" id="email" required 
                                            value="{{ old('email', auth()->check() ? auth()->user()->email : '') }}"
                                            class="block w-full border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm @error('email') border-red-300 @enderror"
-                                           placeholder="{{ __('jean.dupont@example.com') }}">
+                                           placeholder="adjoua.kouassi@example.com">
                                     @error('email')<p class="text-sm text-red-600 mt-1">{{ $message }}</p>@enderror
                                 </div>
                             </div>
@@ -113,7 +191,7 @@
                                     <input type="tel" name="whatsapp" id="whatsapp" 
                                            value="{{ old('whatsapp', auth()->check() ? auth()->user()->whatsapp : '') }}"
                                            class="block w-full border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm @error('whatsapp') border-red-300 @enderror"
-                                           placeholder="{{ __('+225 07 00 00 00 00') }}">
+                                           placeholder="+225 0700000000">
                                     @error('whatsapp')<p class="text-sm text-red-600 mt-1">{{ $message }}</p>@enderror
                                 </div>
                                 
@@ -124,7 +202,7 @@
                                     <input type="text" name="position" id="position" required 
                                            value="{{ old('position', auth()->check() ? auth()->user()->position : '') }}"
                                            class="block w-full border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm @error('position') border-red-300 @enderror"
-                                           placeholder="{{ __('Développeur, CEO, Étudiant...') }}">
+                                           placeholder="Développeur, CEO, Étudiant...">
                                     @error('position')<p class="text-sm text-red-600 mt-1">{{ $message }}</p>@enderror
                                 </div>
                             </div>
@@ -137,7 +215,7 @@
                                     <input type="text" name="organization" id="organization" required 
                                            value="{{ old('organization', auth()->check() ? auth()->user()->organization : '') }}"
                                            class="block w-full border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm @error('organization') border-red-300 @enderror"
-                                           placeholder="{{ __('Nom de votre entreprise ou école') }}">
+                                           placeholder="Nom de votre entreprise ou école">
                                     @error('organization')<p class="text-sm text-red-600 mt-1">{{ $message }}</p>@enderror
                                 </div>
                                 
@@ -148,7 +226,7 @@
                                     <input type="text" name="country" id="country" required 
                                            value="{{ old('country', auth()->check() ? auth()->user()->country : '') }}"
                                            class="block w-full border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm @error('country') border-red-300 @enderror"
-                                           placeholder="{{ __('Côte d\'Ivoire') }}">
+                                           placeholder="Côte d'Ivoire">
                                     @error('country')<p class="text-sm text-red-600 mt-1">{{ $message }}</p>@enderror
                                 </div>
                             </div>

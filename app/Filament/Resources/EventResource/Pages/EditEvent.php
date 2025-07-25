@@ -191,10 +191,17 @@ class EditEvent extends EditRecord
         }
     }
 
+    /**
+     * Désactive la notification automatique de Filament pour éviter les doublons
+     */
+    protected function getSavedNotification(): ?\Filament\Notifications\Notification
+    {
+        return null;
+    }
+
     protected function getHeaderActions(): array
     {
         return [
-            Actions\ViewAction::make(),
             Actions\DeleteAction::make()
                 ->label('Supprimer'),
             Actions\ForceDeleteAction::make()

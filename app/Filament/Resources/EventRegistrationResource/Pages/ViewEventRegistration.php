@@ -178,12 +178,15 @@ class ViewEventRegistration extends ViewRecord
                                     ->badge()
                                     ->color(fn (PaymentStatus $state): string => $state->color())
                                     ->formatStateUsing(fn (PaymentStatus $state): string => $state->label())
-                                    ->icon(fn (PaymentStatus $state): string => $state->icon()),
+                                    ->icon(fn (PaymentStatus $state): string => $state->icon())
+                                    ->visible(fn (?EventRegistration $record) => $record && $record->event && $record->event->is_paid),
                                 TextEntry::make('amount_paid')
                                     ->label('Montant payé')
-                                    ->money('XOF'),
+                                    ->money('XOF')
+                                    ->visible(fn (?EventRegistration $record) => $record && $record->event && $record->event->is_paid),
                                 TextEntry::make('payment_reference')
-                                    ->label('Référence de paiement'),
+                                    ->label('Référence de paiement')
+                                    ->visible(fn (?EventRegistration $record) => $record && $record->event && $record->event->is_paid),
                             ]),
                     ]),
 

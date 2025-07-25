@@ -1,7 +1,7 @@
 <section class="relative min-h-screen bg-black overflow-hidden" id="hero" x-data="{ show: false }" x-init="setTimeout(() => show = true, 500)">
     <!-- Image de fond avec overlay -->
     <div class="absolute inset-0">
-        <img src="{{ asset('images/hero_bg.jpg') }}" alt="Innovation Hub" class="w-full h-full object-cover scale-105 transition-transform duration-[2s] hover:scale-100">
+        <img src="{{ asset('images/hero_bg.jpg') }}" alt="Espace de coworking animé au Hub Ivoire Tech avec des entrepreneurs qui collaborent." class="w-full h-full object-cover scale-105 transition-transform duration-[2s] hover:scale-100">
         <div class="absolute inset-0 bg-gradient-to-b from-black/90 via-black/70 to-black/90"></div>
     </div>
 

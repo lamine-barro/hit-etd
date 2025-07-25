@@ -1,26 +1,29 @@
-@component('mail::message')
-# Nouvelle inscription à la newsletter
+<x-layouts.email title="Nouvelle inscription à la newsletter">
+    <h2>Nouvelle inscription à la newsletter</h2>
+    <p>Un nouveau membre vient de s'inscrire à la newsletter du Hub Ivoire Tech.</p>
 
-Un nouveau membre vient de s'inscrire à la newsletter du Hub Ivoire Tech.
+    <h3>Informations du membre</h3>
+    <p><strong>Nom :</strong> {{ $name }}</p>
+    <p><strong>Email :</strong> {{ $email }}</p>
+    @if($whatsapp)
+    <p><strong>WhatsApp :</strong> {{ $whatsapp }}</p>
+    @endif
 
-## Informations du membre
-**Nom :** {{ $name }}
-**Email :** {{ $email }}
-@if($whatsapp)
-**WhatsApp :** {{ $whatsapp }}
-@endif
+    <h3>Préférences de communication</h3>
+    <ul>
+        <li>Newsletter par email : {{ $newsletter_email ? 'Oui' : 'Non' }}</li>
+        <li>Newsletter par WhatsApp : {{ $newsletter_whatsapp ? 'Oui' : 'Non' }}</li>
+    </ul>
 
-## Préférences de communication
-- Newsletter par email : {{ $newsletter_email ? 'Oui' : 'Non' }}
-- Newsletter par WhatsApp : {{ $newsletter_whatsapp ? 'Oui' : 'Non' }}
+    @if(count($interests) > 0)
+    <h3>Centres d'intérêt</h3>
+    <ul>
+        @foreach($interests as $interest)
+        <li>{{ $interest }}</li>
+        @endforeach
+    </ul>
+    @endif
 
-@if(count($interests) > 0)
-## Centres d'intérêt
-@foreach($interests as $interest)
-- {{ $interest }}
-@endforeach
-@endif
-
-Cordialement,<br>
-{{ config('app.name') }}
-@endcomponent
+    <p>Cordialement,<br>
+    L'équipe {{ config('app.name') }}</p>
+</x-layouts.email>
