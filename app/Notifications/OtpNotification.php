@@ -34,10 +34,11 @@ class OtpNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject(__('Your OTP Code'))
-            ->line(__('Your OTP code is: ').$this->otp)
-            ->line(__('This code will expire in 5 minutes.'))
-            ->line(__('If you did not request this code, no further action is required.'));
+            ->subject('Code de vérification - HIT')
+            ->view('emails.resident-otp', [
+                'userName' => $notifiable->full_name ?? $notifiable->name,
+                'otpCode' => $this->otp
+            ]);
     }
 
     /**

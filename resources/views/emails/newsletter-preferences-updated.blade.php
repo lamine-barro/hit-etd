@@ -1,32 +1,24 @@
-<x-layouts.email title="Vos préférences ont été mises à jour !">
-    <p>Cher·e {{ $name }},</p>
-    <p>Nous vous confirmons que vos préférences de newsletter ont été mises à jour avec succès. Voici un récapitulatif de vos nouveaux paramètres :</p>
-
-    <h2>Vos nouvelles préférences de communication</h2>
-    <ul>
-        <li>Newsletter par email : <strong>{{ $newsletter_email ? 'Activée' : 'Désactivée' }}</strong></li>
-        <li>Newsletter par WhatsApp : <strong>{{ $newsletter_whatsapp ? 'Activée' : 'Désactivée' }}</strong></li>
-    </ul>
-
-    @if(count($interests) > 0)
-    <h2>Vos centres d'intérêt mis à jour</h2>
-    <ul>
-        @foreach($interests as $interest)
-        <li>{{ $interest }}</li>
-        @endforeach
-    </ul>
-    @endif
-
-    <p>Ces modifications prendront effet immédiatement. Vous recevrez désormais nos communications selon vos nouvelles préférences.</p>
-    <p>Si vous souhaitez modifier à nouveau vos préférences ou vous désinscrire, vous pouvez nous contacter à tout moment.</p>
+<x-layouts.email>
+    <h1>Préférences mises à jour</h1>
     
-    <p style="text-align: center; margin: 30px 0;">
-        <a href="{{ config('app.url') }}" class="button">Visiter notre site</a>
-    </p>
-
-    <p>Merci de votre fidélité et de votre confiance,<br>
-    <strong>{{ config('app.name') }}</strong></p>
-
-    <hr>
-    <p style="font-size: 12px; color: #777;"><em>Si vous n'avez pas effectué cette modification, veuillez nous contacter immédiatement.</em></p>
+    <p>Bonjour {{ $name }},</p>
+    <p>Vos préférences de newsletter ont été mises à jour avec succès.</p>
+    
+    <div style="background-color: #f7fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 20px; margin: 20px 0;">
+        <h3 style="color: #2d3748; margin: 0 0 15px 0;">Nouvelles préférences</h3>
+        <p><strong>Email :</strong> {{ $newsletter_email ? 'Activé' : 'Désactivé' }}</p>
+        <p><strong>WhatsApp :</strong> {{ $newsletter_whatsapp ? 'Activé' : 'Désactivé' }}</p>
+        
+        @if(count($interests) > 0)
+        <p><strong>Centres d'intérêt :</strong> {{ implode(', ', $interests) }}</p>
+        @endif
+    </div>
+    
+    <p>Ces modifications sont effectives immédiatement.</p>
+    
+    <div style="background-color: #fef5e7; border: 1px solid #f6ad55; border-radius: 6px; padding: 16px; margin: 20px 0;">
+        <p style="margin: 0; color: #744210; font-size: 14px;">Si vous n'avez pas effectué cette modification, contactez-nous immédiatement.</p>
+    </div>
+    
+    <p>Merci de votre confiance,<br>L'équipe Hub Ivoire Tech</p>
 </x-layouts.email> 

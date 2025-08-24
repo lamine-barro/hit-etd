@@ -42,10 +42,10 @@
     @hasSection('meta')
         @yield('meta')
     @else
-        @include('partials.meta')
+        @include('components.meta')
     @endif
 
-    @include('partials.google-analytics')
+    @include('components.google-analytics')
 
     <style>
         html {
@@ -137,7 +137,7 @@
 </head>
 <body class="font-sans antialiased bg-white text-gray-900">
     <!-- Navbar -->
-    @include('components.navbar')
+    @include('components.sections.navbar')
 
     <!-- HIT Toast Notification System -->
     @if (session('toast'))
@@ -165,9 +165,9 @@
     </main>
 
     <!-- Footer -->
-    @include('components.footer')
+    @include('components.sections.footer')
 
-    @include('partials.scripts')
+    @include('components.scripts')
 
     <!-- Alpine.js -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>

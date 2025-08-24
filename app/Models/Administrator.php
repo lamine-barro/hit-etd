@@ -2,10 +2,6 @@
 
 namespace App\Models;
 
-use Filament\Models\Contracts\FilamentUser;
-use Filament\Models\Contracts\HasAvatar;
-use Filament\Models\Contracts\HasName;
-use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -13,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 
-class Administrator extends Authenticatable implements FilamentUser, HasAvatar, HasName
+class Administrator extends Authenticatable
 {
     use HasFactory, Notifiable, SoftDeletes;
 
@@ -125,17 +121,12 @@ class Administrator extends Authenticatable implements FilamentUser, HasAvatar, 
         return $this->belongsTo(Administrator::class, 'deleted_by');
     }
 
-    public function canAccessPanel(Panel $panel): bool
-    {
-        return true;
-    }
-
-    public function getFilamentName(): string
+    public function getName(): string
     {
         return "{$this->first_name} {$this->last_name}";
     }
 
-    public function getFilamentAvatarUrl(): ?string
+    public function getAvatarUrl(): ?string
     {
         return $this->avatar_url ? Storage::url($this->avatar_url) : null;
     }

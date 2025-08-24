@@ -18,7 +18,7 @@ class ResidentOtpAuthController extends Controller
      */
     public function showRequestForm()
     {
-        return view('auth.resident-otp-request');
+        return view('pages.auth.resident-otp-request');
     }
 
     /**
@@ -62,7 +62,7 @@ class ResidentOtpAuthController extends Controller
 
         RateLimiter::hit($key, 300); // 5 minutes
 
-        return view('auth.resident-otp-verify', [
+        return view('pages.auth.resident-otp-verify', [
             'email' => $request->email,
             'message' => 'Un code d\'accès a été envoyé à votre adresse email.'
         ]);
@@ -77,7 +77,7 @@ class ResidentOtpAuthController extends Controller
             'email' => 'required|email|exists:users,email',
         ]);
 
-        return view('auth.resident-otp-verify', [
+        return view('pages.auth.resident-otp-verify', [
             'email' => $request->email
         ]);
     }

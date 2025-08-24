@@ -35,12 +35,10 @@ class AdminOtpNotification extends Notification
     {
         return (new MailMessage)
             ->subject('Code d\'accès administrateur - HIT')
-            ->greeting('Bonjour ' . $notifiable->getFilamentName() . ',')
-            ->line('Voici votre code d\'accès à l\'administration :')
-            ->line('**' . $this->otp . '**')
-            ->line('Ce code est valide pendant 10 minutes.')
-            ->line('Si vous n\'avez pas demandé ce code, ignorez cet email.')
-            ->salutation('L\'équipe HIT');
+            ->view('emails.admin-otp', [
+                'adminName' => $notifiable->getFullName(),
+                'otpCode' => $this->otp
+            ]);
     }
 
     /**

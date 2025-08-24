@@ -3,15 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Filament\Models\Contracts\FilamentUser;
-use Filament\Models\Contracts\HasAvatar;
-use Filament\Models\Contracts\HasName;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
 
-class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
+class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -25,8 +22,14 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
         'email',
         'name',
         'phone',
+        'password',
         'is_active',
         'category',
+        'profession',
+        'organization',
+        'city',
+        'bio',
+        'startup_description',
         'lock_raison',
         'remember_token',
         'is_verified',
@@ -69,32 +72,15 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
     }
 
     /**
-     * Determine if the user can access the Filament panel.
+     * Get the URL to the user's avatar.
      */
-    public function canAccessPanel(\Filament\Panel $panel): bool
-    {
-        return $this->isActive();
-    }
-
-    /**
-     * Get the URL to the user's avatar for Filament.
-     */
-    public function getFilamentAvatarUrl(): ?string
+    public function getAvatarUrl(): ?string
     {
         if (! $this->profile_picture) {
-            return null; // Return null if no profile picture is set
+            return null;
         }
 
         return Storage::url($this->profile_picture);
-    }
-
-    /**
-     * Get the display name for the user in Filament.
-     */
-    public function getFilamentName(): string
-    {
-        // Return the user's email as their name, or customize as needed
-        return $this->name;
     }
 
     public function orders()

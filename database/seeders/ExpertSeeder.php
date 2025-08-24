@@ -21,38 +21,38 @@ class ExpertSeeder extends Seeder
                 'organization' => 'Institut National Polytechnique Houphouët-Boigny',
                 'position' => 'Professeur en Intelligence Artificielle',
                 'linkedin' => 'https://linkedin.com/in/sylvain-kouakou-ai',
-                'specialties' => json_encode([
+                'specialties' => [
                     'Intelligence Artificielle',
                     'Machine Learning',
                     'Data Science',
                     'Vision par ordinateur'
-                ]),
+                ],
                 'specialty_other' => null,
-                'training_types' => json_encode([
+                'training_types' => [
                     'Formation technique',
                     'Conférence',
                     'Atelier pratique',
                     'Mentorat'
-                ]),
-                'pedagogical_methods' => json_encode([
+                ],
+                'pedagogical_methods' => [
                     'Apprentissage par projet',
                     'Cas d\'étude pratiques',
                     'Démonstrations techniques',
                     'Accompagnement personnalisé'
-                ]),
-                'target_audiences' => json_encode([
+                ],
+                'target_audiences' => [
                     'Étudiants en informatique',
                     'Développeurs',
                     'Entrepreneurs tech',
                     'Chercheurs'
-                ]),
-                'intervention_frequencies' => json_encode(['Mensuelle', 'Trimestrielle']),
-                'preferred_days_detailed' => json_encode([
+                ],
+                'intervention_frequencies' => ['Mensuelle', 'Trimestrielle'],
+                'preferred_days_detailed' => [
                     'Mardi' => ['14:00-17:00'],
                     'Jeudi' => ['09:00-12:00', '14:00-17:00'],
                     'Samedi' => ['09:00-16:00']
-                ]),
-                'time_slots' => json_encode(['Matinée', 'Après-midi']),
+                ],
+                'time_slots' => ['Matinée', 'Après-midi'],
                 'cv_path' => 'experts/cv_sylvain_kouakou.pdf',
                 'status' => 'approved',
                 'admin_notes' => 'Excellent expert en IA, très pédagogue. Recommandé pour formations avancées.',
@@ -66,38 +66,38 @@ class ExpertSeeder extends Seeder
                 'organization' => 'Tech Women Africa',
                 'position' => 'CEO & Fondatrice',
                 'linkedin' => 'https://linkedin.com/in/rebecca-adjoua',
-                'specialties' => json_encode([
+                'specialties' => [
                     'Entrepreneuriat féminin',
                     'Leadership tech',
                     'Financement startup',
                     'Développement produit'
-                ]),
+                ],
                 'specialty_other' => null,
-                'training_types' => json_encode([
+                'training_types' => [
                     'Workshop entrepreneuriat',
                     'Mentorat',
                     'Conférence inspirante',
                     'Bootcamp'
-                ]),
-                'pedagogical_methods' => json_encode([
+                ],
+                'pedagogical_methods' => [
                     'Storytelling',
                     'Études de cas réels',
                     'Networking actif',
                     'Pitch training'
-                ]),
-                'target_audiences' => json_encode([
+                ],
+                'target_audiences' => [
                     'Femmes entrepreneures',
                     'Startups early-stage',
                     'Étudiantes',
                     'Investisseurs'
-                ]),
-                'intervention_frequencies' => json_encode(['Hebdomadaire', 'Mensuelle']),
-                'preferred_days_detailed' => json_encode([
+                ],
+                'intervention_frequencies' => ['Hebdomadaire', 'Mensuelle'],
+                'preferred_days_detailed' => [
                     'Mercredi' => ['18:00-20:00'],
                     'Vendredi' => ['14:00-17:00'],
                     'Samedi' => ['10:00-15:00']
-                ]),
-                'time_slots' => json_encode(['Après-midi', 'Soirée']),
+                ],
+                'time_slots' => ['Après-midi', 'Soirée'],
                 'cv_path' => 'experts/cv_rebecca_adjoua.pdf',
                 'status' => 'approved',
                 'admin_notes' => 'Excellente pour le mentorat des femmes entrepreneures. Grande expérience.',
@@ -111,38 +111,38 @@ class ExpertSeeder extends Seeder
                 'organization' => 'Orange Digital Center',
                 'position' => 'Directeur Innovation',
                 'linkedin' => 'https://linkedin.com/in/mamadou-traore-innovation',
-                'specialties' => json_encode([
+                'specialties' => [
                     'Transformation digitale',
                     'Innovation management',
                     'Fintech',
                     'Mobile money'
-                ]),
+                ],
                 'specialty_other' => null,
-                'training_types' => json_encode([
+                'training_types' => [
                     'Formation executive',
                     'Conférence',
                     'Consulting',
                     'Design thinking workshop'
-                ]),
-                'pedagogical_methods' => json_encode([
+                ],
+                'pedagogical_methods' => [
                     'Design thinking',
                     'Lean startup',
                     'Innovation labs',
                     'Prototypage rapide'
-                ]),
-                'target_audiences' => json_encode([
+                ],
+                'target_audiences' => [
                     'Dirigeants d\'entreprise',
                     'Équipes innovation',
                     'Startups fintech',
                     'Développeurs'
-                ]),
-                'intervention_frequencies' => json_encode(['Mensuelle', 'Trimestrielle']),
-                'preferred_days_detailed' => json_encode([
+                ],
+                'intervention_frequencies' => ['Mensuelle', 'Trimestrielle'],
+                'preferred_days_detailed' => [
                     'Lundi' => ['09:00-12:00'],
                     'Mardi' => ['14:00-18:00'],
                     'Vendredi' => ['09:00-17:00']
-                ]),
-                'time_slots' => json_encode(['Matinée', 'Après-midi']),
+                ],
+                'time_slots' => ['Matinée', 'Après-midi'],
                 'cv_path' => 'experts/cv_mamadou_traore.pdf',
                 'status' => 'approved',
                 'admin_notes' => 'Expert reconnu en transformation digitale. Très bon formateur.',
@@ -156,38 +156,38 @@ class ExpertSeeder extends Seeder
                 'organization' => 'CyberSec West Africa',
                 'position' => 'Security Consultant',
                 'linkedin' => 'https://linkedin.com/in/aisha-dembele-cybersec',
-                'specialties' => json_encode([
+                'specialties' => [
                     'Cybersécurité',
                     'Ethical hacking',
                     'Sécurité mobile',
                     'Audit sécurité'
-                ]),
+                ],
                 'specialty_other' => null,
-                'training_types' => json_encode([
+                'training_types' => [
                     'Formation technique',
                     'Atelier sécurité',
                     'Audit formation',
                     'Certification'
-                ]),
-                'pedagogical_methods' => json_encode([
+                ],
+                'pedagogical_methods' => [
                     'Hands-on labs',
                     'Red team exercises',
                     'Analyse de vulnérabilités',
                     'Simulations d\'attaque'
-                ]),
-                'target_audiences' => json_encode([
+                ],
+                'target_audiences' => [
                     'IT professionals',
                     'Développeurs',
                     'RSSI',
                     'Étudiants cybersécurité'
-                ]),
-                'intervention_frequencies' => json_encode(['Mensuelle', 'Ponctuelle']),
-                'preferred_days_detailed' => json_encode([
+                ],
+                'intervention_frequencies' => ['Mensuelle', 'Ponctuelle'],
+                'preferred_days_detailed' => [
                     'Mercredi' => ['09:00-17:00'],
                     'Jeudi' => ['09:00-17:00'],
                     'Samedi' => ['09:00-12:00']
-                ]),
-                'time_slots' => json_encode(['Journée complète', 'Matinée']),
+                ],
+                'time_slots' => ['Journée complète', 'Matinée'],
                 'cv_path' => 'experts/cv_aisha_dembele.pdf',
                 'status' => 'approved',
                 'admin_notes' => 'Experte cybersécurité de haut niveau. Formations très techniques.',
@@ -201,38 +201,38 @@ class ExpertSeeder extends Seeder
                 'organization' => 'Blockchain Africa Institute',
                 'position' => 'Lead Blockchain Developer',
                 'linkedin' => 'https://linkedin.com/in/jb-koffi-blockchain',
-                'specialties' => json_encode([
+                'specialties' => [
                     'Blockchain',
                     'Smart contracts',
                     'DeFi',
                     'Web3 development'
-                ]),
+                ],
                 'specialty_other' => null,
-                'training_types' => json_encode([
+                'training_types' => [
                     'Bootcamp blockchain',
                     'Workshop smart contracts',
                     'Formation DeFi',
                     'Mentorat technique'
-                ]),
-                'pedagogical_methods' => json_encode([
+                ],
+                'pedagogical_methods' => [
                     'Coding sessions',
                     'Live coding',
                     'Projets pratiques',
                     'Code review'
-                ]),
-                'target_audiences' => json_encode([
+                ],
+                'target_audiences' => [
                     'Développeurs',
                     'Entrepreneurs crypto',
                     'Fintech teams',
                     'Étudiants informatique'
-                ]),
-                'intervention_frequencies' => json_encode(['Hebdomadaire', 'Mensuelle']),
-                'preferred_days_detailed' => json_encode([
+                ],
+                'intervention_frequencies' => ['Hebdomadaire', 'Mensuelle'],
+                'preferred_days_detailed' => [
                     'Lundi' => ['18:00-21:00'],
                     'Mercredi' => ['18:00-21:00'],
                     'Samedi' => ['14:00-18:00']
-                ]),
-                'time_slots' => json_encode(['Soirée', 'Après-midi']),
+                ],
+                'time_slots' => ['Soirée', 'Après-midi'],
                 'cv_path' => 'experts/cv_jb_koffi.pdf',
                 'status' => 'pending',
                 'admin_notes' => null,

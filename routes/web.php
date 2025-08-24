@@ -48,3 +48,50 @@ Route::middleware('auth')->group(function () {
 
 // Routes des résidents
 require __DIR__.'/web/resident.php';
+
+// Routes d'administration native (remplace Filament)
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\EspaceController;
+use App\Http\Controllers\Admin\PartnershipController;
+use App\Http\Controllers\Admin\ArticleController;
+use App\Http\Controllers\Admin\EventController;
+use App\Http\Controllers\Admin\BookingController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ExpertController;
+
+Route::prefix('admin')->name('admin.')->middleware('admin.auth')->group(function () {
+    Route::get('/', function () {
+        return redirect()->route('admin.dashboard');
+    });
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    
+    // Routes Espaces
+    Route::resource('espaces', EspaceController::class);
+    Route::post('espaces/{espace}/publish', [EspaceController::class, 'publish'])->name('espaces.publish');
+    Route::post('espaces/{espace}/unpublish', [EspaceController::class, 'unpublish'])->name('espaces.unpublish');
+    
+    // Routes Partenariats
+    Route::resource('partnerships', PartnershipController::class);
+    Route::post('partnerships/{partnership}/approve', [PartnershipController::class, 'approve'])->name('partnerships.approve');
+    Route::post('partnerships/{partnership}/reject', [PartnershipController::class, 'reject'])->name('partnerships.reject');
+    
+    // Routes Articles
+    Route::resource('articles', ArticleController::class);
+    
+    // Routes Événements
+    Route::resource('events', EventController::class);
+    
+    // Routes Demandes de visite (Bookings)
+    Route::resource('bookings', BookingController::class);
+    Route::post('bookings/{booking}/approve', [BookingController::class, 'approve'])->name('bookings.approve');
+    Route::post('bookings/{booking}/reject', [BookingController::class, 'reject'])->name('bookings.reject');
+    
+    // Routes Utilisateurs
+    Route::resource('users', UserController::class);
+    Route::post('users/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggle-status');
+    
+    // Routes Experts
+    Route::resource('experts', ExpertController::class);
+    Route::post('experts/{expert}/approve', [ExpertController::class, 'approve'])->name('experts.approve');
+    Route::post('experts/{expert}/reject', [ExpertController::class, 'reject'])->name('experts.reject');
+});

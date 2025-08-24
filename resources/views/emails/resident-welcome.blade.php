@@ -1,29 +1,22 @@
-<x-layouts.email title="Bienvenue sur Hub Ivoire Tech !">
-    <p>Bonjour <strong>{{ $resident->name }}</strong>,</p>
-    <p>Nous avons le plaisir de vous informer que votre candidature a été <strong>approuvée</strong> et que votre compte résident a été activé avec succès sur notre plateforme.</p>
+<x-layouts.email>
+    <h1>Bienvenue sur Hub Ivoire Tech !</h1>
     
-    <h2>Connexion à votre espace résident</h2>
-    <p>Votre identifiant de connexion : <strong>{{ $resident->email }}</strong></p>
-    <p>La connexion à votre espace se fait par <strong>code OTP</strong> (One-Time Password) qui vous sera envoyé par email à chaque connexion pour sécuriser votre compte.</p>
+    <p>Bonjour {{ $resident->name }},</p>
+    <p>Votre candidature a été approuvée et votre compte résident est maintenant activé.</p>
     
-    <p style="text-align: center; margin: 30px 0;">
-        <a href="{{ route('filament.resident.auth.login') }}" class="button">Accéder à mon espace résident</a>
-    </p>
-
-    <h2>Que pouvez-vous faire maintenant ?</h2>
-    <ul>
-        <li>Réserver des espaces de travail</li>
-        <li>Consulter le calendrier des événements</li>
-        <li>Mettre à jour votre profil</li>
-        <li>Accéder aux services du hub</li>
-    </ul>
-
-    <p>Si vous avez des questions ou avez besoin d'assistance, n'hésitez pas à nous contacter.</p>
+    <div style="background-color: #f7fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 20px; margin: 20px 0;">
+        <h3 style="color: #2d3748; margin: 0 0 15px 0;">Informations de connexion</h3>
+        <p><strong>Email :</strong> {{ $resident->email }}</p>
+        <p>La connexion se fait par code OTP envoyé par email à chaque connexion.</p>
+    </div>
+    
+    <p><strong>Vos nouveaux accès :</strong></p>
+    <p>• Réserver des espaces de travail<br>
+    • Consulter le calendrier des événements<br>
+    • Mettre à jour votre profil<br>
+    • Accéder aux services du hub</p>
+    
     <p>Bienvenue dans la communauté Hub Ivoire Tech !</p>
     
-    <p>Cordialement,<br>
-    <strong>L'équipe Hub Ivoire Tech</strong></p>
-
-    <hr>
-    <p style="font-size: 12px; color: #777;"><em>Cet email a été envoyé à {{ $resident->email }}.</em></p>
+    <p>Cordialement,<br>L'équipe Hub Ivoire Tech</p>
 </x-layouts.email>

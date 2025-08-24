@@ -18,7 +18,7 @@ class EventSeeder extends Seeder
      */
     public function run(): void
     {
-        $createdBy = 1;
+        $createdBy = \App\Models\Administrator::first()->id;
 
         $events = [
             [
@@ -31,10 +31,10 @@ class EventSeeder extends Seeder
                 'is_remote' => false,
                 'max_participants' => 300,
                 'registration_end_date' => Carbon::now()->addDays(30),
-                'is_paid' => true,
-                'price' => 75000,
+                'is_paid' => false,
+                'price' => 0,
                 'currency' => Currency::XOF->value,
-                'early_bird_price' => 50000,
+                'early_bird_price' => 0,
                 'early_bird_end_date' => Carbon::now()->addDays(20),
                 'illustration' => 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=1000&auto=format&fit=crop',
                 'status' => EventStatus::PUBLISHED->value,
@@ -49,10 +49,10 @@ class EventSeeder extends Seeder
                 'is_remote' => false,
                 'max_participants' => 25,
                 'registration_end_date' => Carbon::now()->addDays(15),
-                'is_paid' => true,
-                'price' => 30000,
+                'is_paid' => false,
+                'price' => 0,
                 'currency' => Currency::XOF->value,
-                'early_bird_price' => 25000,
+                'early_bird_price' => 0,
                 'early_bird_end_date' => Carbon::now()->addDays(10),
                 'illustration' => 'https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=1000&auto=format&fit=crop',
                 'status' => EventStatus::PUBLISHED->value,
@@ -95,10 +95,10 @@ class EventSeeder extends Seeder
                 'is_remote' => false,
                 'max_participants' => 30,
                 'registration_end_date' => Carbon::now()->addDays(35),
-                'is_paid' => true,
-                'price' => 150000,
+                'is_paid' => false,
+                'price' => 0,
                 'currency' => Currency::XOF->value,
-                'early_bird_price' => 120000,
+                'early_bird_price' => 0,
                 'early_bird_end_date' => Carbon::now()->addDays(25),
                 'illustration' => 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop',
                 'status' => EventStatus::PUBLISHED->value,
@@ -113,8 +113,8 @@ class EventSeeder extends Seeder
                 'is_remote' => false,
                 'max_participants' => 120,
                 'registration_end_date' => Carbon::now()->addDays(50),
-                'is_paid' => true,
-                'price' => 10000,
+                'is_paid' => false,
+                'price' => 0,
                 'currency' => Currency::XOF->value,
                 'illustration' => 'https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1000&auto=format&fit=crop',
                 'status' => EventStatus::DRAFT->value,

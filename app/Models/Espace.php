@@ -57,10 +57,49 @@ class Espace extends Model
         'floor' => 'string',
         'ended_at' => 'datetime',
         'started_at' => 'datetime',
+        'is_active' => 'boolean',
     ];
 
     public function orders()
     {
         return $this->hasMany(EspaceOrder::class);
+    }
+
+    /**
+     * Get the illustration URL
+     */
+    public function getIllustrationUrlAttribute(): ?string
+    {
+        if (!$this->illustration) {
+            return null;
+        }
+        
+        // Si c'est déjà une URL complète (commence par http)
+        if (str_starts_with($this->illustration, 'http')) {
+            return $this->illustration;
+        }
+        
+        // Sinon, c'est un fichier local
+        return asset('storage/' . $this->illustration);
+    }
+
+    /**
+     * Get the images URLs
+     */
+    public function getImagesUrlsAttribute(): array
+    {
+        if (!$this->images) {
+            return [];
+        }
+
+        return collect($this->images)->map(function ($image) {
+            // Si c'est déjà une URL complète (commence par http)
+            if (str_starts_with($image, 'http')) {
+                return $image;
+            }
+            
+            // Sinon, c'est un fichier local
+            return asset('storage/' . $image);
+        })->toArray();
     }
 }

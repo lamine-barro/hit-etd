@@ -28,7 +28,7 @@ class BookingSeeder extends Seeder
                 'email' => 'marie-josee.koffi@mtn.ci',
                 'phone' => '+2250701234567',
                 'time' => '2 heures',
-                'spaces' => json_encode(['Espace coworking', 'Fab-lab', 'Salles de réunion']),
+                'spaces' => ['Espace coworking', 'Fab-lab', 'Salles de réunion'],
                 'message' => 'MTN Côte d\'Ivoire souhaite visiter le Hub pour évaluer les opportunités de partenariat dans l\'innovation tech. Nous sommes particulièrement intéressés par l\'écosystème startup et les solutions fintech développées au Hub.',
             ],
             [
@@ -44,7 +44,7 @@ class BookingSeeder extends Seeder
                 'email' => 'abdoulaye.ouedraogo@gov.bf',
                 'phone' => '+2267012345678',
                 'time' => '3 heures',
-                'spaces' => json_encode(['Fab-lab principal', 'Espaces prototypage', 'Bureaux privés']),
+                'spaces' => ['Fab-lab principal', 'Espaces prototypage', 'Bureaux privés'],
                 'message' => 'Délégation du Ministère de l\'Économie Numérique du Burkina Faso. Nous étudions la création d\'un hub tech à Ouagadougou et souhaitons nous inspirer du modèle Hub Ivoire Tech.',
             ],
             [
@@ -60,7 +60,7 @@ class BookingSeeder extends Seeder
                 'email' => 'rama.sall@bceao.int',
                 'phone' => '+2213391234567',
                 'time' => '2 heures',
-                'spaces' => json_encode(['Grande salle de conférence', 'Espaces networking', 'Équipements tech']),
+                'spaces' => ['Grande salle de conférence', 'Espaces networking', 'Équipements tech'],
                 'message' => 'BCEAO organise un hackathon fintech régional pour les pays de l\'UEMOA. Nous évaluons le Hub Ivoire Tech comme lieu d\'accueil pour cet événement de 3 jours avec 200 participants.',
             ],
             [
@@ -76,7 +76,7 @@ class BookingSeeder extends Seeder
                 'email' => 'aicha.diaby@uvci.edu.ci',
                 'phone' => '+2250709876543',
                 'time' => '1h30',
-                'spaces' => json_encode(['Open spaces', 'Espaces collaboration']),
+                'spaces' => ['Open spaces', 'Espaces collaboration'],
                 'message' => 'Étudiante en Master Management Innovation à l\'UVCI. Je recherche un stage dans l\'accompagnement de startups tech et souhaiterais découvrir les opportunités au Hub Ivoire Tech.',
             ],
             [
@@ -92,7 +92,7 @@ class BookingSeeder extends Seeder
                 'email' => 'jp.dubois@partech.africa',
                 'phone' => '+33142567890',
                 'time' => '3 heures',
-                'spaces' => json_encode(['Tous les espaces', 'Rencontre avec startups']),
+                'spaces' => ['Tous les espaces', 'Rencontre avec startups'],
                 'message' => 'Partech Africa accompagne une délégation d\'investisseurs européens en mission en Afrique de l\'Ouest. Nous souhaitons visiter le Hub, rencontrer les startups incubées et comprendre l\'écosystème tech ivoirien.',
             ],
             [
@@ -108,7 +108,7 @@ class BookingSeeder extends Seeder
                 'email' => 'konan.yao@aircotedivoire.com',
                 'phone' => '+2250202345678',
                 'time' => '2 heures',
-                'spaces' => json_encode(['Salles de formation', 'Équipements audiovisuels']),
+                'spaces' => ['Salles de formation', 'Équipements audiovisuels'],
                 'message' => 'Air Côte d\'Ivoire souhaite développer les compétences digitales de ses équipes. Nous évaluons le Hub pour organiser des formations en transformation digitale pour nos 500 employés.',
             ],
             [
@@ -124,7 +124,7 @@ class BookingSeeder extends Seeder
                 'email' => 'sarah.johnson@bbc.co.uk',
                 'phone' => '+441234567890',
                 'time' => '2 heures',
-                'spaces' => json_encode(['Fab-lab', 'Espaces startup', 'Zones interview']),
+                'spaces' => ['Fab-lab', 'Espaces startup', 'Zones interview'],
                 'message' => 'Équipe BBC produisant un documentaire sur l\'innovation technologique en Afrique. Nous souhaitons filmer au Hub Ivoire Tech et interviewer des entrepreneurs pour illustrer la dynamique tech africaine.',
             ],
             [
@@ -140,7 +140,7 @@ class BookingSeeder extends Seeder
                 'email' => 'awa.thiaw@womenintechci.org',
                 'phone' => '+2250708765432',
                 'time' => '2 heures',
-                'spaces' => json_encode(['Salle réunion 20 personnes', 'Espace networking']),
+                'spaces' => ['Salle réunion 20 personnes', 'Espace networking'],
                 'message' => 'Women in Tech CI organise sa réunion mensuelle. Nous rassemblons les femmes entrepreneures et professionnelles tech de Côte d\'Ivoire pour partager expériences et opportunités de collaboration.',
             ],
             [
@@ -156,7 +156,7 @@ class BookingSeeder extends Seeder
                 'email' => 'moussa.sangare@agripay.ci',
                 'phone' => '+2250707123789',
                 'time' => '3 heures',
-                'spaces' => json_encode(['Espace événements', 'Zone démonstration', 'Networking']),
+                'spaces' => ['Espace événements', 'Zone démonstration', 'Networking'],
                 'message' => 'AgriPay lance sa plateforme de paiement mobile pour agriculteurs. Nous souhaitons organiser notre événement de lancement au Hub avec 100 invités : agriculteurs, investisseurs, partenaires et média.',
             ],
             [
@@ -172,7 +172,7 @@ class BookingSeeder extends Seeder
                 'email' => 'sandra.beugre@freelance.ci',
                 'phone' => '+2250706543210',
                 'time' => '8 heures',
-                'spaces' => json_encode(['Bureau privé', 'Accès wifi', 'Zone détente']),
+                'spaces' => ['Bureau privé', 'Accès wifi', 'Zone détente'],
                 'message' => 'Consultante freelance en stratégie digitale. Je souhaite tester l\'environnement de travail du Hub pour une journée avant de considérer un abonnement mensuel. J\'ai plusieurs clients dans la tech.',
             ],
         ];

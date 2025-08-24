@@ -10,7 +10,7 @@
                 <span class="mx-2 text-gray-400">/</span>
                 <a href="{{ route('events') }}" class="text-gray-500 hover:text-gray-700">{{ __("Événements") }}</a>
                 <span class="mx-2 text-gray-400">/</span>
-                <a href="{{ route('events.show', $eventRegistration->event) }}" class="text-gray-500 hover:text-gray-700">{{ $eventRegistration->event->title }}</a>
+                <a href="{{ route('events.show', $eventRegistration->event->slug) }}" class="text-gray-500 hover:text-gray-700">{{ $eventRegistration->event->title }}</a>
                 <span class="mx-2 text-gray-400">/</span>
                 <span class="text-gray-900">{{ __("Paiement") }}</span>
             </nav>

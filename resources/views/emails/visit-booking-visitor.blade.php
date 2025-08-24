@@ -1,43 +1,27 @@
-<x-layouts.email title="Confirmation de demande de visite">
-    <p>Bonjour <strong>{{ $name }}</strong>,</p>
-    <p>Votre demande de visite du <strong>Hub Ivoire Tech</strong> a été reçue avec succès.</p>
-
-    <div style="background: #e6fffa; border: 1px solid #b2f5ea; padding: 15px; border-radius: 8px; margin: 20px 0; text-align: center;">
-        <h3 style="margin: 0 0 10px 0; color: #00897b;">Demande enregistrée !</h3>
-        <p style="margin: 0;">Nous vous contacterons sous 3 jours ouvrés pour confirmer votre rendez-vous.</p>
+<x-layouts.email>
+    <h1>Demande de visite reçue</h1>
+    
+    <p>Bonjour {{ $name }},</p>
+    <p>Votre demande de visite du Hub Ivoire Tech a été reçue avec succès.</p>
+    
+    <div style="background-color: #f0f9ff; border: 1px solid #bfdbfe; border-radius: 6px; padding: 20px; margin: 20px 0; text-align: center;">
+        <p style="margin: 0; color: #1d4ed8; font-weight: 600;">Nous vous contacterons sous 3 jours ouvrés</p>
     </div>
-
-    <div style="background: #f8f9fa; border: 1px solid #e9ecef; padding: 15px; border-radius: 8px; margin: 20px 0;">
-        <h3 style="margin: 0 0 15px 0; color: #FF6B00; border-bottom: 1px solid #e9ecef; padding-bottom: 10px;">
-            Récapitulatif de votre demande
-        </h3>
-        <p><strong>Date souhaitée:</strong> {{ $date }}</p>
-        <p><strong>Heure souhaitée:</strong> {{ $time }}</p>
-        <p><strong>Objet de la visite:</strong> {{ ucfirst($purpose) }}</p>
-        <div>
-            <strong>Espaces à visiter:</strong>
-            <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 5px;">
-                @foreach($spaces as $space)
-                    <span style="background: #FF6B00; color: white; padding: 5px 10px; border-radius: 15px; font-size: 12px;">
-                        {{ ucfirst($space) }}
-                    </span>
-                @endforeach
-            </div>
-        </div>
+    
+    <div style="background-color: #f7fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 20px; margin: 20px 0;">
+        <h3 style="color: #2d3748; margin: 0 0 15px 0;">Récapitulatif</h3>
+        <p><strong>Date :</strong> {{ $date }}</p>
+        <p><strong>Heure :</strong> {{ $time }}</p>
+        <p><strong>Objet :</strong> {{ ucfirst($purpose) }}</p>
+        <p><strong>Espaces :</strong> {{ implode(', ', array_map('ucfirst', $spaces)) }}</p>
     </div>
-
-    <div style="background: #fff3e0; border: 1px solid #ffcc80; padding: 15px; border-radius: 8px; margin: 20px 0;">
-        <h3 style="margin: 0 0 15px 0; color: #ff8f00;">Prochaines étapes</h3>
-        <ul>
-            <li><strong>Confirmation:</strong> Validation de votre créneau sous 3 jours ouvrés.</li>
-            <li><strong>Préparation:</strong> Organisation de votre visite personnalisée.</li>
-            <li><strong>Accueil:</strong> Découverte de nos espaces et de notre écosystème.</li>
-        </ul>
-        <div style="background: #fff8e1; padding: 10px; border-radius: 4px; margin-top: 15px; border-left: 4px solid #FF6B00;">
-            <strong>Rappel:</strong> Les visites nécessitent un préavis de 72h minimum et se font uniquement sur rendez-vous (mardi et jeudi).
-        </div>
+    
+    <div style="background-color: #fef5e7; border: 1px solid #f6ad55; border-radius: 6px; padding: 20px; margin: 20px 0;">
+        <h3 style="color: #744210; margin: 0 0 15px 0;">Rappel important</h3>
+        <p>Les visites se font uniquement sur rendez-vous (mardi et jeudi) avec un préavis de 72h minimum.</p>
     </div>
-
-    <p style="text-align: center;">Merci pour votre intérêt à découvrir notre campus !</p>
-    <p style="text-align: center;"><strong>L'équipe Hub Ivoire Tech</strong></p>
+    
+    <p>Merci pour votre intérêt à découvrir notre campus !</p>
+    
+    <p>Cordialement,<br>L'équipe Hub Ivoire Tech</p>
 </x-layouts.email>

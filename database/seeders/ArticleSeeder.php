@@ -18,7 +18,7 @@ class ArticleSeeder extends Seeder
      */
     public function run(): void
     {
-        $authorId = 1;
+        $authorId = \App\Models\Administrator::first()->id;
         $newIllustration = 'https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=1000&auto=format&fit=crop';
 
         $articles = [

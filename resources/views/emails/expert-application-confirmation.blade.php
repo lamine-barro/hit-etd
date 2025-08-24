@@ -1,49 +1,35 @@
-<x-layouts.email title="Confirmation de candidature Expert">
-    <p>Bonjour <strong>{{ $expert->name }}</strong>,</p>
-    <p>Votre candidature pour devenir expert au <strong>Hub Ivoire Tech</strong> a été reçue avec succès.</p>
-
-    <div style="background: #d1ecf1; border: 1px solid #bee5eb; padding: 15px; border-radius: 8px; margin: 20px 0; text-align: center;">
-        <strong>Candidature enregistrée !</strong>
-        @if($expert->id)
-            <br>Référence : <strong>#EXP{{ str_pad($expert->id, 4, '0', STR_PAD_LEFT) }}</strong>
-        @endif
+<x-layouts.email>
+    <h1>Candidature expert reçue</h1>
+    
+    <p>Bonjour {{ $expert->name }},</p>
+    <p>Votre candidature pour devenir expert au Hub Ivoire Tech a été reçue avec succès.</p>
+    
+    @if($expert->id)
+    <div style="background-color: #f0f9ff; border: 1px solid #bfdbfe; border-radius: 6px; padding: 20px; margin: 20px 0; text-align: center;">
+        <p style="margin: 0; color: #1d4ed8; font-weight: 600;">Référence : #EXP{{ str_pad($expert->id, 4, '0', STR_PAD_LEFT) }}</p>
     </div>
-
-    <div style="background: #f8f9fa; border: 1px solid #e9ecef; padding: 15px; border-radius: 8px; margin: 20px 0;">
-        <h3 style="margin: 0 0 15px 0; color: #495057; border-bottom: 1px solid #e9ecef; padding-bottom: 10px;">
-            Récapitulatif
-        </h3>
-        <p><strong>Email:</strong> {{ $expert->email }}</p>
+    @endif
+    
+    <div style="background-color: #f7fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 20px; margin: 20px 0;">
+        <h3 style="color: #2d3748; margin: 0 0 15px 0;">Récapitulatif</h3>
+        <p><strong>Email :</strong> {{ $expert->email }}</p>
         @if($expert->phone)
-            <p><strong>Téléphone:</strong> {{ $expert->phone }}</p>
+        <p><strong>Téléphone :</strong> {{ $expert->phone }}</p>
         @endif
         @if($expert->specialties && is_array($expert->specialties) && count($expert->specialties) > 0)
-            <div>
-                <strong>Spécialités:</strong>
-                <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 5px;">
-                    @foreach($expert->specialties as $specialty)
-                        <span style="background: #e9ecef; padding: 4px 8px; border-radius: 12px; font-size: 12px; color: #495057;">
-                            {{ ucfirst(str_replace('_', ' ', $specialty)) }}
-                        </span>
-                    @endforeach
-                </div>
-            </div>
+        <p><strong>Spécialités :</strong> {{ implode(', ', array_map(fn($s) => ucfirst(str_replace('_', ' ', $s)), $expert->specialties)) }}</p>
         @endif
         @if($expert->intervention_frequency)
-            <p style="margin-top: 10px;"><strong>Fréquence:</strong> {{ ucfirst($expert->intervention_frequency) }}</p>
+        <p><strong>Fréquence :</strong> {{ ucfirst($expert->intervention_frequency) }}</p>
         @endif
     </div>
-
-    <div style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; border-radius: 8px; margin: 20px 0;">
-        <h3 style="margin: 0 0 15px 0; color: #856404;">Prochaines étapes</h3>
-        <ul>
-            <li><strong>Évaluation:</strong> Analyse de votre profil sous 5-7 jours.</li>
-            <li><strong>Validation:</strong> Vérification de vos compétences.</li>
-            <li><strong>Intégration:</strong> Inscription dans notre pool d'experts.</li>
-        </ul>
-    </div>
-
+    
+    <p><strong>Prochaines étapes :</strong></p>
+    <p>• Évaluation de votre profil (5-7 jours)<br>
+    • Vérification de vos compétences<br>
+    • Intégration dans notre pool d'experts</p>
+    
     <p>Nous vous remercions pour votre volonté de partager votre expertise.</p>
-    <p>Cordialement,<br>
-    <strong>L'équipe Hub Ivoire Tech</strong></p>
+    
+    <p>Cordialement,<br>L'équipe Hub Ivoire Tech</p>
 </x-layouts.email>

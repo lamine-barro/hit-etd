@@ -1,28 +1,20 @@
-<x-layouts.email title="Bienvenue dans la communauté Hub Ivoire Tech !">
-    <p>Cher·e {{ $name }},</p>
-    <p>Nous sommes ravis de vous confirmer votre inscription à notre newsletter. Vous recevrez désormais nos actualités et informations importantes concernant nos activités, événements et opportunités.</p>
-
-    <h2>Vos préférences de communication</h2>
-    <ul>
-        <li>Newsletter par email : {{ $newsletter_email ? 'Activée' : 'Désactivée' }}</li>
-        <li>Newsletter par WhatsApp : {{ $newsletter_whatsapp ? 'Activée' : 'Désactivée' }}</li>
-    </ul>
-
-    @if(count($interests) > 0)
-    <h2>Vos centres d'intérêt</h2>
-    <ul>
-        @foreach($interests as $interest)
-        <li>{{ $interest }}</li>
-        @endforeach
-    </ul>
-    @endif
-
-    <p>Vous pouvez à tout moment modifier vos préférences ou vous désinscrire en nous contactant.</p>
-
-    <p style="text-align: center; margin: 30px 0;">
-        <a href="{{ config('app.url') }}" class="button">Visiter notre site</a>
-    </p>
-
-    <p>Merci de votre confiance,<br>
-    <strong>{{ config('app.name') }}</strong></p>
+<x-layouts.email>
+    <h1>Inscription confirmée</h1>
+    
+    <p>Bonjour {{ $name }},</p>
+    <p>Votre inscription à notre newsletter est confirmée. Vous recevrez nos actualités et informations sur nos activités.</p>
+    
+    <div style="background-color: #f7fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 20px; margin: 20px 0;">
+        <h3 style="color: #2d3748; margin: 0 0 15px 0;">Vos préférences</h3>
+        <p><strong>Email :</strong> {{ $newsletter_email ? 'Activé' : 'Désactivé' }}</p>
+        <p><strong>WhatsApp :</strong> {{ $newsletter_whatsapp ? 'Activé' : 'Désactivé' }}</p>
+        
+        @if(count($interests) > 0)
+        <p><strong>Centres d'intérêt :</strong> {{ implode(', ', $interests) }}</p>
+        @endif
+    </div>
+    
+    <p>Vous pouvez modifier ces préférences ou vous désinscrire en nous contactant.</p>
+    
+    <p>Merci de votre confiance,<br>L'équipe Hub Ivoire Tech</p>
 </x-layouts.email>

@@ -17,6 +17,10 @@ return Application::configure(basePath: dirname(__DIR__))
             \App\Http\Middleware\Localization::class,
         ]);
 
+        $middleware->alias([
+            'admin.auth' => \App\Http\Middleware\AdminAuth::class,
+        ]);
+
         $middleware->validateCsrfTokens(except: [
             'api/webhooks/paystack',
         ]);

@@ -18,7 +18,7 @@ class AdminOtpAuthController extends Controller
      */
     public function showRequestForm()
     {
-        return view('auth.admin-otp-request');
+        return view('pages.auth.admin-otp-request');
     }
 
     /**
@@ -47,7 +47,7 @@ class AdminOtpAuthController extends Controller
 
         RateLimiter::hit($key, 300); // 5 minutes
 
-        return view('auth.admin-otp-verify', [
+        return view('pages.auth.admin-otp-verify', [
             'email' => $request->email,
             'message' => 'Un code d\'accès a été envoyé à votre adresse email.'
         ]);
@@ -62,7 +62,7 @@ class AdminOtpAuthController extends Controller
             'email' => 'required|email|exists:administrators,email',
         ]);
 
-        return view('auth.admin-otp-verify', [
+        return view('pages.auth.admin-otp-verify', [
             'email' => $request->email
         ]);
     }
@@ -104,7 +104,7 @@ class AdminOtpAuthController extends Controller
         
         RateLimiter::clear($key);
 
-        return redirect()->intended(route('filament.admin.pages.dashboard'));
+        return redirect()->intended(route('admin.dashboard'));
     }
 
     /**

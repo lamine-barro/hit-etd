@@ -17,12 +17,12 @@
 
             <!-- Menu de navigation (centre) -->
             <div class="hidden md:flex items-center justify-center space-x-6 lg:space-x-8">
-                <a href="{{ route('home') }}#why-hit" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __("Accueil") }}</a>
-                <a href="{{ route('events') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __("Événements") }}</a>
-                <a href="{{ route('actualites') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __("Actualités") }}</a>
-                <a href="{{ route('visitez-le-campus') }}" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1">{{ __("Visiter le hub") }}</a>
+                <a href="{{ route('home') }}#why-hit" class="text-sm lg:text-base {{ request()->routeIs('home') ? 'text-primary-600 font-semibold' : 'text-gray-700 hover:text-primary-600' }} font-medium transition px-2 py-1">{{ __("Accueil") }}</a>
+                <a href="{{ route('events') }}" class="text-sm lg:text-base {{ request()->routeIs('events*') ? 'text-primary-600 font-semibold' : 'text-gray-700 hover:text-primary-600' }} font-medium transition px-2 py-1">{{ __("Événements") }}</a>
+                <a href="{{ route('actualites') }}" class="text-sm lg:text-base {{ request()->routeIs('actualites*') || request()->routeIs('blog*') ? 'text-primary-600 font-semibold' : 'text-gray-700 hover:text-primary-600' }} font-medium transition px-2 py-1">{{ __("Actualités") }}</a>
+                <a href="{{ route('visitez-le-campus') }}" class="text-sm lg:text-base {{ request()->routeIs('visitez-le-campus') ? 'text-primary-600 font-semibold' : 'text-gray-700 hover:text-primary-600' }} font-medium transition px-2 py-1">{{ __("Visiter le hub") }}</a>
                 <div class="relative group" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
-                    <button type="button" class="text-sm lg:text-base text-gray-700 hover:text-primary-600 font-medium transition px-2 py-1 flex items-center gap-1" @click="open = !open">
+                    <button type="button" class="text-sm lg:text-base {{ request()->routeIs('applications*') ? 'text-primary-600 font-semibold' : 'text-gray-700 hover:text-primary-600' }} font-medium transition px-2 py-1 flex items-center gap-1" @click="open = !open">
                         {{ __("Rejoindre Hub") }}
                         <svg class="w-4 h-4 ml-1 transition-transform duration-200" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -94,16 +94,16 @@
         x-transition:leave-start="opacity-100 transform translate-y-0"
         x-transition:leave-end="opacity-0 transform -translate-y-2">
         <div class="bg-white shadow-lg rounded-lg mt-2 px-4 py-3 space-y-3">
-            <a href="{{ route('home') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __("Accueil") }}</a>
-            <a href="{{ route('events') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __("Événements") }}</a>
-            <a href="{{ route('actualites') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __("Actualités") }}</a>
-            <a href="{{ route('visitez-le-campus') }}" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __("Visiter le hub") }}</a>
+            <a href="{{ route('home') }}" class="block {{ request()->routeIs('home') ? 'text-primary-600 font-semibold' : 'text-gray-700 hover:text-primary-600' }} font-medium transition px-2 py-2">{{ __("Accueil") }}</a>
+            <a href="{{ route('events') }}" class="block {{ request()->routeIs('events*') ? 'text-primary-600 font-semibold' : 'text-gray-700 hover:text-primary-600' }} font-medium transition px-2 py-2">{{ __("Événements") }}</a>
+            <a href="{{ route('actualites') }}" class="block {{ request()->routeIs('actualites*') || request()->routeIs('blog*') ? 'text-primary-600 font-semibold' : 'text-gray-700 hover:text-primary-600' }} font-medium transition px-2 py-2">{{ __("Actualités") }}</a>
+            <a href="{{ route('visitez-le-campus') }}" class="block {{ request()->routeIs('visitez-le-campus') ? 'text-primary-600 font-semibold' : 'text-gray-700 hover:text-primary-600' }} font-medium transition px-2 py-2">{{ __("Visiter le hub") }}</a>
 
             <!-- Liens de candidature (Mobile) -->
             <div class="border-t pt-3">
-                <a href="{{ route('applications') }}#resident" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __("Devenir Résident") }}</a>
-                <a href="{{ route('applications') }}#partnership" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __("Devenir Partenaire") }}</a>
-                <a href="{{ route('applications') }}#expert" class="block text-gray-700 hover:text-primary-600 font-medium transition px-2 py-2">{{ __("Devenir Expert") }}</a>
+                <a href="{{ route('applications') }}#resident" class="block {{ request()->routeIs('applications*') && request()->fullUrl() == route('applications') . '#resident' ? 'text-primary-600 font-semibold' : 'text-gray-700 hover:text-primary-600' }} font-medium transition px-2 py-2">{{ __("Devenir Résident") }}</a>
+                <a href="{{ route('applications') }}#partnership" class="block {{ request()->routeIs('applications*') && request()->fullUrl() == route('applications') . '#partnership' ? 'text-primary-600 font-semibold' : 'text-gray-700 hover:text-primary-600' }} font-medium transition px-2 py-2">{{ __("Devenir Partenaire") }}</a>
+                <a href="{{ route('applications') }}#expert" class="block {{ request()->routeIs('applications*') && request()->fullUrl() == route('applications') . '#expert' ? 'text-primary-600 font-semibold' : 'text-gray-700 hover:text-primary-600' }} font-medium transition px-2 py-2">{{ __("Devenir Expert") }}</a>
             </div>
 
             <!-- Espace membre (Mobile) -->

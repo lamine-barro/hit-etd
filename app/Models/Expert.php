@@ -2,14 +2,12 @@
 
 namespace App\Models;
 
-use Filament\Models\Contracts\HasAvatar;
-use Filament\Models\Contracts\HasName;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 
-class Expert extends Model implements HasAvatar, HasName
+class Expert extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -142,32 +140,36 @@ class Expert extends Model implements HasAvatar, HasName
 
     public function getSpecialtiesLabelsAttribute(): array
     {
-        if (!$this->specialties) {
+        $specialties = $this->specialties;
+        
+        if (!$specialties) {
+            return [];
+        }
+        
+        // Si c'est une chaîne JSON, la décoder
+        if (is_string($specialties)) {
+            $specialties = json_decode($specialties, true) ?: [];
+        }
+        
+        // S'assurer que c'est un tableau
+        if (!is_array($specialties)) {
             return [];
         }
         
         return array_map(function($specialty) {
             return self::SPECIALTIES[$specialty] ?? $specialty;
-        }, $this->specialties);
+        }, $specialties);
     }
 
     /**
-     * Get the URL to the expert's avatar for Filament.
+     * Get the URL to the expert's avatar.
      */
-    public function getFilamentAvatarUrl(): ?string
+    public function getAvatarUrl(): ?string
     {
         if (!$this->profile_picture) {
             return null;
         }
 
         return Storage::url($this->profile_picture);
-    }
-
-    /**
-     * Get the display name for the expert in Filament.
-     */
-    public function getFilamentName(): string
-    {
-        return $this->full_name;
     }
 }

@@ -8,7 +8,7 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/js/app.js',
-                'resources/css/filament.css',
+                'resources/css/admin.css',
             ],
             refresh: [
                 ...refreshPaths,
@@ -22,13 +22,13 @@ export default defineConfig({
             postcss: {
                 plugins: (loader) => {
                     // Déterminer quelle configuration utiliser en fonction du fichier CSS traité
-                    const isFilamentCSS = loader.resourcePath.includes('filament.css');
+                    const isAdminCSS = loader.resourcePath.includes('admin.css');
                     
-                    if (isFilamentCSS) {
-                        // Configuration spécifique pour Filament
+                    if (isAdminCSS) {
+                        // Configuration spécifique pour l'admin
                         return [
                             require('tailwindcss/nesting'),
-                            require('tailwindcss')({ config: './tailwind.filament.config.js' }),
+                            require('tailwindcss')({ config: './tailwind.config.js' }),
                             require('autoprefixer'),
                         ];
                     } else {

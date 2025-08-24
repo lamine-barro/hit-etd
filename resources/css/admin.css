@@ -1,0 +1,199 @@
+/* Styles personnalisés pour le backoffice */
+
+/* Police Poppins */
+.font-poppins {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Couleurs primaires orange HIT */
+:root {
+    --primary-orange: #FF6B00;
+    --primary-orange-light: #FF8533;
+    --primary-orange-dark: #E55A00;
+    --primary-orange-50: #FFF4ED;
+    --primary-orange-100: #FFE6CC;
+    --primary-orange-200: #FFCC99;
+    --primary-orange-500: #FF6B00;
+    --primary-orange-600: #E55A00;
+    --primary-orange-700: #CC4700;
+}
+
+/* Variables globales */
+.text-primary { color: var(--primary-orange); }
+.bg-primary { background-color: var(--primary-orange); }
+.border-primary { border-color: var(--primary-orange); }
+.hover\:bg-primary:hover { background-color: var(--primary-orange-light); }
+.focus\:ring-primary:focus { --tw-ring-color: var(--primary-orange); }
+
+/* Animation pour les badges en attente */
+@keyframes pulse-orange {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+.animate-pulse-orange {
+    animation: pulse-orange 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Amélioration des transitions */
+.transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Style pour les éléments actifs dans la sidebar */
+.sidebar-item-active {
+    background: linear-gradient(135deg, var(--primary-orange-50) 0%, var(--primary-orange-100) 100%);
+    border-right: 3px solid var(--primary-orange);
+    color: var(--primary-orange);
+}
+
+/* Amélioration des cards */
+.admin-card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    border: 1px solid #e5e7eb;
+    transition: all 0.2s ease-in-out;
+}
+
+.admin-card:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    border-color: #d1d5db;
+}
+
+/* Amélioration des boutons */
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-orange) 0%, var(--primary-orange-light) 100%);
+    border: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--primary-orange-dark) 0%, var(--primary-orange) 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 107, 0, 0.4);
+}
+
+/* Amélioration des tables */
+.admin-table {
+    background: white;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.admin-table thead {
+    background: #f9fafb;
+}
+
+.admin-table tbody tr {
+    transition: background-color 0.2s ease-in-out;
+}
+
+.admin-table tbody tr:hover {
+    background: #f9fafb;
+}
+
+/* Amélioration des stats cards */
+.stat-card {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-orange), var(--primary-orange-light), var(--primary-orange-dark));
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Amélioration des badges */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1;
+}
+
+.badge-success {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.badge-warning {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.badge-danger {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.badge-info {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+/* Responsive design amélioré */
+@media (max-width: 1024px) {
+    .admin-card {
+        margin-bottom: 1rem;
+    }
+    
+    .stat-card {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Loading states */
+.loading-skeleton {
+    background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Dark mode support (pour futur usage) */
+@media (prefers-color-scheme: dark) {
+    .admin-card {
+        background: #1f2937;
+        border-color: #374151;
+        color: #f9fafb;
+    }
+    
+    .stat-card {
+        background: #1f2937;
+        border-color: #374151;
+        color: #f9fafb;
+    }
+}
