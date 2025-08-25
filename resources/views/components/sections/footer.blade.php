@@ -13,9 +13,9 @@
         <div class="grid grid-cols-1 gap-8 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
             <!-- À propos -->
             <div class="text-center sm:text-left">
-                <h3 class="text-lg font-semibold mb-4 sm:mb-6">{{ config("hit.name") }}</h3>
+                <h3 class="text-lg font-semibold mb-4 sm:mb-6">Hub Ivoire Tech</h3>
                 <p class="text-gray-400 mb-6 text-sm sm:text-base">
-                    {{ __("Hub Ivoire Tech a pour vocation d'être le plus grand Campus de Startups en Afrique. Il réunit un écosystème d'incubateurs, d'accélérateurs, d'investisseurs, d'experts et d'entrepreneurs afin de stimuler l'innovation et de transformer les idées en succès concrets sur le territoire ivoirien et au-delà.") }}
+                    Hub Ivoire Tech has the mission of being the largest Campus of Startups in Africa. It brings together an ecosystem of incubators, accelerators, investors, experts and entrepreneurs to stimulate innovation and transform ideas into concrete successes in Côte d'Ivoire and beyond.
                 </p>
                 <div class="flex justify-center sm:justify-start space-x-6 sm:space-x-4">
                     <a href="https://web.facebook.com/profile.php?id=61568083378984" target="_blank" class="text-gray-400 hover:text-primary-500 transition-colors duration-200">
@@ -47,19 +47,22 @@
 
             <!-- Liens rapides -->
             <div class="text-center sm:text-left">
-                <h3 class="text-lg font-semibold mb-4 sm:mb-6">{{ __("Liens rapides") }}</h3>
+                <h3 class="text-lg font-semibold mb-4 sm:mb-6">Quick links</h3>
                 <ul class="space-y-3 sm:space-y-4">
                     <li>
-                        <a href="#hero" target="_blank" class="text-base sm:text-sm text-gray-400 hover:text-primary-500 transition-colors duration-200 scroll-smooth">{{ __("Accueil") }}</a>
+                        <a href="{{ route('home') }}" class="text-base sm:text-sm text-gray-400 hover:text-primary-500 transition-colors duration-200">Home</a>
                     </li>
                     <li>
-                        <a href="#services" target="_blank" class="text-base sm:text-sm text-gray-400 hover:text-primary-500 transition-colors duration-200 scroll-smooth">{{ __("Services") }}</a>
+                        <a href="{{ route('home') }}#services" class="text-base sm:text-sm text-gray-400 hover:text-primary-500 transition-colors duration-200">Services</a>
                     </li>
                     <li>
-                        <a href="#campus" target="_blank" class="text-base sm:text-sm text-gray-400 hover:text-primary-500 transition-colors duration-200 scroll-smooth">{{ __("Campus") }}</a>
+                        <a href="{{ route('visitez-le-campus') }}" class="text-base sm:text-sm text-gray-400 hover:text-primary-500 transition-colors duration-200">Campus</a>
                     </li>
                     <li>
-                        <a href="#news" target="_blank" class="text-base sm:text-sm text-gray-400 hover:text-primary-500 transition-colors duration-200 scroll-smooth">{{ __("Actualités") }}</a>
+                        <a href="{{ route('actualites') }}" class="text-base sm:text-sm text-gray-400 hover:text-primary-500 transition-colors duration-200">News</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('home') }}#contact" class="text-base sm:text-sm text-gray-400 hover:text-primary-500 transition-colors duration-200">Contact</a>
                     </li>
                 </ul>
             </div>
@@ -73,27 +76,33 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                         </svg>
-                        <span class="text-base sm:text-sm text-gray-400">{{ config('hit.address') }}</span>
+                        <span class="text-base sm:text-sm text-gray-400">Tour POSTEL 2001, Mezzanine et 13e étage, Plateau - Abidjan, Côte d'Ivoire</span>
                     </li>
                     <li class="flex flex-col sm:flex-row items-center sm:items-center">
                         <svg class="h-7 w-7 sm:h-6 sm:w-6 text-primary-500 mb-2 sm:mb-0 sm:mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                         </svg>
-                        <a href="mailto:{{ config('hit.email') }}" target="_blank" class="text-base sm:text-sm text-gray-400 hover:text-primary-500 transition-colors duration-200">{{ config('hit.email') }}</a>
+                        <a href="mailto:hello@hubivoiretech.ci" class="text-base sm:text-sm text-gray-400 hover:text-primary-500 transition-colors duration-200">hello@hubivoiretech.ci</a>
                     </li>
                     <li class="flex flex-col sm:flex-row items-center sm:items-center">
                         <svg class="h-7 w-7 sm:h-6 sm:w-6 text-primary-500 mb-2 sm:mb-0 sm:mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
                         </svg>
-                        <a href="tel:{{ config('hit.phone') }}" target="_blank" class="text-base sm:text-sm text-gray-400 hover:text-primary-500 transition-colors duration-200">{{ config('hit.phone') }}</a>
+                        <a href="tel:+2250704853848" class="text-base sm:text-sm text-gray-400 hover:text-primary-500 transition-colors duration-200">+225 0704853848</a>
                     </li>
                 </ul>
             </div>
         </div>
 
-        <!-- Copyright -->
+        <!-- Copyright and Legal -->
         <div class="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-gray-800">
-            <p class="text-center text-sm sm:text-base text-gray-400">© {{ date('Y') }} {{ config('hit.name') }}. {{ __("Tous droits réservés.") }}</p>
+            <div class="flex flex-col sm:flex-row justify-center sm:justify-between items-center space-y-4 sm:space-y-0">
+                <p class="text-sm text-gray-400">© {{ date('Y') }} Hub Ivoire Tech. Tous droits réservés.</p>
+                <div class="flex space-x-4">
+                    <a href="{{ route('privacy') }}" class="text-sm text-gray-400 hover:text-primary-500 transition-colors duration-200">Confidentialité</a>
+                    <a href="{{ route('terms') }}" class="text-sm text-gray-400 hover:text-primary-500 transition-colors duration-200">CGU</a>
+                </div>
+            </div>
         </div>
     </div>
 </footer>
