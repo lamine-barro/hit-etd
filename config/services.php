@@ -38,4 +38,8 @@ return [
         'public_key' => env('PAYSTACK_PUBLIC_KEY'),
         'webhook_url' => env('PAYSTACK_WEBHOOK_URL'),
     ],
+
+    'openai' => [
+        'api_key' => env('OPENAI_API_KEY'),
+    ],
 ];
