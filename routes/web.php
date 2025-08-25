@@ -16,7 +16,9 @@ require __DIR__.'/web/guest.php';
 
 // Route pour le chatbot
 use App\Http\Controllers\ChatbotController;
-Route::post('/chatbot/message', [ChatbotController::class, 'sendMessage'])->name('chatbot.message');
+Route::post('/chatbot/message', [ChatbotController::class, 'sendMessage'])
+    ->middleware('chatbot.ratelimit')
+    ->name('chatbot.message');
 
 // Routes d'authentification
 require __DIR__.'/web/auth.php';

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -22,7 +23,6 @@ class User extends Authenticatable
         'email',
         'name',
         'phone',
-        'password',
         'is_active',
         'category',
         'profession',
@@ -31,7 +31,6 @@ class User extends Authenticatable
         'bio',
         'startup_description',
         'lock_raison',
-        'remember_token',
         'is_verified',
         'documents',
         'profile_picture',
@@ -47,8 +46,8 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $hidden = [
-        'remember_token',
         'otp',
+        'remember_token',
     ];
 
     public const CATEGORIES = [
@@ -68,6 +67,11 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'otp_expires_at' => 'datetime',
+            'is_active' => 'boolean',
+            'is_verified' => 'boolean',
+            'is_request' => 'boolean',
+            'documents' => 'array',
+            'needs' => 'array',
         ];
     }
 
@@ -116,5 +120,41 @@ class User extends Authenticatable
     public function isVerified(): bool
     {
         return $this->is_verified;
+    }
+
+    /**
+     * Générer et sauvegarder un code OTP
+     */
+    public function generateOtp(): string
+    {
+        $otp = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+        
+        $this->update([
+            'otp' => $otp,
+            'otp_expires_at' => Carbon::now()->addMinutes(10), // OTP valide 10 minutes
+        ]);
+
+        return $otp;
+    }
+
+    /**
+     * Vérifier si l'OTP est valide
+     */
+    public function isValidOtp(string $otp): bool
+    {
+        return $this->otp === $otp && 
+               $this->otp_expires_at && 
+               Carbon::now()->lt($this->otp_expires_at);
+    }
+
+    /**
+     * Effacer l'OTP après utilisation
+     */
+    public function clearOtp(): void
+    {
+        $this->update([
+            'otp' => null,
+            'otp_expires_at' => null,
+        ]);
     }
 }

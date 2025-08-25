@@ -45,24 +45,38 @@ class ChatbotService
                 ];
             }
 
-            Log::error('ChatbotService API Error', [
+            Log::channel('chatbot')->error('ChatbotService API Error', [
                 'status' => $response->status(),
-                'body' => $response->body()
+                'body' => $response->body(),
+                'model' => $this->model,
             ]);
+
+            // Messages d'erreur plus spécifiques
+            $errorMessage = 'Je rencontre des difficultés techniques.';
+            if ($response->status() === 401) {
+                $errorMessage = 'Problème de configuration API. Contactez l\'administrateur.';
+            } elseif ($response->status() === 429) {
+                $errorMessage = 'Service temporairement saturé. Réessayez dans quelques minutes.';
+            } elseif ($response->status() >= 500) {
+                $errorMessage = 'Service OpenAI indisponible. Réessayez plus tard.';
+            }
 
             return [
                 'success' => false,
-                'message' => 'Je rencontre actuellement des difficultés techniques. Veuillez réessayer dans quelques instants.',
+                'message' => $errorMessage,
+                'fallback' => 'Pour une assistance immédiate, contactez-nous à hello@hubivoiretech.ci ou +225 07 04 85 38 48.',
             ];
         } catch (\Exception $e) {
-            Log::error('ChatbotService Exception', [
+            Log::channel('chatbot')->error('ChatbotService Exception', [
                 'message' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
+                'trace' => $e->getTraceAsString(),
+                'model' => $this->model,
             ]);
 
             return [
                 'success' => false,
-                'message' => 'Une erreur est survenue. Veuillez réessayer plus tard.',
+                'message' => 'Une erreur technique est survenue.',
+                'fallback' => 'Pour une assistance immédiate, contactez-nous à hello@hubivoiretech.ci ou +225 07 04 85 38 48.',
             ];
         }
     }

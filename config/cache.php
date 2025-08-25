@@ -105,4 +105,39 @@ return [
 
     'prefix' => env('CACHE_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_cache_'),
 
+    /*
+    |--------------------------------------------------------------------------
+    | HIT Cache Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Configuration spécifique pour Hub Ivoire Tech
+    |
+    */
+
+    'hit' => [
+        // Durées de cache spécifiques
+        'events' => [
+            'ttl' => 3600, // 1 heure
+            'tags' => ['events'],
+        ],
+        'articles' => [
+            'ttl' => 7200, // 2 heures
+            'tags' => ['articles'],
+        ],
+        'espaces' => [
+            'ttl' => 1800, // 30 minutes
+            'tags' => ['espaces'],
+        ],
+        'chatbot_context' => [
+            'ttl' => 300, // 5 minutes
+            'tags' => ['chatbot'],
+        ],
+        
+        // Cache des traductions
+        'translations' => [
+            'ttl' => 86400, // 24 heures
+            'tags' => ['translations'],
+        ],
+    ],
+
 ];

@@ -42,7 +42,8 @@ return [
             'scheme' => env('MAIL_SCHEME'),
             'url' => env('MAIL_URL'),
             'host' => env('MAIL_HOST', '127.0.0.1'),
-            'port' => env('MAIL_PORT', 2525),
+            'port' => env('MAIL_PORT', 587),
+            'encryption' => env('MAIL_ENCRYPTION', 'tls'),
             'username' => env('MAIL_USERNAME'),
             'password' => env('MAIL_PASSWORD'),
             'timeout' => null,
@@ -109,8 +110,37 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'hello@hubivoiretech.ci'),
+        'name' => env('MAIL_FROM_NAME', 'Hub Ivoire Tech'),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | HIT Email Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Configuration spécifique pour Hub Ivoire Tech
+    |
+    */
+
+    'hit' => [
+        'support_email' => env('HIT_SUPPORT_EMAIL', 'hello@hubivoiretech.ci'),
+        'noreply_email' => env('HIT_NOREPLY_EMAIL', 'noreply@hubivoiretech.ci'),
+        'admin_email' => env('HIT_ADMIN_EMAIL', 'admin@hubivoiretech.ci'),
+        
+        // Templates d'email
+        'templates' => [
+            'otp' => 'emails.otp',
+            'booking_confirmation' => 'emails.booking-confirmation',
+            'event_registration' => 'emails.event-registration',
+            'newsletter' => 'emails.newsletter',
+        ],
+        
+        // Rate limiting pour les emails OTP
+        'otp_rate_limit' => [
+            'max_attempts' => 3,
+            'decay_minutes' => 10,
+        ],
     ],
 
 ];

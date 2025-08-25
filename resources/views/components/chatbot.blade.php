@@ -167,7 +167,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     { role: 'assistant', content: data.message }
                 );
             } else {
-                addMessage(data.message || 'Une erreur est survenue. Veuillez réessayer.', 'bot');
+                // Add error message
+                let errorMsg = data.message || 'Une erreur est survenue. Veuillez réessayer.';
+                if (data.fallback) {
+                    errorMsg += '\n\n' + data.fallback;
+                }
+                addMessage(errorMsg, 'bot', 'error');
             }
         } catch (error) {
             console.error('Chatbot error:', error);
@@ -179,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Add message to chat
-    function addMessage(text, sender) {
+    function addMessage(text, sender, type = 'normal') {
         const messageDiv = document.createElement('div');
         messageDiv.className = sender === 'user' 
             ? 'flex justify-end' 
@@ -193,9 +198,12 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
         } else {
             // Process links in bot messages
-            const processedText = processLinks(text);
+            const processedText = processLinks(escapeHtml(text)).replace(/\n/g, '<br>');
+            const bgClass = type === 'error' ? 'bg-red-50 border-l-4 border-red-400' : 'bg-gray-100';
+            const textClass = type === 'error' ? 'text-red-800' : 'text-gray-800';
+            
             messageDiv.innerHTML = `
-                <div class="text-sm text-gray-800 bg-gray-100 px-4 py-2 rounded-lg max-w-[80%]">
+                <div class="text-sm ${textClass} ${bgClass} px-4 py-2 rounded-lg max-w-[80%]">
                     ${processedText}
                 </div>
             `;

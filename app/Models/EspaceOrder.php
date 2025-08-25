@@ -67,6 +67,13 @@ class EspaceOrder extends Model
         return $this->hasMany(EspaceOrderItem::class);
     }
 
+    public function espaces()
+    {
+        return $this->belongsToMany(Espace::class, 'espace_order_items')
+            ->withPivot(['quantity', 'price', 'total_amount', 'started_at', 'ended_at', 'status', 'notes', 'number_of_people'])
+            ->withTimestamps();
+    }
+
     public function isConfirmed()
     {
         return $this->status == 'confirmed';
