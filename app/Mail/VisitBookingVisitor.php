@@ -28,7 +28,6 @@ class VisitBookingVisitor extends Mailable
     {
         return new Envelope(
             subject: 'Confirmation de votre demande de visite - Hub Ivoire Tech',
-            to: [$this->booking->email],
         );
     }
 
@@ -38,13 +37,16 @@ class VisitBookingVisitor extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.visit-booking-visitor',
+            view: 'emails.visit-booking-visitor',
             with: [
                 'name' => $this->booking->full_name,
+                'email' => $this->booking->email,
+                'phone' => $this->booking->phone,
                 'date' => Carbon::parse($this->booking->date)->format('d/m/Y'),
                 'time' => $this->booking->time,
                 'spaces' => $this->booking->spaces,
                 'purpose' => $this->booking->purpose,
+                'visitor_message' => $this->booking->message,
             ]
         );
     }

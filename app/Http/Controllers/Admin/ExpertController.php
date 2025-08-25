@@ -160,4 +160,27 @@ class ExpertController extends Controller
 
         return redirect()->back()->with('success', 'Expert rejeté avec succès.');
     }
+
+    public function updateStatus(Request $request, Expert $expert)
+    {
+        $request->validate([
+            'status' => 'required|in:pending,approved,rejected'
+        ]);
+
+        $expert->update([
+            'status' => $request->status,
+            'processed_at' => $request->status !== 'pending' ? Carbon::now() : null,
+        ]);
+
+        // Retourner une réponse JSON pour les requêtes AJAX
+        if ($request->expectsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Statut de l\'expert mis à jour avec succès.',
+                'status' => $expert->status
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Statut de l\'expert mis à jour avec succès.');
+    }
 }

@@ -24,7 +24,7 @@
         @include('pages.admin.components.sidebar')
 
         <!-- Main content area -->
-        <div class="lg:pl-72">
+        <div class="lg:pl-72" style="padding-left: 17rem; !important;">
             <style>
                 @media (max-width: 1023px) {
                     .lg\:pl-72 {

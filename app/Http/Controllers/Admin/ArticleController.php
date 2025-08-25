@@ -63,7 +63,7 @@ class ArticleController extends Controller
         $validated['tags'] = $request->tags ? explode(',', $request->tags) : [];
         
         // Définir author_id avec l'administrateur connecté
-        $validated['author_id'] = auth()->guard('administrator')->id();
+        $validated['author_id'] = auth()->guard('admin')->id();
 
         $article = Article::create($validated);
 
@@ -170,5 +170,12 @@ class ArticleController extends Controller
         $article->delete();
 
         return redirect()->route('admin.articles.index')->with('success', 'Article supprimé avec succès.');
+    }
+
+    public function archive(Article $article)
+    {
+        $article->update(['status' => ArticleStatus::ARCHIVED]);
+
+        return redirect()->route('admin.articles.index')->with('success', 'Article archivé avec succès.');
     }
 }

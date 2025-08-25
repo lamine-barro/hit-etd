@@ -28,7 +28,6 @@ class VisitBookingAdmin extends Mailable
     {
         return new Envelope(
             subject: __('Nouvelle demande de visite - Hub Ivoire Tech'),
-            to: [config('hit.support_email', 'hello@hubivoiretech.ci')],
         );
     }
 
@@ -38,7 +37,7 @@ class VisitBookingAdmin extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.visit-booking-admin',
+            view: 'emails.visit-booking-admin',
             with: [
                 'name' => $this->booking->full_name,
                 'email' => $this->booking->email,
@@ -47,7 +46,7 @@ class VisitBookingAdmin extends Mailable
                 'time' => $this->booking->time,
                 'spaces' => $this->booking->spaces,
                 'purpose' => $this->booking->purpose,
-                'message' => $this->booking->message,
+                'visitor_message' => $this->booking->message,
             ]
         );
     }

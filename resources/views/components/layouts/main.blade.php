@@ -211,6 +211,13 @@
                     window.showToast('{{ addslashes(session('error')) }}', 'error');
                 }, 100);
             @endif
+            
+            @if (session('toast'))
+                setTimeout(() => {
+                    console.log('Tentative d\'affichage du toast (format structuré)');
+                    window.showToast('{{ addslashes(session('toast')['message'] ?? '') }}', '{{ session('toast')['type'] ?? 'success' }}');
+                }, 100);
+            @endif
         });
     </script>
 

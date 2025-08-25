@@ -86,23 +86,6 @@
                                 </div>
                             </div>
 
-                            <!-- Mot de passe -->
-                            <div>
-                                <label for="password" class="block text-sm font-medium leading-6 text-gray-900 font-poppins">
-                                    Mot de passe <span class="text-red-500">*</span>
-                                </label>
-                                <div class="mt-2">
-                                    <input type="password" 
-                                           name="password" 
-                                           id="password" 
-                                           required
-                                           class="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6 font-poppins @error('password') ring-red-500 @enderror"
-                                           placeholder="Minimum 8 caractères">
-                                    @error('password')
-                                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                            </div>
                         </div>
                     </div>
 

@@ -106,9 +106,6 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <div class="flex justify-end space-x-2">
-                                        <a href="{{ route('admin.espaces.show', $espace) }}" class="inline-flex items-center p-2 text-gray-500 hover:text-primary rounded-lg hover:bg-gray-100 transition-colors" title="Voir les détails">
-                                            <i data-lucide="eye" class="h-4 w-4"></i>
-                                        </a>
                                         <a href="{{ route('admin.espaces.edit', $espace) }}" class="inline-flex items-center p-2 text-gray-500 hover:text-primary rounded-lg hover:bg-gray-100 transition-colors" title="Modifier">
                                             <i data-lucide="edit" class="h-4 w-4"></i>
                                         </a>

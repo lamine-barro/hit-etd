@@ -58,6 +58,8 @@ use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ExpertController;
+use App\Http\Controllers\Admin\EspaceOrderController;
+use App\Http\Controllers\Admin\EventRegistrationController;
 
 Route::prefix('admin')->name('admin.')->middleware('admin.auth')->group(function () {
     Route::get('/', function () {
@@ -74,9 +76,11 @@ Route::prefix('admin')->name('admin.')->middleware('admin.auth')->group(function
     Route::resource('partnerships', PartnershipController::class);
     Route::post('partnerships/{partnership}/approve', [PartnershipController::class, 'approve'])->name('partnerships.approve');
     Route::post('partnerships/{partnership}/reject', [PartnershipController::class, 'reject'])->name('partnerships.reject');
+    Route::patch('partnerships/{partnership}/status', [PartnershipController::class, 'updateStatus'])->name('partnerships.update-status');
     
     // Routes Articles
     Route::resource('articles', ArticleController::class);
+    Route::post('articles/{article}/archive', [ArticleController::class, 'archive'])->name('articles.archive');
     
     // Routes Événements
     Route::resource('events', EventController::class);
@@ -85,6 +89,8 @@ Route::prefix('admin')->name('admin.')->middleware('admin.auth')->group(function
     Route::resource('bookings', BookingController::class);
     Route::post('bookings/{booking}/approve', [BookingController::class, 'approve'])->name('bookings.approve');
     Route::post('bookings/{booking}/reject', [BookingController::class, 'reject'])->name('bookings.reject');
+    Route::patch('bookings/{booking}/status', [BookingController::class, 'updateStatus'])->name('bookings.update-status');
+    Route::post('bookings/{booking}/duplicate', [BookingController::class, 'duplicate'])->name('bookings.duplicate');
     
     // Routes Utilisateurs
     Route::resource('users', UserController::class);
@@ -94,4 +100,12 @@ Route::prefix('admin')->name('admin.')->middleware('admin.auth')->group(function
     Route::resource('experts', ExpertController::class);
     Route::post('experts/{expert}/approve', [ExpertController::class, 'approve'])->name('experts.approve');
     Route::post('experts/{expert}/reject', [ExpertController::class, 'reject'])->name('experts.reject');
+    Route::patch('experts/{expert}/status', [ExpertController::class, 'updateStatus'])->name('experts.update-status');
+    
+    // Routes Réservations d'espaces
+    Route::resource('espace-orders', EspaceOrderController::class)->only(['index', 'show', 'destroy']);
+    Route::patch('espace-orders/{espaceOrder}/status', [EspaceOrderController::class, 'updateStatus'])->name('espace-orders.update-status');
+    
+    // Routes Inscriptions aux événements
+    Route::delete('event-registrations/{registration}', [EventRegistrationController::class, 'destroy'])->name('event-registrations.destroy');
 });

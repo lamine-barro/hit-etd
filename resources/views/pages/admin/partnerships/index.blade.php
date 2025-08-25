@@ -83,14 +83,17 @@
                                     {{ $partnership->email }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="inline-flex items-center px-2 py-1 text-xs font-semibold rounded-full {{ $partnership->status->color() }}">
-                                        @if($partnership->status->icon())
-                                            <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                                            </svg>
-                                        @endif
-                                        {{ $partnership->status->label() }}
-                                    </span>
+                                    <form method="POST" action="{{ route('admin.partnerships.update-status', $partnership) }}" class="inline">
+                                        @csrf
+                                        @method('PATCH')
+                                        <select name="status" onchange="this.form.submit()" class="text-xs rounded-full px-3 py-1 font-medium border-0 cursor-pointer {{ $partnership->status->color() }}">
+                                            @foreach(\App\Enums\PartnershipStatus::cases() as $status)
+                                                <option value="{{ $status->value }}" {{ $partnership->status->value == $status->value ? 'selected' : '' }}>
+                                                    {{ $status->label() }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </form>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     {{ $partnership->created_at->format('d/m/Y H:i') }}
@@ -105,9 +108,6 @@
                                                 <i data-lucide="x" class="h-4 w-4"></i>
                                             </button>
                                         @endif
-                                        <a href="{{ route('admin.partnerships.show', $partnership) }}" class="inline-flex items-center p-2 text-gray-500 hover:text-primary rounded-lg hover:bg-gray-100 transition-colors" title="Voir les détails">
-                                            <i data-lucide="eye" class="h-4 w-4"></i>
-                                        </a>
                                         <a href="{{ route('admin.partnerships.edit', $partnership) }}" class="inline-flex items-center p-2 text-gray-500 hover:text-primary rounded-lg hover:bg-gray-100 transition-colors" title="Modifier">
                                             <i data-lucide="edit" class="h-4 w-4"></i>
                                         </a>

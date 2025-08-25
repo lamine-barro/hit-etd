@@ -33,13 +33,8 @@
                 <img src="{{ asset('logo_hit.png') }}" alt="Hub Ivoire Tech" class="h-16 w-auto mx-auto mb-6">
             </a>
             
-            <div class="mx-auto h-16 w-16 flex items-center justify-center rounded-full bg-gradient-to-br from-orange-100 to-orange-200 shadow-lg">
-                <svg class="h-8 w-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                </svg>
-            </div>
             <h2 class="mt-6 text-center text-3xl font-bold text-gray-900">
-                Espace Résident
+                Espace résident
             </h2>
             <p class="mt-2 text-center text-sm text-gray-600">
                 Connexion sécurisée par code OTP

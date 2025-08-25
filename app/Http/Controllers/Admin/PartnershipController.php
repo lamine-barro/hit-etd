@@ -109,4 +109,18 @@ class PartnershipController extends Controller
 
         return redirect()->back()->with('success', 'Partenariat refusé avec succès.');
     }
+
+    public function updateStatus(Request $request, Partnership $partnership)
+    {
+        $request->validate([
+            'status' => 'required|string'
+        ]);
+
+        $partnership->update([
+            'status' => $request->status,
+            'processed_at' => $request->status !== 'untreated' ? Carbon::now() : null
+        ]);
+
+        return redirect()->back()->with('success', 'Statut mis à jour avec succès.');
+    }
 }

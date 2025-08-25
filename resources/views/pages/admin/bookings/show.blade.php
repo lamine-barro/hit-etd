@@ -21,14 +21,6 @@
                         <i data-lucide="calendar" class="h-4 w-4"></i>
                         <span>{{ $booking->date->format('d/m/Y') }} à {{ $booking->time }}</span>
                     </div>
-                    <div class="flex items-center gap-x-1">
-                        <i data-lucide="mail" class="h-4 w-4"></i>
-                        <span>{{ $booking->email }}</span>
-                    </div>
-                    <div class="flex items-center gap-x-1">
-                        <i data-lucide="phone" class="h-4 w-4"></i>
-                        <span>{{ $booking->phone }}</span>
-                    </div>
                 </div>
             </div>
             
@@ -170,58 +162,6 @@
                 </div>
             </div>
 
-            <!-- Historique des actions -->
-            <div class="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl">
-                <div class="px-4 py-6 sm:p-8">
-                    <h2 class="text-lg font-semibold text-gray-900 font-poppins mb-4">Historique</h2>
-                    
-                    <div class="flow-root">
-                        <ul class="-mb-8">
-                            <li>
-                                <div class="relative pb-8">
-                                    <div class="relative flex space-x-3">
-                                        <div>
-                                            <span class="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center ring-8 ring-white">
-                                                <i data-lucide="plus" class="h-4 w-4 text-white"></i>
-                                            </span>
-                                        </div>
-                                        <div class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
-                                            <div>
-                                                <p class="text-sm text-gray-500">Demande créée</p>
-                                            </div>
-                                            <div class="whitespace-nowrap text-right text-sm text-gray-500">
-                                                {{ $booking->created_at->format('d/m/Y à H:i') }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            
-                            @if($booking->updated_at != $booking->created_at)
-                            <li>
-                                <div class="relative">
-                                    <div class="relative flex space-x-3">
-                                        <div>
-                                            <span class="h-8 w-8 rounded-full bg-orange-500 flex items-center justify-center ring-8 ring-white">
-                                                <i data-lucide="edit" class="h-4 w-4 text-white"></i>
-                                            </span>
-                                        </div>
-                                        <div class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
-                                            <div>
-                                                <p class="text-sm text-gray-500">Demande modifiée</p>
-                                            </div>
-                                            <div class="whitespace-nowrap text-right text-sm text-gray-500">
-                                                {{ $booking->updated_at->format('d/m/Y à H:i') }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            @endif
-                        </ul>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <!-- Sidebar -->
@@ -232,108 +172,49 @@
                 <div class="px-4 py-6 sm:p-6">
                     <h3 class="text-lg font-semibold text-gray-900 font-poppins mb-4">Statut</h3>
                     
-                    <div class="mb-4">
-                        @switch($booking->status?->value)
-                            @case('pending')
-                                <span class="inline-flex px-3 py-2 text-sm font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                    <i data-lucide="clock" class="h-4 w-4 mr-2"></i>
-                                    En attente
-                                </span>
-                                @break
-                            @case('confirmed')
-                                <span class="inline-flex px-3 py-2 text-sm font-semibold rounded-full bg-green-100 text-green-800">
-                                    <i data-lucide="check-circle" class="h-4 w-4 mr-2"></i>
-                                    Confirmé
-                                </span>
-                                @break
-                            @case('cancelled')
-                                <span class="inline-flex px-3 py-2 text-sm font-semibold rounded-full bg-red-100 text-red-800">
-                                    <i data-lucide="x-circle" class="h-4 w-4 mr-2"></i>
-                                    Annulé
-                                </span>
-                                @break
-                            @default
-                                <span class="inline-flex px-3 py-2 text-sm font-semibold rounded-full bg-gray-100 text-gray-800">
-                                    {{ $booking->status?->value ?? 'Non défini' }}
-                                </span>
-                        @endswitch
-                    </div>
+                    <!-- Dropdown pour changer le statut -->
+                    <form id="status-form" action="{{ route('admin.bookings.update-status', $booking) }}" method="POST" class="mb-4">
+                        @csrf
+                        @method('PATCH')
+                        <select id="status-select" name="status" onchange="this.form.submit()" 
+                                class="block w-full px-4 py-2 text-sm font-medium rounded-full border-0 cursor-pointer transition-colors
+                                @if($booking->status?->value == 'untreated' || $booking->status == 'untreated') 
+                                    bg-yellow-100 text-yellow-800 hover:bg-yellow-200
+                                @elseif($booking->status?->value == 'treated' || $booking->status == 'treated') 
+                                    bg-green-100 text-green-800 hover:bg-green-200
+                                @else 
+                                    bg-gray-100 text-gray-800 hover:bg-gray-200
+                                @endif">
+                            <option value="untreated" {{ ($booking->status?->value ?? $booking->status) == 'untreated' ? 'selected' : '' }}>Non traité</option>
+                            <option value="treated" {{ ($booking->status?->value ?? $booking->status) == 'treated' ? 'selected' : '' }}>Traité</option>
+                            <option value="archived" {{ ($booking->status?->value ?? $booking->status) == 'archived' ? 'selected' : '' }}>Archivé</option>
+                        </select>
+                    </form>
 
-                    @if($booking->status?->value === 'pending')
-                    <div class="space-y-3">
-                        <form action="{{ route('admin.bookings.approve', $booking) }}" method="POST">
-                            @csrf
-                            <button type="submit" class="w-full inline-flex justify-center items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors font-poppins">
-                                <i data-lucide="check" class="h-4 w-4 mr-2"></i>
-                                Confirmer la demande
-                            </button>
-                        </form>
+                    @php
+                        $currentStatus = $booking->status?->value ?? $booking->status;
+                    @endphp
+                    @if($currentStatus === 'untreated')
+                    <div class="space-y-3 pt-4 border-t border-gray-200">
+                        <p class="text-sm text-gray-500">Actions rapides:</p>
+                        <button type="button" 
+                                onclick="document.getElementById('status-select').value='treated'; document.getElementById('status-form').submit();"
+                                class="w-full inline-flex justify-center items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors font-poppins">
+                            <i data-lucide="check" class="h-4 w-4 mr-2"></i>
+                            Marquer comme traité
+                        </button>
                         
-                        <form action="{{ route('admin.bookings.reject', $booking) }}" method="POST">
-                            @csrf
-                            <button type="submit" class="w-full inline-flex justify-center items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors font-poppins">
-                                <i data-lucide="x" class="h-4 w-4 mr-2"></i>
-                                Rejeter la demande
-                            </button>
-                        </form>
+                        <button type="button" 
+                                onclick="document.getElementById('status-select').value='archived'; document.getElementById('status-form').submit();"
+                                class="w-full inline-flex justify-center items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors font-poppins">
+                            <i data-lucide="archive" class="h-4 w-4 mr-2"></i>
+                            Archiver
+                        </button>
                     </div>
                     @endif
                 </div>
             </div>
 
-            <!-- Informations système -->
-            <div class="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl">
-                <div class="px-4 py-6 sm:p-6">
-                    <h3 class="text-lg font-semibold text-gray-900 font-poppins mb-4">Informations</h3>
-                    
-                    <dl class="space-y-4">
-                        <div>
-                            <dt class="text-sm font-medium text-gray-500">ID de la demande</dt>
-                            <dd class="mt-1 text-sm text-gray-900">#{{ $booking->id }}</dd>
-                        </div>
-
-                        <div>
-                            <dt class="text-sm font-medium text-gray-500">Date de création</dt>
-                            <dd class="mt-1 text-sm text-gray-900">
-                                {{ $booking->created_at->format('d/m/Y à H:i') }}
-                            </dd>
-                        </div>
-
-                        <div>
-                            <dt class="text-sm font-medium text-gray-500">Dernière modification</dt>
-                            <dd class="mt-1 text-sm text-gray-900">
-                                {{ $booking->updated_at->format('d/m/Y à H:i') }}
-                            </dd>
-                        </div>
-                    </dl>
-                </div>
-            </div>
-
-            <!-- Actions rapides -->
-            <div class="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl">
-                <div class="px-4 py-6 sm:p-6">
-                    <h3 class="text-lg font-semibold text-gray-900 font-poppins mb-4">Actions rapides</h3>
-                    <div class="space-y-3">
-                        <a href="mailto:{{ $booking->email }}?subject=Votre demande de visite du {{ $booking->date->format('d/m/Y') }}" 
-                           class="w-full inline-flex justify-center items-center px-3 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors font-poppins">
-                            <i data-lucide="mail" class="h-4 w-4 mr-2"></i>
-                            Envoyer un email
-                        </a>
-
-                        <a href="tel:{{ $booking->phone }}" 
-                           class="w-full inline-flex justify-center items-center px-3 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors font-poppins">
-                            <i data-lucide="phone" class="h-4 w-4 mr-2"></i>
-                            Appeler
-                        </a>
-                        
-                        <a href="{{ route('admin.bookings.duplicate', $booking) }}" 
-                           class="w-full inline-flex justify-center items-center px-3 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors font-poppins">
-                            <i data-lucide="copy" class="h-4 w-4 mr-2"></i>
-                            Dupliquer
-                        </a>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>

@@ -100,4 +100,30 @@ class BookingController extends Controller
 
         return redirect()->back()->with('success', 'Demande de visite refusée avec succès.');
     }
+
+    public function updateStatus(Request $request, Booking $booking)
+    {
+        $request->validate([
+            'status' => 'required|string|in:untreated,treated,archived'
+        ]);
+
+        $booking->update(['status' => $request->status]);
+
+        $statusLabel = [
+            'untreated' => 'Non traité',
+            'treated' => 'Traité',
+            'archived' => 'Archivé'
+        ][$request->status];
+
+        return redirect()->back()->with('success', "Statut mis à jour : {$statusLabel}");
+    }
+
+    public function duplicate(Booking $booking)
+    {
+        $newBooking = $booking->replicate();
+        $newBooking->status = BookingStatus::PENDING;
+        $newBooking->save();
+
+        return redirect()->route('admin.bookings.show', $newBooking)->with('success', 'Demande de visite dupliquée avec succès.');
+    }
 }

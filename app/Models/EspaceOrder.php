@@ -50,8 +50,10 @@ class EspaceOrder extends Model
     protected function casts(): array
     {
         return [
+            'order_date' => 'datetime',
             'started_at' => 'datetime',
             'ended_at' => 'datetime',
+            'total_amount' => 'decimal:2',
         ];
     }
 
@@ -60,7 +62,7 @@ class EspaceOrder extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function espaces()
+    public function orderItems()
     {
         return $this->hasMany(EspaceOrderItem::class);
     }

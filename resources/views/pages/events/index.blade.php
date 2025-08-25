@@ -1,5 +1,5 @@
 <x-layouts.main>
-    <x-slot:title>{{ __("Événements") }} - {{ config('app.name') }}</x-slot:title>
+    <x-slot:title>{{ __("Nos événements") }} - {{ config('app.name') }}</x-slot:title>
     
     <div class="bg-white" x-data="eventFilters()">
         <!-- Header Section -->
@@ -19,7 +19,7 @@
                 <div class="text-center">
                     <!-- Title -->
                     <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 drop-shadow-sm">
-                        {{ __("Nos Événements") }}
+                        {{ __("Nos événements") }}
                     </h1>
                     
                     <!-- Subtitle -->

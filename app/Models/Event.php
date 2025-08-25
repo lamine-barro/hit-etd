@@ -206,7 +206,7 @@ class Event extends Model
      */
     public function getRouteKeyName()
     {
-        if (request()->is('admin/*')) {
+        if (request()->is('admin/*') || request()->is('resident/*')) {
             return 'id';
         }
 

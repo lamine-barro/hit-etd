@@ -23,7 +23,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
 <!-- Organization Schema -->
 <script type="application/ld+json">
 {
@@ -33,9 +32,10 @@
   "url": "{{ url('/') }}",
   "logo": "{{ asset('favicon/android-chrome-512x512.png') }}",
   "sameAs": [
-    "https://www.facebook.com/VotrePageFacebook",
-    "https://twitter.com/VotreCompteTwitter",
-    "https://www.linkedin.com/company/VotrePageLinkedIn"
+    "https://web.facebook.com/profile.php?id=61568083378984",
+    "https://x.com/hub_ivoire",
+    "https://www.linkedin.com/company/hub-ivoire-tech/about/?viewAsMember=true",
+    "https://www.instagram.com/hub_ivoire_tech/?hl=fr%C2%B5"
   ]
 }
 </script> 

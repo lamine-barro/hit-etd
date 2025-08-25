@@ -112,50 +112,21 @@
                                     <div class="text-sm text-gray-500">{{ $expert->phone }}</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    @switch($expert->status)
-                                        @case('pending')
-                                            <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                                En attente
-                                            </span>
-                                            @break
-                                        @case('approved')
-                                            <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                                                Approuvé
-                                            </span>
-                                            @break
-                                        @case('rejected')
-                                            <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">
-                                                Rejeté
-                                            </span>
-                                            @break
-                                        @default
-                                            <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">
-                                                {{ $expert->status_label }}
-                                            </span>
-                                    @endswitch
+                                    <form action="{{ route('admin.experts.update-status', $expert) }}" method="POST" class="expert-status-form">
+                                        @csrf
+                                        @method('PATCH')
+                                        <select name="status" class="expert-status-select text-sm border-gray-300 rounded-md focus:ring-primary focus:border-primary" data-expert-id="{{ $expert->id }}">
+                                            <option value="pending" {{ $expert->status === 'pending' ? 'selected' : '' }}>En attente</option>
+                                            <option value="approved" {{ $expert->status === 'approved' ? 'selected' : '' }}>Approuvé</option>
+                                            <option value="rejected" {{ $expert->status === 'rejected' ? 'selected' : '' }}>Rejeté</option>
+                                        </select>
+                                    </form>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     {{ $expert->created_at->format('d/m/Y H:i') }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <div class="flex justify-end space-x-2">
-                                        @if($expert->isPending())
-                                            <form method="POST" action="{{ route('admin.experts.approve', $expert) }}" class="inline">
-                                                @csrf
-                                                <button type="button" class="inline-flex items-center p-2 text-gray-500 hover:text-green-600 rounded-lg hover:bg-green-50 transition-colors" onclick="openConfirmModal('{{ route('admin.experts.approve', $expert) }}', 'Êtes-vous sûr de vouloir approuver cet expert ?', 'approve', 'POST')" title="Approuver">
-                                                    <i data-lucide="check" class="h-4 w-4"></i>
-                                                </button>
-                                            </form>
-                                            <form method="POST" action="{{ route('admin.experts.reject', $expert) }}" class="inline">
-                                                @csrf
-                                                <button type="button" class="inline-flex items-center p-2 text-gray-500 hover:text-red-600 rounded-lg hover:bg-red-50 transition-colors" onclick="openConfirmModal('{{ route('admin.experts.reject', $expert) }}', 'Êtes-vous sûr de vouloir rejeter cet expert ?', 'reject', 'POST')" title="Rejeter">
-                                                    <i data-lucide="x" class="h-4 w-4"></i>
-                                                </button>
-                                            </form>
-                                        @endif
-                                        <a href="{{ route('admin.experts.show', $expert) }}" class="inline-flex items-center p-2 text-gray-500 hover:text-primary rounded-lg hover:bg-gray-100 transition-colors" title="Voir les détails">
-                                            <i data-lucide="eye" class="h-4 w-4"></i>
-                                        </a>
                                         <a href="{{ route('admin.experts.edit', $expert) }}" class="inline-flex items-center p-2 text-gray-500 hover:text-primary rounded-lg hover:bg-gray-100 transition-colors" title="Modifier">
                                             <i data-lucide="edit" class="h-4 w-4"></i>
                                         </a>
@@ -184,4 +155,56 @@
         {{ $experts->links() }}
     </div>
 @endif
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialiser les icônes Lucide
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+    
+    // Gérer les selects de statut expert
+    document.querySelectorAll('.expert-status-select').forEach(select => {
+        select.addEventListener('change', function() {
+            const form = this.closest('.expert-status-form');
+            const expertId = this.dataset.expertId;
+            const previousValue = this.dataset.previousValue || this.value;
+            
+            // Stocker la valeur précédente
+            this.dataset.previousValue = this.value;
+            
+            // Envoyer la requête PATCH pour changer le statut
+            fetch(form.action, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || form.querySelector('input[name="_token"]').value
+                },
+                body: JSON.stringify({
+                    status: this.value
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Optionnel: afficher une notification de succès
+                    console.log('Statut mis à jour avec succès');
+                } else {
+                    // Revenir à l'état précédent en cas d'erreur
+                    this.value = previousValue;
+                    console.error('Erreur lors de la mise à jour du statut');
+                }
+            })
+            .catch(error => {
+                // Revenir à l'état précédent en cas d'erreur
+                this.value = previousValue;
+                console.error('Erreur:', error);
+            });
+        });
+        
+        // Initialiser la valeur précédente
+        select.dataset.previousValue = select.value;
+    });
+});
+</script>
 @endsection

@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Notifications\UserAccountCreated;
 use App\Traits\HandlesImageUpload;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -46,16 +48,18 @@ class UserController extends Controller
             'email' => 'required|email|max:255|unique:users',
             'phone' => 'nullable|string|max:255',
             'category' => 'required|string',
+            'profession' => 'nullable|string|max:255',
+            'organization' => 'nullable|string|max:255',
+            'city' => 'nullable|string|max:255',
+            'bio' => 'nullable|string',
+            'startup_description' => 'nullable|string',
             'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
             'is_active' => 'boolean',
             'is_verified' => 'boolean',
-            'password' => 'required|string|min:8',
             'lock_raison' => 'nullable|string',
             'documents' => 'nullable|string',
             'needs' => 'nullable|string',
         ]);
-
-        $validated['password'] = Hash::make($validated['password']);
         $validated['is_active'] = $request->has('is_active');
         $validated['is_verified'] = $request->has('is_verified');
 
@@ -64,9 +68,13 @@ class UserController extends Controller
             $validated['profile_picture'] = $this->optimizeProfilePicture($request->file('profile_picture'));
         }
 
-        User::create($validated);
+        $user = User::create($validated);
 
-        return redirect()->route('admin.users.index')->with('success', 'Utilisateur créé avec succès.');
+        // Envoyer la notification de création de compte
+        $adminName = Auth::user()->name ?? 'Administrateur';
+        $user->notify(new UserAccountCreated($adminName));
+
+        return redirect()->route('admin.users.index')->with('success', 'Utilisateur créé avec succès. Un email de bienvenue a été envoyé.');
     }
 
     public function edit(User $user)
@@ -128,6 +136,16 @@ class UserController extends Controller
         $user->update(['is_active' => !$user->is_active]);
 
         $status = $user->is_active ? 'activé' : 'désactivé';
+        
+        // Retourner une réponse JSON pour les requêtes AJAX
+        if (request()->expectsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => "Utilisateur {$status} avec succès.",
+                'is_active' => $user->is_active
+            ]);
+        }
+        
         return redirect()->back()->with('success', "Utilisateur {$status} avec succès.");
     }
 }

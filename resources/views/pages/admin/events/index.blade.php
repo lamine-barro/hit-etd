@@ -38,7 +38,11 @@
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     @if($event->illustration)
-                                        <img class="h-10 w-10 rounded-full object-cover" src="{{ asset('storage/' . $event->illustration) }}" alt="">
+                                        @if(str_starts_with($event->illustration, 'http'))
+                                            <img class="h-10 w-10 rounded-full object-cover" src="{{ $event->illustration }}" alt="{{ $event->title_fr }}">
+                                        @else
+                                            <img class="h-10 w-10 rounded-full object-cover" src="{{ asset('storage/' . $event->illustration) }}" alt="{{ $event->title_fr }}">
+                                        @endif
                                     @else
                                         <div class="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center">
                                             <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
@@ -114,9 +118,6 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <div class="flex justify-end space-x-2">
-                                        <a href="{{ route('admin.events.show', $event) }}" class="inline-flex items-center p-2 text-gray-500 hover:text-primary rounded-lg hover:bg-gray-100 transition-colors" title="Voir les détails">
-                                            <i data-lucide="eye" class="h-4 w-4"></i>
-                                        </a>
                                         <a href="{{ route('admin.events.edit', $event) }}" class="inline-flex items-center p-2 text-gray-500 hover:text-primary rounded-lg hover:bg-gray-100 transition-colors" title="Modifier">
                                             <i data-lucide="edit" class="h-4 w-4"></i>
                                         </a>

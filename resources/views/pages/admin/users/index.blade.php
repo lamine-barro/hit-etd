@@ -112,17 +112,15 @@
                                     @endif
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    @if($user->is_active)
-                                        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                                            Actif
-                                        </span>
-                                    @else
-                                        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">
-                                            Inactif
-                                        </span>
-                                        @if($user->lock_raison)
-                                            <div class="text-xs text-gray-500 mt-1">{{ $user->lock_raison }}</div>
-                                        @endif
+                                    <form action="{{ route('admin.users.toggle-status', $user) }}" method="POST" class="status-form">
+                                        @csrf
+                                        <select name="status" class="status-select text-sm border-gray-300 rounded-md focus:ring-primary focus:border-primary" data-user-id="{{ $user->id }}">
+                                            <option value="1" {{ $user->is_active ? 'selected' : '' }}>Actif</option>
+                                            <option value="0" {{ !$user->is_active ? 'selected' : '' }}>Inactif</option>
+                                        </select>
+                                    </form>
+                                    @if(!$user->is_active && $user->lock_raison)
+                                        <div class="text-xs text-gray-500 mt-1">{{ $user->lock_raison }}</div>
                                     @endif
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -130,12 +128,6 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <div class="flex justify-end space-x-2">
-                                        <button type="button" class="inline-flex items-center p-2 text-gray-500 hover:text-{{ $user->is_active ? 'red' : 'green' }}-600 rounded-lg hover:bg-{{ $user->is_active ? 'red' : 'green' }}-50 transition-colors" onclick="openConfirmModal('{{ route('admin.users.toggle-status', $user) }}', '{{ $user->is_active ? 'Désactiver' : 'Activer' }} cet utilisateur ?', '{{ $user->is_active ? 'reject' : 'approve' }}', 'POST')" title="{{ $user->is_active ? 'Désactiver' : 'Activer' }}">
-                                            <i data-lucide="{{ $user->is_active ? 'user-x' : 'user-check' }}" class="h-4 w-4"></i>
-                                        </button>
-                                        <a href="{{ route('admin.users.show', $user) }}" class="inline-flex items-center p-2 text-gray-500 hover:text-primary rounded-lg hover:bg-gray-100 transition-colors" title="Voir les détails">
-                                            <i data-lucide="eye" class="h-4 w-4"></i>
-                                        </a>
                                         <a href="{{ route('admin.users.edit', $user) }}" class="inline-flex items-center p-2 text-gray-500 hover:text-primary rounded-lg hover:bg-gray-100 transition-colors" title="Modifier">
                                             <i data-lucide="edit" class="h-4 w-4"></i>
                                         </a>
@@ -147,7 +139,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="8" class="px-6 py-4 text-center text-gray-500">
+                                <td colspan="7" class="px-6 py-4 text-center text-gray-500">
                                     Aucun utilisateur trouvé.
                                     <a href="{{ route('admin.users.create') }}" class="text-primary hover:text-primary ml-1">Créer le premier utilisateur</a>
                                 </td>
@@ -165,4 +157,54 @@
         {{ $users->links() }}
     </div>
 @endif
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialiser les icônes Lucide
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+    
+    // Gérer les selects de statut utilisateur
+    document.querySelectorAll('.status-select').forEach(select => {
+        select.addEventListener('change', function() {
+            const form = this.closest('.status-form');
+            const userId = this.dataset.userId;
+            const previousValue = this.dataset.previousValue || this.value;
+            
+            // Stocker la valeur précédente
+            this.dataset.previousValue = this.value;
+            
+            // Envoyer la requête POST pour changer le statut
+            fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || form.querySelector('input[name="_token"]').value
+                },
+                body: JSON.stringify({})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Optionnel: afficher une notification de succès
+                    console.log('Statut mis à jour avec succès');
+                } else {
+                    // Revenir à l'état précédent en cas d'erreur
+                    this.value = previousValue;
+                    console.error('Erreur lors de la mise à jour du statut');
+                }
+            })
+            .catch(error => {
+                // Revenir à l'état précédent en cas d'erreur
+                this.value = previousValue;
+                console.error('Erreur:', error);
+            });
+        });
+        
+        // Initialiser la valeur précédente
+        select.dataset.previousValue = select.value;
+    });
+});
+</script>
 @endsection

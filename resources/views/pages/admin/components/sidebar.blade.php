@@ -62,6 +62,21 @@
                                                                     @endif
                             </a>
                         </li>
+
+                        <!-- Réservations d'espaces -->
+                        <li>
+                            <a href="{{ route('admin.espace-orders.index') }}" 
+                               class="{{ request()->routeIs('admin.espace-orders.*') ? 'sidebar-item-active' : 'text-gray-700 hover:bg-orange-50 hover:text-primary' }} group flex gap-x-3 rounded-l-md p-3 text-sm leading-6 font-medium font-poppins transition-colors duration-200">
+                                <i data-lucide="shopping-bag" class="{{ request()->routeIs('admin.espace-orders.*') ? 'text-primary' : 'text-gray-400 group-hover:text-primary' }} h-5 w-5 shrink-0"></i>
+                                Réservations                                @php
+                                    $pendingOrders = \App\Models\EspaceOrder::where('status', 'pending')->count();
+                                @endphp
+                                @if($pendingOrders > 0)
+                                    <span class="ml-auto w-5 h-5 text-xs font-medium text-white rounded-full flex items-center justify-center animate-pulse " style="background-color: #FF6B00;">
+                                        {{ $pendingOrders }}
+                                                                    @endif
+                            </a>
+                        </li>
                     </ul>
                 </li>
 

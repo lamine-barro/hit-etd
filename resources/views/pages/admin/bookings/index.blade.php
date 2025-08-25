@@ -22,9 +22,9 @@
         <div class="flex-1 min-w-0">
             <select name="status" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                 <option value="">Tous les statuts</option>
-                <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>En attente</option>
-                <option value="confirmed" {{ request('status') == 'confirmed' ? 'selected' : '' }}>Confirmé</option>
-                <option value="cancelled" {{ request('status') == 'cancelled' ? 'selected' : '' }}>Annulé</option>
+                <option value="untreated" {{ request('status') == 'untreated' ? 'selected' : '' }}>Non traité</option>
+                <option value="treated" {{ request('status') == 'treated' ? 'selected' : '' }}>Traité</option>
+                <option value="archived" {{ request('status') == 'archived' ? 'selected' : '' }}>Archivé</option>
             </select>
         </div>
         <div class="flex-shrink-0">
@@ -94,51 +94,30 @@
                                     <div class="text-sm text-gray-900">{{ $booking->purpose ?? 'Non spécifié' }}</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    @switch($booking->status?->value)
-                                        @case('pending')
-                                            <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                                En attente
-                                            </span>
-                                            @break
-                                        @case('confirmed')
-                                            <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                                                Confirmé
-                                            </span>
-                                            @break
-                                        @case('cancelled')
-                                            <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">
-                                                Annulé
-                                            </span>
-                                            @break
-                                        @default
-                                            <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">
-                                                {{ $booking->status }}
-                                            </span>
-                                    @endswitch
+                                    <form method="POST" action="{{ route('admin.bookings.update-status', $booking) }}" class="inline">
+                                        @csrf
+                                        @method('PATCH')
+                                        <select name="status" onchange="this.form.submit()" class="text-xs rounded-full px-3 py-1 font-medium border-0 cursor-pointer
+                                            @if($booking->status?->value == 'untreated') bg-yellow-100 text-yellow-800
+                                            @elseif($booking->status?->value == 'treated') bg-green-100 text-green-800
+                                            @else bg-gray-100 text-gray-800 @endif">
+                                            <option value="untreated" {{ $booking->status?->value == 'untreated' ? 'selected' : '' }}>Non traité</option>
+                                            <option value="treated" {{ $booking->status?->value == 'treated' ? 'selected' : '' }}>Traité</option>
+                                            <option value="archived" {{ $booking->status?->value == 'archived' ? 'selected' : '' }}>Archivé</option>
+                                        </select>
+                                    </form>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     {{ $booking->created_at->format('d/m/Y H:i') }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <div class="flex justify-end space-x-2">
-                                        @if($booking->status?->value === 'pending')
-                                            <button type="button" class="inline-flex items-center p-2 text-gray-500 hover:text-green-600 rounded-lg hover:bg-green-50 transition-colors" onclick="openConfirmModal('{{ route('admin.bookings.approve', $booking) }}', 'Confirmer cette demande ?', 'approve', 'POST')" title="Confirmer">
-                                                <i data-lucide="check" class="h-4 w-4"></i>
-                                            </button>
-                                            <button type="button" class="inline-flex items-center p-2 text-gray-500 hover:text-red-600 rounded-lg hover:bg-red-50 transition-colors" onclick="openConfirmModal('{{ route('admin.bookings.reject', $booking) }}', 'Annuler cette demande ?', 'reject', 'POST')" title="Rejeter">
-                                                <i data-lucide="x" class="h-4 w-4"></i>
-                                            </button>
-                                        @endif
-                                        <a href="{{ route('admin.bookings.show', $booking) }}" class="inline-flex items-center p-2 text-gray-500 hover:text-primary rounded-lg hover:bg-gray-100 transition-colors" title="Voir les détails">
-                                            <i data-lucide="eye" class="h-4 w-4"></i>
-                                        </a>
                                         <a href="{{ route('admin.bookings.edit', $booking) }}" class="inline-flex items-center p-2 text-gray-500 hover:text-primary rounded-lg hover:bg-gray-100 transition-colors" title="Modifier">
                                             <i data-lucide="edit" class="h-4 w-4"></i>
                                         </a>
                                         <button type="button" onclick="openConfirmModal('{{ route('admin.bookings.destroy', $booking) }}', 'Êtes-vous sûr de vouloir supprimer cette demande ?', 'delete', 'DELETE')" class="inline-flex items-center p-2 text-gray-500 hover:text-red-600 rounded-lg hover:bg-red-50 transition-colors" title="Supprimer">
                                             <i data-lucide="trash-2" class="h-4 w-4"></i>
                                         </button>
-                                        </form>
                                     </div>
                                 </td>
                             </tr>

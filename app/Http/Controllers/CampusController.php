@@ -83,8 +83,8 @@ class CampusController extends Controller
             ]);
 
             // Envoi des emails de notification
-            Mail::send(new VisitBookingAdmin($booking));
-            Mail::send(new VisitBookingVisitor($booking));
+            Mail::to('admin@hubivoiretech.com')->send(new VisitBookingAdmin($booking));
+            Mail::to($booking->email)->send(new VisitBookingVisitor($booking));
 
             // Redirection vers la même page avec message de succès
             return redirect()->back()->with('success', __('Votre demande de visite a été enregistrée avec succès. Nous vous contacterons bientôt pour confirmer le rendez-vous.'));

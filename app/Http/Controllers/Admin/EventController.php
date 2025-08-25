@@ -74,7 +74,7 @@ class EventController extends Controller
         }
 
         // Définir created_by avec l'administrateur connecté
-        $validated['created_by'] = auth()->guard('administrator')->id();
+        $validated['created_by'] = auth()->guard('admin')->id();
         
         $event = Event::create($validated);
 

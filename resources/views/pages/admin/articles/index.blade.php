@@ -38,9 +38,13 @@
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     @if($article->illustration)
-                                        <img class="h-10 w-10 rounded-full object-cover" src="{{ asset('storage/' . $article->illustration) }}" alt="">
+                                        @if(str_starts_with($article->illustration, 'http'))
+                                            <img class="h-10 w-10 rounded-md object-cover" src="{{ $article->illustration }}" alt="{{ $article->getTranslatedAttribute('title') }}">
+                                        @else
+                                            <img class="h-10 w-10 rounded-md object-cover" src="{{ asset('storage/' . $article->illustration) }}" alt="{{ $article->getTranslatedAttribute('title') }}">
+                                        @endif
                                     @else
-                                        <div class="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center">
+                                        <div class="h-10 w-10 rounded-md bg-gray-300 flex items-center justify-center">
                                             <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                                                 <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
                                             </svg>
@@ -96,9 +100,6 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <div class="flex justify-end space-x-2">
-                                        <a href="{{ route('admin.articles.show', $article) }}" class="inline-flex items-center p-2 text-gray-500 hover:text-primary rounded-lg hover:bg-gray-100 transition-colors" title="Voir les détails">
-                                            <i data-lucide="eye" class="h-4 w-4"></i>
-                                        </a>
                                         <a href="{{ route('admin.articles.edit', $article) }}" class="inline-flex items-center p-2 text-gray-500 hover:text-primary rounded-lg hover:bg-gray-100 transition-colors" title="Modifier">
                                             <i data-lucide="edit" class="h-4 w-4"></i>
                                         </a>

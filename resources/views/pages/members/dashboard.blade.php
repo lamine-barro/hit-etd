@@ -7,7 +7,7 @@
         <div class="bg-white rounded-lg shadow-lg overflow-hidden">
             <!-- Header -->
             <div class="px-6 py-6 text-center border-b border-gray-200 bg-gradient-to-r from-primary-600 to-primary-700">
-                <h4 class="text-xl sm:text-2xl font-semibold text-white">{{ __("Espace Résident") }}</h4>
+                <h4 class="text-xl sm:text-2xl font-semibold text-white">{{ __("Espace résident") }}</h4>
             </div>
 
             <!-- Body -->

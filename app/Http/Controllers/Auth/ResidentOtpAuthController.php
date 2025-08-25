@@ -18,6 +18,11 @@ class ResidentOtpAuthController extends Controller
      */
     public function showRequestForm()
     {
+        // Rediriger si déjà connecté
+        if (Auth::check()) {
+            return redirect()->route('resident.dashboard');
+        }
+
         return view('pages.auth.resident-otp-request');
     }
 
@@ -73,6 +78,11 @@ class ResidentOtpAuthController extends Controller
      */
     public function showVerifyForm(Request $request)
     {
+        // Rediriger si déjà connecté
+        if (Auth::check()) {
+            return redirect()->route('resident.dashboard');
+        }
+
         $request->validate([
             'email' => 'required|email|exists:users,email',
         ]);
@@ -121,7 +131,7 @@ class ResidentOtpAuthController extends Controller
         
         RateLimiter::clear($key);
 
-        return redirect()->intended(route('filament.resident.pages.dashboard'));
+        return redirect()->intended(route('resident.dashboard'));
     }
 
     /**
